@@ -1,4 +1,4 @@
-%global __spec_install_pre %{___build_pre}
+pglobal __spec_install_pre %{___build_pre}
 
 Summary: The Linux kernel
 
@@ -425,7 +425,11 @@ Obsoletes: kernel-smp
 BuildRequires: module-init-tools, patch >= 2.5.4, bash >= 2.03, sh-utils, tar
 BuildRequires: bzip2, findutils, gzip, m4, perl, make >= 3.78, diffutils, gawk
 BuildRequires: gcc >= 3.4.2, binutils >= 2.12, redhat-rpm-config
-BuildRequires: net-tools, patchutils, rpm-build >= 4.8.0-7
+BuildRequires: net-tools, patchutils
+BuildRequires: rpm-build
+
+# We comment out rpm-build >= 4.8.0-7 to be able to build on RHEL5, without fancy_debuginfo.
+
 %if %{with_doc}
 BuildRequires: xmlto
 BuildRequires: asciidoc
@@ -447,7 +451,24 @@ BuildRequires: hmaccalc
 # we won't build on ABS if the free space is less than 3gb
 BuildConflicts: rhbuildsys(DiskFree) < 3Gb
 
-%define fancy_debuginfo 1
+%define disable_fancy_debuginfo %( \
+ret=`cat /etc/redhat-release|awk '{print $7}'`; \
+if [ ret="5.4" ]; then \
+        echo 1; \
+else \
+    if [ ret="6.0" ]; then\
+        echo 0; \
+    else \
+        echo 1; \
+    fi \
+fi)
+
+%if %{disable_fancy_debuginfo}
+    %define fancy_debuginfo 0
+%else
+    %define fancy_debuginfo 1
+%endif
+
 
 %if %{fancy_debuginfo}
 # Fancy new debuginfo generation introduced in Fedora 8.
