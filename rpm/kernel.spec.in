@@ -520,6 +520,9 @@ The kernel package contains the Linux kernel (vmlinuz), the core of any
 Linux operating system.  The kernel handles the basic functions
 of the operating system: memory allocation, process allocation, device
 input and output, etc.
+This is a kernel package built by Taobao.com, which is based on Redhat
+Enterprise Linux 6 plus various patches developed by the engineers in
+Taobao.com.
 
 
 %package doc
