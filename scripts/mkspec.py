@@ -108,15 +108,23 @@ if __name__ == "__main__":
     if released:
         # Update taobao-kernel-history.log
         old_log = os.path.join(rpm_dir, "taobao-kernel-history.log")
+        new_log = os.path.join(build_dir, "taobao-kernel-history.log")
+        existed = False
         if os.path.exists(old_log):
             shutil.copy(old_log, build_dir)
-        new_log = os.path.join(build_dir, "taobao-kernel-history.log")
-        log = open(new_log, "a")
-        log.write("%s-%s\tlinux-%s.tar.bz2\t%s\n" % (tb_base_ver, tb_tag, config.SRCVERSION, tb_long_commit))
-        log.close()
-        shutil.copy(new_log, rpm_dir)
-        print >>sys.stdout, "Attention: rpm/taobao-kernel-history.log has been updated with this release.\n" \
-            "Please remember to add it when committing.\n"
+            logs = open(new_log, "r").readlines()
+            for line in logs:
+                if tb_tag in line:
+                    existed = True
+                    break
+
+        if not existed:
+            log = open(new_log, "a")
+            log.write("%s-%s\tlinux-%s.tar.bz2\t%s\n" % (tb_base_ver, tb_tag, config.SRCVERSION, tb_long_commit))
+            log.close()
+            shutil.copy(new_log, rpm_dir)
+            print >>sys.stdout, "Attention: rpm/taobao-kernel-history.log has been updated with this release.\n" \
+                "Please remember to add it when committing.\n"
         config.MACROS["RELEASED_KERNEL"] = 1
     else:
         config.MACROS["RELEASED_KERNEL"] = 0
