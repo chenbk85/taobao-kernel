@@ -29,6 +29,11 @@ modules.builtin
 *.lzma
 *.lzo
 *.gcno
+# Slickedit project files
+*.vpj
+*.vpw
+*.vpwhistu
+*.vtg
 
 #
 # Top-level generic files
