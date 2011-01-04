@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan  4 19:38:19 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/package.py: fix the os.symlink error, the old one links to itself by mistake.
+
+-------------------------------------------------------------------
 Tue Jan  4 19:26:30 CST 2011 - gaoyang.zyh@taobao.com
 
 Add scripts to check patches when submitting.
