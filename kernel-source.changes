@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Tue Jan  4 19:26:30 CST 2011 - gaoyang.zyh@taobao.com
+
+Add scripts to check patches when submitting.
+- scripts/check-cvs-add: check if all files referenced by series.conf are in git.
+- scripts/check-patch: check a patch's format
+- scripts/cvs-touched-files: find out which files appear to have changed.
+- scripts/git-pre-commit: select out the patches in committing files to run check_patch
+- scripts/install-git-hooks: to install the scripts to a fresh cloned git repo.
+- scripts/log: run this to submit your work.
+- scripts/rpm-changes-merge.pl:
+- scripts/vc: called by log to verify the changelog
+- scripts/wd-functions.sh: public functions used by scripts/*.sh
+
+-------------------------------------------------------------------
 Tue Jan  4 19:22:51 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/package.py: Link the tarball instead of copying it to speed up packaging.
