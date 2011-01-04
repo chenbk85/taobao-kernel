@@ -1,0 +1,5 @@
+-------------------------------------------------------------------
+Tue Jan  4 19:22:51 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/package.py: Link the tarball instead of copying it to speed up packaging.
+

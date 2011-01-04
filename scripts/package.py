@@ -214,7 +214,9 @@ if __name__ == "__main__":
         open(changelog, "w").close()
 
     print >>sys.stdout, "%s\n" % (tarball_file,)
-    shutil.copy(tarball_file, BUILD_DIR)
+    # shutil.copy(tarball_file, BUILD_DIR)
+    os.symlink(tarball_file, os.path.join(BUILD_DIR, tarball_file))
+
 
     all_archives = sets.Set([x.split("/")[0] for x in refiles])
     for archive in all_archives:
