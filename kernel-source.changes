@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jan  5 17:24:35 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/refresh_patch.sh: it's a wrapper of 'quilt refresh', to make the format unified.
+
+-------------------------------------------------------------------
 Tue Jan  4 19:38:19 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/package.py: fix the os.symlink error, the old one links to itself by mistake.
