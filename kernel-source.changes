@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan  5 17:27:52 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/patch-tag: add script to verify the patch header.
+- scripts/patch-tag-template: add patch header template.
+
+-------------------------------------------------------------------
 Wed Jan  5 17:24:35 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/refresh_patch.sh: it's a wrapper of 'quilt refresh', to make the format unified.
