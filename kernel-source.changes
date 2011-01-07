@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jan  7 17:23:34 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/patch-tag-template: add more details to the comments.
+
+-------------------------------------------------------------------
 Wed Jan  5 17:27:52 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/patch-tag: add script to verify the patch header.
