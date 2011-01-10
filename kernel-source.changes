@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 10 18:24:49 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/config.py: fix a wrong tab indent
+
+-------------------------------------------------------------------
 Mon Jan 10 17:52:26 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/config.py: the ret should be assigned before referenced.

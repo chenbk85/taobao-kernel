@@ -32,7 +32,7 @@ import os, subprocess
 def whether_using_git():
     using = True
     IGNORE = open("/dev/null", "w")
-	ret = 1
+    ret = 1
     try:
         git = subprocess.Popen(["git", "rev-parse", "HEAD"], stdout = IGNORE, stderr = IGNORE)
         ret = git.wait()
