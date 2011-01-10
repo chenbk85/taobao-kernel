@@ -243,10 +243,6 @@ if __name__ == "__main__":
         stable_tar(os.path.join(BUILD_DIR, archive + ".tar.bz2"), archive, \
                    mtime = "Wed, 01 Apr 2009 12:00:00 +0200", chdir = tmpdir)
         shutil.rmtree(tmpdir)
-    cmd = os.path.join(script_dir, "mkspec.py") + " --patches \"%s\"" % (" ".join([n + ".tar.bz2" for n in all_archives]))  \
-                     + (" --release-string %s" % (RELEASE_STRING, ) if RELEASE_STRING else " ") + " --configs \"%s\"" % (" ".join(configs), ) \
-              + " --changelog %s" % (changelog, ) \
-              + (" --release" if released else "")
     relstr = " "
     if RELEASE_STRING:
         relstr = RELEASE_STRING
