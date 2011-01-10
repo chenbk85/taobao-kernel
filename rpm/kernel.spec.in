@@ -1,4 +1,4 @@
-pglobal __spec_install_pre %{___build_pre}
+# pglobal __spec_install_pre %{___build_pre}
 
 Summary: The Linux kernel
 
