@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 10 17:39:30 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/package.py: the previous snippet doesn't fit with old python in RHEL5.
+
+-------------------------------------------------------------------
 Fri Jan  7 17:23:34 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/patch-tag-template: add more details to the comments.

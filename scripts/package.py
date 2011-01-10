@@ -247,6 +247,15 @@ if __name__ == "__main__":
                      + (" --release-string %s" % (RELEASE_STRING, ) if RELEASE_STRING else " ") + " --configs \"%s\"" % (" ".join(configs), ) \
               + " --changelog %s" % (changelog, ) \
               + (" --release" if released else "")
+    relstr = " "
+    if RELEASE_STRING:
+        relstr = RELEASE_STRING
+    else:
+        relstr = " "
+    cmd = os.path.join(script_dir, "mkspec.py") + " --patches \"%s\"" % (" ".join([n + ".tar.bz2" for n in all_archives]))  \
+                     + " --release-string %s" % (relstr, ) + " --configs \"%s\"" % (" ".join(configs), ) \
+              + " --changelog %s" % (changelog, ) \
+              + (" --release" if released else "")
     os.system(cmd)
 
     os.chdir(stored_dir)
