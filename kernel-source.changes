@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 10 19:26:18 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: comment out the pgglobal one to build under old rpmbuild
+
+-------------------------------------------------------------------
 Mon Jan 10 18:24:49 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/config.py: fix a wrong tab indent
