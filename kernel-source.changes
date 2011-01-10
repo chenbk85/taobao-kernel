@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 10 17:50:38 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/package.py: rewrite the call to mkspec.py to make old python happy.
+
+-------------------------------------------------------------------
 Mon Jan 10 17:43:11 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/package.py: a typo in previous commit, sorry...
