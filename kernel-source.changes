@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 11 13:38:41 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: Enable more functional build, without perf, xen, and kabichk.
+
+-------------------------------------------------------------------
 Tue Jan 11 11:43:25 CST 2011 - gaoyang.zyh@taobao.com
 
 - doc/README.Taobao: Add an initial doc.
