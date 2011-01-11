@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 11 11:16:01 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: s/pglobal/global, it's a typo.
+
+-------------------------------------------------------------------
 Tue Jan 11 10:35:13 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/mkspec.py: correct the 'var if var1 else var2' statement to work with old python.
