@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 11 15:39:53 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: build without perftool.
+
+-------------------------------------------------------------------
 Tue Jan 11 13:52:16 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/package.py: redirect the stdout of test for tar to /dev/null.
