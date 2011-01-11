@@ -91,7 +91,7 @@ def stable_tar(archive, files, mtime = None, chdir = ".", tar_opts = ""):
         old_dir = os.getcwd()
     if tar_override_works is None: # Whether this works is unknown
         if not os.system("tar --mtime=\"Tue, 3 Feb 2009 10:52:55 +0100\" --owner=nobody \
-                    --group=nobody --help >/dev/null"):
+                    --group=nobody --help 1>/dev/null 2>&1"):
             tar_override_works = True
         else:
             tar_override_works = False
