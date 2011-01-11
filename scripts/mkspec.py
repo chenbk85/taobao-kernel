@@ -129,8 +129,13 @@ if __name__ == "__main__":
     else:
         config.MACROS["RELEASED_KERNEL"] = 0
 
+    if released:
+            pkg_release = tb_tag
+    else:
+            pkg_release = tb_tag + "@git" + tb_short_commit
+
     dynamic_values = {"RPMVERSION" : tb_base_ver,
-                      "PKG_RELEASE" : tb_tag if released else tb_tag + "@git" + tb_short_commit,
+                      "PKG_RELEASE" : pkg_release,
                       "KVERSION" : config.SRCVERSION,
                       "SUBLEVEL" : tb_sublevel
                       }

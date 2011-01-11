@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 11 10:35:13 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/mkspec.py: correct the 'var if var1 else var2' statement to work with old python.
+
+-------------------------------------------------------------------
 Mon Jan 10 19:26:18 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: comment out the pgglobal one to build under old rpmbuild
