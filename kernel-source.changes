@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jan 12 11:10:45 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/abs-post-receive: a initial version git server update hook to send mails.
+
+-------------------------------------------------------------------
 Wed Jan 12 11:09:54 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: don't build kdump kernel.
