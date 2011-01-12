@@ -1,5 +1,6 @@
 #!/bin/bash
 ##for check
+sudo yum install perl-TimeDate -y
 cd $1
 python ./scripts/package.py
 cd taobao-kernel-build
