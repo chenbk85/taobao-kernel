@@ -226,6 +226,12 @@ Summary: The Linux kernel
 %define with_smp 0
 %endif
 
+%ifarch s390x
+%define with_kdump 1
+%else
+%define with_kdump 0
+%endif
+
 
 # don't do debug builds on anything but i686 and x86_64
 %ifnarch i686 x86_64 s390x ppc64

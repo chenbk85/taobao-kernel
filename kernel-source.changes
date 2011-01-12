@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jan 12 11:09:54 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: don't build kdump kernel.
+
+-------------------------------------------------------------------
 Tue Jan 11 15:39:53 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: build without perftool.
