@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jan 13 11:08:42 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/abs-post-receive: use devel@kernel.taobao.org as the default receiver.
+
+-------------------------------------------------------------------
 Wed Jan 12 16:53:08 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: disable building kernel-debug package
