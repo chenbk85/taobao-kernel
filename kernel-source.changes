@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jan 13 11:34:16 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/abs-post-receive: use mailx instead of mail (to test git send email hook)
+
+-------------------------------------------------------------------
 Thu Jan 13 11:24:22 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/package.py: clean up copyrights (to test git send email hook)

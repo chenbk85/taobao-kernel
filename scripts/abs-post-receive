@@ -737,6 +737,6 @@ else
 	while read oldrev newrev refname
 	do
 		prep_for_email $oldrev $newrev $refname || continue
-		generate_email $maxlines | mail "devel@kernel.taobao.org" 
+		generate_email $maxlines | mailx "devel@kernel.taobao.org" 
 	done
 fi
