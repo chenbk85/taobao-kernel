@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jan 13 15:50:13 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/mkspec.py: remove '@git' from package name for ABS build.
+
+-------------------------------------------------------------------
 Thu Jan 13 11:34:16 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/abs-post-receive: use mailx instead of mail (to test git send email hook)

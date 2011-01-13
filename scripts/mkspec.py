@@ -132,7 +132,9 @@ if __name__ == "__main__":
     if released:
             pkg_release = tb_tag
     else:
-            pkg_release = tb_tag + "@git" + tb_short_commit
+#   comment this out for ABS build.
+#            pkg_release = tb_tag + "@git" + tb_short_commit
+            pkg_release = tb_tag + tb_short_commit
 
     dynamic_values = {"RPMVERSION" : tb_base_ver,
                       "PKG_RELEASE" : pkg_release,
