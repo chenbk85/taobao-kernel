@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #############################################################################
-# Copyright (c) 2003-2005,2007-2009 Taobao.com, Inc.
+# Copyright (c) 2010, 2011 Taobao.com, Inc.
 # All Rights Reserved.
 #
 # This program is free software; you can redistribute it and/or
