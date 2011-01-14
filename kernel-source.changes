@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jan 14 17:52:30 CST 2011 - gaoyang.zyh@taobao.com
+
+- Update config files. Turn on the deprecated options for rhel5.
+- rpm/kernel.spec.in: disable various package requires on old rhel.
+- rpm/taobao-kernel-build.sh: we don't use dracut.
+
+-------------------------------------------------------------------
 Thu Jan 13 15:50:13 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/mkspec.py: remove '@git' from package name for ABS build.
