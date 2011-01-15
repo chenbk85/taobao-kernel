@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jan 15 13:12:24 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: move the on_rhel5 macro to the head to make it available globally.
+
+-------------------------------------------------------------------
 Fri Jan 14 17:52:30 CST 2011 - gaoyang.zyh@taobao.com
 
 - Update config files. Turn on the deprecated options for rhel5.
