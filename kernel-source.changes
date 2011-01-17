@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 17 15:30:10 CST 2011 - xuejiang@taobao.com
+
+- rpm/taobao-kernel-buildqa.sh: cd rpm folder for safe.
+
+-------------------------------------------------------------------
 Mon Jan 17 15:04:12 CST 2011 - gaoyang.zyh@taobao.com
 
 - MAINTAINERS: initial maintainers list (not complete, for test only).
