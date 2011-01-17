@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jan 17 15:04:12 CST 2011 - gaoyang.zyh@taobao.com
+
+- MAINTAINERS: initial maintainers list (not complete, for test only).
+- rpm/taobao-kernel-buildqa.py: ABS 'For QA' build hook.
+- rpm/taobao-kernel-buildqa.sh: ditto.
+
+-------------------------------------------------------------------
 Mon Jan 17 14:52:08 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: correct the options for new-kernel-pkg on rhel5.
