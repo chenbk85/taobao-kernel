@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 17 17:53:06 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: we don't require grubby at all on rhel5
+
+-------------------------------------------------------------------
 Mon Jan 17 15:53:15 CST 2011 - gaoyang.zyh@taobao.com
 
 - MAINTAINERS: add sanbai to MAINTAINERS (for test only)
