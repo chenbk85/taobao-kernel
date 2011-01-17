@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jan 17 18:14:18 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: write build serial number into package name to make yum happy.
+- scripts/mkspec.py:
+- scripts/package.py:
+
+-------------------------------------------------------------------
 Mon Jan 17 17:53:06 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: we don't require grubby at all on rhel5

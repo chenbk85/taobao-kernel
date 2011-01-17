@@ -28,6 +28,7 @@ import os, sys, subprocess, shutil
 import config, tempfile
 import commands, sets
 from config import BUILD_DIR as BUILD_DIR
+BUILDID=""
 # End of global imports
 
 # Default configs
@@ -52,13 +53,13 @@ def print_usage ():
         "[--release <specify if this is a relased kernel package>]\n"
 
 def parse_opts ():
-    global BUILD_DIR
+    global BUILD_DIR, BUILDID
     released = False
     import getopt
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hd:",  \
                                    ["dir=", "release-string=", "help",  "release", \
-                                    ])
+                                    "buildid="])
         for o, a in opts:
             if o in ("-d", "--dir"):
                 BUILD_DIR = a.strip()
@@ -67,6 +68,8 @@ def parse_opts ():
                 sys.exit(2)
             if o in ("--release"):
                 released = True
+            if o in ("--buildid"):
+                BUILDID = a.strip()
             if o in ("--release-string"):
                 if " " in a.strip():
                     print >>sys.stderr, "--release-string option argument must not contain spaces\n"
@@ -244,7 +247,8 @@ if __name__ == "__main__":
                    mtime = "Wed, 01 Apr 2009 12:00:00 +0200", chdir = tmpdir)
         shutil.rmtree(tmpdir)
     cmd = os.path.join(script_dir, "mkspec.py") + " --patches \"%s\"" % (" ".join([n + ".tar.bz2" for n in all_archives]))  \
-                      + " --configs \"%s\"" % (" ".join(configs), ) + " --changelog %s" % (changelog, )
+                      + " --configs \"%s\"" % (" ".join(configs), ) + " --changelog %s" % (changelog, ) + " --buildid %s" % \
+                      (BUILDID,)
     if RELEASE_STRING:
         cmd = cmd + " --release-string %s" % (RELEASE_STRING, )
     if released:

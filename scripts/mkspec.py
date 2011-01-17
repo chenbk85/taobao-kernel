@@ -44,15 +44,18 @@ def parse_opts ():
     configs = []
     changelog = None
     released = False
+    buildid = ""
     try:
         opts, args = getopt.getopt(sys.argv[1:], "",  \
-                                   ["patches=", "release-string=", "configs=", "changelog=", "release", "help"])
+                                   ["buildid=", "patches=", "release-string=", "configs=", "changelog=", "release", "help"])
         for o, a in opts:
             if o in ("--help"):
                 print_usage()
                 sys.exit(2)
             if o in ("--patches"):
                 patches = a.strip().split(" ")
+            if o in ("--buildid"):
+                buildid = a.strip()
             if o in ("--release-string"):
                 if " " in a.strip():
                     print >>sys.stderr, "--release-string option argument must not contain spaces\n"
@@ -67,7 +70,7 @@ def parse_opts ():
     except:
         print_usage()
         sys.exit(2)
-    return patches, release_string, configs, changelog, released
+    return patches, release_string, configs, changelog, released, buildid
 
 def get_script_loc ():
     path = sys.path[0]
@@ -79,7 +82,7 @@ def get_script_loc ():
 
 
 if __name__ == "__main__":
-    patches, release_string, config_files, changelog, released = parse_opts()
+    patches, release_string, config_files, changelog, released, buildid = parse_opts()
     script_dir = get_script_loc()
     os.chdir(script_dir)
     os.chdir("..")
@@ -130,11 +133,11 @@ if __name__ == "__main__":
         config.MACROS["RELEASED_KERNEL"] = 0
 
     if released:
-            pkg_release = tb_tag
+            pkg_release = tb_tag + buildid
     else:
 #   comment this out for ABS build.
 #            pkg_release = tb_tag + "@git" + tb_short_commit
-            pkg_release = tb_tag + tb_short_commit
+            pkg_release = tb_tag + buildid + "-" + tb_short_commit
 
     dynamic_values = {"RPMVERSION" : tb_base_ver,
                       "PKG_RELEASE" : pkg_release,
