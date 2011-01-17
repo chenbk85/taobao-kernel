@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 17 14:52:08 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: correct the options for new-kernel-pkg on rhel5.
+
+-------------------------------------------------------------------
 Sat Jan 15 13:12:24 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: move the on_rhel5 macro to the head to make it available globally.
