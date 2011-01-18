@@ -137,7 +137,7 @@ if __name__ == "__main__":
     else:
 #   comment this out for ABS build.
 #            pkg_release = tb_tag + "@git" + tb_short_commit
-            pkg_release = tb_tag + buildid + "-" + tb_short_commit
+            pkg_release = tb_tag + buildid + "." + tb_short_commit
 
     dynamic_values = {"RPMVERSION" : tb_base_ver,
                       "PKG_RELEASE" : pkg_release,

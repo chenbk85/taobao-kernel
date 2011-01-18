@@ -50,7 +50,8 @@ def print_usage ():
     print >>sys.stderr, "Usage: package.py [-h, --help <show usage>]\n" \
         "[-d, --dir <specify the target dir for output>]\n" \
         "[--release-string <specify the release string>]\n" \
-        "[--release <specify if this is a relased kernel package>]\n"
+        "[--release <specify if this is a relased kernel package>]\n" \
+        "[--buildid <the build serial number on ABS>]\n"
 
 def parse_opts ():
     global BUILD_DIR, BUILDID

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jan 18 10:30:01 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/mkspec.py: use '.' instead of '-' in PKGRELEASE since '-' is illegal here.
+- scripts/package.py: complete the usage.
+
+-------------------------------------------------------------------
 Mon Jan 17 18:14:18 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: write build serial number into package name to make yum happy.
