@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 18 15:32:17 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: fix for ABS 'for-dev' build.
+
+-------------------------------------------------------------------
 Tue Jan 18 14:24:03 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: echo build sn before packaging.
