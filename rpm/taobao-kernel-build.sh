@@ -2,10 +2,10 @@
 ##for check
 sudo yum install perl-TimeDate -y
 cd $1
-echo Starting "$4"th Taobao-kernel build.
+echo Starting "$ABS_BUILD_NUMBER"th Taobao-kernel build.
 python ./scripts/package.py --buildid $ABS_BUILD_NUMBER
 cd taobao-kernel-build
-rpmbuild -bb  --rmsource *.spec --without dracut --without debug --without fips --without kabichk --without perftool --without xen --define="_rpmdir $1/rpm" --define="_builddir $1/taobao-kernel-build" --define="_sourcedir $1/taobao-kernel-build" --define="_tmppath $1/rpm"
+rpmbuild -bb  --rmsource *.spec --with firmware --without dracut --without debug --without fips --without kabichk --without perftool --without xen --define="_rpmdir $1/rpm" --define="_builddir $1/taobao-kernel-build" --define="_sourcedir $1/taobao-kernel-build" --define="_tmppath $1/rpm"
 
 cd $1/rpm
 find . -name "*.rpm"  -exec mv {} . \;

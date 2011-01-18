@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 18 19:33:57 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: build kernel-firmware package.
+
+-------------------------------------------------------------------
 Tue Jan 18 19:26:00 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: don't require new kernel-firmware on rhel5.
