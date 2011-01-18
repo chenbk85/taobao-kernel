@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 18 19:58:18 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: restore the requires for kernel-firmware.
+
+-------------------------------------------------------------------
 Tue Jan 18 19:33:57 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: build kernel-firmware package.
