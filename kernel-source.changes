@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 18 14:24:03 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: echo build sn before packaging.
+
+-------------------------------------------------------------------
 Tue Jan 18 10:30:01 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/mkspec.py: use '.' instead of '-' in PKGRELEASE since '-' is illegal here.
