@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jan 19 10:14:21 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: use $BUILD_NUMBER instead of $ABS_NUMBER_NUMBER.
+
+-------------------------------------------------------------------
 Tue Jan 18 20:10:44 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: enable smp_mflags for build.
