@@ -46,12 +46,7 @@ def print_usage ():
     pass
 
 def rm_in_background (folder):
-    tmp = tempfile.mktemp()
-    if not os.path.exists(tmp):
-        os.rename(folder, tmp)
-        rm_process = subprocess.Popen(["rm", "-rf", tmp]);
-    else:
-        subprocess.call(["rm", "-rf", folder])
+    subprocess.call(["rm", "-rf", folder])
 
 
 def local_check_output(*popenargs, **kwargs):

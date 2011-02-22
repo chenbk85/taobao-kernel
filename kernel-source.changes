@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Feb 22 15:26:32 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/seq-patch.py: because some boxes may mount /tmp on different physical
+                       devices, which made linking trick in rm background illegal,
+                       we simply disable the background rm.
+
+-------------------------------------------------------------------
 Tue Feb 22 15:24:14 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/seq-patch.py: to run on old rhels, we don't check the patch version.
