@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Feb 22 15:24:14 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/seq-patch.py: to run on old rhels, we don't check the patch version.
+
+-------------------------------------------------------------------
 Tue Feb 22 14:21:30 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/seq-patch.py: insert a forked check_output method to subprocess if it doesn't exist.

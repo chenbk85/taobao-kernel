@@ -148,14 +148,16 @@ def get_script_loc ():
 if __name__ == "__main__":
     parse_opts()
 
-    IGNORE = open("/dev/null", "w")
-    if not check_patch_version():
-        print >>sys.stderr, "Patch version >= 2.5.4 is required.\n"
-        sys.exit(1)
-
     # To compatbile with older python (<2.7)
     if not 'check_output' in dir(subprocess):
         subprocess.check_output = local_check_output
+
+    IGNORE = open("/dev/null", "w")
+    # To run on old RHELs, we don't check patch version here.
+    # if not check_patch_version():
+    #    print >>sys.stderr, "Patch version >= 2.5.4 is required.\n"
+    #    sys.exit(1)
+
 
     stored_dir = os.getcwd()
     os.chdir(get_script_loc())
