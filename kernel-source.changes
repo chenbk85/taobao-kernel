@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Feb 22 14:21:30 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/seq-patch.py: insert a forked check_output method to subprocess if it doesn't exist.
+
+-------------------------------------------------------------------
 Wed Feb 16 17:16:58 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/package.py: insert a forked check_output method to subprocess if it doesn't exist.
