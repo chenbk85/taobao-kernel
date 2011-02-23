@@ -1,4 +1,31 @@
 -------------------------------------------------------------------
+Wed Feb 23 19:25:58 CST 2011 - gaoyang.zyh@taobao.com
+
+- config.conf: reconstruct config files.
+- Update config files.
+- rpm/kernel.spec.in:
+- config/config-debug: Delete.
+- config/config-debug-rhel: Delete.
+- config/config-generic: Delete.
+- config/config-generic-rhel: Delete.
+- config/config-i686: Delete.
+- config/config-i686-debug: Delete.
+- config/config-i686-debug-rhel: Delete.
+- config/config-i686-nodebug: Delete.
+- config/config-i686-nodebug-rhel: Delete.
+- config/config-i686-rhel: Delete.
+- config/config-nodebug: Delete.
+- config/config-nodebug-rhel: Delete.
+- config/config-x86-generic: Delete.
+- config/config-x86-generic-rhel: Delete.
+- config/config-x86_64-debug: Delete.
+- config/config-x86_64-debug-rhel: Delete.
+- config/config-x86_64-generic: Delete.
+- config/config-x86_64-generic-rhel: Delete.
+- config/config-x86_64-nodebug: Delete.
+- config/config-x86_64-nodebug-rhel: Delete.
+
+-------------------------------------------------------------------
 Tue Feb 22 15:26:32 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/seq-patch.py: because some boxes may mount /tmp on different physical

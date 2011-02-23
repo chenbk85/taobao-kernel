@@ -94,6 +94,8 @@ fi)
 %define with_doc       %{?_without_doc:       0} %{?!_without_doc:       1}
 # kernel-headers
 %define with_headers   %{?_without_headers:   0} %{?!_without_headers:   1}
+# kernel-lvs
+%define with_lvs       %{?_with_lvs:          1} %{?!_with_lvs:          0}
 # kernel-firmware
 %define with_firmware  %{?_with_firmware:     1} %{?!_with_firmware:     0}
 # tools/perf
@@ -338,6 +340,7 @@ fi)
 %define with_kdump 0
 %define with_debuginfo 0
 %define with_perftool 0
+%define with_lvs 0
 %define _enable_debug_packages 0
 %endif
 
@@ -665,6 +668,15 @@ Group: System Environment/Kernel\
 
 # Now, each variant package.
 
+%define variant_summary The Linux kernel compiled for LVS machines
+%kernel_variant_package -n LVS lvs
+%description lvs
+This package includes a LVS version of the Linux kernel. It is
+required only on machines for LVS machines.
+
+Install the kernel-lvs package if your machine uses LVS.
+
+
 %define variant_summary The Linux kernel compiled for SMP machines
 %kernel_variant_package -n SMP smp
 %description smp
@@ -796,11 +808,11 @@ cp -rl vanilla-%{kversion} linux-%{kversion}.%{_target_cpu}
 cd linux-%{kversion}.%{_target_cpu}
 
 # Drop some necessary files from the source dir into the buildroot
-cp $RPM_SOURCE_DIR/config-* .
+cp $RPM_SOURCE_DIR/kernel-*.config .
 cp %{SOURCE15} %{SOURCE1} %{SOURCE16} %{SOURCE17} %{SOURCE18} .
 
 # Dynamically generate kernel .config files from config-* files
-make -f %{SOURCE20} VERSION=%{version} configs
+# make -f %{SOURCE20} VERSION=%{version} configs
 
 %%PATCH_APPLICATION%%
 
@@ -1174,6 +1186,10 @@ cd linux-%{kversion}.%{_target_cpu}
 BuildKernel %make_target %kernel_image debug
 %endif
 
+%if %{with_lvs}
+BuildKernel %make_target %kernel_image lvs
+%endif
+
 %if %{with_pae_debug}
 BuildKernel %make_target %kernel_image PAEdebug
 %endif
@@ -1413,6 +1429,9 @@ fi\
 %kernel_variant_post -r kernel-smp
 %endif
 
+%kernel_variant_preun lvs
+%kernel_variant_post -v lvs
+
 %kernel_variant_preun smp
 %kernel_variant_post -v smp
 
@@ -1540,8 +1559,8 @@ fi
 %endif\
 %{nil}
 
-
 %kernel_variant_files %{with_up}
+%kernel_variant_files %{with_lvs} lvs
 %kernel_variant_files %{with_smp} smp
 %kernel_variant_files %{with_debug} debug
 %kernel_variant_files %{with_pae} PAE
