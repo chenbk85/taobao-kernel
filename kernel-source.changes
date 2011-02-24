@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Feb 24 10:44:43 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/package.py: move default buildid lines to parse_opt() to avoid warnings.
+
+-------------------------------------------------------------------
 Thu Feb 24 10:19:55 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/package.py: use buildid=1 if buildid is not specified.

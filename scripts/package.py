@@ -79,6 +79,11 @@ def parse_opts ():
     except:
         print_usage()
         sys.exit(2)
+
+    if BUILDID == "":
+        print >>sys.stdout, "Using buildid=1 as it's not specified.\n"
+        BUILDID = "1"
+
     return released
 
 
@@ -147,11 +152,7 @@ def stable_tar(archive, files, mtime = None, chdir = ".", tar_opts = ""):
 
 
 if __name__ == "__main__":
-    global BUILDID
     released = parse_opts()
-    if BUILDID == "":
-        print >>sys.stdout, "Using default --buildid 1\n"
-        BUILDID = "1"
 
     # To compatbile with older python (<2.7)
     if not 'check_output' in dir(subprocess):
