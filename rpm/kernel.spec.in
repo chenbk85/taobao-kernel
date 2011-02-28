@@ -92,7 +92,7 @@ fi)
 %define with_debug     %{?_without_debug:     0} %{?!_without_debug:     1}
 
 # disable xen build by default
-%define with_xen       %(?_with_xen:          1} %{?!_with_xen:          0}
+%define with_xen       %{?_with_xen:          1} %{?!_with_xen:          0}
 
 # kernel-doc
 %define with_doc       %{?_without_doc:       0} %{?!_without_doc:       1}

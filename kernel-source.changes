@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Feb 28 16:17:56 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: fix a typo
+
+-------------------------------------------------------------------
 Mon Feb 28 15:50:36 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: tuned default options.
