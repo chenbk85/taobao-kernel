@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Feb 28 19:15:51 CST 2011 - bosong.ly@taobao.com
+
+- add a redhat kernel upstream directory
+  * linux-2.6.32-71.7.1.el6.tar.bz2: Delete.
+  * redhat-kernel-source/: a directory to maintain redhat upstream kernel tree.
+
+-------------------------------------------------------------------
 Mon Feb 28 16:17:56 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: fix a typo
