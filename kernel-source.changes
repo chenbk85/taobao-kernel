@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Feb 28 19:34:27 CST 2011 - bosong.ly@taobao.com
+
+- update redhat-kernel-source to linux-2.6.32-71.18.1.el6.
+
+-------------------------------------------------------------------
 Mon Feb 28 19:15:51 CST 2011 - bosong.ly@taobao.com
 
 - add a redhat kernel upstream directory
