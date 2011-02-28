@@ -90,6 +90,10 @@ fi)
 %define with_kdump     %{?_without_kdump:     0} %{?!_without_kdump:     1}
 # kernel-debug
 %define with_debug     %{?_without_debug:     0} %{?!_without_debug:     1}
+
+# disable xen build by default
+%define with_xen       %(?_with_xen:          1} %{?!_with_xen:          0}
+
 # kernel-doc
 %define with_doc       %{?_without_doc:       0} %{?!_without_doc:       1}
 # kernel-headers
@@ -97,7 +101,7 @@ fi)
 # kernel-lvs
 %define with_lvs       %{?_with_lvs:          1} %{?!_with_lvs:          0}
 # kernel-firmware
-%define with_firmware  %{?_with_firmware:     1} %{?!_with_firmware:     0}
+%define with_firmware  %{?_without_firmware:  0} %{?!_without_firmware:  1}
 # tools/perf
 %define with_perftool  %{?_without_perftool:  0} %{?!_without_perftool:  1}
 # perf noarch subpkg
@@ -119,10 +123,11 @@ fi)
 %define doc_build_fail true
 %endif
 
+# For taobao build, we don't want kabichk nor fips.
 # Control whether we perform a compat. check against published ABI.
-%define with_kabichk   %{?_without_kabichk:   0} %{?!_without_kabichk: 1}
+%define with_kabichk   %{?_with_kabichk:   1} %{?!_with_kabichk: 0}
 # Control whether we perform a compat. check against published ABI.
-%define with_fips      %{?_without_fips:      0} %{?!_without_fips:      1}
+%define with_fips      %{?_with_fips:      1} %{?!_with_fips:     0}
 
 # Additional options for user-friendly one-off kernel building:
 #
@@ -207,6 +212,11 @@ fi)
 %define with_smp 0
 %define with_kdump 0
 %define with_debug 0
+%define with_perf 0
+%define with_perftool 0
+%define with_debuginfo 0
+%define with_sparse 0
+%define 
 %endif
 
 # if requested, only build smp kernel

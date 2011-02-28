@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Feb 28 15:50:36 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: tuned default options.
+- rpm/taobao-kernel-build.sh: changed rpmbuild options aligned with kernel.spec.in changes.
+
+-------------------------------------------------------------------
 Thu Feb 24 11:11:17 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: test lvs build, disable debuginfo temporarily.
