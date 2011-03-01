@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Tue Mar  1 22:19:12 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: config/kernel-2.6.32-x86_64.config
+  * set items:
+	+CONFIG_NR_CPUS=256
+	+CONFIG_ARPD=y
+	+CONFIG_MAC80211_MESH=y
+	+CONFIG_MAC80211_DEBUGFS=y
+	+CONFIG_DEBUG_DEVRES=y
+	+CONFIG_BLK_DEV_SD=y
+	+CONFIG_THRUSTMASTER_FF=y
+	+CONFIG_ZEROPLUS_FF=y
+  * removed items:
+	-CONFIG_MAXSMP=y
+	-CONFIG_NR_CPUS=4096
+	-CONFIG_MTD_PMC551=m
+	-CONFIG_BLK_DEV_SD=m
+	-CONFIG_CPUMASK_OFFSTACK=y
+  The above modification compiles original sd_mod.ko into kernel, to make
+  initrd work better.
+
+-------------------------------------------------------------------
 Tue Mar  1 15:48:26 CST 2011 - bosong.ly@taobao.com
 
 - redhat-kernel-source/Makefile: fix CPP_PATCH number assignment error.
