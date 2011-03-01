@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue Mar  1 16:11:13 CST 2011 - gaoyang.zyh@taobao.com
+
+- redhat-kernel-source/version: 
+- scripts/config.py: use flat source dir instead of tarball.
+- scripts/mkspec.py:
+- scripts/package.py:
+- scripts/seq-patch.py:
+
+-------------------------------------------------------------------
 Mon Feb 28 19:36:29 CST 2011 - bosong.ly@taobao.com
 
 - version: update version log to linux-2.6.32-71.18.1.el6.

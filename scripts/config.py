@@ -1,22 +1,18 @@
 # Configs for various python scripts
 
+import os, sys, subprocess
 # The version of the main tarball to use
 # This is the version number of Redhat Enterprise Linux as our build's base.
 # Our base version can be tripped out from it.
-SRCVERSION = "2.6.32-71.7.1.el6"
+SRCVERSION = None
 # Variant of the kernel-source package, it's useless for now.
 # This is supposed to be used to different the various kernels for different platforms and
 # applications in the future
-# [zyh] we should set VARIANT to things like 'datacenter', 'hadoop', 'search', etc in the
-# different git branches.
-VARIANT = "tbpublic"
 BUILD_DIR = "taobao-kernel-build"
+VARIANT="tbpublic"
 # Supported archs, x86_64 only for now.
 flavor_archs = ['x86_64']
 
-# macros to be replaced
-DISTRO_BUILD = "71.7.1"
-BASE_SUBLEVEL = 32
 
 MACROS = {
     # These are relevant to release process, I hard code them here
@@ -28,7 +24,6 @@ MACROS = {
           "GITREV": 0, # These two ones are useless now.
 }
 # Whether we are under a git repo
-import os, subprocess
 def whether_using_git():
     using = True
     IGNORE = open("/dev/null", "w")
@@ -53,3 +48,11 @@ def get_branch_name():
     except:
         branch_name = "unknown-branch"
     return branch_name
+
+def get_srcversion():
+    global SRCVERSION
+    if SRCVERSION:
+        return SRCVERSION
+    SRCVERSION = open(os.path.dirname(os.path.abspath(sys.argv[0])) + "/../redhat-kernel-source/version").readline()[6:-1]
+    return SRCVERSION
+
