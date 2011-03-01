@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Mar  1 15:08:45 CST 2011 - bosong.ly@taobao.com
+- Delete i386 kernel config, becauwe we don't support 32bit machine currently.
+ * config/kernel-2.6.32-i686-debug.config
+ * config/kernel-2.6.32-i686-lvs.config
+ * config/kernel-2.6.32-i686.config
+
+-------------------------------------------------------------------
 Tue Mar  1 15:04:41 CST 2011 - bosong.ly@taobao.com
 
 - redhat-kernel-source/version: add a file to indecate current redhat upstream kernel version
