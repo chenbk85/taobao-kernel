@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Mar  1 23:05:08 CST 2011 - bosong.ly@taobao.com
+
+- config.conf: remove i686 config since currently most of machine to
+  be supported are x86_64 platform.
+
+-------------------------------------------------------------------
 Tue Mar  1 22:43:05 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: config/kernel-2.6.32-x86_64-debug.config,
