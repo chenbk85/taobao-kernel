@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Mar  1 22:31:11 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: config/kernel-2.6.32-x86_64-debug.config
+  according modification of config/kernel-2.6.32-x86_64.config
+
+-------------------------------------------------------------------
 Tue Mar  1 22:19:12 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: config/kernel-2.6.32-x86_64.config
