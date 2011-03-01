@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Mar  1 15:48:26 CST 2011 - bosong.ly@taobao.com
+
+- redhat-kernel-source/Makefile: fix CPP_PATCH number assignment error.
+
+-------------------------------------------------------------------
 Tue Mar  1 15:21:33 CST 2011 - bosong.ly@taobao.com
 
 - Update config/kernel-2.6.32-x86_64.config, includes
