@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Tue Mar  1 22:43:05 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: config/kernel-2.6.32-x86_64-debug.config,
+  config/kernel-2.6.32-x86_64.config, synced from 5u4 kernel
+  config.
+      * set items:
+        +CONFIG_NR_CPUS=256
+        +CONFIG_ARPD=y
+        +CONFIG_MAC80211_MESH=y
+        +CONFIG_MAC80211_DEBUGFS=y
+        +CONFIG_DEBUG_DEVRES=y
+        +CONFIG_BLK_DEV_SD=y
+        +CONFIG_THRUSTMASTER_FF=y
+        +CONFIG_ZEROPLUS_FF=y
+      * removed items:
+        -CONFIG_MAXSMP=y
+        -CONFIG_NR_CPUS=4096
+        -CONFIG_MTD_PMC551=m
+        -CONFIG_BLK_DEV_SD=m
+        -CONFIG_CPUMASK_OFFSTACK=y
+
+-------------------------------------------------------------------
 Tue Mar  1 19:32:17 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: install python-devel for building perf.
