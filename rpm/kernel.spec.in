@@ -534,6 +534,7 @@ Source20: Makefile.config
 
 Source30: Module.kabi_i686
 Source33: Module.kabi_x86_64
+Source34: getarch.py
 
 %%CONFIGS%%
 
@@ -819,7 +820,7 @@ cd linux-%{kversion}.%{_target_cpu}
 
 # Drop some necessary files from the source dir into the buildroot
 cp $RPM_SOURCE_DIR/kernel-*.config .
-cp %{SOURCE15} %{SOURCE1} %{SOURCE16} %{SOURCE17} %{SOURCE18} .
+cp %{SOURCE15} %{SOURCE1} %{SOURCE16} %{SOURCE17} %{SOURCE18} %{SOURCE34} .
 
 # Dynamically generate kernel .config files from config-* files
 # make -f %{SOURCE20} VERSION=%{version} configs
@@ -853,9 +854,10 @@ rm -f kernel-%{version}-*debug.config
 for i in *.config
 do
   mv $i .config
-  Arch=`head -1 .config | cut -b 3-`
+  # Arch=`head -1 .config | cut -b 3-`
+  Arch=`${SOURCE34} < .config`
   make ARCH=$Arch %{oldconfig_target} > /dev/null
-  echo "# $Arch" > configs/$i
+  # echo "# $Arch" > configs/$i
   cat .config >> configs/$i
   rm -f include/generated/kernel.arch
   rm -f include/generated/kernel.cross
@@ -961,7 +963,8 @@ BuildKernel() {
     make -s mrproper
     cp configs/$Config .config
 
-    Arch=`head -1 .config | cut -b 3-`
+    # Arch=`head -1 .config | cut -b 3-`
+    Arch=`${SOURCE34} < .config`
     echo USING ARCH=$Arch
 
     make -s ARCH=$Arch %{oldconfig_target} > /dev/null

@@ -40,7 +40,7 @@ TSFILE = "source-timestamp"
 misc_files_to_copy = ["series.conf", "scripts/merge.pl", \
                       "rpm/Makefile.common","scripts/perf","scripts/kabitool","scripts/check-kabi", \
                       "scripts/genkey", "scripts/perf-archive", "scripts/find-provides", "scripts/extrakeys.pub", \
-                      "rpm/Makefile.config"]
+                      "rpm/Makefile.config", "scripts/getarch.py"]
 # End of default configs
 
 using_git = config.whether_using_git()
