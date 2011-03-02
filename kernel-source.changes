@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Mar  2 16:49:43 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: config/kernel-2.6.32-x86_64.config, modify
+  preempt mode from Desktop to Server.
+	* set item:
+	+CONFIG_PREEMPT_NONE=y
+	* removed item:
+	-CONFIG_PREEMPT_VOLUNTARY=y
+
+-------------------------------------------------------------------
 Wed Mar  2 15:58:12 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: config/kernel-2.6.32-x86_64.config, to support /proc/config.gz.
