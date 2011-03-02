@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Mar  2 15:58:12 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: config/kernel-2.6.32-x86_64.config, to support /proc/config.gz.
+	* set items:
+	+CONFIG_IKCONFIG=y
+	+CONFIG_IKCONFIG_PROC=y
+
+-------------------------------------------------------------------
 Wed Mar  2 11:23:55 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: The spec marco ${SOURCEn} can't be expand in ``,
