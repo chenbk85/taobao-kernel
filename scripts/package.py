@@ -173,31 +173,7 @@ if __name__ == "__main__":
         BUILD_DIR = "taobao-kernel-build"
 
     BUILD_DIR = os.path.join(WORKING_DIR, BUILD_DIR)
-
-    # Try to find linux-$SRCVERSION.tar.gz or tar.bz2
-    tarball_file = None
-    # We will reuse the linux-xxx.orig  if it exists. Let's assume it is clean.
-    for name in os.listdir(WORKING_DIR):
-        if name.startswith("linux-%s" % (config.SRCVERSION,)) and \
-            ( name.endswith("tar.gz") or name.endswith("tar.bz2") ):
-            tarball_file = name;
-            if name.endswith("tar.gz"):
-                compress_mode = "z"
-            else:
-                compress_mode = "j"
-            break
-    if not tarball_file:
-        print >>sys.stderr, "Kernel source archive linux-%s.tar.gz not found.\n" \
-            "alternatively you can put an unpatched kernel tree to %s" % (ORIG_DIR)
-        sys.exit(1)
-    elif not config.SRCVERSION in tarball_file:
-        print >>sys.stderr, "The specified config.SRCVERSION is not match with the tarball's name\n" \
-              "in the source tree. Please check it out.\n"
-        sys.exit(1)
-
-    if not os.path.exists("series.conf"):
-        print >>sys.stderr, "Configuration file series.conf not found.\n"
-        sys.exit(1)
+    SOURCE_DIR = os.path.join(WORKING_DIR, "redhat-kernel-source")
 
     try:
         shutil.rmtree(BUILD_DIR)
@@ -205,6 +181,22 @@ if __name__ == "__main__":
         pass
 
     os.mkdir(BUILD_DIR)
+
+
+    tarball_name = "linux-" + config.get_srcversion() + ".tar.bz2"
+    tmp_name = "linux-" + config.get_srcversion()
+    print >>sys.stdout, "%s\n" % (tarball_name,)
+    os.rename(SOURCE_DIR, tmp_name) 
+
+    subprocess.call(["tar", "cjf", tarball_name, tmp_name])
+    os.rename(tarball_name, os.path.join(BUILD_DIR, tarball_name))
+    os.rename(tmp_name, SOURCE_DIR)
+
+
+    if not os.path.exists("series.conf"):
+        print >>sys.stderr, "Configuration file series.conf not found.\n"
+        sys.exit(1)
+
 
     for x in misc_files_to_copy:
         shutil.copy(x, BUILD_DIR)
@@ -258,9 +250,6 @@ if __name__ == "__main__":
     else:
         open(changelog, "w").close()
 
-    print >>sys.stdout, "%s\n" % (tarball_file,)
-    # shutil.copy(tarball_file, BUILD_DIR)
-    os.symlink(os.path.join(WORKING_DIR, tarball_file), os.path.join(BUILD_DIR, tarball_file))
 
 
     all_archives = sets.Set([x.split("/")[0] for x in refiles])

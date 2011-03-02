@@ -1,4 +1,37 @@
 -------------------------------------------------------------------
+Wed Mar  2 10:06:00 CST 2011 - gaoyang.zyh@taobao.com
+
+- Update config files:missing arch in the head.
+
+-------------------------------------------------------------------
+Tue Mar  1 23:05:08 CST 2011 - bosong.ly@taobao.com
+
+- config.conf: remove i686 config since currently most of machine to
+  be supported are x86_64 platform.
+
+-------------------------------------------------------------------
+Tue Mar  1 22:43:05 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: config/kernel-2.6.32-x86_64-debug.config,
+  config/kernel-2.6.32-x86_64.config, synced from 5u4 kernel
+  config.
+      * set items:
+        +CONFIG_NR_CPUS=256
+        +CONFIG_ARPD=y
+        +CONFIG_MAC80211_MESH=y
+        +CONFIG_MAC80211_DEBUGFS=y
+        +CONFIG_DEBUG_DEVRES=y
+        +CONFIG_BLK_DEV_SD=y
+        +CONFIG_THRUSTMASTER_FF=y
+        +CONFIG_ZEROPLUS_FF=y
+      * removed items:
+        -CONFIG_MAXSMP=y
+        -CONFIG_NR_CPUS=4096
+        -CONFIG_MTD_PMC551=m
+        -CONFIG_BLK_DEV_SD=m
+        -CONFIG_CPUMASK_OFFSTACK=y
+
+-------------------------------------------------------------------
 Tue Mar  1 22:31:11 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: config/kernel-2.6.32-x86_64-debug.config
@@ -25,6 +58,25 @@ Tue Mar  1 22:19:12 CST 2011 - bosong.ly@taobao.com
 	-CONFIG_CPUMASK_OFFSTACK=y
   The above modification compiles original sd_mod.ko into kernel, to make
   initrd work better.
+
+-------------------------------------------------------------------
+Tue Mar  1 19:32:17 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: install python-devel for building perf.
+
+-------------------------------------------------------------------
+Tue Mar  1 17:42:52 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: append more BuildRequires for perf tools.
+
+-------------------------------------------------------------------
+Tue Mar  1 16:11:13 CST 2011 - gaoyang.zyh@taobao.com
+
+- redhat-kernel-source/version: 
+- scripts/config.py: use flat source dir instead of tarball.
+- scripts/mkspec.py:
+- scripts/package.py:
+- scripts/seq-patch.py:
 
 -------------------------------------------------------------------
 Tue Mar  1 15:48:26 CST 2011 - bosong.ly@taobao.com

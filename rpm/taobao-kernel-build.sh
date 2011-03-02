@@ -1,6 +1,6 @@
 #!/bin/bash
 ##for check
-sudo yum install perl-TimeDate -y
+sudo yum install python-devel perl-TimeDate binutils-devel zlib-devel elfutils-libelf-devel -y
 cd $1
 echo Starting "$BUILD_NUMBER"th Taobao-kernel build.
 python ./scripts/package.py --buildid $BUILD_NUMBER

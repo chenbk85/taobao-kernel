@@ -32,12 +32,7 @@ import config
 SCRATCH_AREA = "tmp"
 QUIET = True
 QUILT = True
-COMBINE = True
-FAST = True
-PATCH_ARCH = ""
 VANILLA = False
-EXTRA_SYMBOLS = ""
-FUZZ =None
 # End of default configs
 
 
@@ -98,10 +93,11 @@ def  check_patch_version ():
 
 def parse_opts ():
     import getopt
+    global SCRATCH_AREA, QUIET, QUILT, VANILLA
     try:
         opts, args = getopt.getopt(sys.argv[1:], "qvd:",  \
-                                   ["quilt", "no-quilt", "combine", "fast" \
-                                    "arch=", "symbol=", "vanilla", "fuzz="\
+                                   ["quilt", "no-quilt", "combine", \
+                                    "arch=", "vanilla", \
                                     "dir="])
         for o, a in opts:
             if o in ("-q"):
@@ -114,19 +110,8 @@ def parse_opts ():
                 QUILT = True
             if o in ("--no-quilt"):
                 QUILT = False
-            if o in ("--combine"):
-                CONBINE = True
-                FAST = True
-            if o in ("--fast"):
-                FAST = True
-            if o in ("--arch"):
-                PATCH_ARCH = a.strip()
-            if o in ("--symbol"):
-                EXTRA_SYMBOLS += a.strip()
             if o in ("--vanilla"):
                 VANILLA = True
-            if o in ("--fuzz"):
-                fuzz = "-F" + a.strip()
     except getopt.GetoptError:
         print_usage()
         sys.exit(2)
@@ -161,6 +146,11 @@ if __name__ == "__main__":
 
     # Guess where we are.
     WORKING_DIR = os.getcwd()
+    SOURCE_DIR = os.path.join(WORKING_DIR, "redhat-kernel-source")
+    if not os.path.exists(SOURCE_DIR):
+        print >>sys.stder, "The dir of redhat kernel source is missing."
+        sys.exit(1)
+        
     if SCRATCH_AREA == "":
         print >>sys.stderr, "SCRATCH_AREA can not be null, roll back to \
             default value (tmp)\n"
@@ -173,38 +163,16 @@ if __name__ == "__main__":
             sys.exit(1)
         os.mkdir(SCRATCH_AREA)
     SCRATCH_AREA = os.path.join(os.getcwd(), SCRATCH_AREA)
-    TMPDIR = SCRATCH_AREA
     # ORIG_DIR is the folder where the unziped kernel source code lives, which
     # means vanilla kernel.
-    ORIG_DIR = os.path.join(TMPDIR, "linux-%s.orig" % (config.SRCVERSION,))
-    PATCH_DIR = os.path.join(TMPDIR, "linux-%s" % (config.SRCVERSION,))
+    ORIG_DIR = os.path.join(SCRATCH_AREA, "linux-%s.orig" % (config.get_srcversion(),))
+    PATCH_DIR = os.path.join(SCRATCH_AREA, "linux-%s" % (config.get_srcversion(),))
 
     SCRIPTS_DIR = os.path.join(os.getcwd(), "scripts")
     if not os.path.exists(SCRIPTS_DIR):
         print >>sys.stderr, "Cannot find scripts folder.\n"
         sys.exit(1)
 
-    # Try to find linux-$SRCVERSION.tar.gz or tar.bz2
-    tarball_file = None
-    if not os.path.exists(ORIG_DIR):
-        # We will reuse the linux-xxx.orig if it exists. Let's assume it is clean.
-        for name in os.listdir(os.getcwd()) + os.listdir(SCRATCH_AREA):
-            if name.startswith("linux-%s" % (config.SRCVERSION,)) and \
-                ( name.endswith("tar.gz") or name.endswith("tar.bz2") ):
-                tarball_file = name;
-                if name.endswith("tar.gz"):
-                    compress_mode = "z"
-                else:
-                    compress_mode = "j"
-                break
-        if not tarball_file:
-            print >>sys.stderr, "Kernel source archive linux-%s.tar.gz not found.\n" \
-                "alternatively you can put an unpatched kernel tree to %s" % (ORIG_DIR)
-            sys.exit(1)
-        elif not config.SRCVERSION in tarball_file:
-            print >>sys.stderr, "The specified config.SRCVERSION is not match with the tarball's name\n" \
-                "in the source tree. Please check it out.\n"
-            sys.exit(1)
 
     if not os.path.exists("series.conf"):
         print >>sys.stderr, "Configuration file series.conf not found.\n"
@@ -214,37 +182,19 @@ if __name__ == "__main__":
     if os.path.exists(PATCH_DIR):
         rm_in_background(PATCH_DIR)
 
-    # TODO:
-    # For now, I haven't handle arch patches.
-
     # Create fresh $SCRATCH_AREA/linux-$SRCVERSION, that's to say ORIG_DIR.
     if not os.path.exists(ORIG_DIR): # If we are not re-using anything
-        print >>sys.stdout, "Extracting %s" % (tarball_file,)
-        subprocess.call(["tar", "x%sf" % (compress_mode,), tarball_file, \
-                         "--directory=%s" % (SCRATCH_AREA,)])
-        # Here we take both of vanilla and RHEL kernel into account:
-        # Folder name 'linux-2.6.xx' for Vanilla kernel,
-        # and Folder name 'linux-2.6.xx-71.7.1.el6' for RHEL kernel
-        # We will rename both of them to linux-2.6.xx.orig
-        if os.path.exists(PATCH_DIR):
-            os.rename(PATCH_DIR, ORIG_DIR)
-        else:
-            for name in os.listdir(SCRATCH_AREA):
-                if name.startswith("linux-%s" % (config.SRCVERSION,)) and name.endswith("el6"):
-                    os.rename(os.path.join(SCRATCH_AREA, name), ORIG_DIR)
-                    break
-            if not os.path.exists(ORIG_DIR):
-            # It's said that some old kernel tarballs will make a naked 'linux' folder
-                os.rename(os.path.join(SCRATCH_AREA, "linux"), ORIG_DIR)
+        print >>sys.stdout, "Copying the Redhat kernel source tree as the code base."
+        subprocess.call(["cp", "-r", SOURCE_DIR, ORIG_DIR])
 
         # Avoid writing into them by mistake...
-        os.system("find %s -type f| xargs chmod a-w+r" % (ORIG_DIR,))
+        # os.system("find %s -type f| xargs chmod a-w+r" % (ORIG_DIR,))
 
     if not os.path.exists(ORIG_DIR):
         print >>sys.stderr, "Things won't continue without a working source tree.\n"
         sys.exit(1)
 
-    # Create hardlinked source tree
+    # Create hardlinked patched tree
     ret = subprocess.call(["cp", "-rld", ORIG_DIR, PATCH_DIR])
     if ret:
         print >>sys.stderr, "Fail to generate PATCHDIR: %s" % (PATCH_DIR,)
@@ -300,24 +250,6 @@ if __name__ == "__main__":
     if ret:
         print >>sys.stderr, "\nFail to apply the above patch.\n"
         sys.exit(1)
-
-# Copy the defconfig files that apply for this kernel.
-# Really necessary? They are defconfigs.
-#
-#    print >>sys.stdout, "[ Copying config files ]"
-#    config_conf = open( "config.conf", "r")
-#    config_output= subprocess.Popen([os.path.join(SCRIPTS_DIR, "guard.py")], \
-#                                     stdin = config_conf, stdout = subprocess.PIPE).communicate()[0].split("\n")
-#    close(config_conf)
-#    tmp = tempfile.mktemp()
-#    os.chdir(PATCH_DIR)
-#    for config in config_output:
-#        if not os.path.exists(os.path.join("config", config)):
-#            print >>sys.stderr, "Warning: Config %s doesn't exist.\n" % (config,)
-#            continue
-#        name = os.path.basename(config)
-#        path = os.path.join("arch", os.path.dirname(config), "defconfig.%s" % (name,))
-
 
     os.chdir(stored_dir)
     IGNORE.close()

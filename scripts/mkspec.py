@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
     # Generate version number from tags and base kernel version number.
     # tb_base_var is something like 2.6.32
-    tb_base_ver = config.SRCVERSION.split("-")[0]
+    tb_base_ver = config.get_srcversion().split("-")[0]
     tb_sublevel = tb_base_ver.split(".")[2]
     if not config.whether_using_git():
         print >>sys.stderr, "I can't proceed without living in a git repo.\n"
@@ -123,7 +123,7 @@ if __name__ == "__main__":
 
         if not existed:
             log = open(new_log, "a")
-            log.write("%s-%s\tlinux-%s.tar.bz2\t%s\n" % (tb_base_ver, tb_tag, config.SRCVERSION, tb_long_commit))
+            log.write("%s-%s\tlinux-%s.tar.bz2\t%s\n" % (tb_base_ver, tb_tag, config.get_srcversion(), tb_long_commit))
             log.close()
             shutil.copy(new_log, rpm_dir)
             print >>sys.stdout, "Attention: rpm/taobao-kernel-history.log has been updated with this release.\n" \
@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
     dynamic_values = {"RPMVERSION" : tb_base_ver,
                       "PKG_RELEASE" : pkg_release,
-                      "KVERSION" : config.SRCVERSION,
+                      "KVERSION" : config.get_srcversion(),
                       "SUBLEVEL" : tb_sublevel
                       }
 
