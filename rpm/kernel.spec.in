@@ -855,7 +855,7 @@ for i in *.config
 do
   mv $i .config
   # Arch=`head -1 .config | cut -b 3-`
-  Arch=`${SOURCE34} < .config`
+  Arch=`./getarch.py < .config`
   make ARCH=$Arch %{oldconfig_target} > /dev/null
   # echo "# $Arch" > configs/$i
   cat .config >> configs/$i
@@ -964,7 +964,7 @@ BuildKernel() {
     cp configs/$Config .config
 
     # Arch=`head -1 .config | cut -b 3-`
-    Arch=`${SOURCE34} < .config`
+    Arch=`./getarch.py < .config`
     echo USING ARCH=$Arch
 
     make -s ARCH=$Arch %{oldconfig_target} > /dev/null

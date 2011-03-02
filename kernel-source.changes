@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Mar  2 11:23:55 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: The spec marco ${SOURCEn} can't be expand in ``,
+   so let's use the script's name directly here.
+
+-------------------------------------------------------------------
 Wed Mar  2 11:03:59 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: add a new script to get arch instead of using the artificial mark in .config.
