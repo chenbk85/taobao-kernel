@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Mar  2 10:06:00 CST 2011 - gaoyang.zyh@taobao.com
+
+- Update config files:missing arch in the head.
+
+-------------------------------------------------------------------
 Tue Mar  1 23:05:08 CST 2011 - bosong.ly@taobao.com
 
 - config.conf: remove i686 config since currently most of machine to
