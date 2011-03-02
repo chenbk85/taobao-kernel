@@ -1,4 +1,28 @@
 -------------------------------------------------------------------
+Wed Mar  2 16:51:17 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: config/kernel-2.6.32-x86_64-debug.conf.
+  Change Redhat debug Kconfig to our own debug Kconfig.
+
+-------------------------------------------------------------------
+Wed Mar  2 16:49:43 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: config/kernel-2.6.32-x86_64.config, modify
+  preempt mode from Desktop to Server.
+	* set item:
+	+CONFIG_PREEMPT_NONE=y
+	* removed item:
+	-CONFIG_PREEMPT_VOLUNTARY=y
+
+-------------------------------------------------------------------
+Wed Mar  2 15:58:12 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: config/kernel-2.6.32-x86_64.config, to support /proc/config.gz.
+	* set items:
+	+CONFIG_IKCONFIG=y
+	+CONFIG_IKCONFIG_PROC=y
+
+-------------------------------------------------------------------
 Wed Mar  2 11:23:55 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: The spec marco ${SOURCEn} can't be expand in ``,
