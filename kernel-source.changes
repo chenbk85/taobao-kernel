@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Thu Mar  3 20:12:38 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: comment out kabi check file,
+        Source30: Module.kabi_i686
+        Source33: Module.kabi_x86_64
+  since we don't check kabi currently.
+
+-------------------------------------------------------------------
+Thu Mar  3 20:10:43 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in:
+
+-------------------------------------------------------------------
 Thu Mar  3 18:02:47 CST 2011 - bosong.ly@taobao.com
 
 - scripts/seq-patch.py: change typo "refresh_patch.py" to "refresh_patch.sh", to fix
