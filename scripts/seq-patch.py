@@ -239,8 +239,8 @@ if __name__ == "__main__":
             dirs.append(pn)
 
     os.symlink(WORKING_DIR, os.path.join(PATCH_DIR, "patches"))
-    os.symlink(os.path.join(WORKING_DIR, "scripts", "refresh_patch.py"), \
-               os.path.join(PATCH_DIR, "refresh_patch.py"))
+    os.symlink(os.path.join(WORKING_DIR, "scripts", "refresh_patch.sh"), \
+               os.path.join(PATCH_DIR, "refresh_patch.sh"))
     os.symlink(os.path.join(WORKING_DIR, "scripts", "run_oldconfig.py"), \
                os.path.join(PATCH_DIR, "run_oldconfig.py"))
 
