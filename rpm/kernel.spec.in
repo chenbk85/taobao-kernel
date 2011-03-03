@@ -6,7 +6,7 @@ Summary: The Linux kernel
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
 %define released_kernel %%RELEASED_KERNEL%%
-%define dist .el6
+%define dist .el5
 
 # Versions of various parts
 

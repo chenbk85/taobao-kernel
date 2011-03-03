@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Mar  3 18:08:45 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: change build distro from .el6 to .el5 in 5u4 branch
+
+-------------------------------------------------------------------
 Thu Mar  3 18:02:47 CST 2011 - bosong.ly@taobao.com
 
 - scripts/seq-patch.py: change typo "refresh_patch.py" to "refresh_patch.sh", to fix
