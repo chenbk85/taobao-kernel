@@ -4,6 +4,12 @@ Thu Mar  3 18:11:10 CST 2011 - gaoyang.zyh@taobao.com
 - rpm/kernel.spec.in: change dist from .el6 to master in master branch.
 
 -------------------------------------------------------------------
+Thu Mar  3 18:02:47 CST 2011 - bosong.ly@taobao.com
+
+- scripts/seq-patch.py: change typo "refresh_patch.py" to "refresh_patch.sh", to fix
+  an invalid symbolic link in patched output directory.
+
+-------------------------------------------------------------------
 Thu Mar  3 14:38:21 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: enable debuginfo package.
