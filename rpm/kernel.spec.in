@@ -532,8 +532,9 @@ Source19: extrakeys.pub
 
 Source20: Makefile.config
 
-Source30: Module.kabi_i686
-Source33: Module.kabi_x86_64
+# by bosong: we don't check kabi currently
+#Source30: Module.kabi_i686
+#Source33: Module.kabi_x86_64
 Source34: getarch.py
 
 %%CONFIGS%%
