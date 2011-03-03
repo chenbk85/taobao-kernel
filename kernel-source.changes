@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Mar  3 14:38:21 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: enable debuginfo package.
+
+-------------------------------------------------------------------
 Thu Mar  3 14:12:32 CST 2011 - gaoyang.zyh@taobao.com
 
 - redhat-kernel-source/Makefile: Remove the -Werror for out-of-tree modules for now. 
