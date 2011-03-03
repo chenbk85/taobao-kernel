@@ -12,6 +12,11 @@ Thu Mar  3 20:10:43 CST 2011 - bosong.ly@taobao.com
 - rpm/kernel.spec.in:
 
 -------------------------------------------------------------------
+Thu Mar  3 18:11:10 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: change dist from .el6 to master in master branch.
+
+-------------------------------------------------------------------
 Thu Mar  3 18:02:47 CST 2011 - bosong.ly@taobao.com
 
 - scripts/seq-patch.py: change typo "refresh_patch.py" to "refresh_patch.sh", to fix
