@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Mar  3 10:05:53 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: disable build of perf.
+
+-------------------------------------------------------------------
 Wed Mar  2 16:51:17 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: config/kernel-2.6.32-x86_64-debug.conf.
