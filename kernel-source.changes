@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Mar  3 14:12:32 CST 2011 - gaoyang.zyh@taobao.com
+
+- redhat-kernel-source/Makefile: Remove the -Werror for out-of-tree modules for now. 
+This is a workaround.
+It was called unexpectly by rpmbuild on rhel6 which has a newer GCC. Once we get to know
+how it is involved we may restore it later.
+
+-------------------------------------------------------------------
 Thu Mar  3 10:05:53 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: disable build of perf.
