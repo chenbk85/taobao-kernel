@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Mar  4 17:55:01 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: add m4, some build boxes have no m4 installed.
+
+-------------------------------------------------------------------
 Thu Mar  3 20:12:38 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: comment out kabi check file,
