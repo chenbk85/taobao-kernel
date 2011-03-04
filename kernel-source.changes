@@ -37,11 +37,6 @@ Thu Mar  3 20:12:38 CST 2011 - bosong.ly@taobao.com
   since we don't check kabi currently.
 
 -------------------------------------------------------------------
-Thu Mar  3 20:10:43 CST 2011 - bosong.ly@taobao.com
-
-- rpm/kernel.spec.in:
-
--------------------------------------------------------------------
 Thu Mar  3 18:11:10 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: change dist from .el6 to master in master branch.
