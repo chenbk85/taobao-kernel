@@ -6,11 +6,6 @@ Fri Mar  4 20:33:18 CST 2011 - bosong.ly@taobao.com
   config/kernel-2.6.32-x86_64-debug.config
 
 -------------------------------------------------------------------
-Fri Mar  4 20:32:56 CST 2011 - bosong.ly@taobao.com
-
-- Update config files.
-
--------------------------------------------------------------------
 Fri Mar  4 20:20:45 CST 2011 - bosong.ly@taobao.com
 
 - Add page cache hit accounting patch set into taobao kernel tree.
@@ -33,11 +28,6 @@ Thu Mar  3 20:12:38 CST 2011 - bosong.ly@taobao.com
         Source30: Module.kabi_i686
         Source33: Module.kabi_x86_64
   since we don't check kabi currently.
-
--------------------------------------------------------------------
-Thu Mar  3 20:10:43 CST 2011 - bosong.ly@taobao.com
-
-- rpm/kernel.spec.in:
 
 -------------------------------------------------------------------
 Thu Mar  3 18:11:10 CST 2011 - gaoyang.zyh@taobao.com
