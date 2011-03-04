@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Fri Mar  4 20:33:18 CST 2011 - bosong.ly@taobao.com
+
+- Update config files to enable page cache hit accounting
+  config/kernel-2.6.32-x86_64.config
+  config/kernel-2.6.32-x86_64-debug.config
+
+-------------------------------------------------------------------
+Fri Mar  4 20:32:56 CST 2011 - bosong.ly@taobao.com
+
+- Update config files.
+
+-------------------------------------------------------------------
 Fri Mar  4 20:20:45 CST 2011 - bosong.ly@taobao.com
 
 - Add page cache hit accounting patch set into taobao kernel tree.
