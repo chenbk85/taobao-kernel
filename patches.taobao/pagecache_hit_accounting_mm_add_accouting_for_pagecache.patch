@@ -1,0 +1,115 @@
+From: Liu Yuan <tailai.ly@taobao.com>
+Date: Fri, 4 Mar 2011 02:59:19 +0800
+Subject: [PATCH 4/5] mm: Add hit/miss accounting for Page Cache
+Patch-mainline: in-house
+
+Hit/Miss accountings are request-centric: that is, single request
+would either cause one hit or one miss to be accounted for the very
+first time that kernel query the page cache. In some rare error
+conditions, kernel would re-query the page cache, but we donnot
+account for it and ignore it for simplicity.
+
+Signed-off-by: Liu Yuan <tailai.ly@taobao.com>
+Signed-off-by: Coly Li <bosong.ly@taobao.com>
+---
+ mm/filemap.c |   29 +++++++++++++++++++++++++----
+ 1 files changed, 25 insertions(+), 4 deletions(-)
+
+Index: linux-2.6.32-71.18.1.el6/mm/filemap.c
+===================================================================
+--- linux-2.6.32-71.18.1.el6.orig/mm/filemap.c
++++ linux-2.6.32-71.18.1.el6/mm/filemap.c
+@@ -1014,10 +1014,16 @@ static void do_generic_file_read(struct
+ 		pgoff_t end_index;
+ 		loff_t isize;
+ 		unsigned long nr, ret;
++		int retry_find = 0;
+ 
+ 		cond_resched();
+ find_page:
+ 		page = find_get_page(mapping, index);
++		if (likely(!retry_find) && page && PageUptodate(page))
++			page_cache_acct_hit(inode->i_sb, READ);
++		else
++			page_cache_acct_missed(inode->i_sb, READ);
++
+ 		if (!page) {
+ 			page_cache_sync_readahead(mapping,
+ 					ra, filp,
+@@ -1140,6 +1146,7 @@ readpage:
+ 		if (unlikely(error)) {
+ 			if (error == AOP_TRUNCATED_PAGE) {
+ 				page_cache_release(page);
++				retry_find = 1;
+ 				goto find_page;
+ 			}
+ 			goto readpage_error;
+@@ -1156,6 +1163,7 @@ readpage:
+ 					 */
+ 					unlock_page(page);
+ 					page_cache_release(page);
++					retry_find = 1;
+ 					goto find_page;
+ 				}
+ 				unlock_page(page);
+@@ -1188,8 +1196,10 @@ no_cached_page:
+ 						index, GFP_KERNEL);
+ 		if (error) {
+ 			page_cache_release(page);
+-			if (error == -EEXIST)
++			if (error == -EEXIST) {
++				retry_find = 1;
+ 				goto find_page;
++			}
+ 			desc->error = error;
+ 			goto out;
+ 		}
+@@ -1545,6 +1555,7 @@ int filemap_fault(struct vm_area_struct
+ 	pgoff_t offset = vmf->pgoff;
+ 	struct page *page;
+ 	pgoff_t size;
++	int rw = !!(vmf->flags & FAULT_FLAG_WRITE);
+ 	int ret = 0;
+ 
+ 	size = (i_size_read(inode) + PAGE_CACHE_SIZE - 1) >> PAGE_CACHE_SHIFT;
+@@ -1555,6 +1566,11 @@ int filemap_fault(struct vm_area_struct
+ 	 * Do we have something in the page cache already?
+ 	 */
+ 	page = find_get_page(mapping, offset);
++	if (page && page->mapping && PageUptodate(page))
++		page_cache_acct_hit(inode->i_sb, rw);
++	else
++		page_cache_acct_missed(inode->i_sb, rw);
++
+ 	if (likely(page)) {
+ 		/*
+ 		 * We found the page, so try async readahead before
+@@ -2227,20 +2243,25 @@ struct page *grab_cache_page_write_begin
+ 		gfp_notmask = __GFP_FS;
+ repeat:
+ 	page = find_lock_page(mapping, index);
+-	if (likely(page))
++	if (likely(page)) {
++		page_cache_acct_hit(mapping->host->i_sb, WRITE);
+ 		return page;
++	}
+ 
+ 	page = __page_cache_alloc(mapping_gfp_mask(mapping) & ~gfp_notmask);
+ 	if (!page)
+-		return NULL;
++		goto out;
+ 	status = add_to_page_cache_lru(page, mapping, index,
+ 						GFP_KERNEL & ~gfp_notmask);
+ 	if (unlikely(status)) {
+ 		page_cache_release(page);
+ 		if (status == -EEXIST)
+ 			goto repeat;
+-		return NULL;
++		page = NULL;
+ 	}
++
++out:
++	page_cache_acct_missed(mapping->host->i_sb, WRITE);
+ 	return page;
+ }
+ EXPORT_SYMBOL(grab_cache_page_write_begin);
