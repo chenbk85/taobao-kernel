@@ -1,0 +1,44 @@
+From: Liu Yuan <taitai.ly@taobao.com>
+Date: Fri, 4 Mar 2011 02:59:40 +0800
+Subject: [PATCH 5/5] mm: Add readpages accounting
+Patch-mainline: in-house
+
+The _readpages_ counter simply counts how many pages the kernel
+really request from the disk, either by readahead module or
+aop->readpage() when readahead window equals 0.
+
+This counter is request-centric and doesnot check read errors
+since the read requests are issued to the block layer already.
+
+Signed-off-by: Liu Yuan <tailai.ly@taobao.com>
+Signed-off-by: Coly Li <bosong.ly@taobao.com>
+---
+ mm/filemap.c   |    1 +
+ mm/readahead.c |    2 ++
+ 2 files changed, 3 insertions(+), 0 deletions(-)
+
+Index: linux-2.6.32-71.18.1.el6/mm/filemap.c
+===================================================================
+--- linux-2.6.32-71.18.1.el6.orig/mm/filemap.c
++++ linux-2.6.32-71.18.1.el6/mm/filemap.c
+@@ -1134,6 +1134,7 @@ readpage:
+ 		 */
+ 		ClearPageError(page);
+ 		/* Start the actual read. The read will unlock the page. */
++		page_cache_acct_readpages(mapping->host->i_sb, 1);
+ 		error = mapping->a_ops->readpage(filp, page);
+ 
+ 		if (unlikely(error)) {
+Index: linux-2.6.32-71.18.1.el6/mm/readahead.c
+===================================================================
+--- linux-2.6.32-71.18.1.el6.orig/mm/readahead.c
++++ linux-2.6.32-71.18.1.el6/mm/readahead.c
+@@ -111,6 +111,8 @@ static int read_pages(struct address_spa
+ 	unsigned page_idx;
+ 	int ret;
+ 
++	page_cache_acct_readpages(mapping->host->i_sb, nr_pages);
++
+ 	if (mapping->a_ops->readpages) {
+ 		ret = mapping->a_ops->readpages(filp, mapping, pages, nr_pages);
+ 		/* Clean up the remaining pages */

@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Fri Mar  4 20:33:18 CST 2011 - bosong.ly@taobao.com
+
+- Update config files to enable page cache hit accounting
+  config/kernel-2.6.32-x86_64.config
+  config/kernel-2.6.32-x86_64-debug.config
+
+-------------------------------------------------------------------
+Fri Mar  4 20:20:45 CST 2011 - bosong.ly@taobao.com
+
+- Add page cache hit accounting patch set into taobao kernel tree.
+  This is the first effort, patches are not upstream yet.
+  * patches.taobao/pagecache_hit_accounting_Kconfig.patch:
+    x86/Kconfig: Add Page Cache Accounting entry.
+  * patches.taobao/pagecache_hit_accounting_add_func_and_structures.patch:
+    block: Add functions and data types for Page Cache.
+  * patches.taobao/pagecache_hit_accounting_add_readpages_accounting.patch:
+    mm: Add readpages accounting.
+  * patches.taobao/pagecache_hit_accounting_mm_add_accouting_for_pagecache.patch:
+    mm: Add hit/miss accounting for Page Cache.
+  * patches.taobao/pagecache_hit_accounting_sysfs_interface.patch:
+    block: Make Page Cache counters work with sysfs.
+
+-------------------------------------------------------------------
 Thu Mar  3 20:12:38 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: comment out kabi check file,
@@ -10,6 +33,11 @@ Thu Mar  3 20:12:38 CST 2011 - bosong.ly@taobao.com
 Thu Mar  3 20:10:43 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in:
+
+-------------------------------------------------------------------
+Thu Mar  3 18:11:10 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: change dist from .el6 to master in master branch.
 
 -------------------------------------------------------------------
 Thu Mar  3 18:08:45 CST 2011 - gaoyang.zyh@taobao.com
