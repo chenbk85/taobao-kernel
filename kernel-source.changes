@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Mar  7 15:40:00 CST 2011 - gaoyang.zyh@taobao.com
+
+- Reconstruct the packaging naming rule. Now we use something like
+kernel-2.6.32-18.7.1.100tb.el6.x86_64.rpm.
+    - rpm/kernel.spec.in:
+    - scripts/mkspec.py:
+
+-------------------------------------------------------------------
 Fri Mar  4 20:33:18 CST 2011 - bosong.ly@taobao.com
 
 - Update config files to enable page cache hit accounting
