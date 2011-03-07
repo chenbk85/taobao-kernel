@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Mar  7 15:41:45 CST 2011 - gaoyang.zyh@taobao.com
+
+- Update config files. Sync this placeholder config with the base config.
+
+-------------------------------------------------------------------
 Mon Mar  7 15:40:00 CST 2011 - gaoyang.zyh@taobao.com
 
 - Reconstruct the packaging naming rule. Now we use something like
