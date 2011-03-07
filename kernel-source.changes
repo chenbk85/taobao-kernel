@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Mar  7 16:42:33 CST 2011 - gaoyang.zyh@taobao.com
+
+- Reconstruct the packaging naming rule. Now we use something like
+kernel-2.6.32-18.7.1.100tb.el6.x86_64.rpm
+    - rpm/kernel.spec.in:
+    - scripts/mkspec.py:
+
+-------------------------------------------------------------------
 Fri Mar  4 17:55:01 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: add m4, some build boxes have no m4 installed.

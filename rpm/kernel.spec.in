@@ -6,7 +6,7 @@ Summary: The Linux kernel
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
 %define released_kernel %%RELEASED_KERNEL%%
-%define dist .el5
+%define dist .master
 
 # Versions of various parts
 
@@ -557,9 +557,10 @@ The kernel package contains the Linux kernel (vmlinuz), the core of any
 Linux operating system.  The kernel handles the basic functions
 of the operating system: memory allocation, process allocation, device
 input and output, etc.
-This is a kernel package built by Taobao.com, which is based on Redhat
-Enterprise Linux 6 plus various patches developed by the engineers in
-Taobao.com.
+This kernel package is based on Redhat Enterprise Linux 6 plus 
+various patches developed by the engineers in Taobao.com.
+This is built from Taobao kernel git repo, whose commit id is
+%%COMMITID%%, based on Redhat %%RHELBASE%%.\
 
 
 %package doc
@@ -585,6 +586,8 @@ between the Linux kernel and userspace libraries and programs.  The
 header files define structures and constants that are needed for
 building most standard programs and are also needed for rebuilding the
 glibc package.
+This is built from Taobao kernel git repo, whose commit id is
+%%COMMITID%%, based on Redhat %%RHELBASE%%.\
 
 %package firmware
 Summary: Firmware files used by the Linux kernel
@@ -598,6 +601,9 @@ Provides: kernel-firmware = %{rpmversion}-%{pkg_release}
 %description firmware
 Kernel-firmware includes firmware files required for some devices to
 operate.
+This is built from Taobao kernel git repo, whose commit id is
+%%COMMITID%%, based on Redhat %%RHELBASE%%.
+
 
 %package bootwrapper
 Summary: Boot wrapper files for generating combined kernel + initrd images
@@ -613,6 +619,8 @@ Group: Development/Debug
 %description debuginfo-common-%{_target_cpu}
 This package is required by %{name}-debuginfo subpackages.
 It provides the kernel source files common to all builds.
+ This is built from Taobao kernel git repo, whose commit id is
+%%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 %package -n perf
 Summary: Performance monitoring for the Linux kernel
@@ -621,6 +629,8 @@ License: GPLv2
 %description -n perf
 This package provides the supporting documentation for the perf tool
 shipped in each kernel image subpackage.
+ This is built from Taobao kernel git repo, whose commit id is
+%%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 #
 # This macro creates a kernel-<subpackage>-debuginfo package.
@@ -635,6 +645,8 @@ Provides: %{name}%{?1:-%{1}}-debuginfo-%{_target_cpu} = %{version}-%{release}\
 AutoReqProv: no\
 %description -n %{name}%{?1:-%{1}}-debuginfo\
 This package provides debug information for package %{name}%{?1:-%{1}}.\
+ This is built from Taobao kernel git repo, whose commit id is
+%%COMMITID%%, based on Redhat %%RHELBASE%%.
 This is required to use SystemTap with %{name}%{?1:-%{1}}-%{KVERREL}.\
 %{expand:%%global debuginfo_args %{?debuginfo_args} -p '/.*/%%{KVERREL}%{?1:\.%{1}}/.*|/.*%%{KVERREL}%{?1:\.%{1}}(\.debug)?' -o debuginfo%{?1}.list}\
 %{nil}
@@ -655,7 +667,9 @@ AutoReqProv: no\
 Requires(pre): /usr/bin/find\
 %description -n kernel%{?variant}%{?1:-%{1}}-devel\
 This package provides kernel headers and makefiles sufficient to build modules\
-against the %{?2:%{2} }kernel package.\
+against the %{?2:%{2} }kernel package.
+ This is built from Taobao kernel git repo, whose commit id is
+%%COMMITID%%, based on Redhat %%RHELBASE%%.\
 %{nil}
 
 #
@@ -685,6 +699,8 @@ Group: System Environment/Kernel\
 %description lvs
 This package includes a LVS version of the Linux kernel. It is
 required only on machines for LVS machines.
+ This is built from Taobao kernel git repo, whose commit id is
+%%COMMITID%%, based on Redhat %%RHELBASE%%.\
 
 Install the kernel-lvs package if your machine uses LVS.
 
@@ -733,6 +749,8 @@ input and output, etc.
 This variant of the kernel has numerous debugging options enabled.
 It should only be installed when trying to gather additional information
 on kernel bugs, as some of these options impact performance noticably.
+ This is built from Taobao kernel git repo, whose commit id is
+%%COMMITID%%, based on Redhat %%RHELBASE%%.\
 
 
 %define variant_summary A minimal Linux kernel compiled for crash dumps
@@ -741,6 +759,8 @@ on kernel bugs, as some of these options impact performance noticably.
 This package includes a kdump version of the Linux kernel. It is
 required only on machines which will use the kexec-based kernel crash dump
 mechanism.
+ This is built from Taobao kernel git repo, whose commit id is
+%%COMMITID%%, based on Redhat %%RHELBASE%%.\
 
 
 %prep
