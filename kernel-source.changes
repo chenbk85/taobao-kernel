@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Tue Mar  8 20:47:56 CST 2011 - bosong.ly@taobao.com
+
+- merge from "master" branch.
+- scripts/mkspec.py: fix a merge confliction.
+
+-------------------------------------------------------------------
+Tue Mar  8 20:42:57 CST 2011 - bosong.ly@taobao.com
+
+- Update config files to build metaraid_sas into core,
+  * config/kernel-2.6.32-x86_64-debug.config
+  * config b/config/kernel-2.6.32-x86_64-lvs.config
+  * config/kernel-2.6.32-x86_64.config
+	+CONFIG_MEGARAID_MM=y
+	+CONFIG_MEGARAID_MAILBOX=y
+	+CONFIG_MEGARAID_LEGACY=y
+	+CONFIG_MEGARAID_SAS=y
+
+-------------------------------------------------------------------
+Tue Mar  8 11:04:30 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/mkspec.py: use 'tb{n}' instead of '{n}tb' in buildid.
+
+-------------------------------------------------------------------
 Tue Mar  8 11:00:45 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/mkspec.py: use 'tb{n}' instead of '{n}tb' in buildid.
