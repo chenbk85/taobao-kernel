@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Mar  8 11:00:45 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/mkspec.py: use 'tb{n}' instead of '{n}tb' in buildid.
+
+-------------------------------------------------------------------
 Mon Mar  7 15:41:45 CST 2011 - gaoyang.zyh@taobao.com
 
 - Update config files. Sync this placeholder config with the base config.
