@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Tue Mar  8 11:00:45 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/mkspec.py: use 'tb{n}' instead of '{n}tb' in buildid.
+
+-------------------------------------------------------------------
+Mon Mar  7 15:41:45 CST 2011 - gaoyang.zyh@taobao.com
+
+- Update config files. Sync this placeholder config with the base config.
+
+-------------------------------------------------------------------
+Mon Mar  7 15:40:00 CST 2011 - gaoyang.zyh@taobao.com
+
+- Reconstruct the packaging naming rule. Now we use something like
+kernel-2.6.32-18.7.1.100tb.el6.x86_64.rpm.
+    - rpm/kernel.spec.in:
+    - scripts/mkspec.py:
+
+-------------------------------------------------------------------
 Fri Mar  4 20:39:23 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: change dist from .master to .el6
@@ -27,6 +45,11 @@ Fri Mar  4 20:20:45 CST 2011 - bosong.ly@taobao.com
     mm: Add hit/miss accounting for Page Cache.
   * patches.taobao/pagecache_hit_accounting_sysfs_interface.patch:
     block: Make Page Cache counters work with sysfs.
+
+-------------------------------------------------------------------
+Fri Mar  4 17:57:23 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: add m4.
 
 -------------------------------------------------------------------
 Thu Mar  3 20:12:38 CST 2011 - bosong.ly@taobao.com

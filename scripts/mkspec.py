@@ -96,56 +96,27 @@ if __name__ == "__main__":
     # Generate version number from tags and base kernel version number.
     # tb_base_var is something like 2.6.32
     tb_base_ver = config.get_srcversion().split("-")[0]
+    rh_release_id = config.get_srcversion().split("-")[1][:-4]
     tb_sublevel = tb_base_ver.split(".")[2]
-    if not config.whether_using_git():
-        print >>sys.stderr, "I can't proceed without living in a git repo.\n"
-        sys.exit(1)
-    # tb_tag is something like tb1.1
-    tb_tag = commands.getoutput("git tag -l 'tb*'").split("\n")[-1]
-    if tb_tag == "" and released:
-        print >>sys.stderr, "You want to release a kernel but there is no 'tbx.y' tag.\n"
-        sys.exit(1)
-    tb_short_commit = commands.getoutput("git log %s --pretty=format:%%h -1" % (tb_tag,))
-    tb_long_commit = commands.getoutput("git log %s --pretty=format:%%H -1" % (tb_tag,))
 
-    if released:
-        # Update taobao-kernel-history.log
-        old_log = os.path.join(rpm_dir, "taobao-kernel-history.log")
-        new_log = os.path.join(build_dir, "taobao-kernel-history.log")
-        existed = False
-        if os.path.exists(old_log):
-            shutil.copy(old_log, build_dir)
-            logs = open(new_log, "r").readlines()
-            for line in logs:
-                if tb_tag in line:
-                    existed = True
-                    break
+    try:
+        tb_short_commit = commands.getoutput("git log --pretty=format:%%h -1")
+        tb_long_commit = commands.getoutput("git log --pretty=format:%H -1")
+    except:
+        tr_short_commit = tb_long_commit = "UnknownCommitId"
 
-        if not existed:
-            log = open(new_log, "a")
-            log.write("%s-%s\tlinux-%s.tar.bz2\t%s\n" % (tb_base_ver, tb_tag, config.get_srcversion(), tb_long_commit))
-            log.close()
-            shutil.copy(new_log, rpm_dir)
-            print >>sys.stdout, "Attention: rpm/taobao-kernel-history.log has been updated with this release.\n" \
-                "Please remember to add it when committing.\n"
-        config.MACROS["RELEASED_KERNEL"] = 1
-    else:
-        config.MACROS["RELEASED_KERNEL"] = 0
-
-    if released:
-            pkg_release = tb_tag + buildid
-    else:
-#   comment this out for ABS build.
-#            pkg_release = tb_tag + "@git" + tb_short_commit
-            pkg_release = tb_tag + buildid + "." + tb_short_commit
+    # will be .el5 in 5u4 branch.
+    pkg_release = rh_release_id + "."  + "tb" + buildid +".el6"
 
     dynamic_values = {"RPMVERSION" : tb_base_ver,
                       "PKG_RELEASE" : pkg_release,
                       "KVERSION" : config.get_srcversion(),
-                      "SUBLEVEL" : tb_sublevel
+                      "SUBLEVEL" : tb_sublevel,
+                      "COMMITID" : tb_long_commit,
+                      "RHELBASE" : "kernel-" + config.get_srcversion()
                       }
 
-    for key in dynamic_values:
+    for key in dynamic_values.keys():
         spec_temple = spec_temple.replace("%%" + key + "%%", str(dynamic_values[key]))
 
 
