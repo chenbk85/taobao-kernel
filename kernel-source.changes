@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Mar 10 15:47:56 CST 2011 - bosong.ly@taobao.com
+
+- scripts/mkspec.py: modify distribution list from .el6 to .master for pkg_release.
+
+-------------------------------------------------------------------
 Wed Mar  9 12:30:14 CST 2011 - bosong.ly@taobao.com
 
 - config/kernel-2.6.32-x86_64.config: remove useless kernel config
