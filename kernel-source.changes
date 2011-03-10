@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Mar 10 15:50:02 CST 2011 - bosong.ly@taobao.com
+
+- scripts/mkspec.py: fix pkg_release build code for el5:
+  -  pkg_release = rh_release_id + "."  + "tb" + buildid + ".el6"
+  +  pkg_release = rh_release_id + "."  + "tb" + buildid + ".el5"
+
+-------------------------------------------------------------------
 Wed Mar  9 10:57:26 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: add rng-utils to build requires, otherwise

@@ -105,8 +105,11 @@ if __name__ == "__main__":
     except:
         tr_short_commit = tb_long_commit = "UnknownCommitId"
 
-    # will be .el5 in 5u4 branch.
-    pkg_release = rh_release_id + "."  + "tb" + buildid + ".el6"
+    # the lst string is distribution id, for,
+    # branch master, it's ".master"
+    # branch 5u4, it's ".el5"
+    # branch 6u, it's ".el6"
+    pkg_release = rh_release_id + "."  + "tb" + buildid + ".el5"
 
     dynamic_values = {"RPMVERSION" : tb_base_ver,
                       "PKG_RELEASE" : pkg_release,
