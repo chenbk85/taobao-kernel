@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Mar 10 22:33:25 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: enable build with perf and dracut.
+
+-------------------------------------------------------------------
 Thu Mar 10 16:15:47 CST 2011 - bosong.ly@taobao.com
 
 - merge from branch master.
