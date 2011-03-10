@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Mar 10 17:19:38 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: remove squashfs-tools and wireless-tools
+  dependency.
+
+-------------------------------------------------------------------
 Thu Mar 10 16:10:30 CST 2011 - bosong.ly@taobao.com
 
 - Update config files,
