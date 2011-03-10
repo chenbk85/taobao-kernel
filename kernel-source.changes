@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Mar 10 15:53:15 CST 2011 - bosong.ly@taobao.com
+
+- scripts/mkspec.py: add comments on the code where assembling
+   pkg_release string. For different distribution (el5, el6), the
+   last dist string should be modified.
+
+-------------------------------------------------------------------
 Tue Mar  8 20:47:56 CST 2011 - bosong.ly@taobao.com
 
 - merge from "master" branch.
