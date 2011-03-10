@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Mar 10 22:32:06 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/seq-patch.py: fixed a typo.
+
+-------------------------------------------------------------------
 Thu Mar 10 22:31:39 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: enable perf build.
