@@ -1,9 +1,43 @@
 -------------------------------------------------------------------
+Thu Mar 10 16:14:46 CST 2011 - bosong.ly@taobao.com
+
+- merge from branch master.
+
+-------------------------------------------------------------------
+Thu Mar 10 16:10:30 CST 2011 - bosong.ly@taobao.com
+
+- Update config files,
+  * modified: config/kernel-2.6.32-x86_64.config, set
+    CONFIG_PRINTK_TIME=y
+  * modified: config/kernel-2.6.32-x86_64-debug.config, sync the
+    non-debug config items made in config/kernel-2.6.32-x86_64.config.
+
+-------------------------------------------------------------------
 Thu Mar 10 15:50:02 CST 2011 - bosong.ly@taobao.com
 
 - scripts/mkspec.py: fix pkg_release build code for el5:
   -  pkg_release = rh_release_id + "."  + "tb" + buildid + ".el6"
   +  pkg_release = rh_release_id + "."  + "tb" + buildid + ".el5"
+
+-------------------------------------------------------------------
+Thu Mar 10 15:47:56 CST 2011 - bosong.ly@taobao.com
+
+- scripts/mkspec.py: modify distribution list from .el6 to .master for pkg_release.
+
+-------------------------------------------------------------------
+Wed Mar  9 12:30:14 CST 2011 - bosong.ly@taobao.com
+
+- config/kernel-2.6.32-x86_64.config: remove useless kernel config
+  * CAN (Control Area Network)
+  * BT (Blue Tooth)
+  * RF (Radio Frequency)
+  * MACINTOSH_DRIVERS (Macintosh drivers)
+  * ISDN
+  * V4l
+  * SND (Sound Card Drivers)
+  * TABLET
+  * MEDIA (Media Drivers)
+  * A11Y (Accessibility Driver)
 
 -------------------------------------------------------------------
 Wed Mar  9 10:57:26 CST 2011 - gaoyang.zyh@taobao.com
