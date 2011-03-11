@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Mar 11 16:28:14 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: remove  squashfs-tools and wireless-tools
+  dependences, almost all online machines may complain the dependency
+  conflict when updating kernel while they don't need these 2
+  packages.
+
+-------------------------------------------------------------------
 Fri Mar 11 21:39:04 CST 2011 - boyu.mt@taobao.com
 
 - patches.taobao/blktrace-Don-t-output-messages-if-NOTIFY-isn-t-set.patch:
