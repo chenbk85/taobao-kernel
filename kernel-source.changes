@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Mar 11 15:04:57 CST 2011 - gaoyang.zyh@taobao.com
+- Used RHEL's origin changelog in .spec instead of our own one.
+- redhat-kernel-source/redhat-kernel-changelog:
+- rpm/kernel.spec.in:
+- scripts/mkspec.py:
+- scripts/package.py:
+
+-------------------------------------------------------------------
 Fri Mar 11 14:26:28 CST 2011 - bosong.ly@taobao.com
 
 - move two patches from redhat-kernel-source to patches.taobao:
