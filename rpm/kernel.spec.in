@@ -536,6 +536,7 @@ Source20: Makefile.config
 #Source30: Module.kabi_i686
 #Source33: Module.kabi_x86_64
 Source34: getarch.py
+Source35: taobao-kernel.changes
 
 %%CONFIGS%%
 

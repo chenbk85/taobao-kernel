@@ -174,7 +174,7 @@ if __name__ == "__main__":
 
     BUILD_DIR = os.path.join(WORKING_DIR, BUILD_DIR)
     SOURCE_DIR = os.path.join(WORKING_DIR, "redhat-kernel-source")
-    rh_changelog = os.path.join(SOURCE_DIR, "redhat-kernel-changelog")
+    rh_changelog = os.path.join(WORKING_DIR, "redhat-kernel-changelog")
     if not os.path.exists(rh_changelog):
         print >>sys.stderr, "redhat-kernel-source\redhat-kernel-changelog is missing.\n"
         sys.exit(1)

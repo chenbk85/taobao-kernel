@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Mar 11 16:12:39 CST 2011 - gaoyang.zyh@taobao.com
+- Move redhat-kernel-changelog out of RH Tree.
+    - redhat-kernel-changelog:
+    - rpm/kernel.spec.in:
+    - scripts/package.py:
+    - redhat-kernel-source/redhat-kernel-changelog: Delete.
+
+-------------------------------------------------------------------
 Fri Mar 11 15:04:57 CST 2011 - gaoyang.zyh@taobao.com
 - Used RHEL's origin changelog in .spec instead of our own one.
 - redhat-kernel-source/redhat-kernel-changelog:
