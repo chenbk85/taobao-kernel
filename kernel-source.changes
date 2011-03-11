@@ -14,6 +14,14 @@ Fri Mar 11 15:04:57 CST 2011 - gaoyang.zyh@taobao.com
 - scripts/package.py:
 
 -------------------------------------------------------------------
+Fri Mar 11 16:28:14 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: remove  squashfs-tools and wireless-tools
+  dependences, almost all online machines may complain the dependency
+  conflict when updating kernel while they don't need these 2
+  packages.
+
+-------------------------------------------------------------------
 Fri Mar 11 14:26:28 CST 2011 - bosong.ly@taobao.com
 
 - move two patches from redhat-kernel-source to patches.taobao:
