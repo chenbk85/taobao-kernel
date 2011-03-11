@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Mar 11 16:51:23 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: missed a path prefix in my last commit.
+
+-------------------------------------------------------------------
 Fri Mar 11 21:39:04 CST 2011 - boyu.mt@taobao.com
 
 - patches.taobao/blktrace-Don-t-output-messages-if-NOTIFY-isn-t-set.patch:
