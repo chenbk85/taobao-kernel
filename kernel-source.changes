@@ -7,6 +7,16 @@ Fri Mar 11 15:04:57 CST 2011 - gaoyang.zyh@taobao.com
 - scripts/package.py:
 
 -------------------------------------------------------------------
+Fri Mar 11 12:07:05 CST 2011 - bosong.ly@taobao.com
+
+- version: upgrade to linux-2.6.32-71.18.2.el6
+
+-------------------------------------------------------------------
+Fri Mar 11 12:03:38 CST 2011 - bosong.ly@taobao.com
+
+- upgrade to linux-2.6.32-71.18.2.el6.
+
+-------------------------------------------------------------------
 Thu Mar 10 22:32:06 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/seq-patch.py: fixed a typo.
@@ -15,6 +25,11 @@ Thu Mar 10 22:32:06 CST 2011 - gaoyang.zyh@taobao.com
 Thu Mar 10 22:31:39 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: enable perf build.
+
+-------------------------------------------------------------------
+Thu Mar 10 22:26:29 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/seq-patch.py: fixed a typo.
 
 -------------------------------------------------------------------
 Thu Mar 10 17:19:38 CST 2011 - bosong.ly@taobao.com

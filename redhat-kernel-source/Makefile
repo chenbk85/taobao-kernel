@@ -359,10 +359,6 @@ ifneq (,$(filter $(ARCH), i386 x86_64))
 CPP_MAJOR       := $(shell $(CPP) -dumpversion 2>&1 | cut -d'.' -f1)
 CPP_MINOR       := $(shell $(CPP) -dumpversion 2>&1 | cut -d'.' -f2)
 CPP_PATCH       := $(shell $(CPP) -dumpversion 2>&1 | cut -d'.' -f3)
-ifeq ($(CPP_PATCH),)
-CPP_PATCH	:= 0
-endif
-
 # Assumes that major, minor, and patch cannot exceed 999
 CPP_VERS        := $(shell expr $(CPP_MAJOR) \* 1000000 + $(CPP_MINOR) \* 1000 \
 		   + $(CPP_PATCH))
@@ -372,7 +368,7 @@ CPP_VERS        := $(shell expr $(CPP_MAJOR) \* 1000000 + $(CPP_MINOR) \* 1000 \
 # gcc version 4.4.4 .
 ifeq ($(KBUILD_EXTMOD),)
 KBUILD_CFLAGS   += $(shell if [ $(CPP_VERS) -ge 4004004 ]; then \
-		   echo "-Wno-array-bounds"; else echo ""; fi)
+		   echo "-Wno-array-bounds -Werror"; else echo ""; fi)
 endif ##($(KBUILD_EXTMOD),)
 endif #(,$(filter $(ARCH), i386 x86_64))
 
