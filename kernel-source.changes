@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Mar 11 20:08:04 CST 2011 - bosong.ly@taobao.com
+
+- Update config files:
+  - config MEGARAID_xxx config as kernel modules
+  - sync lvs kconfig from stardand kconfig
+
+-------------------------------------------------------------------
 Fri Mar 11 16:28:14 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: remove  squashfs-tools and wireless-tools
