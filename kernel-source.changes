@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Mar 11 21:39:04 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/blktrace-Don-t-output-messages-if-NOTIFY-isn-t-set.patch:
+  blktrace: Don't output messages if NOTIFY isn't set.
+
+-------------------------------------------------------------------
 Fri Mar 11 14:26:28 CST 2011 - bosong.ly@taobao.com
 
 - move two patches from redhat-kernel-source to patches.taobao:
