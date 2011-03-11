@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Fri Mar 11 21:39:04 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/blktrace-Don-t-output-messages-if-NOTIFY-isn-t-set.patch:
+  blktrace: Don't output messages if NOTIFY isn't set.
+
+-------------------------------------------------------------------
+
+Fri Mar 11 15:04:57 CST 2011 - gaoyang.zyh@taobao.com
+- Used RHEL's origin changelog in .spec instead of our own one.
+- redhat-kernel-source/redhat-kernel-changelog:
+- rpm/kernel.spec.in:
+- scripts/mkspec.py:
+- scripts/package.py:
+
+-------------------------------------------------------------------
+Fri Mar 11 16:28:14 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: remove  squashfs-tools and wireless-tools
+  dependences, almost all online machines may complain the dependency
+  conflict when updating kernel while they don't need these 2
+  packages.
+
+-------------------------------------------------------------------
 Fri Mar 11 16:12:39 CST 2011 - gaoyang.zyh@taobao.com
 - Move redhat-kernel-changelog out of RH Tree.
     - redhat-kernel-changelog:
@@ -7,12 +30,11 @@ Fri Mar 11 16:12:39 CST 2011 - gaoyang.zyh@taobao.com
     - redhat-kernel-source/redhat-kernel-changelog: Delete.
 
 -------------------------------------------------------------------
-Fri Mar 11 15:04:57 CST 2011 - gaoyang.zyh@taobao.com
-- Used RHEL's origin changelog in .spec instead of our own one.
-- redhat-kernel-source/redhat-kernel-changelog:
-- rpm/kernel.spec.in:
-- scripts/mkspec.py:
-- scripts/package.py:
+Fri Mar 11 14:26:28 CST 2011 - bosong.ly@taobao.com
+
+- move two patches from redhat-kernel-source to patches.taobao:
+  - patches.taobao/Makefile_fix_CPP_PATCH_number_assignment_error.patch
+  - patches.taobao/remove_-Werror_for_out-of-tree_modules.patch
 
 -------------------------------------------------------------------
 Fri Mar 11 12:07:05 CST 2011 - bosong.ly@taobao.com
