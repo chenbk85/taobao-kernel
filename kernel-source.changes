@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Mar 11 12:03:38 CST 2011 - bosong.ly@taobao.com
+
+- upgrade to linux-2.6.32-71.18.2.el6.
+
+-------------------------------------------------------------------
 Thu Mar 10 17:19:38 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: remove squashfs-tools and wireless-tools
