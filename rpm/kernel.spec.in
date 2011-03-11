@@ -1132,6 +1132,9 @@ hwcap 0 nosegneg"
       cp -a --parents arch/%{asmarch}/include $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
     fi
     mkdir -p $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/include
+
+    # we copy the Taobao specific change log here
+    cp taobao-kernel.changes $RPM_BUILD_ROOT/lib/modules/$KernelVer/
     cd include
     cp -a acpi config crypto keys linux math-emu media mtd net pcmcia rdma rxrpc scsi sound trace video drm asm-generic $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/include
     asmdir=$(readlink asm)
@@ -1562,6 +1565,7 @@ fi
 /etc/ld.so.conf.d/kernel-%{KVERREL}%{?2:.%{2}}.conf\
 %endif\
 /lib/modules/%{KVERREL}%{?2:.%{2}}/modules.*\
+/lib/modules/%{KVERREL}%{?2:.%{2}}/taobao-kernel.changes\
 %if %{with_dracut}\
 %ghost /boot/initramfs-%{KVERREL}%{?2:.%{2}}.img\
 %else\

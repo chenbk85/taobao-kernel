@@ -174,6 +174,10 @@ if __name__ == "__main__":
 
     BUILD_DIR = os.path.join(WORKING_DIR, BUILD_DIR)
     SOURCE_DIR = os.path.join(WORKING_DIR, "redhat-kernel-source")
+    rh_changelog = os.path.join(SOURCE_DIR, "redhat-kernel-changelog")
+    if not os.path.exists(rh_changelog):
+        print >>sys.stderr, "redhat-kernel-source\redhat-kernel-changelog is missing.\n"
+        sys.exit(1)
 
     try:
         shutil.rmtree(BUILD_DIR)
@@ -234,7 +238,7 @@ if __name__ == "__main__":
     # CLEANFILES=("${CLEANFILES[@]}" "$tmpdir")
 
     os.system("cp -r rpm/ config.conf doc/ %s" % (BUILD_DIR,))
-    changelog = os.path.join(BUILD_DIR, "kernel-source-%s.changes" % (config.VARIANT,))
+    changelog = os.path.join(BUILD_DIR, "taobao-kernel.changes")
     try:
         os.remove(os.path.join(BUILD_DIR, changelog, ".old"))
     except:
@@ -278,7 +282,7 @@ if __name__ == "__main__":
                    mtime = "Wed, 01 Apr 2009 12:00:00 +0200", chdir = tmpdir)
         shutil.rmtree(tmpdir)
     cmd = os.path.join(script_dir, "mkspec.py") + " --patches \"%s\"" % (" ".join([n + ".tar.bz2" for n in all_archives]))  \
-                      + " --configs \"%s\"" % (" ".join(configs), ) + " --changelog %s" % (changelog, ) + " --buildid %s" % \
+                      + " --configs \"%s\"" % (" ".join(configs), ) + " --changelog %s" % (rh_changelog, ) + " --buildid %s" % \
                       (BUILDID,)
     if RELEASE_STRING:
         cmd = cmd + " --release-string %s" % (RELEASE_STRING, )
