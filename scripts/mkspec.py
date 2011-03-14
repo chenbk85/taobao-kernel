@@ -147,9 +147,7 @@ if __name__ == "__main__":
 
     changes = ""
     if changelog:
-        changes = commands.getoutput("%s %s" % ( \
-            os.path.join(script_dir, "convert_changes_to_rpm_changelog"), \
-            changelog))
+        changes = "".join(open(changelog).readlines())
 
     spec_temple = spec_temple.replace("%%CHANGELOG%%", changes)
 

@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Mon Mar 14 14:22:29 CST 2011 - gaoyang.zyh@taobao.com
+
+- Use RHEL's origin changelog in .spec instead of our own one.
+  Taobao's changelog will be copied into /lib/modules/{KVER} instead.
+    - redhat-kernel-changelog:
+    - rpm/kernel.spec.in:
+    - scripts/mkspec.py:
+    - scripts/package.py:
+
+-------------------------------------------------------------------
 Fri Mar 11 21:39:04 CST 2011 - boyu.mt@taobao.com
 
 - patches.taobao/blktrace-Don-t-output-messages-if-NOTIFY-isn-t-set.patch:
