@@ -20,7 +20,7 @@ sort -rn -s -k1,1 | ( while read x commit; do
 	headers=$(echo "$raw" | sed '/^$/Q')
 	msg=$(echo "$raw" | sed '1,/^$/d')
 	ts=$(echo "$headers" | sed -rn 's/^author .*> ([^ ]*) .*/\1/p')
-	date=$(LANG=C TZ=CET date -d @$ts)
+	date=$(LANG=C TZ=Asia/Shanghai date -d @$ts)
 	email=$(echo "$headers" | sed -rn 's/^author .* <(.*)> .*/\1/p')
 
 	if test "$last_email" != "$email" -o "$last_ts" != "$ts"; then
