@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Mar 15 09:40:35 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: two package descriptions sill need the '\'.
+
+-------------------------------------------------------------------
 Mon Mar 14 17:09:05 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: fixed a typo (a redundancy '\')

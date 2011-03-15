@@ -646,8 +646,8 @@ Provides: %{name}%{?1:-%{1}}-debuginfo-%{_target_cpu} = %{version}-%{release}\
 AutoReqProv: no\
 %description -n %{name}%{?1:-%{1}}-debuginfo\
 This package provides debug information for package %{name}%{?1:-%{1}}.\
- This is built from Taobao kernel git repo, whose commit id is
-%%COMMITID%%, based on Redhat %%RHELBASE%%.
+This is built from Taobao kernel git repo, whose commit id is\
+%%COMMITID%%, based on Redhat %%RHELBASE%%.\
 This is required to use SystemTap with %{name}%{?1:-%{1}}-%{KVERREL}.\
 %{expand:%%global debuginfo_args %{?debuginfo_args} -p '/.*/%%{KVERREL}%{?1:\.%{1}}/.*|/.*%%{KVERREL}%{?1:\.%{1}}(\.debug)?' -o debuginfo%{?1}.list}\
 %{nil}
@@ -668,9 +668,9 @@ AutoReqProv: no\
 Requires(pre): /usr/bin/find\
 %description -n kernel%{?variant}%{?1:-%{1}}-devel\
 This package provides kernel headers and makefiles sufficient to build modules\
-against the %{?2:%{2} }kernel package.
- This is built from Taobao kernel git repo, whose commit id is
-%%COMMITID%%, based on Redhat %%RHELBASE%%.
+against the %{?2:%{2} }kernel package.\
+This is built from Taobao kernel git repo, whose commit id is\
+%%COMMITID%%, based on Redhat %%RHELBASE%%.\
 %{nil}
 
 #
