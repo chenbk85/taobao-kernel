@@ -1133,7 +1133,6 @@ hwcap 0 nosegneg"
       cp -a --parents arch/%{asmarch}/include $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
     fi
     mkdir -p $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/include
-
     # we copy the Taobao specific change log here
     cp $RPM_SOURCE_DIR/taobao-kernel.changes $RPM_BUILD_ROOT/lib/modules/$KernelVer/
     cd include

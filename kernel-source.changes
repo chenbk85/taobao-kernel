@@ -10,9 +10,14 @@ Mon Mar 14 17:06:36 CST 2011 - gaoyang.zyh@taobao.com
 - scripts/gitlog2changes: use TZ=Asia/Shanghai instead of CET.
 
 -------------------------------------------------------------------
-Fri Mar 11 16:51:23 CST 2011 - gaoyang.zyh@taobao.com
+Mon Mar 14 14:38:55 CST 2011 - gaoyang.zyh@taobao.com
 
-- rpm/kernel.spec.in: missed a path prefix in my last commit.
+- Use RHEL's origin changelog in .spec instead of our own one.
+  Taobao's changelog will be copied into /lib/modules/{KVER} instead.
+    - redhat-kernel-changelog:
+    - rpm/kernel.spec.in:
+    - scripts/mkspec.py:
+    - scripts/package.py:
 
 -------------------------------------------------------------------
 Fri Mar 11 21:39:04 CST 2011 - boyu.mt@taobao.com
@@ -28,6 +33,18 @@ Fri Mar 11 15:04:57 CST 2011 - gaoyang.zyh@taobao.com
 - rpm/kernel.spec.in:
 - scripts/mkspec.py:
 - scripts/package.py:
+
+-------------------------------------------------------------------
+Fri Mar 11 20:08:04 CST 2011 - bosong.ly@taobao.com
+
+- Update config files:
+  - config MEGARAID_xxx config as kernel modules
+  - sync lvs kconfig from stardand kconfig
+
+-------------------------------------------------------------------
+Fri Mar 11 16:51:23 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: missed a path prefix in my last commit.
 
 -------------------------------------------------------------------
 Fri Mar 11 16:28:14 CST 2011 - bosong.ly@taobao.com
