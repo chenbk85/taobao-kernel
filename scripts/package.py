@@ -244,17 +244,8 @@ if __name__ == "__main__":
     except:
         pass
 
-    if os.path.exists(os.path.join(BUILD_DIR, changelog)):
-        # Is this possible??
-        os.system("cat %s > %s" % (changelog + ".old", changelog))
-    elif using_git:
-    # Todo: we should exclude the commits log for scripts/, as these are rarely
-    # interesting for the users outside of kernel team.
-        os.system("scripts/gitlog2changes HEAD > %s" % (changelog,))
-    else:
-        open(changelog, "w").close()
-
-
+    # os.system("scripts/gitlog2changes HEAD > %s" % (changelog,))
+    shutil.copyfile(os.path.join(WORKING_DIR, "kernel-source.changes"), changelog)
 
     all_archives = sets.Set([x.split("/")[0] for x in refiles])
     for archive in all_archives:
