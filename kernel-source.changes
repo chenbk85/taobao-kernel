@@ -1,8 +1,17 @@
 -------------------------------------------------------------------
-Fri Mar 11 21:39:04 CST 2011 - boyu.mt@taobao.com
+Wed Mar 16 14:43:09 CST 2011 - gaoyang.zyh@taobao.com
 
-- patches.taobao/blktrace-Don-t-output-messages-if-NOTIFY-isn-t-set.patch:
-  blktrace: Don't output messages if NOTIFY isn't set.
+- scripts/package.py: we use kernel-source.changes as taobao-kernel.changes.
+
+-------------------------------------------------------------------
+Mon Mar 14 14:38:55 CST 2011 - gaoyang.zyh@taobao.com
+
+- Use RHEL's origin changelog in .spec instead of our own one.
+  Taobao's changelog will be copied into /lib/modules/{KVER} instead.
+    - redhat-kernel-changelog:
+    - rpm/kernel.spec.in:
+    - scripts/mkspec.py:
+    - scripts/package.py:
 
 -------------------------------------------------------------------
 Fri Mar 11 20:08:04 CST 2011 - bosong.ly@taobao.com
@@ -10,6 +19,33 @@ Fri Mar 11 20:08:04 CST 2011 - bosong.ly@taobao.com
 - Update config files:
   - config MEGARAID_xxx config as kernel modules
   - sync lvs kconfig from stardand kconfig
+
+-------------------------------------------------------------------
+Tue Mar 15 09:40:35 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: two package descriptions sill need the '\'.
+
+-------------------------------------------------------------------
+Mon Mar 14 17:09:05 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: fixed a typo (a redundancy '\')
+- scripts/gitlog2changes: use TZ=Asia/Shanghai instead of CET.
+
+-------------------------------------------------------------------
+Mon Mar 14 14:22:29 CST 2011 - gaoyang.zyh@taobao.com
+
+- Use RHEL's origin changelog in .spec instead of our own one.
+  Taobao's changelog will be copied into /lib/modules/{KVER} instead.
+    - redhat-kernel-changelog:
+    - rpm/kernel.spec.in:
+    - scripts/mkspec.py:
+    - scripts/package.py:
+
+-------------------------------------------------------------------
+Fri Mar 11 21:39:04 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/blktrace-Don-t-output-messages-if-NOTIFY-isn-t-set.patch:
+  blktrace: Don't output messages if NOTIFY isn't set.
 
 -------------------------------------------------------------------
 Fri Mar 11 16:28:14 CST 2011 - bosong.ly@taobao.com
