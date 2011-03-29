@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Mar 29 16:33:01 CST 2011 - bosong.ly@taobao.com
+
+- series.conf: disable page cache accouting patch, will re-enable
+  them after re-implemented by trace. 
+
+-------------------------------------------------------------------
 Wed Mar 16 14:37:56 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/package.py: we use kernel-source.changes as taobao-kernel.changes.
