@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Apr 15 20:50:43 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: set CONFIG_BLK_DEV_SD=y
+
+-------------------------------------------------------------------
 Fri Apr 15 18:52:49 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: copy kernel-2.6.32-x86_64.config to kernel-2.6.32-x86_64-lvs.config, 
