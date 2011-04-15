@@ -1,4 +1,74 @@
 -------------------------------------------------------------------
+Fri Apr 15 14:16:02 CST 2011 - bosong.ly@taobao.com
+- Update to linux-2.6.32-71.24.1.el6:
+ - redhat-kernel-source/.gitignore:
+ - redhat-kernel-source/Documentation/sysctl/kernel.txt:
+ - redhat-kernel-source/arch/powerpc/kernel/head_64.S:
+ - redhat-kernel-source/arch/s390/Kconfig.debug:
+ - redhat-kernel-source/arch/s390/crypto/sha_common.c:
+ - redhat-kernel-source/arch/s390/include/asm/crash.h:
+ - redhat-kernel-source/arch/s390/include/asm/page.h:
+ - redhat-kernel-source/arch/s390/include/asm/processor.h:
+ - redhat-kernel-source/arch/s390/kernel/traps.c:
+ - redhat-kernel-source/arch/s390/kernel/vtime.c:
+ - redhat-kernel-source/arch/x86/include/asm/io.h:
+ - redhat-kernel-source/arch/x86/kernel/apic/apic.c:
+ - redhat-kernel-source/arch/x86/kernel/apic/io_apic.c:
+ - redhat-kernel-source/arch/x86/kernel/apic/probe_64.c:
+ - redhat-kernel-source/arch/x86/kernel/crash_dump_64.c:
+ - redhat-kernel-source/arch/x86/kvm/vmx.c:
+ - redhat-kernel-source/arch/x86/kvm/x86.c:
+ - redhat-kernel-source/crypto/signature/key.h:
+ - redhat-kernel-source/drivers/char/virtio_console.c:
+ - redhat-kernel-source/drivers/infiniband/core/cm.c:
+ - redhat-kernel-source/drivers/infiniband/core/cma.c:
+ - redhat-kernel-source/drivers/media/dvb/ttpci/av7110_ca.c:
+ - redhat-kernel-source/drivers/net/cnic.c:
+ - redhat-kernel-source/drivers/net/cxgb3/cxgb3_main.c:
+ - redhat-kernel-source/drivers/net/ixgbe/ixgbe_common.c:
+ - redhat-kernel-source/drivers/net/ixgbe/ixgbe_fcoe.c:
+ - redhat-kernel-source/drivers/net/ixgbe/ixgbe_fcoe.h:
+ - redhat-kernel-source/drivers/net/ixgbe/ixgbe_sriov.c:
+ - redhat-kernel-source/drivers/net/r8169.c:
+ - redhat-kernel-source/drivers/net/virtio_net.c:
+ - redhat-kernel-source/drivers/net/wireless/orinoco/wext.c:
+ - redhat-kernel-source/drivers/pci/dmar.c:
+ - redhat-kernel-source/drivers/pci/quirks.c:
+ - redhat-kernel-source/drivers/scsi/fcoe/fcoe.c:
+ - redhat-kernel-source/drivers/usb/misc/iowarrior.c:
+ - redhat-kernel-source/extract.pub:
+ - redhat-kernel-source/fs/cifs/cifs_dfs_ref.c:
+ - redhat-kernel-source/fs/cifs/cifsproto.h:
+ - redhat-kernel-source/fs/cifs/connect.c:
+ - redhat-kernel-source/fs/cifs/dns_resolve.c:
+ - redhat-kernel-source/fs/cifs/netmisc.c:
+ - redhat-kernel-source/fs/exec.c:
+ - redhat-kernel-source/fs/proc/array.c:
+ - redhat-kernel-source/include/linux/kernel.h:
+ - redhat-kernel-source/include/net/sctp/sm.h:
+ - redhat-kernel-source/include/net/sctp/structs.h:
+ - redhat-kernel-source/kernel.pub:
+ - redhat-kernel-source/kernel.sec:
+ - redhat-kernel-source/kernel/printk.c:
+ - redhat-kernel-source/kernel/sysctl.c:
+ - redhat-kernel-source/kernel/timer.c:
+ - redhat-kernel-source/mm/mmap.c:
+ - redhat-kernel-source/mm/vmalloc.c:
+ - redhat-kernel-source/net/bridge/br_multicast.c:
+ - redhat-kernel-source/net/core/dev.c:
+ - redhat-kernel-source/net/core/ethtool.c:
+ - redhat-kernel-source/net/sctp/input.c:
+ - redhat-kernel-source/net/sctp/sm_sideeffect.c:
+ - redhat-kernel-source/net/sctp/transport.c:
+ - redhat-kernel-source/random_seed:
+ - redhat-kernel-source/security/Kconfig:
+ - redhat-kernel-source/security/commoncap.c:
+ - redhat-kernel-source/temp-i686-debug-final:
+ - redhat-kernel-source/temp-i686-final:
+ - redhat-kernel-source/trustdb.gpg:
+ - redhat-kernel-source/version:
+
+-------------------------------------------------------------------
 Wed Mar 16 14:43:37 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/package.py: we use kernel-source.changes as taobao-kernel.changes.
