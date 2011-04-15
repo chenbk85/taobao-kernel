@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Apr 15 18:32:09 CST 2011 - bosong.ly@taobao.com
+
+- Update config files, sync modification from linux-2.6.32-71.24.1.el6.
+  - kernel-2.6.32-x86_64-debug.config
+  - kernel-2.6.32-x86_64.config
+
+-------------------------------------------------------------------
 Fri Apr 15 16:06:58 CST 2011 - bosong.ly@taobao.com
 
 - redhat-kernel-changelog: remove redundant head "%changelog"
