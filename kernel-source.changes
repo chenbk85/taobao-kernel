@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Apr 15 16:05:59 CST 2011 - bosong.ly@taobao.com
+
+- redhat-kernel-changelog: remove redundant head "%changelog".
+
+-------------------------------------------------------------------
 Fri Apr 15 16:00:11 CST 2011 - bosong.ly@taobao.com
 
 - version: add entry for linux-2.6.32-71.24.1.el6.
