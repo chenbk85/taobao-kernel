@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Apr 15 17:49:29 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: don't use dracut on 5u4 branch by default.
+
+-------------------------------------------------------------------
 Fri Apr 15 16:05:59 CST 2011 - bosong.ly@taobao.com
 
 - redhat-kernel-changelog: remove redundant head "%changelog".
