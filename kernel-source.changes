@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Apr 15 14:18:54 CST 2011 - bosong.ly@taobao.com
+
+- version: add entry for linux-2.6.32-71.24.1.el6.
+
+-------------------------------------------------------------------
 Fri Apr 15 14:16:02 CST 2011 - bosong.ly@taobao.com
 - Update to linux-2.6.32-71.24.1.el6:
  - redhat-kernel-source/.gitignore:
