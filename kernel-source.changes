@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Tue Apr 19 15:26:04 CST 2011 - boyu.mt@taobao.com
+
+Remove the old version of page caches account from tailai.
+The new one will be added in another patch.
+
+- patches.taobao/pagecache_hit_accounting_Kconfig.patch: Delete.
+- patches.taobao/pagecache_hit_accounting_add_func_and_structures.patch:
+  Delete.
+- patches.taobao/pagecache_hit_accounting_add_readpages_accounting.patch:
+  Delete.
+- patches.taobao/pagecache_hit_accounting_mm_add_accouting_for_pagecache.patch:
+  Delete.
+- patches.taobao/pagecache_hit_accounting_sysfs_interface.patch:
+  Delete.
+
+-------------------------------------------------------------------
 Fri Apr 15 20:49:59 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: set CONFIG_BLK_DEV_SD=y
