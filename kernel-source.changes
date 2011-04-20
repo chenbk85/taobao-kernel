@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Apr 20 12:00:58 CST 2011 - boyu.mt@taobao.com
+
+- Update config files.
+- patches.taobao/flashcache.patch:
+Patch ported from flashcache.
+https://github.com/facebook/flashcache.git
+This patch correponding to top commit a21bb2ef.
+
+-------------------------------------------------------------------
 Tue Apr 19 15:31:55 CST 2011 - boyu.mt@taobao.com
 
 The new pagecache hit accounting patches uses trace points.
