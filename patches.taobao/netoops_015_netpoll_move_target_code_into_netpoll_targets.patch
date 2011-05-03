@@ -1086,7 +1086,7 @@ Index: linux-2.6.32-71.24.1.el6/net/core/netpoll_targets.c
 +	WARN_ON(min < 0);
 +	WARN_ON(max < min);
 +
-+	ret = strict_strtol(p, &p, 10);
++	ret = simple_strtol(p, &p, 10);
 +
 +	if (*p && (*p != '\n')) {
 +		printk(KERN_ERR "%s: invalid input\n", nts->subsys_name);
