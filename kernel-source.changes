@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue May  3 12:39:49 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: fix a set of typoes
+  - %%COMMITID%%, based on Redhat %%RHELBASE%%.\
+  + %%COMMITID%%, based on Redhat %%RHELBASE%%.
+
+-------------------------------------------------------------------
 Wed Apr 20 12:00:58 CST 2011 - boyu.mt@taobao.com
 
 - Update config files.
