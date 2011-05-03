@@ -561,7 +561,7 @@ input and output, etc.
 This kernel package is based on Redhat Enterprise Linux 6 plus 
 various patches developed by the engineers in Taobao.com.
 This is built from Taobao kernel git repo, whose commit id is
-%%COMMITID%%, based on Redhat %%RHELBASE%%.\
+%%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 
 %package doc
@@ -588,7 +588,7 @@ header files define structures and constants that are needed for
 building most standard programs and are also needed for rebuilding the
 glibc package.
 This is built from Taobao kernel git repo, whose commit id is
-%%COMMITID%%, based on Redhat %%RHELBASE%%.\
+%%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 %package firmware
 Summary: Firmware files used by the Linux kernel
@@ -670,7 +670,7 @@ Requires(pre): /usr/bin/find\
 This package provides kernel headers and makefiles sufficient to build modules\
 against the %{?2:%{2} }kernel package.
  This is built from Taobao kernel git repo, whose commit id is
-%%COMMITID%%, based on Redhat %%RHELBASE%%.\
+%%COMMITID%%, based on Redhat %%RHELBASE%%.
 %{nil}
 
 #
@@ -701,7 +701,7 @@ Group: System Environment/Kernel\
 This package includes a LVS version of the Linux kernel. It is
 required only on machines for LVS machines.
  This is built from Taobao kernel git repo, whose commit id is
-%%COMMITID%%, based on Redhat %%RHELBASE%%.\
+%%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 Install the kernel-lvs package if your machine uses LVS.
 
@@ -751,7 +751,7 @@ This variant of the kernel has numerous debugging options enabled.
 It should only be installed when trying to gather additional information
 on kernel bugs, as some of these options impact performance noticably.
  This is built from Taobao kernel git repo, whose commit id is
-%%COMMITID%%, based on Redhat %%RHELBASE%%.\
+%%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 
 %define variant_summary A minimal Linux kernel compiled for crash dumps
@@ -761,7 +761,7 @@ This package includes a kdump version of the Linux kernel. It is
 required only on machines which will use the kexec-based kernel crash dump
 mechanism.
  This is built from Taobao kernel git repo, whose commit id is
-%%COMMITID%%, based on Redhat %%RHELBASE%%.\
+%%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 
 %prep
