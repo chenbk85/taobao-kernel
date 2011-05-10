@@ -1,4 +1,74 @@
 -------------------------------------------------------------------
+Wed May 11 02:42:40 CST 2011 - bosong.ly@taobao.com
+
+- Update to linux-2.6.32-71.29.1.el6:
+  - redhat-kernel-changelog:
+  - redhat-kernel-source/arch/x86/kernel/efi_64.c:
+  - redhat-kernel-source/crypto/signature/key.h:
+  - redhat-kernel-source/drivers/char/tty_audit.c:
+  - redhat-kernel-source/drivers/firmware/dcdbas.c:
+  - redhat-kernel-source/drivers/gpu/drm/drm_irq.c:
+  - redhat-kernel-source/drivers/gpu/drm/radeon/r100.c:
+  - redhat-kernel-source/drivers/gpu/drm/radeon/r100_track.h:
+  - redhat-kernel-source/drivers/gpu/drm/radeon/r300.c:
+  - redhat-kernel-source/drivers/gpu/drm/radeon/r300_reg.h:
+  - redhat-kernel-source/drivers/gpu/drm/radeon/reg_srcs/r300:
+  - redhat-kernel-source/drivers/gpu/drm/radeon/reg_srcs/r420:
+  - redhat-kernel-source/drivers/gpu/drm/radeon/reg_srcs/rs600:
+  - redhat-kernel-source/drivers/gpu/drm/radeon/reg_srcs/rv515:
+  - redhat-kernel-source/drivers/infiniband/core/uverbs_cmd.c:
+  - redhat-kernel-source/drivers/media/video/sn9c102/sn9c102_core.c:
+  - redhat-kernel-source/drivers/mfd/ab3100-core.c:
+  - redhat-kernel-source/drivers/net/bonding/bond_alb.c:
+  - redhat-kernel-source/drivers/net/bonding/bond_ipv6.c:
+  - redhat-kernel-source/drivers/net/bonding/bond_main.c:
+  - redhat-kernel-source/drivers/net/ixgbe/Makefile:
+  - redhat-kernel-source/drivers/net/ixgbe/ixgbe.h:
+  - redhat-kernel-source/drivers/net/ixgbe/ixgbe_main.c:
+  - redhat-kernel-source/drivers/net/ixgbe/ixgbe_param.c:
+  - redhat-kernel-source/drivers/pci/pci-acpi.c:
+  - redhat-kernel-source/drivers/pci/pcie/aspm.c:
+  - redhat-kernel-source/drivers/platform/x86/acer-wmi.c:
+  - redhat-kernel-source/drivers/platform/x86/tc1100-wmi.c:
+  - redhat-kernel-source/drivers/scsi/aic94xx/aic94xx_init.c:
+  - redhat-kernel-source/drivers/scsi/device_handler/scsi_dh.c:
+  - redhat-kernel-source/drivers/scsi/megaraid/megaraid_sas.c:
+  - redhat-kernel-source/extract.pub:
+  - redhat-kernel-source/fs/notify/inotify/inotify_fsnotify.c:
+  - redhat-kernel-source/fs/notify/inotify/inotify_user.c:
+  - redhat-kernel-source/fs/proc/array.c:
+  - redhat-kernel-source/fs/xfs/linux-2.6/xfs_ioctl.c:
+  - redhat-kernel-source/fs/xfs/xfs_fsops.c:
+  - redhat-kernel-source/include/drm/drmP.h:
+  - redhat-kernel-source/include/linux/netdevice.h:
+  - redhat-kernel-source/include/linux/pci-aspm.h:
+  - redhat-kernel-source/kernel.pub:
+  - redhat-kernel-source/kernel.sec:
+  - redhat-kernel-source/kernel/exit.c:
+  - redhat-kernel-source/mm/vmscan.c:
+  - redhat-kernel-source/net/8021q/vlan.c:
+  - redhat-kernel-source/net/8021q/vlan_core.c:
+  - redhat-kernel-source/net/8021q/vlan_dev.c:
+  - redhat-kernel-source/net/bluetooth/bnep/sock.c:
+  - redhat-kernel-source/net/bridge/br_input.c:
+  - redhat-kernel-source/net/bridge/netfilter/ebtables.c:
+  - redhat-kernel-source/net/can/bcm.c:
+  - redhat-kernel-source/net/core/dev.c:
+  - redhat-kernel-source/net/dccp/input.c:
+  - redhat-kernel-source/net/ipv4/ip_gre.c:
+  - redhat-kernel-source/net/ipv4/ipip.c:
+  - redhat-kernel-source/net/ipv4/netfilter/ipt_CLUSTERIP.c:
+  - redhat-kernel-source/net/ipv6/sit.c:
+  - redhat-kernel-source/net/sctp/sm_make_chunk.c:
+  - redhat-kernel-source/random_seed:
+  - redhat-kernel-source/security/integrity/ima/ima_policy.c:
+  - redhat-kernel-source/sound/pci/hda/patch_nvhdmi.c:
+  - redhat-kernel-source/sound/usb/caiaq/audio.c:
+  - redhat-kernel-source/sound/usb/caiaq/midi.c:
+  - redhat-kernel-source/trustdb.gpg:
+  - redhat-kernel-source/version:
+
+-------------------------------------------------------------------
 Tue May  3 21:48:04 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/netoops_015_netpoll_move_target_code_into_netpoll_targets.patch:
