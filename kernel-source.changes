@@ -1,7 +1,12 @@
 -------------------------------------------------------------------
+Wed May 11 02:51:29 CST 2011 - bosong.ly@taobao.com
+
+- version: add entry for 2.6.32-71.29.1.el6.
+
+-------------------------------------------------------------------
 Wed May 11 02:49:32 CST 2011 - bosong.ly@taobao.com
 
-- redhat-kernel-sonux-2.6.32-71.29.1.el6:
+- update to 2.6.32-71.29.1.el6:
   - redhat-kernel-changelog:
   - redhat-kernel-source/arch/x86/kernel/efi_64.c:
   - redhat-kernel-source/crypto/signature/key.h:
