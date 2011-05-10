@@ -1,0 +1,44 @@
+From:   Mike Waychison <mikew@google.com>
+Date:   Mon Apr 25 13:48:51 2011 +0800
+Subject: [PATCH 2/24] netconsole: remove unneeded reference counter for netconsole_target.
+Patch-mainline: linux-2.6.32-71.18.1.el6
+
+Signed-off-by: Mike Waychison <mikew@google.com>
+Signed-off-by: Robin Dong <sanbai@taobao.com>
+---
+Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
+===================================================================
+--- linux-2.6.32-71.18.2.el6.orig/drivers/net/netconsole.c	2011-04-19 12:12:20.000000000 +0800
++++ linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c	2011-04-19 12:13:58.000000000 +0800
+@@ -670,7 +670,6 @@
+ 
+ 	spin_lock_irqsave(&target_list_lock, flags);
+ 	list_for_each_entry(nt, &target_list, list) {
+-		netconsole_target_get(nt);
+ 		if (nt->np.dev == dev) {
+ 			switch (event) {
+ 			case NETDEV_CHANGENAME:
+@@ -685,7 +684,6 @@
+ 				break;
+ 			}
+ 		}
+-		netconsole_target_put(nt);
+ 	}
+ 	spin_unlock_irqrestore(&target_list_lock, flags);
+ 	if (event == NETDEV_UNREGISTER || event == NETDEV_BONDING_DESLAVE)
+@@ -714,7 +712,6 @@
+ 
+ 	spin_lock_irqsave(&target_list_lock, flags);
+ 	list_for_each_entry(nt, &target_list, list) {
+-		netconsole_target_get(nt);
+ 		if (nt->enabled && netif_running(nt->np.dev)) {
+ 			/*
+ 			 * We nest this inside the for-each-target loop above
+@@ -730,7 +727,6 @@
+ 				left -= frag;
+ 			}
+ 		}
+-		netconsole_target_put(nt);
+ 	}
+ 	spin_unlock_irqrestore(&target_list_lock, flags);
+ }
