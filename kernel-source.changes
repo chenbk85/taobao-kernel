@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed May 11 02:52:29 CST 2011 - bosong.ly@taobao.com
+
+- redhat-kernel-source/drivers/net/ixgbe/ixgbe_param.c: add missing file
+  when updating to 2.6.32-71.29.1.el6.
+
+-------------------------------------------------------------------
 Wed May 11 02:51:29 CST 2011 - bosong.ly@taobao.com
 
 - version: add entry for 2.6.32-71.29.1.el6.
