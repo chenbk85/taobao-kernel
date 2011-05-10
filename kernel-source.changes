@@ -1,4 +1,67 @@
 -------------------------------------------------------------------
+Wed May 11 02:03:35 CST 2011 - bosong.ly@taobao.com
+
+- merge netoops patch set:
+  - patches.taobao/netoops_001_kmsg_dumper_call_on_oops_and_panics.patch:
+    kmsg_dumper: call on oops and panics.
+  - patches.taobao/netoops_002_netconsole_remove_unneeded_reference_counter.patch:
+    netconsole: remove unneeded reference counter for netconsole_target.
+  - patches.taobao/netoops_003_netconsole_introduce_locking_over_the_netpoll_fields.patch:
+    netconsole: introduce locking over the netpoll fields.
+  - patches.taobao/netoops_004_netconsole_introduce_enabled_state_machine.patch:
+    netconsole: introduce 'enabled" state machine.
+  - patches.taobao/netoops_005_netconsole_call_netpoll_cleanup_in_process_context.patch:
+    netconsole: call netpoll_cleanup() in process context.
+  - patches.taobao/netoops_006_netconsole_wrap_the_list_and_locking_in_a_structure.patch:
+    netconsole: wrap the list and locking in a structrue.
+  - patches.taobao/netoops_007_netconsole_push_configfs_subsystem_into_netpoll_targets.patch:
+    netconsole: push configfs subsystem into netpoll_targets.
+  - patches.taobao/netoops_008_netconsole_move_netdev_notifier_into_netpoll_targets.patch:
+    netconsole: move netdev_notifier into netpoll_targets.
+  - patches.taobao/netoops_009_netconsole_split_out_netpoll_targets_init_exit.patch:
+    netconsole: split out netpoll_targets init/exit.
+  - patches.taobao/netoops_010_netconsole_add_pointer_to_netpoll_targets.patch:
+    netconsole: add pointer to netpoll_targets.
+  - patches.taobao/netoops_011_netconsole_rename_netconsole_target_to_netpoll_target.patch:
+    netconsole: rename netconsole_target -> netpoll_target.
+  - patches.taobao/netoops_012_netconsole_abstract_away_the_subsystem_name.patch:
+    netconsole: abstract away the subsystem name.
+  - patches.taobao/netoops_013_netconsole_move_setting_of_default_ports.patch:
+    netconsole: move setting of default ports.
+  - patches.taobao/netoops_014_netpoll_introduce_netpoll_target_configs.patch:
+    netpoll: introduce netpoll_target configs.
+  - patches.taobao/netoops_015_netpoll_move_target_code_into_netpoll_targets.patch:
+    netpoll: move target code into netpoll_targets.c.
+  - patches.taobao/netoops_016_oops_pass_regs_to_oops_exit.patch:
+    oops: pass pt_regs along to oops_exit.
+  - patches.taobao/netoops_017_kmsg_dumper_pass_pt_regs_along_to_dumpers.patch:
+    kmsg_dumper: pass pt_regs along to dumpers.
+  - patches.taobao/netoops_018_kmsg_dumper_introduce_a_new_soft_dump_reason.patch:
+    kmsg_dumper: introduce a new 'SOFT' dump reason.
+  - patches.taobao/netoops_019_sysrq_add_option_to_soft_dump.patch:
+    sys-rq: add option to soft dump.
+  - patches.taobao/netoops_020_add_core_functionality.patch:
+    netoops: add core functionality.
+  - patches.taobao/netoops_021_add_x86_specific_bits_to_packet_headers.patch:
+    netoops: add x86 specific bits to packet headers.
+  - patches.taobao/netoops_022_add_user_programmable_boot_id.patch:
+    netoops: add user programmable boot id.
+  - patches.taobao/netoops_023_add_a_user_programmable_blob_to_the_netoops_packet.patch:
+    netoops: add a user programmable blob to the netoops_packet.
+  - patches.taobao/netoops_024_add_oom_event.patch: netoops:
+    add OOM event into netoops.
+
+- add series number to pagecache hit accounting patch set.
+  - patches.taobao/pagecache_hit_accounting_001_Kconfig.patch:
+    x86/Kconfig: Add Page Cache Accounting entry.
+  - patches.taobao/pagecache_hit_accounting_002_add_func_and_structures.patch:
+    block: Add functions and data types for Page Cache Accounting.
+  - patches.taobao/pagecache_hit_accounting_003_mm_add_accouting_for_pagecache.patch:
+    mm: Add hit/miss accounting for Page Cache.
+  - patches.taobao/pagecache_hit_accounting_004_add_readpages_accounting.patch:
+    mm: Add readpages accounting.
+
+-------------------------------------------------------------------
 Tue May  3 12:40:58 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: fix a set of typos:
