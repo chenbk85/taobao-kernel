@@ -1,12 +1,4 @@
 -------------------------------------------------------------------
-Wed May 11 11:37:03 CST 2011 - bosong.ly@taobao.com
-
-- patches.taobao/jbd2_Fix_forever_sleeping_process_in_do_get_write_access.patch:
-  jbd2: Fix forever sleeping process in do_get_write_access().
-- patches.taobao/jbd_Fix_forever_sleeping_process_in_do_get_write_access.patch:
-  jbd: Fix forever sleeping process in do_get_write_access().
-
--------------------------------------------------------------------
 Wed May 11 02:55:53 CST 2011 - bosong.ly@taobao.com
 
 - version: add entry for linux-2.6.32-71.29.1.el6.
