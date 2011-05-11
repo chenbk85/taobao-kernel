@@ -74,6 +74,16 @@ Wed May 11 02:42:40 CST 2011 - bosong.ly@taobao.com
   - redhat-kernel-source/version:
 
 -------------------------------------------------------------------
+Fri May  6 22:54:05 CST 2011 - boyu.mt@taobao.com
+
+These 2 fixes will be committed into upstream soon.
+
+- patches.taobao/jbd2_Fix_forever_sleeping_process_in_do_get_write_access.patch:
+  jbd2: Fix forever sleeping process in do_get_write_access().
+- patches.taobao/jbd_Fix_forever_sleeping_process_in_do_get_write_access.patch:
+  jbd: Fix forever sleeping process in do_get_write_access().
+
+-------------------------------------------------------------------
 Tue May  3 21:48:04 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/netoops_015_netpoll_move_target_code_into_netpoll_targets.patch:
@@ -302,6 +312,12 @@ Mon Mar 14 14:38:55 CST 2011 - gaoyang.zyh@taobao.com
     - scripts/package.py:
 
 -------------------------------------------------------------------
+Fri Mar 11 21:39:04 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/blktrace-Don-t-output-messages-if-NOTIFY-isn-t-set.patch:
+  blktrace: Don't output messages if NOTIFY isn't set.
+
+-------------------------------------------------------------------
 Fri Mar 11 20:08:04 CST 2011 - bosong.ly@taobao.com
 
 - Update config files:
@@ -315,12 +331,6 @@ Fri Mar 11 16:28:14 CST 2011 - bosong.ly@taobao.com
   dependences, almost all online machines may complain the dependency
   conflict when updating kernel while they don't need these 2
   packages.
-
--------------------------------------------------------------------
-Fri Mar 11 21:39:04 CST 2011 - boyu.mt@taobao.com
-
-- patches.taobao/blktrace-Don-t-output-messages-if-NOTIFY-isn-t-set.patch:
-  blktrace: Don't output messages if NOTIFY isn't set.
 
 -------------------------------------------------------------------
 Fri Mar 11 14:26:28 CST 2011 - bosong.ly@taobao.com
