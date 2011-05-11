@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed May 11 12:24:30 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: add CONFIG_NETOOPS=m
+
+-------------------------------------------------------------------
 Wed May 11 02:55:53 CST 2011 - bosong.ly@taobao.com
 
 - version: add entry for linux-2.6.32-71.29.1.el6.
