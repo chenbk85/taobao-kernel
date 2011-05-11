@@ -142,6 +142,16 @@ Wed May 11 01:57:32 CST 2011 - bosong.ly@taobao.com
     mm: Add readpages accounting.
 
 -------------------------------------------------------------------
+Fri May  6 22:54:05 CST 2011 - boyu.mt@taobao.com
+
+These 2 fixes will be committed into upstream soon.
+
+- patches.taobao/jbd2_Fix_forever_sleeping_process_in_do_get_write_access.patch:
+  jbd2: Fix forever sleeping process in do_get_write_access().
+- patches.taobao/jbd_Fix_forever_sleeping_process_in_do_get_write_access.patch:
+  jbd: Fix forever sleeping process in do_get_write_access().
+
+-------------------------------------------------------------------
 Tue May  3 12:39:49 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: fix a set of typoes
