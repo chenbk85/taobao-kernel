@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed May 11 12:26:23 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: add CONFIG_NETOOPS=m
+
+-------------------------------------------------------------------
 Wed May 11 02:52:29 CST 2011 - bosong.ly@taobao.com
 
 - redhat-kernel-source/drivers/net/ixgbe/ixgbe_param.c: add missing file
