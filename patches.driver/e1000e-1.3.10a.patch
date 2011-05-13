@@ -8,24 +8,24 @@ is tested with acceptable stable quality and high performance, we backport the d
 
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
- redhat-kernel-source/drivers/net/e1000e/82571.c   | 1035 +++++----
- redhat-kernel-source/drivers/net/e1000e/Makefile  |    5 +-
- redhat-kernel-source/drivers/net/e1000e/defines.h |  881 ++++++-
- redhat-kernel-source/drivers/net/e1000e/e1000.h   |  323 ++--
- redhat-kernel-source/drivers/net/e1000e/es2lan.c  | 1473 -----------
- redhat-kernel-source/drivers/net/e1000e/ethtool.c |  506 +++--
- redhat-kernel-source/drivers/net/e1000e/hw.h      |  578 ++---
- redhat-kernel-source/drivers/net/e1000e/ich8lan.c | 1447 ++++++------
- redhat-kernel-source/drivers/net/e1000e/lib.c     | 2559 -------------------
- redhat-kernel-source/drivers/net/e1000e/netdev.c  | 2708 ++++++++++++++++-----
- redhat-kernel-source/drivers/net/e1000e/param.c   |  129 +-
- redhat-kernel-source/drivers/net/e1000e/phy.c     |  838 +++----
+ drivers/net/e1000e/82571.c   | 1035 +++++----
+ drivers/net/e1000e/Makefile  |    5 +-
+ drivers/net/e1000e/defines.h |  881 ++++++-
+ drivers/net/e1000e/e1000.h   |  323 ++--
+ drivers/net/e1000e/es2lan.c  | 1473 -----------
+ drivers/net/e1000e/ethtool.c |  506 +++--
+ drivers/net/e1000e/hw.h      |  578 ++---
+ drivers/net/e1000e/ich8lan.c | 1447 ++++++------
+ drivers/net/e1000e/lib.c     | 2559 -------------------
+ drivers/net/e1000e/netdev.c  | 2708 ++++++++++++++++-----
+ drivers/net/e1000e/param.c   |  129 +-
+ drivers/net/e1000e/phy.c     |  838 +++----
  12 files changed, 5385 insertions(+), 7097 deletions(-)
 
-diff --git a/redhat-kernel-source/drivers/net/e1000e/82571.c b/redhat-kernel-source/drivers/net/e1000e/82571.c
+diff --git a/drivers/net/e1000e/82571.c b/drivers/net/e1000e/82571.c
 index 02d67d0..90d3b7e 100644
---- a/redhat-kernel-source/drivers/net/e1000e/82571.c
-+++ b/redhat-kernel-source/drivers/net/e1000e/82571.c
+--- a/drivers/net/e1000e/82571.c
++++ b/drivers/net/e1000e/82571.c
 @@ -1,7 +1,7 @@
  /*******************************************************************************
  
@@ -1637,10 +1637,10 @@ index 02d67d0..90d3b7e 100644
 -	.nvm_ops		= &e82571_nvm_ops,
 -};
 -
-diff --git a/redhat-kernel-source/drivers/net/e1000e/Makefile b/redhat-kernel-source/drivers/net/e1000e/Makefile
+diff --git a/drivers/net/e1000e/Makefile b/drivers/net/e1000e/Makefile
 index 360c913..a2eea8c 100644
---- a/redhat-kernel-source/drivers/net/e1000e/Makefile
-+++ b/redhat-kernel-source/drivers/net/e1000e/Makefile
+--- a/drivers/net/e1000e/Makefile
++++ b/drivers/net/e1000e/Makefile
 @@ -32,6 +32,7 @@
  
  obj-$(CONFIG_E1000E) += e1000e.o
@@ -1651,10 +1651,10 @@ index 360c913..a2eea8c 100644
 +
 +
  
-diff --git a/redhat-kernel-source/drivers/net/e1000e/defines.h b/redhat-kernel-source/drivers/net/e1000e/defines.h
+diff --git a/drivers/net/e1000e/defines.h b/drivers/net/e1000e/defines.h
 index a4483d9..e8e3cb1 100644
---- a/redhat-kernel-source/drivers/net/e1000e/defines.h
-+++ b/redhat-kernel-source/drivers/net/e1000e/defines.h
+--- a/drivers/net/e1000e/defines.h
++++ b/drivers/net/e1000e/defines.h
 @@ -1,7 +1,7 @@
  /*******************************************************************************
  
@@ -3117,10 +3117,10 @@ index a4483d9..e8e3cb1 100644
 +
 +
  #endif /* _E1000_DEFINES_H_ */
-diff --git a/redhat-kernel-source/drivers/net/e1000e/e1000.h b/redhat-kernel-source/drivers/net/e1000e/e1000.h
+diff --git a/drivers/net/e1000e/e1000.h b/drivers/net/e1000e/e1000.h
 index 1bc9a1b..a856351 100644
---- a/redhat-kernel-source/drivers/net/e1000e/e1000.h
-+++ b/redhat-kernel-source/drivers/net/e1000e/e1000.h
+--- a/drivers/net/e1000e/e1000.h
++++ b/drivers/net/e1000e/e1000.h
 @@ -1,7 +1,7 @@
  /*******************************************************************************
  
@@ -3722,10 +3722,10 @@ index 1bc9a1b..a856351 100644
 +#define ew32flash(reg, val)	__ew32flash(hw, (reg), (val))
 +
  #endif /* _E1000_H_ */
-diff --git a/redhat-kernel-source/drivers/net/e1000e/es2lan.c b/redhat-kernel-source/drivers/net/e1000e/es2lan.c
+diff --git a/drivers/net/e1000e/es2lan.c b/drivers/net/e1000e/es2lan.c
 deleted file mode 100644
 index e2aa3b7..0000000
---- a/redhat-kernel-source/drivers/net/e1000e/es2lan.c
+--- a/drivers/net/e1000e/es2lan.c
 +++ /dev/null
 @@ -1,1473 +0,0 @@
 -/*******************************************************************************
@@ -5201,10 +5201,10 @@ index e2aa3b7..0000000
 -	.nvm_ops		= &es2_nvm_ops,
 -};
 -
-diff --git a/redhat-kernel-source/drivers/net/e1000e/ethtool.c b/redhat-kernel-source/drivers/net/e1000e/ethtool.c
+diff --git a/drivers/net/e1000e/ethtool.c b/drivers/net/e1000e/ethtool.c
 index 9bc31f8..de2e737 100644
---- a/redhat-kernel-source/drivers/net/e1000e/ethtool.c
-+++ b/redhat-kernel-source/drivers/net/e1000e/ethtool.c
+--- a/drivers/net/e1000e/ethtool.c
++++ b/drivers/net/e1000e/ethtool.c
 @@ -1,7 +1,7 @@
  /*******************************************************************************
  
@@ -6210,10 +6210,10 @@ index 9bc31f8..de2e737 100644
 +	SET_ETHTOOL_OPS(netdev, (struct ethtool_ops *)&e1000_ethtool_ops);
  }
 +#endif /* SIOCETHTOOL */
-diff --git a/redhat-kernel-source/drivers/net/e1000e/hw.h b/redhat-kernel-source/drivers/net/e1000e/hw.h
+diff --git a/drivers/net/e1000e/hw.h b/drivers/net/e1000e/hw.h
 index a2b6475..cb78559 100644
---- a/redhat-kernel-source/drivers/net/e1000e/hw.h
-+++ b/redhat-kernel-source/drivers/net/e1000e/hw.h
+--- a/drivers/net/e1000e/hw.h
++++ b/drivers/net/e1000e/hw.h
 @@ -1,7 +1,7 @@
  /*******************************************************************************
  
@@ -7050,10 +7050,10 @@ index a2b6475..cb78559 100644
 +s32  e1000_read_pcie_cap_reg(struct e1000_hw *hw, u32 reg, u16 *value);
 +
  #endif
-diff --git a/redhat-kernel-source/drivers/net/e1000e/ich8lan.c b/redhat-kernel-source/drivers/net/e1000e/ich8lan.c
+diff --git a/drivers/net/e1000e/ich8lan.c b/drivers/net/e1000e/ich8lan.c
 index 2bdc5c1..c959fc1 100644
---- a/redhat-kernel-source/drivers/net/e1000e/ich8lan.c
-+++ b/redhat-kernel-source/drivers/net/e1000e/ich8lan.c
+--- a/drivers/net/e1000e/ich8lan.c
++++ b/drivers/net/e1000e/ich8lan.c
 @@ -1,7 +1,7 @@
  /*******************************************************************************
  
@@ -9836,10 +9836,10 @@ index 2bdc5c1..c959fc1 100644
 -	.phy_ops		= &ich8_phy_ops,
 -	.nvm_ops		= &ich8_nvm_ops,
 -};
-diff --git a/redhat-kernel-source/drivers/net/e1000e/lib.c b/redhat-kernel-source/drivers/net/e1000e/lib.c
+diff --git a/drivers/net/e1000e/lib.c b/drivers/net/e1000e/lib.c
 deleted file mode 100644
 index 2fa9b36..0000000
---- a/redhat-kernel-source/drivers/net/e1000e/lib.c
+--- a/drivers/net/e1000e/lib.c
 +++ /dev/null
 @@ -1,2559 +0,0 @@
 -/*******************************************************************************
@@ -12401,10 +12401,10 @@ index 2fa9b36..0000000
 -
 -	return 0;
 -}
-diff --git a/redhat-kernel-source/drivers/net/e1000e/netdev.c b/redhat-kernel-source/drivers/net/e1000e/netdev.c
+diff --git a/drivers/net/e1000e/netdev.c b/drivers/net/e1000e/netdev.c
 index fffbc6d..3bf8b7f 100644
---- a/redhat-kernel-source/drivers/net/e1000e/netdev.c
-+++ b/redhat-kernel-source/drivers/net/e1000e/netdev.c
+--- a/drivers/net/e1000e/netdev.c
++++ b/drivers/net/e1000e/netdev.c
 @@ -1,7 +1,7 @@
  /*******************************************************************************
  
@@ -17350,10 +17350,10 @@ index fffbc6d..3bf8b7f 100644
  
 -/* e1000_main.c */
 +/* netdev.c */
-diff --git a/redhat-kernel-source/drivers/net/e1000e/param.c b/redhat-kernel-source/drivers/net/e1000e/param.c
+diff --git a/drivers/net/e1000e/param.c b/drivers/net/e1000e/param.c
 index 7c18b59..2dedad9 100644
---- a/redhat-kernel-source/drivers/net/e1000e/param.c
-+++ b/redhat-kernel-source/drivers/net/e1000e/param.c
+--- a/drivers/net/e1000e/param.c
++++ b/drivers/net/e1000e/param.c
 @@ -1,7 +1,7 @@
  /*******************************************************************************
  
@@ -17634,10 +17634,10 @@ index 7c18b59..2dedad9 100644
 +		adapter->node = node;
 +	}
  }
-diff --git a/redhat-kernel-source/drivers/net/e1000e/phy.c b/redhat-kernel-source/drivers/net/e1000e/phy.c
+diff --git a/drivers/net/e1000e/phy.c b/drivers/net/e1000e/phy.c
 index e471357..6d3e1ed 100644
---- a/redhat-kernel-source/drivers/net/e1000e/phy.c
-+++ b/redhat-kernel-source/drivers/net/e1000e/phy.c
+--- a/drivers/net/e1000e/phy.c
++++ b/drivers/net/e1000e/phy.c
 @@ -1,7 +1,7 @@
  /*******************************************************************************
  
