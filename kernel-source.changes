@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri May 13 20:18:22 CST 2011 - bosong.ly@taobao.com
+
+- patches.driver/e1000e-1.3.10a.patch: backport e1000e-1.3.10a
+  driver to RHEL6 2.6.32 kernel.
+
+-------------------------------------------------------------------
 Wed May 11 12:26:23 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: add CONFIG_NETOOPS=m
