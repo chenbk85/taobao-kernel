@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon May 16 19:29:09 CST 2011 - gaoyang.zyh@taobao.com
+
+- patches.taobao/pci-fix-mmap-addr-check.patch: fix for Bug94041.
+ pci_mmap_fits() didn't handle pci mmap via proc properly.
+
+-------------------------------------------------------------------
 Fri May 13 21:38:16 CST 2011 - bosong.ly@taobao.com
 
 - Refresh patches.driver/e1000e-1.3.10a.patch, last commit
