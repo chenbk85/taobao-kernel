@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu May 19 12:51:10 CST 2011 - bosong.ly@taobao.com
+
+- Merge several ext4 fixes from upstream:
+  - patches.taobao/ext4-Fix-buffer-head-leaks-after-calls-to-ext4_get_inode_loc.diff:
+  - patches.taobao/ext4-Fix-possible-lost-inode-write-in-no-journal-mode.diff: (BF:#91500)
+  - patches.taobao/ext4-Remove-extraneous-newlines-in-ext4_msg-calls.diff:
+  - patches.taobao/ext4-fix-kernel-oops-if-the-journal-superblock-has-a-non-zero-j_errno.diff:
+
+-------------------------------------------------------------------
 Mon May 16 18:13:46 CST 2011 - gaoyang.zyh@taobao.com
 
 - patches.taobao/pci-fix-mmap-addr-check.patch: fix for Bug94041.
