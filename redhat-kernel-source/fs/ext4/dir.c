@@ -83,10 +83,11 @@ int ext4_check_dir_entry(const char *function, struct inode *dir,
 		error_msg = "inode out of bounds";
 
 	if (error_msg != NULL)
-		ext4_error_inode(function, dir,
-			"bad entry in directory: %s - block=%llu"
+		__ext4_error(dir->i_sb, function,
+			"bad entry in directory #%lu: %s - block=%llu"
 			"offset=%u(%u), inode=%u, rec_len=%d, name_len=%d",
-			error_msg, (unsigned long long) bh->b_blocknr,
+			dir->i_ino, error_msg, 
+			(unsigned long long) bh->b_blocknr,     
 			(unsigned) (offset%bh->b_size), offset,
 			le32_to_cpu(de->inode),
 			rlen, de->name_len);
@@ -151,8 +152,9 @@ static int ext4_readdir(struct file *filp,
 		 */
 		if (!bh) {
 			if (!dir_has_error) {
-				EXT4_ERROR_INODE(inode, "directory "
+				ext4_error(sb, "directory #%lu "
 					   "contains a hole at offset %Lu",
+					   inode->i_ino,
 					   (unsigned long long) filp->f_pos);
 				dir_has_error = 1;
 			}
