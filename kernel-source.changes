@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat May 21 14:53:50 CST 2011 - bosong.ly@taobao.com
+
+- Update to RHEL6.1 kernel linux-2.6.32-131.0.15.el6.
+  - Update config files.
+  - redhat-kernel-changelog:
+  - redhat-kernel-source/
+  - redhat-kernel-source/version
+
+-------------------------------------------------------------------
 Thu May 19 12:51:10 CST 2011 - bosong.ly@taobao.com
 
 - Merge several ext4 fixes from upstream:
