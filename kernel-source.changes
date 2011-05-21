@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sat May 21 16:33:06 CST 2011 - bosong.ly@taobao.com
+
+- rebase existing 4 Ext4 fixes to RHEL6.1 linux-2.6.32-131.0.15.el6 kernel.
+  - patches.taobao/ext4-Fix-buffer-head-leaks-after-calls-to-ext4_get_inode_loc.diff
+  - patches.taobao/ext4-Fix-possible-lost-inode-write-in-no-journal-mode.diff
+  - patches.taobao/ext4-Remove-extraneous-newlines-in-ext4_msg-calls.diff
+  - patches.taobao/ext4-fix-kernel-oops-if-the-journal-superblock-has-a-non-zero-j_errno.diff
+  - series.conf: re-enable the above patches.
+
+-------------------------------------------------------------------
 Sat May 21 16:24:57 CST 2011 - bosong.ly@taobao.com
 
 - Rebase jbd/jbd2 fixes to RHEL6.1 linux-2.6.32-131.0.15.el6 kernel.
