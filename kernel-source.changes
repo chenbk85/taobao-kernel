@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sat May 21 17:05:02 CST 2011 - bosong.ly@taobao.com
+
+- rebase netoops patch set to RHEL6.1 linux-2.6.32-131.0.15.el6 kernel.
+  - patches.taobao/netoops_014_netpoll_introduce_netpoll_target_configs.patch
+  - patches.taobao/netoops_016_oops_pass_regs_to_oops_exit.patch
+  - patches.taobao/netoops_017_kmsg_dumper_pass_pt_regs_along_to_dumpers.patch
+  - patches.taobao/netoops_020_add_core_functionality.patch
+  - patches.taobao/netoops_022_add_user_programmable_boot_id.patch
+  - series.conf: re-enable netoops patch set
+
+-------------------------------------------------------------------
 Sat May 21 16:33:06 CST 2011 - bosong.ly@taobao.com
 
 - rebase existing 4 Ext4 fixes to RHEL6.1 linux-2.6.32-131.0.15.el6 kernel.
