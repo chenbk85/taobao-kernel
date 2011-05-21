@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat May 21 16:19:37 CST 2011 - bosong.ly@taobao.com
+
+- rebase flashcache patch to RHEL6.1 linux-2.6.32-131.0.15.el6 kernel.
+  - patches.taobao/flashcache.patch: rebase and fix minor formta complaining
+    by quilt refresh.
+  - series.conf: re-enable patches.taobao/flashcache.patch.
+
+-------------------------------------------------------------------
 Sat May 21 15:58:45 CST 2011 - bosong.ly@taobao.com
 
 - rebase pagecache_hit_accounting patch set to RHEL6.1 linux-2.6.32-131.0.15.el6
