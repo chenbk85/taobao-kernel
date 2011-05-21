@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sat May 21 15:58:45 CST 2011 - bosong.ly@taobao.com
+
+- rebase pagecache_hit_accounting patch set to RHEL6.1 linux-2.6.32-131.0.15.el6
+  kernel.
+  - patches.taobao/pagecache_hit_accounting_002_add_func_and_structures.patch:
+    Refresh.
+  - patches.taobao/pagecache_hit_accounting_003_mm_add_accouting_for_pagecache.patch:
+    Refresh.
+  - patches.taobao/pagecache_hit_accounting_004_add_readpages_accounting.patch:
+    Refresh.
+  - series.conf: re-enable pagecache_hit_accounting patch set.
+
+-------------------------------------------------------------------
 Sat May 21 15:31:19 CST 2011 - bosong.ly@taobao.com
 
 - rebase e1000e-1.3.10a driver to RHEL6.1 linux-2.6.32-131.0.15.el6 kernel.

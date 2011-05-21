@@ -25,10 +25,10 @@ Acked-by:
  create mode 100644 include/trace/events/mm.h
  create mode 100644 kernel/trace/pagecache.c
 
-Index: linux-2.6.32-71.18.2.el6/block/blk-sysfs.c
+Index: linux-2.6.32-131.0.15.el6/block/blk-sysfs.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/block/blk-sysfs.c
-+++ linux-2.6.32-71.18.2.el6/block/blk-sysfs.c
+--- linux-2.6.32-131.0.15.el6.orig/block/blk-sysfs.c
++++ linux-2.6.32-131.0.15.el6/block/blk-sysfs.c
 @@ -6,6 +6,7 @@
  #include <linux/bio.h>
  #include <linux/blkdev.h>
@@ -37,7 +37,7 @@ Index: linux-2.6.32-71.18.2.el6/block/blk-sysfs.c
  
  #include "blk.h"
  
-@@ -497,6 +498,10 @@ int blk_register_queue(struct gendisk *d
+@@ -527,6 +528,10 @@ int blk_register_queue(struct gendisk *d
  	if (ret)
  		return ret;
  
@@ -48,7 +48,7 @@ Index: linux-2.6.32-71.18.2.el6/block/blk-sysfs.c
  	ret = kobject_add(&q->kobj, kobject_get(&dev->kobj), "%s", "queue");
  	if (ret < 0)
  		return ret;
-@@ -511,6 +516,7 @@ int blk_register_queue(struct gendisk *d
+@@ -541,6 +546,7 @@ int blk_register_queue(struct gendisk *d
  		kobject_uevent(&q->kobj, KOBJ_REMOVE);
  		kobject_del(&q->kobj);
  		blk_trace_remove_sysfs(disk_to_dev(disk));
@@ -56,17 +56,17 @@ Index: linux-2.6.32-71.18.2.el6/block/blk-sysfs.c
  		return ret;
  	}
  
-@@ -530,5 +536,6 @@ void blk_unregister_queue(struct gendisk
+@@ -560,5 +566,6 @@ void blk_unregister_queue(struct gendisk
  	kobject_uevent(&q->kobj, KOBJ_REMOVE);
  	kobject_del(&q->kobj);
  	blk_trace_remove_sysfs(disk_to_dev(disk));
 +	pagecache_trace_remove_sysfs(disk_to_dev(disk));
  	kobject_put(&disk_to_dev(disk)->kobj);
  }
-Index: linux-2.6.32-71.18.2.el6/fs/partitions/check.c
+Index: linux-2.6.32-131.0.15.el6/fs/partitions/check.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/fs/partitions/check.c
-+++ linux-2.6.32-71.18.2.el6/fs/partitions/check.c
+--- linux-2.6.32-131.0.15.el6.orig/fs/partitions/check.c
++++ linux-2.6.32-131.0.15.el6/fs/partitions/check.c
 @@ -20,6 +20,7 @@
  #include <linux/ctype.h>
  #include <linux/genhd.h>
@@ -85,10 +85,10 @@ Index: linux-2.6.32-71.18.2.el6/fs/partitions/check.c
  	NULL
  };
  
-Index: linux-2.6.32-71.18.2.el6/include/linux/genhd.h
+Index: linux-2.6.32-131.0.15.el6/include/linux/genhd.h
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/include/linux/genhd.h
-+++ linux-2.6.32-71.18.2.el6/include/linux/genhd.h
+--- linux-2.6.32-131.0.15.el6.orig/include/linux/genhd.h
++++ linux-2.6.32-131.0.15.el6/include/linux/genhd.h
 @@ -85,6 +85,11 @@ struct disk_stats {
  	unsigned long ticks[2];
  	unsigned long io_ticks;
@@ -101,10 +101,10 @@ Index: linux-2.6.32-71.18.2.el6/include/linux/genhd.h
  };
  	
  struct hd_struct {
-Index: linux-2.6.32-71.18.2.el6/include/linux/pagecache_api.h
+Index: linux-2.6.32-131.0.15.el6/include/linux/pagecache_api.h
 ===================================================================
 --- /dev/null
-+++ linux-2.6.32-71.18.2.el6/include/linux/pagecache_api.h
++++ linux-2.6.32-131.0.15.el6/include/linux/pagecache_api.h
 @@ -0,0 +1,18 @@
 +#ifndef PAGECACHE_API_H
 +#define PAGECACHE_API_H
@@ -124,10 +124,10 @@ Index: linux-2.6.32-71.18.2.el6/include/linux/pagecache_api.h
 +
 +#endif /* CONFIG_PAGE_CACHE_ACCT */
 +#endif
-Index: linux-2.6.32-71.18.2.el6/include/trace/events/mm.h
+Index: linux-2.6.32-131.0.15.el6/include/trace/events/mm.h
 ===================================================================
 --- /dev/null
-+++ linux-2.6.32-71.18.2.el6/include/trace/events/mm.h
++++ linux-2.6.32-131.0.15.el6/include/trace/events/mm.h
 @@ -0,0 +1,27 @@
 +#ifndef _TRACE_MM_H
 +#define _TRACE_MM_H
@@ -156,10 +156,10 @@ Index: linux-2.6.32-71.18.2.el6/include/trace/events/mm.h
 +	TP_ARGS(sb, rw));
 +
 +#endif
-Index: linux-2.6.32-71.18.2.el6/kernel/trace/Makefile
+Index: linux-2.6.32-131.0.15.el6/kernel/trace/Makefile
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/kernel/trace/Makefile
-+++ linux-2.6.32-71.18.2.el6/kernel/trace/Makefile
+--- linux-2.6.32-131.0.15.el6.orig/kernel/trace/Makefile
++++ linux-2.6.32-131.0.15.el6/kernel/trace/Makefile
 @@ -20,6 +20,7 @@ endif
  # relied on by ptrace for example:
  #
@@ -168,10 +168,10 @@ Index: linux-2.6.32-71.18.2.el6/kernel/trace/Makefile
  
  obj-$(CONFIG_FUNCTION_TRACER) += libftrace.o
  obj-$(CONFIG_RING_BUFFER) += ring_buffer.o
-Index: linux-2.6.32-71.18.2.el6/kernel/trace/pagecache.c
+Index: linux-2.6.32-131.0.15.el6/kernel/trace/pagecache.c
 ===================================================================
 --- /dev/null
-+++ linux-2.6.32-71.18.2.el6/kernel/trace/pagecache.c
++++ linux-2.6.32-131.0.15.el6/kernel/trace/pagecache.c
 @@ -0,0 +1,192 @@
 +#include <linux/genhd.h>
 +#include <trace/events/mm.h>
