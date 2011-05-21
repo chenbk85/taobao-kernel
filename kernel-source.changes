@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat May 21 16:24:57 CST 2011 - bosong.ly@taobao.com
+
+- Rebase jbd/jbd2 fixes to RHEL6.1 linux-2.6.32-131.0.15.el6 kernel.
+  - patches.taobao/jbd2_Fix_forever_sleeping_process_in_do_get_write_access.patch:
+  - patches.taobao/jbd_Fix_forever_sleeping_process_in_do_get_write_access.patch:
+  - series.conf: re-enable these 2 patches.
+
+-------------------------------------------------------------------
 Sat May 21 16:19:37 CST 2011 - bosong.ly@taobao.com
 
 - rebase flashcache patch to RHEL6.1 linux-2.6.32-131.0.15.el6 kernel.
