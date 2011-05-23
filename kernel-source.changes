@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon May 23 15:04:50 CST 2011 - gaoyang.zyh@taobao.com
+
+- MAINTAINERS: add tailai for email notify.
+
+-------------------------------------------------------------------
 Thu May 19 12:58:27 CST 2011 - bosong.ly@taobao.com
 
 - Merge several ext4 fixes from upstream:
