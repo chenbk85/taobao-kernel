@@ -95,7 +95,7 @@ fi)
 %define with_xen       %{?_with_xen:          1} %{?!_with_xen:          0}
 
 # kernel-doc
-%define with_doc       %{?_without_doc:       0} %{?!_without_doc:       1}
+%define with_doc       %{?_with_doc:       1} %{?!_with_doc:       0}
 # kernel-headers
 %define with_headers   %{?_without_headers:   0} %{?!_without_headers:   1}
 # kernel-lvs

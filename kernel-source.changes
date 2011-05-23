@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon May 23 18:21:53 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: we don't want *-doc packages.
+
+-------------------------------------------------------------------
 Mon May 23 18:16:26 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: add two missing build dependencies.
