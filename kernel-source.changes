@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon May 23 15:36:01 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: remove the 'ifnarch noarch' statement which stops the build of
+	perftool.
+
+-------------------------------------------------------------------
 Mon May 23 15:04:50 CST 2011 - gaoyang.zyh@taobao.com
 
 - MAINTAINERS: add tailai for email notify.

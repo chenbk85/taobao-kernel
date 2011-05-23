@@ -212,7 +212,7 @@ fi)
 %define with_smp 0
 %define with_kdump 0
 %define with_debug 0
-%define with_perf 0
+%define with_perf 0 
 %define with_perftool 0
 %define with_debuginfo 0
 %define with_sparse 0
@@ -264,11 +264,6 @@ fi)
 %define with_debug 0
 %endif
 
-# only package docs noarch
-%ifnarch noarch
-%define with_doc 0
-%define with_perf 0
-%endif
 
 # don't build noarch kernels or headers (duh)
 %ifarch noarch
