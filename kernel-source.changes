@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue May 24 14:43:40 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: update -debug and -lvs kernel config from
+  2.6.32-131.0.15 config.
+
+-------------------------------------------------------------------
 Tue May 24 12:02:41 CST 2011 - bosong.ly@taobao.com
 
 - Update config files from 2.6.32-131.0.15.
