@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue May 24 12:02:41 CST 2011 - bosong.ly@taobao.com
+
+- Update config files from 2.6.32-131.0.15.
+
+-------------------------------------------------------------------
 Sun May 22 19:52:56 CST 2011 - bosong.ly@taobao.com
 
 - version: update version string and commit numbers after all patches rebased.
