@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu May 26 14:06:33 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: asciidoc should be installed from taobao current
+ branch instead of standard rhel repo.
+
+-------------------------------------------------------------------
 Mon May 23 18:21:53 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: we don't want *-doc packages.

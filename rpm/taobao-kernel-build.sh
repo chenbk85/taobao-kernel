@@ -1,6 +1,7 @@
 #!/bin/bash
 ##for check
-sudo yum install xmlto asciidoc rng-utils m4 python26-devel python-devel perl-TimeDate binutils-devel zlib-devel elfutils-libelf-devel -y
+sudo yum -b current -y install asciidoc 
+sudo yum install xmlto rng-utils m4 python26-devel python-devel perl-TimeDate binutils-devel zlib-devel elfutils-libelf-devel -y
 sudo pkill -9 rngd
 sudo rngd -r /dev/urandom
 cd $1
