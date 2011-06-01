@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jun  1 12:01:46 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: if build with_perftool, add xmlto asciidoc
+  to BuildRequires.
+
+-------------------------------------------------------------------
 Tue May 24 14:43:40 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: update -debug and -lvs kernel config from
