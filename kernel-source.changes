@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jun  1 12:04:11 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: if build with_perftool, add xmlto and asciidoc
+  to BuildRequires.
+
+-------------------------------------------------------------------
 Mon May 23 15:04:04 CST 2011 - gaoyang.zyh@taobao.com
 
 - MAINTAINERS: add tailai for email notify.
