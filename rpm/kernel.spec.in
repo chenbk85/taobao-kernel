@@ -479,7 +479,7 @@ BuildRequires: asciidoc
 BuildRequires: sparse >= 0.4.1
 %endif
 %if %{with_perftool}
-BuildRequires: elfutils-libelf-devel zlib-devel binutils-devel
+BuildRequires: elfutils-libelf-devel zlib-devel binutils-devel xmlto asciidoc
 %endif
 %if %{signmodules}
 BuildRequires: gnupg

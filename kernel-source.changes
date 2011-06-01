@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jun  1 12:03:08 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: if build with_perftool, add xmlto and asciidoc
+  to BuildRequires.
+
+-------------------------------------------------------------------
 Thu May 26 14:06:33 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: asciidoc should be installed from taobao current
