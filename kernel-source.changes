@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jun  2 12:27:36 CST 2011 - bosong.ly@taobao.com
+
+- Update config files by RHEL6.1 2.6.32-131.0.15 kernel config.
+
+-------------------------------------------------------------------
 Thu Jun  2 12:18:19 CST 2011 - bosong.ly@taobao.com
 
 - Rebase patches to RHEL6.1 2.6.32-131.0.15 kernel:
