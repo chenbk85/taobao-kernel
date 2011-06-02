@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jun  3 01:31:11 CST 2011 - bosong.ly@taobao.com
+
+- config/kernel-2.6.32-x86_64.config.diff: Delete.
+
+-------------------------------------------------------------------
 Fri Jun  3 00:37:35 CST 2011 - bosong.ly@taobao.com
 
 - Update -debug.conf and -lvs.config:
