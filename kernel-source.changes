@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jun  3 01:11:03 CST 2011 - bosong.ly@taobao.com
+
+- version: update to 2.6.32-131.0.15
+
+-------------------------------------------------------------------
 Fri Jun  3 01:06:18 CST 2011 - bosong.ly@taobao.com
 
 - Rebase Taobao patches against RHEL6.1 2.6.32-131.0.15 kernel.
