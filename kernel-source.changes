@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jun  3 00:37:35 CST 2011 - bosong.ly@taobao.com
+
+- Update -debug.conf and -lvs.config:
+  - enable DRBD config item.
+  - disable SELINUX config item.
+
+-------------------------------------------------------------------
 Fri Jun  3 00:18:41 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/netoops_015_netpoll_move_target_code_into_netpoll_targets.patch:
