@@ -1299,12 +1299,12 @@ Index: linux-2.6.32-71.24.1.el6/net/core/netpoll_targets.c
 +	int i;
 +
 +	for (i = 0; i < ETH_ALEN - 1; i++) {
-+		remote_mac[i] = strict_strtoul(p, &p, 16);
++		remote_mac[i] = simple_strtoul(p, &p, 16);
 +		if (*p != ':')
 +			goto invalid;
 +		p++;
 +	}
-+	remote_mac[ETH_ALEN - 1] = strict_strtoul(p, &p, 16);
++	remote_mac[ETH_ALEN - 1] = simple_strtoul(p, &p, 16);
 +	if (*p && (*p != '\n'))
 +		goto invalid;
 +
