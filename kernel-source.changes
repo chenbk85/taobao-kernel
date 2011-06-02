@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Thu Jun  2 18:40:39 CST 2011 - bosong.ly@taobao.com
+
+- rpm/taobao-kernel-build.sh:
+	-sudo yum install m4 python-devel perl-TimeDate binutils-devel zlib-devel elfutils-libelf-devel -y
+	+sudo yum -b current install asciidoc -y
+	+sudo yum install xmlto m4 python-devel perl-TimeDate binutils-devel zlib-devel elfutils-libelf-devel -y
+- scripts/gitlog2changes:
+	- date=$(LANG=C TZ=CET date -d @$ts)
+	+ date=$(LANG=C TZ=Asia/Shanghai date -d @$ts)
+
+-------------------------------------------------------------------
 Thu Jun  2 11:25:50 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: remove SELINUX config items.
