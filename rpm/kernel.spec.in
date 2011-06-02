@@ -557,7 +557,7 @@ BuildRoot: %{_tmppath}/kernel-%{KVERREL}-root
 The kernel package contains the Linux kernel (vmlinuz), the core of any
 Linux operating system.  The kernel handles the basic functions
 of the operating system: memory allocation, process allocation, device
-input and output, etc. 
+input and output, etc.
 This kernel package is based on Redhat Enterprise Linux 6 plus 
 various patches developed by the engineers in Taobao.com.
 This is built from Taobao kernel git repo, whose commit id is
