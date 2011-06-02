@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jun  2 11:25:50 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: remove SELINUX config items.
+
+-------------------------------------------------------------------
 Wed Jun  1 19:58:02 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: add patches.driver/drbd-8.3.10.patch
