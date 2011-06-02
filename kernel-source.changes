@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jun  2 18:15:17 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: add patches.driver/drbd-8.3.10.patch
+- patches.driver/drbd-8.3.10.patch: backport drbd 8.3.10 to
+  RHEL6 2.6.32 kernel.
+
+-------------------------------------------------------------------
 Thu Jun  2 12:27:36 CST 2011 - bosong.ly@taobao.com
 
 - Update config files by RHEL6.1 2.6.32-131.0.15 kernel config.
