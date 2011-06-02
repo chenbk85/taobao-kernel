@@ -25,11 +25,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  fs/ext4/inode.c |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: linux-2.6.32-71.29.1.el6/fs/ext4/inode.c
+Index: linux-2.6.32-131.0.15.el6/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-71.29.1.el6.orig/fs/ext4/inode.c
-+++ linux-2.6.32-71.29.1.el6/fs/ext4/inode.c
-@@ -5418,7 +5418,7 @@ int ext4_write_inode(struct inode *inode
+--- linux-2.6.32-131.0.15.el6.orig/fs/ext4/inode.c
++++ linux-2.6.32-131.0.15.el6/fs/ext4/inode.c
+@@ -5463,7 +5463,7 @@ int ext4_write_inode(struct inode *inode
  	} else {
  		struct ext4_iloc iloc;
  

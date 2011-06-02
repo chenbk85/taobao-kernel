@@ -23,11 +23,11 @@ Acked-by:
 
   This patch is in my tree to be submitted during the next merge window.
 
-diff --git a/fs/jbd/commit.c b/fs/jbd/commit.c
-index 69b1804..f486ff6 100644
---- a/fs/jbd/commit.c
-+++ b/fs/jbd/commit.c
-@@ -746,8 +746,13 @@ wait_for_iobuf:
+Index: linux-2.6.32-131.0.15.el6/fs/jbd/commit.c
+===================================================================
+--- linux-2.6.32-131.0.15.el6.orig/fs/jbd/commit.c
++++ linux-2.6.32-131.0.15.el6/fs/jbd/commit.c
+@@ -723,8 +723,13 @@ wait_for_iobuf:
                     required. */
  		JBUFFER_TRACE(jh, "file as BJ_Forget");
  		journal_file_buffer(jh, commit_transaction, BJ_Forget);
