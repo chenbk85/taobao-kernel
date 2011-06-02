@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu Jun  2 19:09:48 CST 2011 - bosong.ly@taobao.com
+
+- Update to RHEL6.1 kernel linux-2.6.32-131.0.15.el6.
+  - Update config files.
+  - redhat-kernel-changelog:
+  - redhat-kernel-source/
+  - redhat-kernel-source/version
+
+-------------------------------------------------------------------
 Wed Jun  1 12:03:08 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: if build with_perftool, add xmlto and asciidoc
