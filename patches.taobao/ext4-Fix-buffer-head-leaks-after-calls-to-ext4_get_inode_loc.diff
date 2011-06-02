@@ -19,11 +19,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  fs/ext4/inode.c   |    1 +
  2 files changed, 2 insertions(+), 0 deletions(-)
 
-Index: linux-2.6.32-71.29.1.el6/fs/ext4/extents.c
+Index: linux-2.6.32-131.0.15.el6/fs/ext4/extents.c
 ===================================================================
---- linux-2.6.32-71.29.1.el6.orig/fs/ext4/extents.c
-+++ linux-2.6.32-71.29.1.el6/fs/ext4/extents.c
-@@ -3891,6 +3891,7 @@ static int ext4_xattr_fiemap(struct inod
+--- linux-2.6.32-131.0.15.el6.orig/fs/ext4/extents.c
++++ linux-2.6.32-131.0.15.el6/fs/ext4/extents.c
+@@ -3979,6 +3979,7 @@ static int ext4_xattr_fiemap(struct inod
  		physical += offset;
  		length = EXT4_SB(inode->i_sb)->s_inode_size - offset;
  		flags |= FIEMAP_EXTENT_DATA_INLINE;
@@ -31,11 +31,11 @@ Index: linux-2.6.32-71.29.1.el6/fs/ext4/extents.c
  	} else { /* external block */
  		physical = EXT4_I(inode)->i_file_acl << blockbits;
  		length = inode->i_sb->s_blocksize;
-Index: linux-2.6.32-71.29.1.el6/fs/ext4/inode.c
+Index: linux-2.6.32-131.0.15.el6/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-71.29.1.el6.orig/fs/ext4/inode.c
-+++ linux-2.6.32-71.29.1.el6/fs/ext4/inode.c
-@@ -5429,6 +5429,7 @@ int ext4_write_inode(struct inode *inode
+--- linux-2.6.32-131.0.15.el6.orig/fs/ext4/inode.c
++++ linux-2.6.32-131.0.15.el6/fs/ext4/inode.c
+@@ -5474,6 +5474,7 @@ int ext4_write_inode(struct inode *inode
  				   (unsigned long long)iloc.bh->b_blocknr);
  			err = -EIO;
  		}
