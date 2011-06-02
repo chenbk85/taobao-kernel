@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jun  3 00:40:04 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/netoops_015_netpoll_move_target_code_into_netpoll_targets.patch:
+  replace strict_strtoul() by simple_strtoul().
+
+-------------------------------------------------------------------
 Thu Jun  2 18:36:45 CST 2011 - bosong.ly@taobao.com
 
 - Update config files:
