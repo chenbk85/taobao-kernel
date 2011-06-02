@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jun  2 18:36:45 CST 2011 - bosong.ly@taobao.com
+
+- Update config files:
+  - Enable DRBD config.
+  - Remove SELINUX config.
+
+-------------------------------------------------------------------
 Thu Jun  2 18:19:52 CST 2011 - bosong.ly@taobao.com
 
 - version: add version string for 2.6.32-131.0.15.el6
