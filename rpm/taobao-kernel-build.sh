@@ -1,6 +1,7 @@
 #!/bin/bash
 ##for check
-sudo yum install m4 python-devel perl-TimeDate binutils-devel zlib-devel elfutils-libelf-devel -y
+sudo yum -b current install asciidoc -y
+sudo yum install xmlto m4 python-devel perl-TimeDate binutils-devel zlib-devel elfutils-libelf-devel -y
 cd $1
 echo Starting "$BUILD_NUMBER"th Taobao-kernel build.
 python ./scripts/package.py --buildid $BUILD_NUMBER

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jun  3 10:20:02 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: install xmlto and asciidoc before building.
+
+-------------------------------------------------------------------
 Thu Jun  2 11:39:19 CST 2011 - bosong.ly@taobao.com
 
 - Update to RHEL6.1 2.6.32-131.0.15 kernel.
