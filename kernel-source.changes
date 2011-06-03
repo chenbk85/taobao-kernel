@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jun  3 17:43:48 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: sync modification of 5u and master branch.
+
+-------------------------------------------------------------------
 Fri Jun  3 17:08:11 CST 2011 - bosong.ly@taobao.com
 
 - version: add item for 2.6.32-131.2.1
