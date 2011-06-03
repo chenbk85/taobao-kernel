@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jun  3 16:57:37 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: Add packager as gaoyang.zyh@taobao.com
+- rpm/taobao-kernel-build.sh: sync from 6u modification.
+
+-------------------------------------------------------------------
 Fri Jun  3 16:46:58 CST 2011 - bosong.ly@taobao.com
 
 - Update to linux-2.6.32-131.2.1.el6
