@@ -179,6 +179,7 @@ if __name__ == "__main__":
         print >>sys.stderr, "redhat-kernel-source\redhat-kernel-changelog is missing.\n"
         sys.exit(1)
 
+
     try:
         shutil.rmtree(BUILD_DIR)
     except:

@@ -677,7 +677,7 @@ Requires(pre): /usr/bin/find\
 %description -n kernel%{?variant}%{?1:-%{1}}-devel\
 This package provides kernel headers and makefiles sufficient to build modules\
 against the %{?2:%{2} }kernel package.\
- This is built from Taobao kernel git repo, whose commit id is\
+This is built from Taobao kernel git repo, whose commit id is\
 %%COMMITID%%, based on Redhat %%RHELBASE%%.
 %{nil}
 
@@ -688,8 +688,8 @@ against the %{?2:%{2} }kernel package.\
 #
 %define kernel_variant_package(n:) \
 %package %1\
-Packager: gaoyang.zyh\
 Summary: %{variant_summary}\
+Packager: gaoyang.zyh\
 Group: System Environment/Kernel\
 %kernel_reqprovconf\
 %{expand:%%kernel_devel_package %1 %{!?-n:%1}%{?-n:%{-n*}}}\

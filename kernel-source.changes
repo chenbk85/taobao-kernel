@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Fri Jun  3 17:17:02 CST 2011 - bosong.ly@taobao.com
+
+- Update to linux-2.6.32-131.2.1.el6
+  - Update config files.
+  - redhat-kernel-changelog
+  - redhat-kernel-source/
+  - redhat-kernel-source/version
+
+-------------------------------------------------------------------
 Sat Jun  4 16:17:37 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: add Packager to spec.
