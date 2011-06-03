@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jun  3 17:44:31 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: sync modification of 5u.
+- redhat-kernel-source/.mailmap: Delete useless file
+
+-------------------------------------------------------------------
 Sat Jun  4 11:42:17 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/seq-patch.py: check if quilt exists before call it.

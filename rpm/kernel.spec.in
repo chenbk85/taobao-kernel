@@ -95,7 +95,7 @@ fi)
 %define with_xen       %{?_with_xen:          1} %{?!_with_xen:          0}
 
 # kernel-doc
-%define with_doc       %{?_without_doc:       0} %{?!_without_doc:       1}
+%define with_doc       %{?_with_doc:       1} %{?!_with_doc:       0}
 # kernel-headers
 %define with_headers   %{?_without_headers:   0} %{?!_without_headers:   1}
 # kernel-lvs
@@ -1142,6 +1142,7 @@ hwcap 0 nosegneg"
       cp -a --parents arch/%{asmarch}/include $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
     fi
     mkdir -p $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/include
+    # we copy the Taobao specific change log here
     cp $RPM_SOURCE_DIR/taobao-kernel.changes $RPM_BUILD_ROOT/lib/modules/$KernelVer/
     cd include
     cp -a acpi config crypto keys linux math-emu media mtd net pcmcia rdma rxrpc scsi sound trace video drm asm-generic $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/include
