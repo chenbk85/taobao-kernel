@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jun  4 02:20:47 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: fix missing '\' which breaks rpmbuild command.
+
+-------------------------------------------------------------------
 Fri Jun  3 17:44:31 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: sync modification of 5u.
