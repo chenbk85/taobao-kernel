@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jun  4 02:04:52 CST 2011 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: Fix missing '\' which brreaks rpmbuild command.
+
+-------------------------------------------------------------------
 Fri Jun  3 17:43:15 CST 2011 - bosong.ly@taobao.com
 
 - redhat-kernel-source/.mailmap: Delete useless file
