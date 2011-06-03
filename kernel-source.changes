@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jun  3 17:43:15 CST 2011 - bosong.ly@taobao.com
+
+- redhat-kernel-source/.mailmap: Delete useless file
+
+-------------------------------------------------------------------
 Fri Jun  3 17:17:59 CST 2011 - bosong.ly@taobao.com
 
 - version: add item for 2.6.32-131.2.1
