@@ -1,8 +1,18 @@
 -------------------------------------------------------------------
+Sat Jun  4 11:42:17 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/seq-patch.py: check if quilt exists before call it.
+
+-------------------------------------------------------------------
 Fri Jun  3 16:57:37 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: Add packager as gaoyang.zyh@taobao.com
 - rpm/taobao-kernel-build.sh: sync from 6u modification.
+
+-------------------------------------------------------------------
+Fri Jun  3 16:51:36 CST 2011 - bosong.ly@taobao.com
+
+- version: Add item for linux-2.6.32-131.2.1
 
 -------------------------------------------------------------------
 Fri Jun  3 16:46:58 CST 2011 - bosong.ly@taobao.com
@@ -12,11 +22,6 @@ Fri Jun  3 16:46:58 CST 2011 - bosong.ly@taobao.com
   - redhat-kernel-changelog
   - redhat-kernel-source/
   - redhat-kernel-source/version
-
--------------------------------------------------------------------
-Sat Jun  4 11:42:17 CST 2011 - gaoyang.zyh@taobao.com
-
-- scripts/seq-patch.py: check if quilt exists before call it.
 
 -------------------------------------------------------------------
 Fri Jun  3 01:31:11 CST 2011 - bosong.ly@taobao.com
