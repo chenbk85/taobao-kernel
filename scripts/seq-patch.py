@@ -244,7 +244,12 @@ if __name__ == "__main__":
     os.symlink(os.path.join(WORKING_DIR, "scripts", "run_oldconfig.py"), \
                os.path.join(PATCH_DIR, "run_oldconfig.py"))
 
-    subprocess.check_output(["quilt", "upgrade"])
+    try:
+        subprocess.check_output(["quilt", "upgrade"])
+    except:
+        print >>sys.stderr, "\nDo you have quilt?\n"
+        sys.exit(1)
+
     quilt_run = subprocess.Popen(["quilt", "push", "-a"])
     ret = quilt_run.wait()
     if ret:
