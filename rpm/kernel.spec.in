@@ -566,6 +566,7 @@ This is built from Taobao kernel git repo, whose commit id is
 
 %package doc
 Summary: Various documentation bits found in the kernel source
+Packager: gaoyang.zyh
 Group: Documentation
 %description doc
 This package contains documentation files from the kernel
@@ -578,6 +579,7 @@ options that can be passed to Linux kernel modules at load time.
 
 %package headers
 Summary: Header files for the Linux kernel for use by glibc
+Packager: gaoyang.zyh
 Group: Development/System
 Obsoletes: glibc-kernheaders
 Provides: glibc-kernheaders = 3.0-46
@@ -592,6 +594,7 @@ This is built from Taobao kernel git repo, whose commit id is
 
 %package firmware
 Summary: Firmware files used by the Linux kernel
+Packager: gaoyang.zyh
 Group: Development/System
 # This is... complicated.
 # Look at the WHENCE file.
@@ -608,6 +611,7 @@ This is built from Taobao kernel git repo, whose commit id is
 
 %package bootwrapper
 Summary: Boot wrapper files for generating combined kernel + initrd images
+Packager: gaoyang.zyh
 Group: Development/System
 Requires: gzip
 %description bootwrapper
@@ -616,6 +620,7 @@ files combining both kernel and initial ramdisk.
 
 %package debuginfo-common-%{_target_cpu}
 Summary: Kernel source files used by %{name}-debuginfo packages
+Packager: gaoyang.zyh
 Group: Development/Debug
 %description debuginfo-common-%{_target_cpu}
 This package is required by %{name}-debuginfo subpackages.
@@ -625,6 +630,7 @@ It provides the kernel source files common to all builds.
 
 %package -n perf
 Summary: Performance monitoring for the Linux kernel
+Packager: gaoyang.zyh
 Group: Development/System
 License: GPLv2
 %description -n perf
@@ -640,6 +646,7 @@ shipped in each kernel image subpackage.
 %define kernel_debuginfo_package() \
 %package %{?1:%{1}-}debuginfo\
 Summary: Debug information for package %{name}%{?1:-%{1}}\
+Packager: gaoyang.zyh
 Group: Development/Debug\
 Requires: %{name}-debuginfo-common-%{_target_cpu} = %{version}-%{release}\
 Provides: %{name}%{?1:-%{1}}-debuginfo-%{_target_cpu} = %{version}-%{release}\
@@ -659,6 +666,7 @@ This is required to use SystemTap with %{name}%{?1:-%{1}}-%{KVERREL}.\
 %define kernel_devel_package() \
 %package %{?1:%{1}-}devel\
 Summary: Development package for building kernel modules to match the %{?2:%{2} }kernel\
+Packager: gaoyang.zyh
 Group: System Environment/Kernel\
 Provides: kernel%{?1:-%{1}}-devel-%{_target_cpu} = %{version}-%{release}\
 Provides: kernel-devel-%{_target_cpu} = %{version}-%{release}%{?1:.%{1}}\
@@ -680,6 +688,7 @@ against the %{?2:%{2} }kernel package.\
 #
 %define kernel_variant_package(n:) \
 %package %1\
+Packager: gaoyang.zyh\
 Summary: %{variant_summary}\
 Group: System Environment/Kernel\
 %kernel_reqprovconf\
