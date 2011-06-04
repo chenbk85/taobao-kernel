@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jun  4 16:19:18 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: add Packager to spec.
+
+-------------------------------------------------------------------
 Sat Jun  4 10:38:39 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/seq-patch.py: check if quilt exists before call it.
