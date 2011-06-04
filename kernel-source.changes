@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jun  4 10:38:39 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/seq-patch.py: check if quilt exists before call it.
+
+-------------------------------------------------------------------
 Fri Jun  3 01:57:30 CST 2011 - bosong.ly@taobao.com
 
 - minor fixes synced from 5u branch:
