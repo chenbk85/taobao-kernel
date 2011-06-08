@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jun  9 01:12:31 CST 2011 - bosong.ly@taobao.com
+
+- Update config files for linux virtual server configuration.
+  -CONFIG_IP_VS_TAB_BITS=12
+  +CONFIG_IP_VS_TAB_BITS=20
+
+-------------------------------------------------------------------
 Sat Jun  4 02:20:47 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: fix missing '\' which breaks rpmbuild command.
