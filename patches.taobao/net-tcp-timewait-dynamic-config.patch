@@ -15,10 +15,10 @@ the range of the legal value is <1,600> second(s)
 Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: linux-2.6.32-131.0.15.el6/include/linux/sysctl.h
+Index: linux-2.6.32-131.2.1.el6/include/linux/sysctl.h
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/include/linux/sysctl.h
-+++ linux-2.6.32-131.0.15.el6/include/linux/sysctl.h
+--- linux-2.6.32-131.2.1.el6.orig/include/linux/sysctl.h
++++ linux-2.6.32-131.2.1.el6/include/linux/sysctl.h
 @@ -434,6 +434,7 @@ enum
  	NET_TCP_ALLOWED_CONG_CONTROL=123,
  	NET_TCP_MAX_SSTHRESH=124,
@@ -36,10 +36,10 @@ Index: linux-2.6.32-131.0.15.el6/include/linux/sysctl.h
  extern int proc_dointvec_userhz_jiffies(struct ctl_table *, int,
  					void __user *, size_t *, loff_t *);
  extern int proc_dointvec_ms_jiffies(struct ctl_table *, int,
-Index: linux-2.6.32-131.0.15.el6/include/net/tcp.h
+Index: linux-2.6.32-131.2.1.el6/include/net/tcp.h
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/include/net/tcp.h
-+++ linux-2.6.32-131.0.15.el6/include/net/tcp.h
+--- linux-2.6.32-131.2.1.el6.orig/include/net/tcp.h
++++ linux-2.6.32-131.2.1.el6/include/net/tcp.h
 @@ -203,6 +203,7 @@ extern int sysctl_tcp_timestamps;
  extern int sysctl_tcp_window_scaling;
  extern int sysctl_tcp_sack;
@@ -48,10 +48,10 @@ Index: linux-2.6.32-131.0.15.el6/include/net/tcp.h
  extern int sysctl_tcp_keepalive_time;
  extern int sysctl_tcp_keepalive_probes;
  extern int sysctl_tcp_keepalive_intvl;
-Index: linux-2.6.32-131.0.15.el6/kernel/sysctl_check.c
+Index: linux-2.6.32-131.2.1.el6/kernel/sysctl_check.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/kernel/sysctl_check.c
-+++ linux-2.6.32-131.0.15.el6/kernel/sysctl_check.c
+--- linux-2.6.32-131.2.1.el6.orig/kernel/sysctl_check.c
++++ linux-2.6.32-131.2.1.el6/kernel/sysctl_check.c
 @@ -323,6 +323,7 @@ static const struct trans_ctl_table tran
  	{ NET_IPV4_TCP_RETRIES1,		"tcp_retries1" },
  	{ NET_IPV4_TCP_RETRIES2,		"tcp_retries2" },
@@ -68,10 +68,10 @@ Index: linux-2.6.32-131.0.15.el6/kernel/sysctl_check.c
  			    (table->proc_handler == proc_dointvec_userhz_jiffies) ||
  			    (table->proc_handler == proc_dointvec_ms_jiffies) ||
  			    (table->proc_handler == proc_doulongvec_minmax) ||
-Index: linux-2.6.32-131.0.15.el6/net/ipv4/sysctl_net_ipv4.c
+Index: linux-2.6.32-131.2.1.el6/net/ipv4/sysctl_net_ipv4.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/net/ipv4/sysctl_net_ipv4.c
-+++ linux-2.6.32-131.0.15.el6/net/ipv4/sysctl_net_ipv4.c
+--- linux-2.6.32-131.2.1.el6.orig/net/ipv4/sysctl_net_ipv4.c
++++ linux-2.6.32-131.2.1.el6/net/ipv4/sysctl_net_ipv4.c
 @@ -25,6 +25,8 @@ static int zero;
  static int tcp_retr1_max = 255;
  static int ip_local_port_range_min[] = { 1, 1 };
@@ -98,10 +98,10 @@ Index: linux-2.6.32-131.0.15.el6/net/ipv4/sysctl_net_ipv4.c
  #ifdef CONFIG_SYN_COOKIES
  	{
  		.ctl_name	= NET_TCP_SYNCOOKIES,
-Index: linux-2.6.32-131.0.15.el6/net/ipv4/tcp.c
+Index: linux-2.6.32-131.2.1.el6/net/ipv4/tcp.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/net/ipv4/tcp.c
-+++ linux-2.6.32-131.0.15.el6/net/ipv4/tcp.c
+--- linux-2.6.32-131.2.1.el6.orig/net/ipv4/tcp.c
++++ linux-2.6.32-131.2.1.el6/net/ipv4/tcp.c
 @@ -277,6 +277,9 @@
  
  int sysctl_tcp_fin_timeout __read_mostly = TCP_FIN_TIMEOUT;
@@ -124,10 +124,10 @@ Index: linux-2.6.32-131.0.15.el6/net/ipv4/tcp.c
  			} else {
  				tcp_time_wait(sk, TCP_FIN_WAIT2, tmo);
  				goto out;
-Index: linux-2.6.32-131.0.15.el6/net/ipv4/tcp_input.c
+Index: linux-2.6.32-131.2.1.el6/net/ipv4/tcp_input.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/net/ipv4/tcp_input.c
-+++ linux-2.6.32-131.0.15.el6/net/ipv4/tcp_input.c
+--- linux-2.6.32-131.2.1.el6.orig/net/ipv4/tcp_input.c
++++ linux-2.6.32-131.2.1.el6/net/ipv4/tcp_input.c
 @@ -5762,8 +5762,8 @@ int tcp_rcv_state_process(struct sock *s
  					}
  
@@ -139,10 +139,10 @@ Index: linux-2.6.32-131.0.15.el6/net/ipv4/tcp_input.c
  					} else if (th->fin || sock_owned_by_user(sk)) {
  						/* Bad case. We could lose such FIN otherwise.
  						 * It is not a big problem, but it looks confusing
-Index: linux-2.6.32-131.0.15.el6/net/ipv4/tcp_minisocks.c
+Index: linux-2.6.32-131.2.1.el6/net/ipv4/tcp_minisocks.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/net/ipv4/tcp_minisocks.c
-+++ linux-2.6.32-131.0.15.el6/net/ipv4/tcp_minisocks.c
+--- linux-2.6.32-131.2.1.el6.orig/net/ipv4/tcp_minisocks.c
++++ linux-2.6.32-131.2.1.el6/net/ipv4/tcp_minisocks.c
 @@ -163,10 +163,10 @@ kill_with_rst:
  		    tcp_death_row.sysctl_tw_recycle && tcptw->tw_ts_recent_stamp &&
  		    tcp_v4_tw_remember_stamp(tw))
@@ -205,10 +205,10 @@ Index: linux-2.6.32-131.0.15.el6/net/ipv4/tcp_minisocks.c
  		inet_twsk_put(tw);
  	} else {
  		/* Sorry, if we're out of memory, just CLOSE this
-Index: linux-2.6.32-131.0.15.el6/net/ipv4/tcp_timer.c
+Index: linux-2.6.32-131.2.1.el6/net/ipv4/tcp_timer.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/net/ipv4/tcp_timer.c
-+++ linux-2.6.32-131.0.15.el6/net/ipv4/tcp_timer.c
+--- linux-2.6.32-131.2.1.el6.orig/net/ipv4/tcp_timer.c
++++ linux-2.6.32-131.2.1.el6/net/ipv4/tcp_timer.c
 @@ -83,7 +83,7 @@ static int tcp_out_of_resources(struct s
  
  		/* Catch exceptional cases, when connection requires reset.
@@ -227,11 +227,11 @@ Index: linux-2.6.32-131.0.15.el6/net/ipv4/tcp_timer.c
  
  			if (tmo > 0) {
  				tcp_time_wait(sk, TCP_FIN_WAIT2, tmo);
-Index: linux-2.6.32-131.0.15.el6/kernel/sysctl.c
+Index: linux-2.6.32-131.2.1.el6/kernel/sysctl.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/kernel/sysctl.c
-+++ linux-2.6.32-131.0.15.el6/kernel/sysctl.c
-@@ -2851,6 +2851,66 @@ int proc_dointvec_minmax(struct ctl_tabl
+--- linux-2.6.32-131.2.1.el6.orig/kernel/sysctl.c
++++ linux-2.6.32-131.2.1.el6/kernel/sysctl.c
+@@ -2851,6 +2851,69 @@ int proc_dointvec_minmax(struct ctl_tabl
  				do_proc_dointvec_minmax_conv, &param);
  }
  
@@ -244,18 +244,21 @@ Index: linux-2.6.32-131.0.15.el6/kernel/sysctl.c
 +					 int *valp,
 +					 int write, void *data)
 +{
-+	struct do_proc_dointvec_jiffies_minmax_conv_param *param = data;
++	int val = 0;
++	struct do_proc_dointvec_jiffies_minmax_conv_param *param =
++		(struct do_proc_dointvec_jiffies_minmax_conv_param *)data;
++
 +	if (write) {
 +		if (*lvalp > LONG_MAX / HZ)
 +			return 1;
-+		int val = *negp ? -(*lvalp*HZ) : (*lvalp*HZ);
++		val = (*negp) ? -(*lvalp*HZ) : (*lvalp*HZ);
 +		if ((param->min && *param->min > val) ||
 +		    (param->max && *param->max < val))
 +			return -EINVAL;
 +		*valp = val;
 +	} else {
-+		int val = *valp;
 +		unsigned long lval;
++		val = *valp;
 +		if (val < 0) {
 +			*negp = true;
 +			lval = (unsigned long)-val;
@@ -298,7 +301,7 @@ Index: linux-2.6.32-131.0.15.el6/kernel/sysctl.c
  static int __do_proc_doulongvec_minmax(void *data, struct ctl_table *table, int write,
  				     void __user *buffer,
  				     size_t *lenp, loff_t *ppos,
-@@ -3322,6 +3382,12 @@ int proc_dointvec_jiffies(struct ctl_tab
+@@ -3322,6 +3385,12 @@ int proc_dointvec_jiffies(struct ctl_tab
  	return -ENOSYS;
  }
  
@@ -311,7 +314,7 @@ Index: linux-2.6.32-131.0.15.el6/kernel/sysctl.c
  int proc_dointvec_userhz_jiffies(struct ctl_table *table, int write,
  		    void __user *buffer, size_t *lenp, loff_t *ppos)
  {
-@@ -3637,6 +3703,7 @@ static int deprecated_sysctl_warning(str
+@@ -3637,6 +3706,7 @@ static int deprecated_sysctl_warning(str
  EXPORT_SYMBOL(proc_dointvec);
  EXPORT_SYMBOL(proc_dointvec_jiffies);
  EXPORT_SYMBOL(proc_dointvec_minmax);
