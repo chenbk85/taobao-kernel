@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Jun  9 15:07:47 CST 2011 - bosong.ly@taobao.com
+
+- First try to remove -lvs kernel package, since we can include
+  the feature by ipvs kmod in default kenrel package.
+  - config.conf:
+  - rpm/kernel.spec.in:
+  - rpm/taobao-kernel-build.sh:
+  - config/kernel-2.6.32-x86_64-lvs.config: Delete.
+
+-------------------------------------------------------------------
 Thu Jun  9 13:33:24 CST 2011 - bosong.ly@taobao.com
 
 - patches.driver/drbd-8.3.10.patch: add missing entry in drivers/block/Makefile
