@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jun  9 13:33:24 CST 2011 - bosong.ly@taobao.com
+
+- patches.driver/drbd-8.3.10.patch: add missing entry in drivers/block/Makefile
+
+-------------------------------------------------------------------
 Thu Jun  9 13:31:31 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/net-tcp-timewait-dynamic-config.patch: fix coding
