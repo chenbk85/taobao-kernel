@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jun 10 13:52:14 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/ext4-don-t-show-mount-options-in-proc-mounts-if-ther.patch:
+  ext4: don't show mount options in /proc/mounts if there is no
+  journal (BF#95153).
+
+-------------------------------------------------------------------
 Fri Jun 10 12:34:41 CST 2011 - bosong.ly@taobao.com
 
 - patches.driver/drbd-8.3.10.patch: add missing #undef REQ_HEARDBARRIER
