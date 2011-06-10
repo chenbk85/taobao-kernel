@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jun 10 12:18:02 CST 2011 - bosong.ly@taobao.com
+
+- patches.driver/drbd-8.3.10.patch: add missing #undef REQ_HEARDBARRIER
+
+-------------------------------------------------------------------
 Thu Jun  9 15:07:47 CST 2011 - bosong.ly@taobao.com
 
 - First try to remove -lvs kernel package, since we can include
