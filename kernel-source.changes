@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jun 10 12:33:30 CST 2011 - bosong.ly@taobao.com
+
+- patches.driver/drbd-8.3.10.patch: add missing #undef REQ_HEARDBARRIER
+
+-------------------------------------------------------------------
 Thu Jun  9 13:26:52 CST 2011 - bosong.ly@taobao.com
 
 - patches.driver/drbd-8.3.10.patch: add missing entry in drivers/block/Makefile

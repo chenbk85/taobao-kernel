@@ -24046,7 +24046,7 @@ Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_wrappers.h
 ===================================================================
 --- /dev/null
 +++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_wrappers.h
-@@ -0,0 +1,991 @@
+@@ -0,0 +1,992 @@
 +#ifndef _DRBD_WRAPPERS_H
 +#define _DRBD_WRAPPERS_H
 +
@@ -24926,6 +24926,7 @@ Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_wrappers.h
 + * without being directly related to bi_rw.
 + * so the ifdef is only usful inside the ifdef REQ_FLUSH!
 + * commit 7cc0158 (v2.6.36-rc1) made it a bi_rw flag, ...  */
++#undef REQ_HARDBARRIER
 +#ifdef REQ_HARDBARRIER
 +#define DRBD_REQ_HARDBARRIER	REQ_HARDBARRIER
 +#else
