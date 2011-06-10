@@ -9,10 +9,10 @@ is 8.3.10.
 Signed-off-by: Lars Ellenberg <lars.ellenberg@linbit.com>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: b/drivers/block/Kconfig
+Index: linux-2.6.32-131.2.1.el6/drivers/block/Kconfig
 ===================================================================
---- a/drivers/block/Kconfig
-+++ b/drivers/block/Kconfig
+--- linux-2.6.32-131.2.1.el6.orig/drivers/block/Kconfig
++++ linux-2.6.32-131.2.1.el6/drivers/block/Kconfig
 @@ -271,6 +271,8 @@ config BLK_DEV_CRYPTOLOOP
  	  instead, which can be configured to be on-disk compatible with the
  	  cryptoloop device.
@@ -22,10 +22,10 @@ Index: b/drivers/block/Kconfig
  config BLK_DEV_NBD
  	tristate "Network block device support"
  	depends on NET
-Index: b/drivers/block/drbd/Kconfig
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/Kconfig
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/Kconfig
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/Kconfig
 @@ -0,0 +1,48 @@
 +#
 +# DRBD device driver configuration
@@ -75,10 +75,10 @@ Index: b/drivers/block/drbd/Kconfig
 +	  Say Y here if you want to be able to trace various events in DRBD.
 +
 +	  If unsure, say N.
-Index: b/drivers/block/drbd/Makefile
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/Makefile
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/Makefile
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/Makefile
 @@ -0,0 +1,28 @@
 +# Search the local directory before the standard include directories.
 +# This is needed for overriding files like <linux/drbd.h>.
@@ -108,10 +108,10 @@ Index: b/drivers/block/drbd/Makefile
 +
 +obj-$(CONFIG_BLK_DEV_DRBD)     += drbd.o
 +obj-$(CONFIG_DRBD_TRACE)       += drbd_trace.o
-Index: b/drivers/block/drbd/cn_queue.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/cn_queue.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/cn_queue.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/cn_queue.c
 @@ -0,0 +1,212 @@
 +/*
 + * 	cn_queue.c
@@ -325,10 +325,10 @@ Index: b/drivers/block/drbd/cn_queue.c
 +	kfree(dev);
 +	dev = NULL;
 +}
-Index: b/drivers/block/drbd/compat/bitops.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/bitops.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/compat/bitops.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/bitops.h
 @@ -0,0 +1,139 @@
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,17) && !defined(_ASM_GENERIC_BITOPS_LE_H_)
 +/* compatibility for before the bitops/le.h split {{{ */
@@ -469,16 +469,16 @@ Index: b/drivers/block/drbd/compat/bitops.h
 +#error "unknown byte order"
 +#endif
 +#endif /* compatibility for generic_find_next_le_bit }}} */
-Index: b/drivers/block/drbd/compat/linux/autoconf.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/autoconf.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/compat/linux/autoconf.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/autoconf.h
 @@ -0,0 +1 @@
 +/* empty file, for compat reasons */
-Index: b/drivers/block/drbd/compat/linux/connector.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/connector.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/compat/linux/connector.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/connector.h
 @@ -0,0 +1,186 @@
 +/*
 + * 	connector.h
@@ -666,10 +666,10 @@ Index: b/drivers/block/drbd/compat/linux/connector.h
 +
 +#endif				/* __KERNEL__ */
 +#endif				/* __CONNECTOR_H */
-Index: b/drivers/block/drbd/compat/linux/dynamic_debug.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/dynamic_debug.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/compat/linux/dynamic_debug.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/dynamic_debug.h
 @@ -0,0 +1,8 @@
 +#ifndef _DYNAMIC_DEBUG_H
 +#define _DYNAMIC_DEBUG_H
@@ -679,24 +679,24 @@ Index: b/drivers/block/drbd/compat/linux/dynamic_debug.h
 +#endif
 +
 +#endif
-Index: b/drivers/block/drbd/compat/linux/hardirq.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/hardirq.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/compat/linux/hardirq.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/hardirq.h
 @@ -0,0 +1 @@
 +/* Just an empty file. */
-Index: b/drivers/block/drbd/compat/linux/memcontrol.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/memcontrol.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/compat/linux/memcontrol.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/memcontrol.h
 @@ -0,0 +1,3 @@
 +/* just an empty file
 + * memcontrol.h did not exist prior to 2.6.25.
 + * but it needs more recent kernels for mm_inline.h to work. */
-Index: b/drivers/block/drbd/compat/linux/mutex.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/mutex.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/compat/linux/mutex.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/mutex.h
 @@ -0,0 +1,41 @@
 +/* "Backport" of the mutex to older Linux-2.6.x kernels.
 + */
@@ -739,16 +739,16 @@ Index: b/drivers/block/drbd/compat/linux/mutex.h
 +	return !down_trylock(&lock->sem);
 +}
 +#endif
-Index: b/drivers/block/drbd/compat/linux/tracepoint.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/tracepoint.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/compat/linux/tracepoint.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/compat/linux/tracepoint.h
 @@ -0,0 +1 @@
 +struct tracepoint;
-Index: b/drivers/block/drbd/connector.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/connector.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/connector.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/connector.c
 @@ -0,0 +1,513 @@
 +/*
 + * 	connector.c
@@ -1263,10 +1263,10 @@ Index: b/drivers/block/drbd/connector.c
 +	if (dev->nls->sk_socket)
 +		sock_release(dev->nls->sk_socket);
 +}
-Index: b/drivers/block/drbd/drbd_actlog.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_actlog.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_actlog.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_actlog.c
 @@ -0,0 +1,1348 @@
 +/*
 +   drbd_actlog.c
@@ -2616,10 +2616,10 @@ Index: b/drivers/block/drbd/drbd_actlog.c
 +	if (wake_up)
 +		wake_up(&mdev->al_wait);
 +}
-Index: b/drivers/block/drbd/drbd_bitmap.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_bitmap.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_bitmap.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_bitmap.c
 @@ -0,0 +1,1591 @@
 +/*
 +   drbd_bitmap.c
@@ -4212,10 +4212,10 @@ Index: b/drivers/block/drbd/drbd_bitmap.c
 +	spin_unlock_irq(&b->bm_lock);
 +	return weight;
 +}
-Index: b/drivers/block/drbd/drbd_buildtag.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_buildtag.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_buildtag.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_buildtag.c
 @@ -0,0 +1,7 @@
 +/* automatically generated. DO NOT EDIT. */
 +#include <linux/drbd.h>
@@ -4224,10 +4224,10 @@ Index: b/drivers/block/drbd/drbd_buildtag.c
 +	return "GIT-hash: 5c0b0469666682443d4785d90a2c603378f9017b"
 +		" build by phil@fat-tyre, 2011-01-28 12:17:35";
 +}
-Index: b/drivers/block/drbd/drbd_int.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_int.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_int.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_int.h
 @@ -0,0 +1,2675 @@
 +/*
 +  drbd_int.h
@@ -6904,10 +6904,10 @@ Index: b/drivers/block/drbd/drbd_int.h
 +}
 +
 +#endif
-Index: b/drivers/block/drbd/drbd_main.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_main.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_main.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_main.c
 @@ -0,0 +1,4425 @@
 +/*
 +   drbd.c
@@ -11334,10 +11334,10 @@ Index: b/drivers/block/drbd/drbd_main.c
 +EXPORT_SYMBOL(drbd_role_str);
 +EXPORT_SYMBOL(drbd_disk_str);
 +EXPORT_SYMBOL(drbd_set_st_err_str);
-Index: b/drivers/block/drbd/drbd_nl.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_nl.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_nl.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_nl.c
 @@ -0,0 +1,2673 @@
 +/*
 +   drbd_nl.c
@@ -14012,10 +14012,10 @@ Index: b/drivers/block/drbd/drbd_nl.c
 +		printk(KERN_INFO "drbd: cn_netlink_send()=%d\n", rr);
 +}
 +
-Index: b/drivers/block/drbd/drbd_proc.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_proc.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_proc.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_proc.c
 @@ -0,0 +1,323 @@
 +/*
 +   drbd_proc.c
@@ -14340,10 +14340,10 @@ Index: b/drivers/block/drbd/drbd_proc.c
 +}
 +
 +/* PROC FS stuff end */
-Index: b/drivers/block/drbd/drbd_receiver.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_receiver.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_receiver.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_receiver.c
 @@ -0,0 +1,4954 @@
 +/*
 +   drbd_receiver.c
@@ -19299,10 +19299,10 @@ Index: b/drivers/block/drbd/drbd_receiver.c
 +
 +	return 0;
 +}
-Index: b/drivers/block/drbd/drbd_req.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_req.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_req.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_req.c
 @@ -0,0 +1,1259 @@
 +/*
 +   drbd_req.c
@@ -20563,10 +20563,10 @@ Index: b/drivers/block/drbd/drbd_req.c
 +	}
 +	return limit;
 +}
-Index: b/drivers/block/drbd/drbd_req.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_req.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_req.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_req.h
 @@ -0,0 +1,379 @@
 +/*
 +   drbd_req.h
@@ -20947,10 +20947,10 @@ Index: b/drivers/block/drbd/drbd_req.h
 +}
 +
 +#endif
-Index: b/drivers/block/drbd/drbd_strings.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_strings.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_strings.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_strings.c
 @@ -0,0 +1,115 @@
 +/*
 +  drbd.h
@@ -21067,10 +21067,10 @@ Index: b/drivers/block/drbd/drbd_strings.c
 +	       err > SS_TWO_PRIMARIES ? "TOO_LARGE"
 +			: drbd_state_sw_errors[-err];
 +}
-Index: b/drivers/block/drbd/drbd_tracing.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_tracing.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_tracing.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_tracing.c
 @@ -0,0 +1,760 @@
 +/*
 +   drbd_tracing.c
@@ -21832,10 +21832,10 @@ Index: b/drivers/block/drbd/drbd_tracing.c
 +}
 +
 +module_exit(drbd_trace_exit);
-Index: b/drivers/block/drbd/drbd_tracing.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_tracing.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_tracing.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_tracing.h
 @@ -0,0 +1,87 @@
 +/*
 +   drbd_tracing.h
@@ -21924,10 +21924,10 @@ Index: b/drivers/block/drbd/drbd_tracing.h
 +	TP_ARGS(mdev, level, fmt, args));
 +
 +#endif
-Index: b/drivers/block/drbd/drbd_vli.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_vli.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_vli.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_vli.h
 @@ -0,0 +1,351 @@
 +/*
 +-*- linux-c -*-
@@ -22280,10 +22280,10 @@ Index: b/drivers/block/drbd/drbd_vli.h
 +}
 +
 +#endif
-Index: b/drivers/block/drbd/drbd_worker.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_worker.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_worker.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_worker.c
 @@ -0,0 +1,1757 @@
 +/*
 +   drbd_worker.c
@@ -24042,11 +24042,11 @@ Index: b/drivers/block/drbd/drbd_worker.c
 +
 +	return 0;
 +}
-Index: b/drivers/block/drbd/drbd_wrappers.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_wrappers.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/drbd_wrappers.h
-@@ -0,0 +1,991 @@
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/drbd_wrappers.h
+@@ -0,0 +1,992 @@
 +#ifndef _DRBD_WRAPPERS_H
 +#define _DRBD_WRAPPERS_H
 +
@@ -24926,6 +24926,7 @@ Index: b/drivers/block/drbd/drbd_wrappers.h
 + * without being directly related to bi_rw.
 + * so the ifdef is only usful inside the ifdef REQ_FLUSH!
 + * commit 7cc0158 (v2.6.36-rc1) made it a bi_rw flag, ...  */
++#undef REQ_HARDBARRIER
 +#ifdef REQ_HARDBARRIER
 +#define DRBD_REQ_HARDBARRIER	REQ_HARDBARRIER
 +#else
@@ -25038,10 +25039,10 @@ Index: b/drivers/block/drbd/drbd_wrappers.h
 +#endif
 +
 +#endif
-Index: b/drivers/block/drbd/linux/drbd.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/drbd.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/linux/drbd.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/drbd.h
 @@ -0,0 +1,383 @@
 +/*
 +  drbd.h
@@ -25426,10 +25427,10 @@ Index: b/drivers/block/drbd/linux/drbd.h
 +};
 +
 +#endif
-Index: b/drivers/block/drbd/linux/drbd_config.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/drbd_config.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/linux/drbd_config.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/drbd_config.h
 @@ -0,0 +1,152 @@
 +/*
 +  drbd_config.h
@@ -25583,10 +25584,10 @@ Index: b/drivers/block/drbd/linux/drbd_config.h
 +#define COMPAT_HAVE_FMODE_T
 +
 +#endif
-Index: b/drivers/block/drbd/linux/drbd_limits.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/drbd_limits.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/linux/drbd_limits.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/drbd_limits.h
 @@ -0,0 +1,168 @@
 +/*
 +  drbd_limits.h
@@ -25756,10 +25757,10 @@ Index: b/drivers/block/drbd/linux/drbd_limits.h
 +
 +#undef RANGE
 +#endif
-Index: b/drivers/block/drbd/linux/drbd_nl.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/drbd_nl.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/linux/drbd_nl.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/drbd_nl.h
 @@ -0,0 +1,159 @@
 +/*
 +   PAKET( name,
@@ -25920,10 +25921,10 @@ Index: b/drivers/block/drbd/linux/drbd_nl.h
 +#undef NL_BIT
 +#undef NL_STRING
 +#undef NL_RESPONSE
-Index: b/drivers/block/drbd/linux/drbd_tag_magic.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/drbd_tag_magic.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/linux/drbd_tag_magic.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/drbd_tag_magic.h
 @@ -0,0 +1,84 @@
 +#ifndef DRBD_TAG_MAGIC_H
 +#define DRBD_TAG_MAGIC_H
@@ -26009,10 +26010,10 @@ Index: b/drivers/block/drbd/linux/drbd_tag_magic.h
 +};
 +
 +#endif
-Index: b/drivers/block/drbd/linux/lru_cache.h
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/lru_cache.h
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/linux/lru_cache.h
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/linux/lru_cache.h
 @@ -0,0 +1,318 @@
 +/*
 +   lru_cache.c
@@ -26332,10 +26333,10 @@ Index: b/drivers/block/drbd/linux/lru_cache.h
 +extern unsigned int lc_index_of(struct lru_cache *lc, struct lc_element *e);
 +
 +#endif
-Index: b/drivers/block/drbd/lru_cache.c
+Index: linux-2.6.32-131.2.1.el6/drivers/block/drbd/lru_cache.c
 ===================================================================
 --- /dev/null
-+++ b/drivers/block/drbd/lru_cache.c
++++ linux-2.6.32-131.2.1.el6/drivers/block/drbd/lru_cache.c
 @@ -0,0 +1,540 @@
 +/*
 +   lru_cache.c
@@ -26877,10 +26878,10 @@ Index: b/drivers/block/drbd/lru_cache.c
 +		}
 +	}
 +}
-Index: b/drivers/block/Makefile
+Index: linux-2.6.32-131.2.1.el6/drivers/block/Makefile
 ===================================================================
---- a/drivers/block/Makefile
-+++ b/drivers/block/Makefile
+--- linux-2.6.32-131.2.1.el6.orig/drivers/block/Makefile
++++ linux-2.6.32-131.2.1.el6/drivers/block/Makefile
 @@ -34,6 +34,7 @@ obj-$(CONFIG_VIODASD)		+= viodasd.o
  obj-$(CONFIG_BLK_DEV_SX8)	+= sx8.o
  obj-$(CONFIG_BLK_DEV_UB)	+= ub.o
