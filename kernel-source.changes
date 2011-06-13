@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jun 13 10:28:08 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/context_switch_per_cpu_stat.patch: Add Support
+  for show the context swithes number for every cpu.
+
+-------------------------------------------------------------------
 Fri Jun 10 13:49:15 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-don-t-show-mount-options-in-proc-mounts-if-ther.patch:
