@@ -5,6 +5,12 @@ Tue Jun 14 11:45:05 CST 2011 - bosong.ly@taobao.com
   to kernel-2.6.32-x86_64.config.
 
 -------------------------------------------------------------------
+Mon Jun 13 10:28:08 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/context_switch_per_cpu_stat.patch: Add Support
+  for show the context swithes number for every cpu.
+
+-------------------------------------------------------------------
 Fri Jun 10 13:50:45 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-don-t-show-mount-options-in-proc-mounts-if-ther.patch:
@@ -43,6 +49,16 @@ Thu Jun  9 01:15:23 CST 2011 - bosong.ly@taobao.com
   +CONFIG_IP_VS_TAB_BITS=20
 
 -------------------------------------------------------------------
+Sat Jun  4 16:19:18 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: add Packager to spec.
+
+-------------------------------------------------------------------
+Sat Jun  4 10:38:39 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/seq-patch.py: check if quilt exists before call it.
+
+-------------------------------------------------------------------
 Sat Jun  4 02:11:31 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: fix missing '\' which breaks rpmbuild command.
@@ -67,14 +83,9 @@ Fri Jun  3 17:05:27 CST 2011 - bosong.ly@taobao.com
   - redhat-kernel-source/version
 
 -------------------------------------------------------------------
-Sat Jun  4 16:19:18 CST 2011 - gaoyang.zyh@taobao.com
+Fri Jun  3 10:20:02 CST 2011 - gaoyang.zyh@taobao.com
 
-- rpm/kernel.spec.in: add Packager to spec.
-
--------------------------------------------------------------------
-Sat Jun  4 10:38:39 CST 2011 - gaoyang.zyh@taobao.com
-
-- scripts/seq-patch.py: check if quilt exists before call it.
+- rpm/taobao-kernel-build.sh: install xmlto and asciidoc before building.
 
 -------------------------------------------------------------------
 Fri Jun  3 01:57:30 CST 2011 - bosong.ly@taobao.com
@@ -134,11 +145,6 @@ Thu Jun  2 12:18:19 CST 2011 - bosong.ly@taobao.com
   - patches.taobao/pagecache_hit_accounting_003_mm_add_accouting_for_pagecache.patch
   - patches.taobao/pagecache_hit_accounting_004_add_readpages_accounting.patch
 - Update series.conf since some patches of Taoboa are merged into RHEL6.1 kernel.
-
--------------------------------------------------------------------
-Fri Jun  3 10:20:02 CST 2011 - gaoyang.zyh@taobao.com
-
-- rpm/taobao-kernel-build.sh: install xmlto and asciidoc before building.
 
 -------------------------------------------------------------------
 Thu Jun  2 11:39:19 CST 2011 - bosong.ly@taobao.com
