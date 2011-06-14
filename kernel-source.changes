@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun 14 17:44:27 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: set CONFIG_CONFIGFS_FS=y, and sync config items
+  to -debug.config.
+
+-------------------------------------------------------------------
 Tue Jun 14 17:10:33 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: set CONFIG_NETOOPS=y
