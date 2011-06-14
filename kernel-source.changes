@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun 14 11:45:05 CST 2011 - bosong.ly@taobao.com
+
+- config/kernel-2.6.32-x86_64-lvs.config: Delete since we merge lvs config
+  to kernel-2.6.32-x86_64.config.
+
+-------------------------------------------------------------------
 Fri Jun 10 13:50:45 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-don-t-show-mount-options-in-proc-mounts-if-ther.patch:
