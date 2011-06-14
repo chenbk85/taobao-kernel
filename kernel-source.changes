@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun 14 11:46:36 CST 2011 - bosong.ly@taobao.com
+
+- config/kernel-2.6.32-x86_64-lvs.config: Delete it since we merge
+  lvs config into kernel-2.6.32-x86_64.config.
+
+-------------------------------------------------------------------
 Mon Jun 13 10:28:08 CST 2011 - boyu.mt@taobao.com
 
 - patches.taobao/context_switch_per_cpu_stat.patch: Add Support
