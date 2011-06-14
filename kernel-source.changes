@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Jun 14 11:50:36 CST 2011 - bosong.ly@taobao.com
+
+- Update config files:
+  set CONFIG_NETPOLL_TARGETS=y, because netpoll_targets.c is not a
+  kernel module.
+
+
+-------------------------------------------------------------------
 Tue Jun 14 11:46:36 CST 2011 - bosong.ly@taobao.com
 
 - config/kernel-2.6.32-x86_64-lvs.config: Delete it since we merge
