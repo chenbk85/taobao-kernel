@@ -98,8 +98,6 @@ fi)
 %define with_doc       %{?_with_doc:       1} %{?!_with_doc:       0}
 # kernel-headers
 %define with_headers   %{?_without_headers:   0} %{?!_without_headers:   1}
-# kernel-lvs
-%define with_lvs       %{?_with_lvs:          1} %{?!_with_lvs:          0}
 # kernel-firmware
 %define with_firmware  %{?_without_firmware:  0} %{?!_without_firmware:  1}
 # tools/perf
@@ -350,7 +348,6 @@ fi)
 %define with_kdump 0
 %define with_debuginfo 0
 %define with_perftool 0
-%define with_lvs 0
 %define _enable_debug_packages 0
 %endif
 
@@ -703,17 +700,6 @@ Group: System Environment/Kernel\
 
 
 # Now, each variant package.
-
-%define variant_summary The Linux kernel compiled for LVS machines
-%kernel_variant_package -n LVS lvs
-%description lvs
-This package includes a LVS version of the Linux kernel. It is
-required only on machines for LVS machines.
- This is built from Taobao kernel git repo, whose commit id is
-%%COMMITID%%, based on Redhat %%RHELBASE%%.
-
-Install the kernel-lvs package if your machine uses LVS.
-
 
 %define variant_summary The Linux kernel compiled for SMP machines
 %kernel_variant_package -n SMP smp
@@ -1232,10 +1218,6 @@ cd linux-%{kversion}.%{_target_cpu}
 BuildKernel %make_target %kernel_image debug
 %endif
 
-%if %{with_lvs}
-BuildKernel %make_target %kernel_image lvs
-%endif
-
 %if %{with_pae_debug}
 BuildKernel %make_target %kernel_image PAEdebug
 %endif
@@ -1475,9 +1457,6 @@ fi\
 %kernel_variant_post -r kernel-smp
 %endif
 
-%kernel_variant_preun lvs
-%kernel_variant_post -v lvs
-
 %kernel_variant_preun smp
 %kernel_variant_post -v smp
 
@@ -1607,7 +1586,6 @@ fi
 %{nil}
 
 %kernel_variant_files %{with_up}
-%kernel_variant_files %{with_lvs} lvs
 %kernel_variant_files %{with_smp} smp
 %kernel_variant_files %{with_debug} debug
 %kernel_variant_files %{with_pae} PAE
