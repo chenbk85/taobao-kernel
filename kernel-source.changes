@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun 14 17:54:59 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: last commit missing -debug.config, this
+  commit add the changes to -debug.config
+
+-------------------------------------------------------------------
 Tue Jun 14 17:51:54 CST 2011 - bosong.ly@taobao.com
 
 - Update config files:
