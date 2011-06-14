@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jun 14 12:15:50 CST 2011 - bosong.ly@taobao.com
+
+- config.conf: remove lvs config
+
+-------------------------------------------------------------------
 Tue Jun 14 12:04:58 CST 2011 - bosong.ly@taobao.com
 
 - remove lvs kernel package build
