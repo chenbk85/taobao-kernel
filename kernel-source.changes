@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jun 14 12:03:28 CST 2011 - bosong.ly@taobao.com
+
+- remove lvs kernel package build:
+  - rpm/kernel.spec.in:
+  - rpm/taobao-kernel-build.sh:
+
+-------------------------------------------------------------------
 Tue Jun 14 11:50:36 CST 2011 - bosong.ly@taobao.com
 
 - Update config files:
