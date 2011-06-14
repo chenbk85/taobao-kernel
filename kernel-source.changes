@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun 14 16:32:19 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/netoops_022_add_user_programmable_boot_id.patch:
+  set CONFIG_NETPOLL_TARGETS default to y 
+
+-------------------------------------------------------------------
 Tue Jun 14 11:47:58 CST 2011 - bosong.ly@taobao.com
 
 - Update config files:
