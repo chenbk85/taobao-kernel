@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Jun 14 17:51:54 CST 2011 - bosong.ly@taobao.com
+
+- Update config files:
+  CONFIG_CONFIGFS_FS=y
+  CONFIG_NETOOPS=y
+  CONFIG_NETPOLL_TARGETS=y
+
+-------------------------------------------------------------------
 Tue Jun 14 16:35:49 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/netoops_022_add_user_programmable_boot_id.patch:
