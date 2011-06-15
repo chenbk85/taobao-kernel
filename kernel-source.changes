@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jun 15 17:01:51 CST 2011 - bosong.ly@taobao.com
+
+Following steps for previous kernel tree restruction
+- redhat-kernel-source/linux-2.6.32: move decompressed rhel kernel source to here.
+- redhat-kernel-version: move previous redhat-kernel-source/version to here.
+
+-------------------------------------------------------------------
 Wed Jun 15 16:47:02 CST 2011 - bosong.ly@taobao.com
 
 First try to restruct taobao kernel tree, the modification includes,
