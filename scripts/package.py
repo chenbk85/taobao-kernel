@@ -173,7 +173,7 @@ if __name__ == "__main__":
         BUILD_DIR = "taobao-kernel-build"
 
     BUILD_DIR = os.path.join(WORKING_DIR, BUILD_DIR)
-    SOURCE_DIR = os.path.join(WORKING_DIR, "redhat-kernel-source")
+    SOURCE_DIR = os.path.join(WORKING_DIR, "redhat-kernel-source/linux-2.6.32")
     rh_changelog = os.path.join(WORKING_DIR, "redhat-kernel-changelog")
     if not os.path.exists(rh_changelog):
         print >>sys.stderr, "redhat-kernel-source\redhat-kernel-changelog is missing.\n"

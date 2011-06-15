@@ -146,7 +146,7 @@ if __name__ == "__main__":
 
     # Guess where we are.
     WORKING_DIR = os.getcwd()
-    SOURCE_DIR = os.path.join(WORKING_DIR, "redhat-kernel-source")
+    SOURCE_DIR = os.path.join(WORKING_DIR, "redhat-kernel-source/linux-2.6.32")
     if not os.path.exists(SOURCE_DIR):
         print >>sys.stderr, "The dir of redhat kernel source is missing."
         sys.exit(1)
