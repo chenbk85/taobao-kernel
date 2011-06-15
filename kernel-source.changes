@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Wed Jun 15 16:47:02 CST 2011 - bosong.ly@taobao.com
+
+First try to restruct taobao kernel tree, the modification includes,
+1) redhat-kernel-source/ does not only include kernel source.
+2) place all files from redhat kernel srpm into redhat-kernel-source/
+3) decompressed redhat kernel source code placed in redhat-kernel-source/linux-2.6.32
+4) other files stays in their existing location.
+
+This change set also modifies tools in scripts/ to update with the above change.
+
+-------------------------------------------------------------------
 Tue Jun 14 17:44:27 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: set CONFIG_CONFIGFS_FS=y, and sync config items

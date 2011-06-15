@@ -53,6 +53,6 @@ def get_srcversion():
     global SRCVERSION
     if SRCVERSION:
         return SRCVERSION
-    SRCVERSION = open(os.path.dirname(os.path.abspath(sys.argv[0])) + "/../redhat-kernel-source/version").readline()[6:-1]
+    SRCVERSION = open(os.path.dirname(os.path.abspath(sys.argv[0])) + "/../redhat-kernel-version").readline()[6:-1]
     return SRCVERSION
 
