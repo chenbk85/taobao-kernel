@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 15 19:45:32 CST 2011 - bosong.ly@taobao.com
+
+commit missing files during previous restructure.
+
+-------------------------------------------------------------------
 Wed Jun 15 19:39:59 CST 2011 - bosong.ly@taobao.com
 
 restruct taobao kernel tree, the modification includes,
