@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 15 19:16:27 CST 2011 - bosong.ly@taobao.com
+
+- version: Delete, we dont use it anymore.
+
+-------------------------------------------------------------------
 Wed Jun 15 17:42:57 CST 2011 - bosong.ly@taobao.com
 
 - rpm/taobao-kernel-build.sh: fix a typo.
