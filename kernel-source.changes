@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 15 17:42:57 CST 2011 - bosong.ly@taobao.com
+
+- rpm/taobao-kernel-build.sh: fix a typo.
+
+-------------------------------------------------------------------
 Wed Jun 15 17:01:51 CST 2011 - bosong.ly@taobao.com
 
 Following steps for previous kernel tree restruction
