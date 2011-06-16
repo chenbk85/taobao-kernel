@@ -4,6 +4,11 @@ Thu Jun 16 11:45:06 CST 2011 - bosong.ly@taobao.com
 Update to 2.6.32-131.4.1
 
 -------------------------------------------------------------------
+Wed Jun 15 19:16:27 CST 2011 - bosong.ly@taobao.com
+
+- version: Delete, we dont use it anymore.
+
+-------------------------------------------------------------------
 Wed Jun 15 17:42:57 CST 2011 - bosong.ly@taobao.com
 
 - rpm/taobao-kernel-build.sh: fix a typo.
@@ -107,6 +112,11 @@ Thu Jun  9 01:12:31 CST 2011 - bosong.ly@taobao.com
   +CONFIG_IP_VS_TAB_BITS=20
 
 -------------------------------------------------------------------
+Sat Jun  4 11:42:17 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/seq-patch.py: check if quilt exists before call it.
+
+-------------------------------------------------------------------
 Sat Jun  4 02:20:47 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: fix missing '\' which breaks rpmbuild command.
@@ -116,11 +126,6 @@ Fri Jun  3 17:44:31 CST 2011 - bosong.ly@taobao.com
 
 - rpm/kernel.spec.in: sync modification of 5u.
 - redhat-kernel-source/.mailmap: Delete useless file
-
--------------------------------------------------------------------
-Sat Jun  4 11:42:17 CST 2011 - gaoyang.zyh@taobao.com
-
-- scripts/seq-patch.py: check if quilt exists before call it.
 
 -------------------------------------------------------------------
 Fri Jun  3 16:57:37 CST 2011 - bosong.ly@taobao.com
