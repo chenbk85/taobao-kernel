@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jun 16 11:45:06 CST 2011 - bosong.ly@taobao.com
+
+Update to 2.6.32-131.4.1
+
+-------------------------------------------------------------------
 Wed Jun 15 17:42:57 CST 2011 - bosong.ly@taobao.com
 
 - rpm/taobao-kernel-build.sh: fix a typo.
