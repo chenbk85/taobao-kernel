@@ -1,3 +1,10 @@
+%changelog
+* Fri Jun 10 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.4.1.el6]
+- [virt] xenpv: mask MWAIT cpuid feature (Andrew Jones) [712191 712131]
+
+* Mon Jun 06 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.3.1.el6]
+- [virt] xenpv: zero all x86 power feature bits from cpuid (Andrew Jones) [710609 709856]
+
 * Wed May 18 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.2.1.el6]
 - [kernel] lib/vsprintf.c: add %pU to print UUID/GUIDs (Frantisek Hrbata) [704280 700299]
 - [scsi] megaraid_sas: Driver only report tape drive, JBOD and logic drives (Tomas Henzl) [704601 619422]
