@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jun 17 21:51:29 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/cfq_avoid_async_write_starve.patch: CFQ: Avoid
+  async write starvation by allowing one dispatch at a time.
+
+-------------------------------------------------------------------
 Thu Jun 16 11:42:45 CST 2011 - bosong.ly@taobao.com
 
 Update to 2.6.32-131.4.1.
