@@ -1,0 +1,145 @@
+From: Wang Shaoyan <wangshaoyan.pt@taobao.com>
+Subject: Ext4: set file system to read-only by I/O error threshold
+Patch-mainline: 3.0 
+References: 
+
+Some version of Hadoop uses access(2) to check whether the data chunk harddisk is online, if access(2) returns error, hadoop marks the disk which it called access(2) to as offline. This method works for Ext3/4 with journal, because when jbd/jbd2 encounters I/O error, the file system will be set as read-only. For Ext4 no-journal mode, there is no jdb2 to set the file system as read-only when I/O error happens, the access(2) from Hadoop is not able to reliably detect hard disk offline condition.
+
+This patch tries to fix the above problem from kernel side. People can set I/O error threshold, in 2 conditions Ext4 file system without journal will be set as read-only:
+1) inside the sampling interval, I/O errors come more then pre-set threshold happens
+2) I/O errors always happen in continous sampling intervals, the sum of errors exceeds pre-set threshold
+
+Then the application can find the file system is set as read-only, and call its own failure tolerance procedures.
+
+There are 2 interface exported to user space via sysfs:
+/sys/fs/ext4/sd[?]/eio_threshold --- I/O error threshold to set file system as read-only
+/sys/fs/ext4/sd[?]/eio_interval  --- sampling interval in second
+
+If echo 0 into file eio_threshold, I/O error threshold will be infinite, no file system read-only will be triggered.
+
+Reviewed-by: Coly Li <bosong.ly@taobao.com>
+Reviewed-by: Liu Yuan <tailai.ly@taobao.com>
+Signed-off-by: Shaoyan Wang <wangshaoyan.pt@taobao.com>
+
+Index: linux-2.6.32-131.2.1.el6/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-131.2.1.el6.orig/fs/ext4/ext4.h
++++ linux-2.6.32-131.2.1.el6/fs/ext4/ext4.h
+@@ -1017,6 +1017,11 @@ struct ext4_sb_info {
+ 	int s_first_ino;
+ 	unsigned int s_inode_readahead_blks;
+ 	unsigned int s_inode_goal;
++	spinlock_t s_eio_lock;
++	unsigned int s_eio_threshold;
++	unsigned int s_eio_interval;
++	unsigned int s_eio_counter;
++	unsigned long s_eio_last_jiffies;
+ 	spinlock_t s_next_gen_lock;
+ 	u32 s_next_generation;
+ 	u32 s_hash_seed[4];
+Index: linux-2.6.32-131.2.1.el6/fs/ext4/super.c
+===================================================================
+--- linux-2.6.32-131.2.1.el6.orig/fs/ext4/super.c
++++ linux-2.6.32-131.2.1.el6/fs/ext4/super.c
+@@ -292,6 +292,25 @@ void ext4_journal_abort_handle(const cha
+ 	jbd2_journal_abort_handle(handle);
+ }
+ 
++static inline void check_error_number(struct super_block *sb)
++{
++	struct ext4_sb_info *sbi = EXT4_SB(sb);
++
++	if (time_after(sbi->s_eio_last_jiffies + sbi->s_eio_interval * HZ, jiffies)) {
++		sbi->s_eio_counter++;
++	} else {
++		sbi->s_eio_counter = 1;
++	}
++
++	sbi->s_eio_last_jiffies = jiffies;
++	ext4_msg(sb, KERN_CRIT, "io error total number is: %d", sbi->s_eio_counter);
++
++	if (sbi->s_eio_counter > sbi->s_eio_threshold) {
++		ext4_abort(sb, __func__,
++			  "Two many io error, abort it");
++	}
++}
++
+ /* Deal with the reporting of failure conditions on a filesystem such as
+  * inconsistencies detected or read IO failures.
+  *
+@@ -310,6 +329,7 @@ void ext4_journal_abort_handle(const cha
+ static void ext4_handle_error(struct super_block *sb)
+ {
+ 	struct ext4_super_block *es = EXT4_SB(sb)->s_es;
++	struct ext4_sb_info *sbi = EXT4_SB(sb);
+ 
+ 	EXT4_SB(sb)->s_mount_state |= EXT4_ERROR_FS;
+ 	es->s_state |= cpu_to_le16(EXT4_ERROR_FS);
+@@ -317,6 +337,15 @@ static void ext4_handle_error(struct sup
+ 	if (sb->s_flags & MS_RDONLY)
+ 		return;
+ 
++	/* Check ext4 error total numbers in no journal mode,
++	 * if there are too many errors, change fs to readonly
++	 */
++	if (sbi->s_eio_threshold && !sbi->s_journal) {
++		spin_lock(&sbi->s_eio_lock);
++		check_error_number(sb);
++		spin_unlock(&sbi->s_eio_lock);
++	}
++
+ 	if (!test_opt(sb, ERRORS_CONT)) {
+ 		journal_t *journal = EXT4_SB(sb)->s_journal;
+ 
+@@ -2243,6 +2272,22 @@ static ssize_t inode_readahead_blks_stor
+ 	return count;
+ }
+ 
++static ssize_t eio_interval_store(struct ext4_attr *a,
++					  struct ext4_sb_info *sbi,
++					  const char *buf, size_t count)
++{
++	unsigned long t;
++
++	if (parse_strtoul(buf, 0xffffffff, &t))
++		return -EINVAL;
++
++	if (t <= 0)
++		return -EINVAL;
++
++	sbi->s_eio_interval = t;
++	return count;
++}
++
+ static ssize_t sbi_ui_show(struct ext4_attr *a,
+ 			   struct ext4_sb_info *sbi, char *buf)
+ {
+@@ -2293,6 +2338,9 @@ EXT4_RW_ATTR_SBI_UI(mb_order2_req, s_mb_
+ EXT4_RW_ATTR_SBI_UI(mb_stream_req, s_mb_stream_request);
+ EXT4_RW_ATTR_SBI_UI(mb_group_prealloc, s_mb_group_prealloc);
+ EXT4_RW_ATTR_SBI_UI(max_writeback_mb_bump, s_max_writeback_mb_bump);
++EXT4_RW_ATTR_SBI_UI(eio_threshold, s_eio_threshold);
++EXT4_ATTR_OFFSET(eio_interval, 0644, sbi_ui_show,
++		 eio_interval_store, s_eio_interval);
+ 
+ static struct attribute *ext4_attrs[] = {
+ 	ATTR_LIST(delayed_allocation_blocks),
+@@ -2307,6 +2355,8 @@ static struct attribute *ext4_attrs[] = 
+ 	ATTR_LIST(mb_stream_req),
+ 	ATTR_LIST(mb_group_prealloc),
+ 	ATTR_LIST(max_writeback_mb_bump),
++	ATTR_LIST(eio_threshold),
++	ATTR_LIST(eio_interval),
+ 	NULL,
+ };
+ 
+@@ -2776,6 +2826,9 @@ static int ext4_fill_super(struct super_
+ 
+ 	sbi->s_stripe = ext4_get_stripe_size(sbi);
+ 	sbi->s_max_writeback_mb_bump = 128;
++	sbi->s_eio_threshold = 10;
++	sbi->s_eio_interval = 5;
++	sbi->s_eio_counter = 0;
+ 
+ 	/*
+ 	 * set up enough so that it can read an inode
