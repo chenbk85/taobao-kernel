@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Jun 20 12:43:52 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/perf-Find_get_context-fix-the-per-cpu-counter-check.patch:
+  perf: Find_get_context: fix the per-cpu-counter check.
+- patches.taobao/perf-Validate-cpu-early-in-perf_event_alloc.patch:
+  perf: Validate cpu early in perf_event_alloc().
+
+-------------------------------------------------------------------
 Fri Jun 17 19:17:26 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch:
