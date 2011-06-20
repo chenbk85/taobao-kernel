@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Jun 20 12:42:56 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/perf-Find_get_context-fix-the-per-cpu-counter-check.patch:
+  perf: Find_get_context: fix the per-cpu-counter check.
+- patches.taobao/perf-Validate-cpu-early-in-perf_event_alloc.patch:
+  perf: Validate cpu early in perf_event_alloc().
+- redhat-kernel-version: move el5 to el6
+
+-------------------------------------------------------------------
 Fri Jun 17 19:15:50 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch:
