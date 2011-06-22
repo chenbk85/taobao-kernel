@@ -1,7 +1,7 @@
 #!/bin/bash
 ## prepare necessary packages for building
 sudo yum -b current install asciidoc -y
-sudo yum install xmlto rng-utils m4 python26-devel python-devel perl-TimeDate binutils-devel zlib-devel elfutils-libelf-devel -y
+sudo yum install newt-devel xmlto rng-utils m4 python26-devel python-devel perl-TimeDate binutils-devel zlib-devel elfutils-libelf-devel -y
 
 ## try to restart rngd to generate random number for building
 sudo pkill -9 rngd

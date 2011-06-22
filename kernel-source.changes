@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun 22 14:49:39 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: build with newt for better UI of perf.
+
+-------------------------------------------------------------------
 Mon Jun 20 12:43:52 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/perf-Find_get_context-fix-the-per-cpu-counter-check.patch:
