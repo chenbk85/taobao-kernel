@@ -2,7 +2,7 @@ From 1d16871d8c96deadc5f9753b6b096074f2cbcbe1 Mon Sep 17 00:00:00 2001
 From: Namhyung Kim <namhyung@gmail.com>
 Date: Tue, 22 Mar 2011 16:32:45 -0700
 Subject: [PATCH] mm: batch-free pcp list if possible
-Patch-mainline: 2.6
+Patch-mainline: 2.6.38
 
 free_pcppages_bulk() frees pages from pcp lists in a round-robin fashion
 by keeping batch_free counter.  But it doesn't need to spin if there is

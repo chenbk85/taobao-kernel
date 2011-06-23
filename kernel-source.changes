@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Thu Jun 23 19:04:00 CST 2011 - bosong.ly@taobao.com
+
+- Review 8 patches which improve physical memory fragmentation issue, add
+  more accurate patch-mainline info.
+  - patches.taobao/0001-compaction-checks-correct-fragmentation-index.patch: Refresh.
+  - patches.taobao/0001-mm-batch-free-pcp-list-if-possible.patch: Refresh.
+  - patches.taobao/0001-mm-compaction-abort-compaction-if-too-many-pages-are.patch: Refresh.
+  - patches.taobao/0001-mm-compaction-don-t-depend-on-HUGETLB_PAGE.patch: Refresh.
+  - patches.taobao/0001-mm-compaction-ensure-that-the-compaction-free-scanne.patch: Refresh.
+  - patches.taobao/0001-mm-compaction.c-avoid-double-mem_cgroup_del_lru.patch: Refresh.
+  - patches.taobao/0001-mm-memory-failure.c-fix-page-isolated-count-mismatch.patch: Refresh.
+  - patches.taobao/0001-page-allocator-reduce-fragmentation-in-buddy-allocat.patch: Refresh.
+
+-------------------------------------------------------------------
 Thu Jun 23 11:51:46 CST 2011 - bosong.ly@taobao.com
 
 - The initial try to merge several upstream patches for more efficient

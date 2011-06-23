@@ -2,7 +2,7 @@ From a582a738c763e106f47eab24b8146c698a9c700b Mon Sep 17 00:00:00 2001
 From: Shaohua Li <shaohua.li@intel.com>
 Date: Wed, 15 Jun 2011 15:08:49 -0700
 Subject: [PATCH] compaction: checks correct fragmentation index
-Patch-mainline: 2..6
+Patch-mainline: 3.0
 
 fragmentation_index() returns -1000 when the allocation might succeed
 This doesn't match the comment and code in compaction_suitable(). I

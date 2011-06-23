@@ -2,7 +2,7 @@ From 6dda9d55bf545013597724bf0cd79d01bd2bd944 Mon Sep 17 00:00:00 2001
 From: Corrado Zoccolo <czoccolo@gmail.com>
 Date: Mon, 24 May 2010 14:31:54 -0700
 Subject: [PATCH] page allocator: reduce fragmentation in buddy allocator by adding buddies that are merging to the tail of the free lists
-Patch-mainline: 2.6
+Patch-mainline: 2.6.34
 
 In order to reduce fragmentation, this patch classifies freed pages in two
 groups according to their probability of being part of a high order merge.

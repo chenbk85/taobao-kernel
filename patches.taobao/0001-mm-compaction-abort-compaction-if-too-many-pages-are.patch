@@ -2,7 +2,7 @@ From f9e35b3b41f47c4e17d8132edbcab305a6aaa4b0 Mon Sep 17 00:00:00 2001
 From: Mel Gorman <mgorman@suse.de>
 Date: Wed, 15 Jun 2011 15:08:52 -0700
 Subject: [PATCH] mm: compaction: abort compaction if too many pages are isolated and caller is asynchronous V2
-Patch-mainline: 2.6
+Patch-mainline: 3.0
 
 Asynchronous compaction is used when promoting to huge pages.  This is all
 very nice but if there are a number of processes in compacting memory, a

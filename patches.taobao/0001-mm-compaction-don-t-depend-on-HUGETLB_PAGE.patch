@@ -2,7 +2,7 @@ From 33a938774fdb9933e9c77504b035f4f87c0859df Mon Sep 17 00:00:00 2001
 From: Andrea Arcangeli <aarcange@redhat.com>
 Date: Tue, 25 Jan 2011 15:07:25 -0800
 Subject: [PATCH] mm: compaction: don't depend on HUGETLB_PAGE
-Patch-mainline: 2.6
+Patch-mainline: 2.6.38
 
 Commit 5d6892407 ("thp: select CONFIG_COMPACTION if TRANSPARENT_HUGEPAGE
 enabled") causes this warning during the configuration process:

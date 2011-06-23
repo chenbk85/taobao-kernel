@@ -2,7 +2,7 @@ From 5db8a73a8d7cc6a66afbf25ed7fda338caa8f5f9 Mon Sep 17 00:00:00 2001
 From: Minchan Kim <minchan.kim@gmail.com>
 Date: Wed, 15 Jun 2011 15:08:48 -0700
 Subject: [PATCH] mm/memory-failure.c: fix page isolated count mismatch
-Patch-mainline: 2.6
+Patch-mainline: 3.0
 
 Pages isolated for migration are accounted with the vmstat counters
 NR_ISOLATE_[ANON|FILE].  Callers of migrate_pages() are expected to

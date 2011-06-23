@@ -2,7 +2,7 @@ From dd9e5efe3aa9fc5b1ce484a531ecdba3a7a30bbf Mon Sep 17 00:00:00 2001
 From: Minchan Kim <minchan.kim@gmail.com>
 Date: Tue, 21 Dec 2010 17:24:16 -0800
 Subject: [PATCH] mm/compaction.c: avoid double mem_cgroup_del_lru()
-Patch-mainline: 2.6
+Patch-mainline: 2.6.37
 
 del_page_from_lru_list() already called mem_cgroup_del_lru().  So we must
 not call it again.  It adds unnecessary overhead.

@@ -2,7 +2,7 @@ From 7454f4ba40b419eb999a3c61a99da662bf1a2bb8 Mon Sep 17 00:00:00 2001
 From: Mel Gorman <mgorman@suse.de>
 Date: Wed, 15 Jun 2011 15:08:50 -0700
 Subject: [PATCH] mm: compaction: ensure that the compaction free scanner does not move to the next zone
-Patch-mainline: 2.6
+Patch-mainline: 3.0
 
 Compaction works with two scanners, a migration and a free scanner.  When
 the scanners crossover, migration within the zone is complete.  The
