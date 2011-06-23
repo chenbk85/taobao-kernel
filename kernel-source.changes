@@ -1,4 +1,29 @@
 -------------------------------------------------------------------
+Thu Jun 23 11:51:46 CST 2011 - bosong.ly@taobao.com
+
+- The initial try to merge several upstream patches for more efficient
+  physical pages compaction:
+  - patches.taobao/0001-compaction-checks-correct-fragmentation-index.patch:
+    compaction: checks correct fragmentation index.
+  - patches.taobao/0001-mm-batch-free-pcp-list-if-possible.patch:
+    mm: batch-free pcp list if possible.
+  - patches.taobao/0001-mm-compaction-abort-compaction-if-too-many-pages-are.patch:
+    mm: compaction: abort compaction if too many pages are isolated
+    and caller is asynchronous V2.
+  - patches.taobao/0001-mm-compaction-don-t-depend-on-HUGETLB_PAGE.patch:
+    mm: compaction: don't depend on HUGETLB_PAGE.
+  - patches.taobao/0001-mm-compaction-ensure-that-the-compaction-free-scanne.patch:
+    mm: compaction: ensure that the compaction free scanner does
+    not move to the next zone.
+  - patches.taobao/0001-mm-compaction.c-avoid-double-mem_cgroup_del_lru.patch:
+    mm/compaction.c: avoid double mem_cgroup_del_lru().
+  - patches.taobao/0001-mm-memory-failure.c-fix-page-isolated-count-mismatch.patch:
+    mm/memory-failure.c: fix page isolated count mismatch.
+  - patches.taobao/0001-page-allocator-reduce-fragmentation-in-buddy-allocat.patch:
+    page allocator: reduce fragmentation in buddy allocator by
+    adding buddies that are merging to the tail of the free lists.
+
+-------------------------------------------------------------------
 Mon Jun 20 12:41:01 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/perf-Find_get_context-fix-the-per-cpu-counter-check.patch:
