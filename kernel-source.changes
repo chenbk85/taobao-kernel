@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Thu Jun 23 19:10:25 CST 2011 - bosong.ly@taobao.com
+
+- rename patches for memory compaction improvement:
+  - patches.taobao/mm-0001-compaction-checks-correct-fragmentation-index.patch
+  - patches.taobao/mm-0002-batch-free-pcp-list-if-possible.patch
+  - patches.taobao/mm-0003-compaction-abort-compaction-if-too-many-pages-are.patch
+  - patches.taobao/mm-0004-compaction-don-t-depend-on-HUGETLB_PAGE.patch
+  - patches.taobao/mm-0005-compaction-ensure-that-the-compaction-free-scanne.patch
+  - patches.taobao/mm-0006-compaction.c-avoid-double-mem_cgroup_del_lru.patch
+  - patches.taobao/mm-0007-memory-failure.c-fix-page-isolated-count-mismatch.patch
+  - patches.taobao/mm-0008-page-allocator-reduce-fragmentation-in-buddy-allocat.patch
+
+-------------------------------------------------------------------
 Thu Jun 23 19:04:00 CST 2011 - bosong.ly@taobao.com
 
 - Review 8 patches which improve physical memory fragmentation issue, add
