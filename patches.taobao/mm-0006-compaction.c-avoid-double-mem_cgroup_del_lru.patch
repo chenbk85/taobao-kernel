@@ -26,7 +26,7 @@ Index: linux-2.6.32-131.4.1.el6/mm/compaction.c
 ===================================================================
 --- linux-2.6.32-131.4.1.el6.orig/mm/compaction.c
 +++ linux-2.6.32-131.4.1.el6/mm/compaction.c
-@@ -349,7 +349,6 @@ static isolate_migrate_t isolate_migrate
+@@ -360,7 +360,6 @@ static isolate_migrate_t isolate_migrate
  		/* Successfully isolated */
  		del_page_from_lru_list(zone, page, page_lru(page));
  		list_add(&page->lru, migratelist);
