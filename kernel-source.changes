@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jun 24 16:08:53 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/perf-x86-Fix-Intel-fixed-counters-base-initializatio.patch:
+  perf, x86: Fix Intel fixed counters base initialization.
+
+-------------------------------------------------------------------
 Thu Jun 23 19:14:29 CST 2011 - bosong.ly@taobao.com
 
 - Add 8 patches to improve memory comaction performance, just pass compiling,
