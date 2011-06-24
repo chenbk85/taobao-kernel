@@ -1,4 +1,28 @@
 -------------------------------------------------------------------
+Fri Jun 24 16:11:23 CST 2011 - bosong.ly@taobao.com
+
+- Add 8 patches to improve memory compaction performance, reduce CPU systime:
+  - patches.taobao/mm-0001-compaction-checks-correct-fragmentation-index.patch:
+    compaction: checks correct fragmentation index.
+  - patches.taobao/mm-0002-batch-free-pcp-list-if-possible.patch:
+    mm: batch-free pcp list if possible.
+  - patches.taobao/mm-0003-compaction-abort-compaction-if-too-many-pages-are.patch:
+    mm: compaction: abort compaction if too many pages are isolated
+    and caller is asynchronous V2.
+  - patches.taobao/mm-0004-compaction-don-t-depend-on-HUGETLB_PAGE.patch:
+    mm: compaction: don't depend on HUGETLB_PAGE.
+  - patches.taobao/mm-0005-compaction-ensure-that-the-compaction-free-scanne.patch:
+    mm: compaction: ensure that the compaction free scanner does
+    not move to the next zone.
+  - patches.taobao/mm-0006-compaction.c-avoid-double-mem_cgroup_del_lru.patch:
+    mm/compaction.c: avoid double mem_cgroup_del_lru().
+  - patches.taobao/mm-0007-memory-failure.c-fix-page-isolated-count-mismatch.patch:
+    mm/memory-failure.c: fix page isolated count mismatch.
+  - patches.taobao/mm-0008-page-allocator-reduce-fragmentation-in-buddy-allocat.patch:
+    page allocator: reduce fragmentation in buddy allocator by
+    adding buddies that are merging to the tail of the free lists.
+
+-------------------------------------------------------------------
 Fri Jun 24 16:07:56 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/perf-x86-Fix-Intel-fixed-counters-base-initializatio.patch:
