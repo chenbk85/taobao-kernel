@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Jun 25 16:25:53 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/mm-0006-compaction.c-avoid-double-mem_cgroup_del_lru.patch:
+  Refresh to remove a patching warning:
+
+
+-------------------------------------------------------------------
 Fri Jun 24 16:08:53 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/perf-x86-Fix-Intel-fixed-counters-base-initializatio.patch:
