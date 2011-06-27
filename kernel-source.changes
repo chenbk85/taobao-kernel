@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jun 27 18:30:51 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/kgdb-0001-repair-gdbstub-to-match-the-gdbserial-protocol-speci.patch:
+  repair gdbstub to match the gdbserial protocol specification.
+
+-------------------------------------------------------------------
 Mon Jun 27 17:33:34 CST 2011 - bosong.ly@taobao.com
 
 - More patches for memory management.
