@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Fri Jul  1 20:05:59 CST 2011 - boyu.mt@taobao.com
+
+2 patches to sync the parent and its own inode during fsync to avoid crash.
+
+- patches.taobao/ext4-Make-fsync-sync-new-parent-directories-in-no-jo.patch:
+  ext4: Make fsync sync new parent directories in no-journal mode.
+- patches.taobao/ext4-sync-the-directory-inode-in-ext4_sync_parent.patch:
+  ext4: sync the directory inode in ext4_sync_parent().
+
+-------------------------------------------------------------------
 Mon Jun 27 18:30:51 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/kgdb-0001-repair-gdbstub-to-match-the-gdbserial-protocol-speci.patch:
