@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jul  1 21:39:01 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/mm-0011-disable-hugepage-and-memory-compaction-by-default.patch:
+  Disable hugepage and memory compaction by default.
+
+-------------------------------------------------------------------
 Mon Jun 27 18:30:51 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/kgdb-0001-repair-gdbstub-to-match-the-gdbserial-protocol-speci.patch:
