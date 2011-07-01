@@ -5,6 +5,16 @@ Fri Jul  1 21:39:01 CST 2011 - bosong.ly@taobao.com
   Disable hugepage and memory compaction by default.
 
 -------------------------------------------------------------------
+Fri Jul  1 20:05:59 CST 2011 - boyu.mt@taobao.com
+
+2 patches to sync the parent and its own inode during fsync to avoid crash.
+
+- patches.taobao/ext4-Make-fsync-sync-new-parent-directories-in-no-jo.patch:
+  ext4: Make fsync sync new parent directories in no-journal mode.
+- patches.taobao/ext4-sync-the-directory-inode-in-ext4_sync_parent.patch:
+  ext4: sync the directory inode in ext4_sync_parent().
+
+-------------------------------------------------------------------
 Mon Jun 27 18:30:51 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/kgdb-0001-repair-gdbstub-to-match-the-gdbserial-protocol-speci.patch:
@@ -89,6 +99,12 @@ Mon Jun 20 12:41:01 CST 2011 - bosong.ly@taobao.com
 - redhat-kernel-version: move el5 to el6
 
 -------------------------------------------------------------------
+Fri Jun 17 21:51:29 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/cfq_avoid_async_write_starve.patch: CFQ: Avoid
+  async write starvation by allowing one dispatch at a time.
+
+-------------------------------------------------------------------
 Fri Jun 17 19:14:15 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch:
@@ -99,12 +115,6 @@ Fri Jun 17 19:13:25 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch:
   Ext4: set file system to read-only by I/O error threshold.
-
--------------------------------------------------------------------
-Fri Jun 17 21:51:29 CST 2011 - boyu.mt@taobao.com
-
-- patches.taobao/cfq_avoid_async_write_starve.patch: CFQ: Avoid
-  async write starvation by allowing one dispatch at a time.
 
 -------------------------------------------------------------------
 Thu Jun 16 11:48:12 CST 2011 - bosong.ly@taobao.com
