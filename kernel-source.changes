@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jul  8 16:51:41 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/ip_vs_conn_locking_granularity.patch: Update patch format
+
+-------------------------------------------------------------------
 Fri Jul  8 15:36:28 CST 2011 - zhengming@taobao.com
 
 - patches.taobao/ip_vs_conn_locking_granularity.patch:
