@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jul  8 15:36:28 CST 2011 - zhengming@taobao.com
+
+- patches.taobao/ip_vs_conn_locking_granularity.patch:
+  tune the locks of connection hash table from 16 to 256 in IPVS, so that
+  collision will be low, especially on hardware environment of 16 cores.
+
+-------------------------------------------------------------------
 Fri Jul  1 21:39:01 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/mm-0011-disable-hugepage-and-memory-compaction-by-default.patch:
