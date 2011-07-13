@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Jul 14 01:09:26 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/ip_vs_conn_locking_granularity.patch: LVS:
+  Tune the locks of connection hash table from 16 to 256.
+- patches.taobao/kgdb-0001-repair-gdbstub-to-match-the-gdbserial-protocol-speci.patch:
+  repair gdbstub to match the gdbserial protocol specification.
+
+-------------------------------------------------------------------
 Thu Jul 14 00:56:37 CST 2011 - bosong.ly@taobao.com
 
 - redhat-kernel-versiHEL6 linux-2.6.32-131.6.1 kernel.
