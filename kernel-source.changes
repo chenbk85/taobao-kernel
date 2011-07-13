@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jul 14 01:13:11 CST 2011 - bosong.ly@taobao.com
+
+- series.conf: re-order patches, make ext4 fixes together.
+
+-------------------------------------------------------------------
 Thu Jul 14 00:43:37 CST 2011 - bosong.ly@taobao.com
 
 - update to RHEL6 linux-2.6.32-131.6.1 kernel.
