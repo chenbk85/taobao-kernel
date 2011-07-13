@@ -1,4 +1,70 @@
 -------------------------------------------------------------------
+Thu Jul 14 00:43:37 CST 2011 - bosong.ly@taobao.com
+
+- update to RHEL6 linux-2.6.32-131.6.1 kernel.
+  - MAINTAINERS:
+  - patches.taobao/mm-0002-batch-free-pcp-list-if-possible.patch: Refresh.
+  - patches.taobao/mm-0008-page-allocator-reduce-fragmentation-in-buddy-allocat.patch: Refresh.
+  - patches.taobao/mm-0009-Fix-section-mismatch-for-setup_zone_pageset.patch: Refresh.
+  - patches.taobao/mm-0010-page_alloc.c-prevent-unending-loop-in-__alloc_pag.patch: Refresh.
+  - redhat-kernel-changelog:
+  - redhat-kernel-source/kernel.spec:
+  - redhat-kernel-source/linux-2.6.32/arch/powerpc/include/asm/ptrace.h:
+  - redhat-kernel-source/linux-2.6.32/arch/powerpc/kernel/ptrace.c:
+  - redhat-kernel-source/linux-2.6.32/arch/powerpc/kernel/time.c:
+  - redhat-kernel-source/linux-2.6.32/arch/s390/include/asm/ptrace.h:
+  - redhat-kernel-source/linux-2.6.32/arch/s390/kernel/ptrace.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/ia32/ia32entry.S:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/cpu/common.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/entry_32.S:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/entry_64.S:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/kprobes.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/ptrace.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/vm86_32.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kvm/i8259.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kvm/vmx.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/xen/enlighten.c:
+  - redhat-kernel-source/linux-2.6.32/block/blk-core.c:
+  - redhat-kernel-source/linux-2.6.32/block/genhd.c:
+  - redhat-kernel-source/linux-2.6.32/crypto/signature/key.h:
+  - redhat-kernel-source/linux-2.6.32/crypto/testmgr.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/ixgbe/ixgbe_main.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/ixgbe/ixgbe_param.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/pppol2tp.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/pci/intel-iommu.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/scsi/mpt2sas/mpt2sas_scsih.c:
+  - redhat-kernel-source/linux-2.6.32/extract.pub:
+  - redhat-kernel-source/linux-2.6.32/fs/ext3/ialloc.c:
+  - redhat-kernel-source/linux-2.6.32/fs/gfs2/inode.c:
+  - redhat-kernel-source/linux-2.6.32/fs/gfs2/ops_inode.c:
+  - redhat-kernel-source/linux-2.6.32/include/linux/audit.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/backing-dev.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/genhd.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/mmzone.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/ptrace.h:
+  - redhat-kernel-source/linux-2.6.32/include/xen/xen.h:
+  - redhat-kernel-source/linux-2.6.32/kernel.pub:
+  - redhat-kernel-source/linux-2.6.32/kernel.sec:
+  - redhat-kernel-source/linux-2.6.32/kernel/auditsc.c:
+  - redhat-kernel-source/linux-2.6.32/kernel/cgroup.c:
+  - redhat-kernel-source/linux-2.6.32/mm/backing-dev.c:
+  - redhat-kernel-source/linux-2.6.32/mm/memory.c:
+  - redhat-kernel-source/linux-2.6.32/mm/page_alloc.c:
+  - redhat-kernel-source/linux-2.6.32/mm/slab.c:
+  - redhat-kernel-source/linux-2.6.32/mm/vmscan.c:
+  - redhat-kernel-source/linux-2.6.32/net/8021q/vlan.c:
+  - redhat-kernel-source/linux-2.6.32/net/8021q/vlan_dev.c:
+  - redhat-kernel-source/linux-2.6.32/net/core/dev.c:
+  - redhat-kernel-source/linux-2.6.32/net/core/sock.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv4/ip_gre.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv4/ipip.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv6/ip6_tunnel.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv6/sit.c:
+  - redhat-kernel-source/linux-2.6.32/random_seed:
+  - redhat-kernel-source/linux-2.6.32/trustdb.gpg:
+  - redhat-kernel-version:
+
+-------------------------------------------------------------------
 Fri Jul  1 21:43:29 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/mm-0009-Fix-section-mismatch-for-setup_zone_pageset.patch:
