@@ -13,11 +13,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  mm/page_alloc.c |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: linux-2.6.32-131.4.1.el6/mm/page_alloc.c
+Index: linux-2.6.32-131.6.1.el6/mm/page_alloc.c
 ===================================================================
---- linux-2.6.32-131.4.1.el6.orig/mm/page_alloc.c
-+++ linux-2.6.32-131.4.1.el6/mm/page_alloc.c
-@@ -3459,7 +3459,7 @@ void __init setup_per_cpu_pageset(void)
+--- linux-2.6.32-131.6.1.el6.orig/mm/page_alloc.c
++++ linux-2.6.32-131.6.1.el6/mm/page_alloc.c
+@@ -3434,7 +3434,7 @@ void __init setup_per_cpu_pageset(void)
  
  #endif
  

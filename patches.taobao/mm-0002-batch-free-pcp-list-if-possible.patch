@@ -20,11 +20,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  mm/page_alloc.c |    4 ++++
  1 files changed, 4 insertions(+), 0 deletions(-)
 
-Index: linux-2.6.32-131.4.1.el6/mm/page_alloc.c
+Index: linux-2.6.32-131.6.1.el6/mm/page_alloc.c
 ===================================================================
---- linux-2.6.32-131.4.1.el6.orig/mm/page_alloc.c
-+++ linux-2.6.32-131.4.1.el6/mm/page_alloc.c
-@@ -570,13 +570,13 @@ static void free_pcppages_bulk(struct zo
+--- linux-2.6.32-131.6.1.el6.orig/mm/page_alloc.c
++++ linux-2.6.32-131.6.1.el6/mm/page_alloc.c
+@@ -546,13 +546,13 @@ static void free_pcppages_bulk(struct zo
  {
  	int migratetype = 0;
  	int batch_free = 0;
@@ -40,7 +40,7 @@ Index: linux-2.6.32-131.4.1.el6/mm/page_alloc.c
  		struct page *page;
  		struct list_head *list;
  
-@@ -594,6 +594,10 @@ static void free_pcppages_bulk(struct zo
+@@ -570,6 +570,10 @@ static void free_pcppages_bulk(struct zo
  			list = &pcp->lists[migratetype];
  		} while (list_empty(list));
  
@@ -51,7 +51,7 @@ Index: linux-2.6.32-131.4.1.el6/mm/page_alloc.c
  		do {
  			page = list_entry(list->prev, struct page, lru);
  			/* must delete as __free_one_page list manipulates */
-@@ -601,9 +605,9 @@ static void free_pcppages_bulk(struct zo
+@@ -577,9 +581,9 @@ static void free_pcppages_bulk(struct zo
  			/* MIGRATE_MOVABLE list may include MIGRATE_RESERVEs */
  			__free_one_page(page, zone, 0, page_private(page));
  			trace_mm_page_pcpu_drain(page, 0, page_private(page));
