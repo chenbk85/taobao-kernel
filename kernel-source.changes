@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jul 14 01:14:18 CST 2011 - bosong.ly@taobao.com
+
+- series.conf: re-order patches, make ext4 fixes together.
+
+-------------------------------------------------------------------
 Thu Jul 14 01:11:29 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ip_vs_conn_locking_granularity.patch: LVS:
