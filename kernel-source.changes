@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Sat Jul 16 22:33:53 CST 2011 - boyu.mt@taobao.com
+
+Backport some mballoc fixes from upsteam ext4.
+
+- patches.taobao/ext4-Adding-error-check-after-calling-ext4_mb_regular_allocator.patch:
+  ext4: Adding error check after calling
+  ext4_mb_regular_allocator().
+- patches.taobao/ext4-init-statistics-after-journal-recovery.patch:
+  ext4: init statistics after journal recovery.
+- patches.taobao/ext4-remove-ext4_mb_return_to_preallocation.patch:
+  ext4: remove ext4_mb_return_to_preallocation().
+- patches.taobao/ext4-use-dedicated-slab-caches-for-group_info-structures.patch:
+  ext4: use dedicated slab caches for group_info structures.
+
+-------------------------------------------------------------------
 Thu Jul 14 01:14:58 CST 2011 - bosong.ly@taobao.com
 
 - series.conf: re-order patches, make ext4 fixes together.
