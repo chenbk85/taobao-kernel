@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Aug  1 14:02:19 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: install kernel-headers before building.
+
+-------------------------------------------------------------------
 Mon Aug  1 08:47:38 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/list-remove-prefetching-from-regular-list-iterators.patch:
