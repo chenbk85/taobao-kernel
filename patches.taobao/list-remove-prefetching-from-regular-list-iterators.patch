@@ -285,3 +285,14 @@ Index: a/net/netlabel/netlabel_addrlist.h
  	     iter = __af6list_valid_rcu(iter->list.next, head))
  
  #define netlbl_af6list_foreach_safe(iter, tmp, head)			\
+Index: a/tools/perf/util/include/linux/list.h
+===================================================================
+--- a/tools/perf/util/include/linux/list.h
++++ b/tools/perf/util/include/linux/list.h
+@@ -22,5 +22,5 @@ static inline void list_del_range(struct
+  * @head: the head for your list.
+  */
+ #define list_for_each_from(pos, head) \
+-	for (; prefetch(pos->next), pos != (head); pos = pos->next)
++	for (; pos != (head); pos = pos->next)
+ #endif

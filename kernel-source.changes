@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Aug  2 11:31:03 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/list-remove-prefetching-from-regular-list-iterators.patch:
+  remove prefetch() from tools/perf/util/include/linux/list.h. 
+
+-------------------------------------------------------------------
 Mon Aug  1 14:02:19 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: install kernel-headers before building.
