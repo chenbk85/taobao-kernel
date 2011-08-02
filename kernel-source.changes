@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Aug  2 15:55:17 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/list-remove-prefetching-from-regular-list-iterators.patch:
+  1) fix a compiling error introduced by modifying include/linux/list.h
+  2) remove prefetch() from tools/perf/util/include/linux/list.h.
+
+-------------------------------------------------------------------
 Mon Aug  1 08:44:32 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/list-remove-prefetching-from-regular-list-iterators.patch:

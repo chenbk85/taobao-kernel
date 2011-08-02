@@ -47,26 +47,19 @@ Index: a/include/linux/list.h
 ===================================================================
 --- a/include/linux/list.h
 +++ b/include/linux/list.h
-@@ -3,10 +3,17 @@
+@@ -3,6 +3,11 @@
  
  #include <linux/stddef.h>
  #include <linux/poison.h>
--#include <linux/prefetch.h>
-+#include <linux/const.h>
- #include <asm/system.h>
- 
- /*
++/*
 + * This file has been removed from <include/linux/list.h> in
 + * upstream. We retain it in here in order not to handle build
 + * dependency.
 + */
-+#include <linux/prefetch.h>
-+
-+/*
-  * Simple doubly linked list implementation.
-  *
-  * Some of the internal functions ("__xxx") are useful when
-@@ -365,18 +372,15 @@ static inline void list_splice_tail_init
+ #include <linux/prefetch.h>
+ #include <asm/system.h>
+ 
+@@ -365,18 +370,15 @@ static inline void list_splice_tail_init
   * @head:	the head for your list.
   */
  #define list_for_each(pos, head) \
@@ -88,7 +81,7 @@ Index: a/include/linux/list.h
   */
  #define __list_for_each(pos, head) \
  	for (pos = (head)->next; pos != (head); pos = pos->next)
-@@ -387,8 +391,7 @@ static inline void list_splice_tail_init
+@@ -387,8 +389,7 @@ static inline void list_splice_tail_init
   * @head:	the head for your list.
   */
  #define list_for_each_prev(pos, head) \
@@ -98,7 +91,7 @@ Index: a/include/linux/list.h
  
  /**
   * list_for_each_safe - iterate over a list safe against removal of list entry
-@@ -408,7 +411,7 @@ static inline void list_splice_tail_init
+@@ -408,7 +409,7 @@ static inline void list_splice_tail_init
   */
  #define list_for_each_prev_safe(pos, n, head) \
  	for (pos = (head)->prev, n = pos->prev; \
@@ -107,7 +100,7 @@ Index: a/include/linux/list.h
  	     pos = n, n = pos->prev)
  
  /**
-@@ -419,7 +422,7 @@ static inline void list_splice_tail_init
+@@ -419,7 +420,7 @@ static inline void list_splice_tail_init
   */
  #define list_for_each_entry(pos, head, member)				\
  	for (pos = list_entry((head)->next, typeof(*pos), member);	\
@@ -116,7 +109,7 @@ Index: a/include/linux/list.h
  	     pos = list_entry(pos->member.next, typeof(*pos), member))
  
  /**
-@@ -430,7 +433,7 @@ static inline void list_splice_tail_init
+@@ -430,7 +431,7 @@ static inline void list_splice_tail_init
   */
  #define list_for_each_entry_reverse(pos, head, member)			\
  	for (pos = list_entry((head)->prev, typeof(*pos), member);	\
@@ -125,7 +118,7 @@ Index: a/include/linux/list.h
  	     pos = list_entry(pos->member.prev, typeof(*pos), member))
  
  /**
-@@ -455,7 +458,7 @@ static inline void list_splice_tail_init
+@@ -455,7 +456,7 @@ static inline void list_splice_tail_init
   */
  #define list_for_each_entry_continue(pos, head, member) 		\
  	for (pos = list_entry(pos->member.next, typeof(*pos), member);	\
@@ -134,7 +127,7 @@ Index: a/include/linux/list.h
  	     pos = list_entry(pos->member.next, typeof(*pos), member))
  
  /**
-@@ -469,7 +472,7 @@ static inline void list_splice_tail_init
+@@ -469,7 +470,7 @@ static inline void list_splice_tail_init
   */
  #define list_for_each_entry_continue_reverse(pos, head, member)		\
  	for (pos = list_entry(pos->member.prev, typeof(*pos), member);	\
@@ -143,7 +136,7 @@ Index: a/include/linux/list.h
  	     pos = list_entry(pos->member.prev, typeof(*pos), member))
  
  /**
-@@ -481,7 +484,7 @@ static inline void list_splice_tail_init
+@@ -481,7 +482,7 @@ static inline void list_splice_tail_init
   * Iterate over list of given type, continuing from current position.
   */
  #define list_for_each_entry_from(pos, head, member) 			\
@@ -152,7 +145,7 @@ Index: a/include/linux/list.h
  	     pos = list_entry(pos->member.next, typeof(*pos), member))
  
  /**
-@@ -649,8 +652,7 @@ static inline void hlist_move_list(struc
+@@ -649,8 +650,7 @@ static inline void hlist_move_list(struc
  #define hlist_entry(ptr, type, member) container_of(ptr,type,member)
  
  #define hlist_for_each(pos, head) \
@@ -162,7 +155,7 @@ Index: a/include/linux/list.h
  
  #define hlist_for_each_safe(pos, n, head) \
  	for (pos = (head)->first; pos && ({ n = pos->next; 1; }); \
-@@ -665,7 +667,7 @@ static inline void hlist_move_list(struc
+@@ -665,7 +665,7 @@ static inline void hlist_move_list(struc
   */
  #define hlist_for_each_entry(tpos, pos, head, member)			 \
  	for (pos = (head)->first;					 \
@@ -171,7 +164,7 @@ Index: a/include/linux/list.h
  		({ tpos = hlist_entry(pos, typeof(*tpos), member); 1;}); \
  	     pos = pos->next)
  
-@@ -677,7 +679,7 @@ static inline void hlist_move_list(struc
+@@ -677,7 +677,7 @@ static inline void hlist_move_list(struc
   */
  #define hlist_for_each_entry_continue(tpos, pos, member)		 \
  	for (pos = (pos)->next;						 \
@@ -180,7 +173,7 @@ Index: a/include/linux/list.h
  		({ tpos = hlist_entry(pos, typeof(*tpos), member); 1;}); \
  	     pos = pos->next)
  
-@@ -688,7 +690,7 @@ static inline void hlist_move_list(struc
+@@ -688,7 +688,7 @@ static inline void hlist_move_list(struc
   * @member:	the name of the hlist_node within the struct.
   */
  #define hlist_for_each_entry_from(tpos, pos, member)			 \
@@ -285,3 +278,14 @@ Index: a/net/netlabel/netlabel_addrlist.h
  	     iter = __af6list_valid_rcu(iter->list.next, head))
  
  #define netlbl_af6list_foreach_safe(iter, tmp, head)			\
+Index: a/tools/perf/util/include/linux/list.h
+===================================================================
+--- a/tools/perf/util/include/linux/list.h
++++ b/tools/perf/util/include/linux/list.h
+@@ -22,5 +22,5 @@ static inline void list_del_range(struct
+  * @head: the head for your list.
+  */
+ #define list_for_each_from(pos, head) \
+-	for (; prefetch(pos->next), pos != (head); pos = pos->next)
++	for (; pos != (head); pos = pos->next)
+ #endif
