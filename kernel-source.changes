@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Wed Aug 10 23:11:43 CST 2011 - boyu.mt@taobao.com
+
+2 Fixes selected and backported from Jens' 3.1 pull request.
+The whole list and analyze of the patches list can be found at:
+http://baike.corp.taobao.com/index.php/Block%E5%B1%82%E6%96%B0feature%E5%92%8Cbug_fix%E5%88%97%E8%A1%A8#fixes:
+
+- patches.taobao/block-eliminate-potential-for-infinite-loop-in-blkde.patch:
+  block: eliminate potential for infinite loop in
+  blkdev_issue_discard.
+- patches.taobao/block-fix-patch-import-error-in-max_discard_sectors-.patch:
+  block: fix patch import error in max_discard_sectors check.
+
+-------------------------------------------------------------------
 Tue Aug  2 15:55:17 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/list-remove-prefetching-from-regular-list-iterators.patch:

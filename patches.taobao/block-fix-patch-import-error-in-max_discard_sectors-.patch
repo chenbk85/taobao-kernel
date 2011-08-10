@@ -1,0 +1,30 @@
+From 4c64500eada358165d0bb9a20d6c7d30821995b4 Mon Sep 17 00:00:00 2001
+From: Jens Axboe <jaxboe@fusionio.com>
+Date: Sat, 23 Jul 2011 20:34:59 +0200
+Subject: [PATCH] block: fix patch import error in max_discard_sectors check
+Patch-mainline: 4c64500eada358165d0bb9a20d6c7d30821995b4
+References: 
+
+A '!' snuck in before the unlikely, rendering it useless.
+
+Reported-by: Mike Snitzer <snitzer@redhat.com>
+Signed-off-by: Jens Axboe <jaxboe@fusionio.com>
+Acked-by: Tao Ma <boyu.mt@taobao.com>
+
+---
+ block/blk-lib.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+Index: linux-2.6.32-131.6.1.el5/block/blk-lib.c
+===================================================================
+--- linux-2.6.32-131.6.1.el5.orig/block/blk-lib.c
++++ linux-2.6.32-131.6.1.el5/block/blk-lib.c
+@@ -63,7 +63,7 @@ int blkdev_issue_discard(struct block_de
+ 	 * granularity
+ 	 */
+ 	max_discard_sectors = min(q->limits.max_discard_sectors, UINT_MAX >> 9);
+-	if (!unlikely(!max_discard_sectors)) {
++	if (unlikely(!max_discard_sectors)) {
+ 		/* Avoid infinite loop below. Being cautious never hurts. */
+ 		return -EOPNOTSUPP;
+ 	} else if (q->limits.discard_granularity) {

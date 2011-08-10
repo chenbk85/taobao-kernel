@@ -1,0 +1,45 @@
+From 0f79960391a5a1e3679956024e18aeeb0369ac44 Mon Sep 17 00:00:00 2001
+From: Mike Snitzer <snitzer@redhat.com>
+Date: Wed, 6 Jul 2011 21:30:50 +0200
+Subject: [PATCH] block: eliminate potential for infinite loop in blkdev_issue_discard
+Patch-mainline: 0f79960391a5a1e3679956024e18aeeb0369ac44
+References: 
+
+Due to the recently identified overflow in read_capacity_16() it was
+possible for max_discard_sectors to be zero but still have discards
+enabled on the associated device's queue.
+
+Eliminate the possibility for blkdev_issue_discard to infinitely loop.
+
+Interestingly this issue wasn't identified until a device, whose
+discard_granularity was 0 due to read_capacity_16 overflow, was consumed
+by blk_stack_limits() to construct limits for a higher-level DM
+multipath device.  The multipath device's resulting limits never had the
+discard limits stacked because blk_stack_limits() will only do so if
+the bottom device's discard_granularity != 0.  This resulted in the
+multipath device's limits.max_discard_sectors being 0.
+
+Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+Signed-off-by: Jens Axboe <jaxboe@fusionio.com>
+Acked-by: Tao Ma <boyu.mt@taobao.com>
+
+---
+ block/blk-lib.c |    5 ++++-
+ 1 files changed, 4 insertions(+), 1 deletions(-)
+
+Index: linux-2.6.32-131.6.1.el5/block/blk-lib.c
+===================================================================
+--- linux-2.6.32-131.6.1.el5.orig/block/blk-lib.c
++++ linux-2.6.32-131.6.1.el5/block/blk-lib.c
+@@ -63,7 +63,10 @@ int blkdev_issue_discard(struct block_de
+ 	 * granularity
+ 	 */
+ 	max_discard_sectors = min(q->limits.max_discard_sectors, UINT_MAX >> 9);
+-	if (q->limits.discard_granularity) {
++	if (!unlikely(!max_discard_sectors)) {
++		/* Avoid infinite loop below. Being cautious never hurts. */
++		return -EOPNOTSUPP;
++	} else if (q->limits.discard_granularity) {
+ 		unsigned int disc_sects = q->limits.discard_granularity >> 9;
+ 
+ 		max_discard_sectors &= ~(disc_sects - 1);
