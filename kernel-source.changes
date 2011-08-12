@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Aug 12 23:46:43 CST 2011 - boyu.mt@taobao.com
+
+Support for dealine in cfq.
+
+- patches.taobao/cfq_request_deadline_policy.patch: cfq:
+  request-deadline policy.
+
+-------------------------------------------------------------------
 Mon Aug 15 17:05:09 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch:
