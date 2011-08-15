@@ -1,8 +1,14 @@
 -------------------------------------------------------------------
+Mon Aug 15 17:06:13 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch:
+  remove referencing #BF99632, it's another bug unrelated to this patch.
+
+-------------------------------------------------------------------
 Mon Aug 15 16:58:08 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch:
-  Ext4: Set file system to read-only by I/O error threshold (#BF99632).
+  Ext4: Set file system to read-only by I/O error threshold.
 
 -------------------------------------------------------------------
 Mon Aug 15 16:57:40 CST 2011 - bosong.ly@taobao.com

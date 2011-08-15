@@ -1,7 +1,7 @@
 From: Wang Shaoyan <wangshaoyan.pt@taobao.com>
 Subject: [PATCH] Ext4: Set file system to read-only by I/O error threshold
 Patch-mainline: not merged upstream yet.
-Reference: #BF99632
+Reference:
 
 Some version of Hadoop uses access(2) to check whether the data chunk harddisk
 is online, if access(2) returns error, hadoop marks the disk which it called
