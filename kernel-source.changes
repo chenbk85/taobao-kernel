@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Wed Aug 17 19:31:33 CST 2011 - gaoyang.zyh@taobao.com
+
+We untar the patches package and apply them directly before, which can't
+preserve the correct order of the patches. Fix this by applying the patches
+with apply-patches.sh, and in the order of series.conf.
+
+- scripts/apply-patches.sh:
+- scripts/mkspec.py:
+- scripts/package.py:
+
+-------------------------------------------------------------------
 Fri Aug 12 23:46:43 CST 2011 - boyu.mt@taobao.com
 
 Support for dealine in cfq.
