@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Fri Aug 19 21:47:31 CST 2011 - boyu.mt@taobao.com
+
+Backported some ext4 fixes from Ted's 3.1 pull request.
+
+- patches.taobao/ext4-Fix-overflow-caused-by-missing-cast-in-ext4_fal.patch:
+  ext4: Fix overflow caused by missing cast in ext4_fallocate().
+- patches.taobao/ext4-add-tracepoint-for-ext4_journal_start.patch:
+  ext4: add tracepoint for ext4_journal_start.
+- patches.taobao/ext4-fix-races-in-ext4_sync_parent.patch: ext4:
+  fix races in ext4_sync_parent().
+- patches.taobao/ext4-free-allocated-and-pre-allocated-blocks-when-ch.patch:
+  ext4: free allocated and pre-allocated blocks when
+  check_eofblocks_fl fails.
+
+-------------------------------------------------------------------
 Wed Aug 17 19:31:33 CST 2011 - gaoyang.zyh@taobao.com
 
 We untar the patches package and apply them directly before, which can't
