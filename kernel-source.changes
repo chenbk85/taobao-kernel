@@ -1,4 +1,76 @@
 -------------------------------------------------------------------
+Wed Aug 31 15:47:57 CST 2011 - bosong.ly@taobao.com
+
+- Update to RHEL6 2.6.32-131.12.1.el6
+  - MAINTAINERS:
+  - patches.taobao/ext4-Fix-buffer-head-leaks-after-calls-to-ext4_get_inode_loc.diff:
+  - patches.taobao/ext4-Make-fsync-sync-new-parent-directories-in-no-jo.patch: Refresh.
+  - patches.taobao/ext4-Remove-extraneous-newlines-in-ext4_msg-calls.diff:
+  - patches.taobao/ext4-don-t-show-mount-options-in-proc-mounts-if-ther.patch: Refresh.
+  - patches.taobao/ext4-fix-kernel-oops-if-the-journal-superblock-has-a-non-zero-j_errno.diff:
+  - patches.taobao/ext4-init-statistics-after-journal-recovery.patch: Refresh.
+  - patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch: Refresh.
+  - patches.taobao/rhel6-add-missing-key.h: Add cropt/signature/key.h which is missing in rhel6 2.6.32-131.12.1.
+  - redhat-kernel-source/config-generic-rhel:
+  - redhat-kernel-source/config-x86_64-generic-rhel:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/include/asm/pvclock.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/block/cciss.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/block/cciss.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/block/cciss_cmd.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/md/md.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/benet/be.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/benet/be_cmds.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/benet/be_cmds.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/benet/be_hw.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/benet/be_main.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/ehea/ehea_main.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/r8169.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/pci/intel-iommu.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/scsi/hpsa.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/scsi/hpsa.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/scsi/hpsa_cmd.h:
+  - redhat-kernel-source/linux-2.6.32/fs/ext4/ext4_extents.h:
+  - redhat-kernel-source/linux-2.6.32/fs/ext4/extents.c:
+  - redhat-kernel-source/linux-2.6.32/fs/ext4/move_extent.c:
+  - redhat-kernel-source/linux-2.6.32/fs/ext4/super.c:
+  - redhat-kernel-source/linux-2.6.32/fs/gfs2/glops.c:
+  - redhat-kernel-source/linux-2.6.32/fs/gfs2/ops_inode.c:
+  - redhat-kernel-source/linux-2.6.32/fs/gfs2/super.c:
+  - redhat-kernel-source/linux-2.6.32/fs/lockd/clntproc.c:
+  - redhat-kernel-source/linux-2.6.32/fs/nfs/dir.c:
+  - redhat-kernel-source/linux-2.6.32/fs/partitions/efi.c:
+  - redhat-kernel-source/linux-2.6.32/fs/proc/base.c:
+  - redhat-kernel-source/linux-2.6.32/include/linux/iommu.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/pid.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/sunrpc/sched.h:
+  - redhat-kernel-source/linux-2.6.32/kernel/pid.c:
+  - redhat-kernel-source/linux-2.6.32/kernel/signal.c:
+  - redhat-kernel-source/linux-2.6.32/mm/ksm.c:
+  - redhat-kernel-source/linux-2.6.32/net/bluetooth/l2cap.c:
+  - redhat-kernel-source/linux-2.6.32/net/bluetooth/rfcomm/sock.c:
+  - redhat-kernel-source/linux-2.6.32/net/core/dev.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv4/inet_diag.c:
+  - redhat-kernel-source/linux-2.6.32/net/sunrpc/clnt.c:
+  - redhat-kernel-source/linux-2.6.32/net/sunrpc/sched.c:
+  - redhat-kernel-source/linux-2.6.32/net/wireless/nl80211.c:
+  - redhat-kernel-source/linux-2.6.32/virt/kvm/iommu.c:
+  - redhat-kernel-version:
+  - redhat-kernel-source/linux-2.6.32/.gitignore: Delete.
+  - redhat-kernel-source/linux-2.6.32/check-kabi: Delete.
+  - redhat-kernel-source/linux-2.6.32/crypto/signature/key.h: Delete.
+  - redhat-kernel-source/linux-2.6.32/extract.pub: Delete.
+  - redhat-kernel-source/linux-2.6.32/extrakeys.pub: Delete.
+  - redhat-kernel-source/linux-2.6.32/kernel.pub: Delete.
+  - redhat-kernel-source/linux-2.6.32/kernel.sec: Delete.
+  - redhat-kernel-source/linux-2.6.32/merge.pl: Delete.
+  - redhat-kernel-source/linux-2.6.32/pubring.gpg: Delete.
+  - redhat-kernel-source/linux-2.6.32/random_seed: Delete.
+  - redhat-kernel-source/linux-2.6.32/secring.gpg: Delete.
+  - redhat-kernel-source/linux-2.6.32/temp-i686-debug-final: Delete.
+  - redhat-kernel-source/linux-2.6.32/temp-i686-final: Delete.
+  - redhat-kernel-source/linux-2.6.32/trustdb.gpg: Delete.
+
+-------------------------------------------------------------------
 Fri Aug 19 21:47:31 CST 2011 - boyu.mt@taobao.com
 
 Backported some ext4 fixes from Ted's 3.1 pull request.

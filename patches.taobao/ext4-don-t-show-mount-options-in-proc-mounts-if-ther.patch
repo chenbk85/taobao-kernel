@@ -26,11 +26,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  fs/ext4/super.c |    1 -
  1 files changed, 0 insertions(+), 1 deletions(-)
 
-Index: linux-2.6.32-131.2.1.el6/fs/ext4/super.c
+Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-131.2.1.el6.orig/fs/ext4/super.c
-+++ linux-2.6.32-131.2.1.el6/fs/ext4/super.c
-@@ -2836,7 +2836,6 @@ static int ext4_fill_super(struct super_
+--- linux-2.6.32-131.12.1.el6.orig/fs/ext4/super.c
++++ linux-2.6.32-131.12.1.el6/fs/ext4/super.c
+@@ -2845,7 +2845,6 @@ static int ext4_fill_super(struct super_
  		goto failed_mount4;
  	} else {
  		clear_opt(sbi->s_mount_opt, DATA_FLAGS);
