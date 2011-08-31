@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Wed Aug 31 15:56:58 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: add config items
+	CONFIG_SYSFS_DEPRECATED=y
+	CONFIG_SYSFS_DEPRECATED_V2=y
+  Now master branch is compiled for RHEL5, since so far a little RHEL6
+  installation inside Taobao, make master branch running on RHEL5
+  helps us more on testing bases.
+
+-------------------------------------------------------------------
+Wed Aug 31 15:56:30 CST 2011 - bosong.ly@taobao.com
+
+- Update config files.
+
+-------------------------------------------------------------------
 Wed Aug 31 15:21:08 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/rhel6-add-missing-key.h: Add
