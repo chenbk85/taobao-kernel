@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Aug 31 10:30:46 CST 2011 - gaoyang.zyh@taobao.com
+
+- scripts/apply-patches.sh: forgot to add execute bit to it...
+
+-------------------------------------------------------------------
 Mon Aug 29 10:43:36 CST 2011 - gaoyang.zyh@taobao.com
 We untar the patches package and apply them directly before,
 which can't preserve the correct order of the patches. Fix
