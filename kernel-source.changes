@@ -1,7 +1,15 @@
 -------------------------------------------------------------------
-Wed Aug 31 13:41:25 CST 2011 - bosong.ly@taobao.com
+Wed Aug 31 14:30:36 CST 2011 - bosong.ly@taobao.com
 
 - update to RHEL6 linux-2.6.32-131.12.1 kernel
+  - MAINTAINERS:
+  - patches.taobao/ext4-Fix-buffer-head-leaks-after-calls-to-ext4_get_inode_loc.diff:
+  - patches.taobao/ext4-Make-fsync-sync-new-parent-directories-in-no-jo.patch: Refresh.
+  - patches.taobao/ext4-Remove-extraneous-newlines-in-ext4_msg-calls.diff:
+  - patches.taobao/ext4-don-t-show-mount-options-in-proc-mounts-if-ther.patch: Refresh.
+  - patches.taobao/ext4-fix-kernel-oops-if-the-journal-superblock-has-a-non-zero-j_errno.diff:
+  - patches.taobao/ext4-init-statistics-after-journal-recovery.patch: Refresh.
+  - patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch: Refresh.
   - redhat-kernel-source/config-generic-rhel:
   - redhat-kernel-source/config-x86_64-generic-rhel:
   - redhat-kernel-source/linux-2.6.32/arch/x86/include/asm/pvclock.h:
@@ -48,8 +56,7 @@ Wed Aug 31 13:41:25 CST 2011 - bosong.ly@taobao.com
   - redhat-kernel-version:
   - redhat-kernel-source/linux-2.6.32/.gitignore: Delete.
   - redhat-kernel-source/linux-2.6.32/check-kabi: Delete.
-  - redhat-kernel-source/linux-2.6.32/crypto/signature/key.h:
-    Delete.
+  - redhat-kernel-source/linux-2.6.32/crypto/signature/key.h: Delete.
   - redhat-kernel-source/linux-2.6.32/extract.pub: Delete.
   - redhat-kernel-source/linux-2.6.32/extrakeys.pub: Delete.
   - redhat-kernel-source/linux-2.6.32/kernel.pub: Delete.

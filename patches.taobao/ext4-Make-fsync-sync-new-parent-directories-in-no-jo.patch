@@ -23,11 +23,11 @@ Acked-by: Tao Ma <boyu.mt@taobao.com>
  fs/ext4/namei.c |    2 ++
  3 files changed, 32 insertions(+), 2 deletions(-)
 
-Index: linux-2.6.32-131.4.1.el5/fs/ext4/ext4.h
+Index: linux-2.6.32-131.12.1.el6/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-131.4.1.el5.orig/fs/ext4/ext4.h
-+++ linux-2.6.32-131.4.1.el5/fs/ext4/ext4.h
-@@ -1156,6 +1156,7 @@ enum {
+--- linux-2.6.32-131.12.1.el6.orig/fs/ext4/ext4.h
++++ linux-2.6.32-131.12.1.el6/fs/ext4/ext4.h
+@@ -1151,6 +1151,7 @@ enum {
  	EXT4_STATE_DA_ALLOC_CLOSE,	/* Alloc DA blks on close */
  	EXT4_STATE_EXT_MIGRATE,		/* Inode is migrating */
  	EXT4_STATE_DIO_UNWRITTEN,	/* need convert on dio done*/
@@ -35,10 +35,10 @@ Index: linux-2.6.32-131.4.1.el5/fs/ext4/ext4.h
  };
  
  #define EXT4_INODE_BIT_FNS(name, field)					\
-Index: linux-2.6.32-131.4.1.el5/fs/ext4/fsync.c
+Index: linux-2.6.32-131.12.1.el6/fs/ext4/fsync.c
 ===================================================================
---- linux-2.6.32-131.4.1.el5.orig/fs/ext4/fsync.c
-+++ linux-2.6.32-131.4.1.el5/fs/ext4/fsync.c
+--- linux-2.6.32-131.12.1.el6.orig/fs/ext4/fsync.c
++++ linux-2.6.32-131.12.1.el6/fs/ext4/fsync.c
 @@ -35,6 +35,29 @@
  #include <trace/events/ext4.h>
  
@@ -84,10 +84,10 @@ Index: linux-2.6.32-131.4.1.el5/fs/ext4/fsync.c
  
  	/*
  	 * data=writeback,ordered:
-Index: linux-2.6.32-131.4.1.el5/fs/ext4/namei.c
+Index: linux-2.6.32-131.12.1.el6/fs/ext4/namei.c
 ===================================================================
---- linux-2.6.32-131.4.1.el5.orig/fs/ext4/namei.c
-+++ linux-2.6.32-131.4.1.el5/fs/ext4/namei.c
+--- linux-2.6.32-131.12.1.el6.orig/fs/ext4/namei.c
++++ linux-2.6.32-131.12.1.el6/fs/ext4/namei.c
 @@ -1495,6 +1495,8 @@ static int ext4_add_entry(handle_t *hand
  	de->rec_len = ext4_rec_len_to_disk(blocksize, blocksize);
  	retval = add_dirent_to_buf(handle, dentry, inode, de, bh);
