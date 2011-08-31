@@ -70,22 +70,6 @@ Wed Aug 31 14:30:36 CST 2011 - bosong.ly@taobao.com
   - redhat-kernel-source/linux-2.6.32/trustdb.gpg: Delete.
 
 -------------------------------------------------------------------
-Wed Aug 31 14:34:14 CST 2011 - bosong.ly@taobao.com
-
-- patches.taobao/ext4-Fix-overflow-caused-by-missing-cast-in-ext4_fal.patch:
-  ext4: Fix overflow caused by missing cast in ext4_fallocate().
-- patches.taobao/ext4-add-tracepoint-for-ext4_journal_start.patch:
-  ext4: add tracepoint for ext4_journal_start.
-- patches.taobao/ext4-fix-races-in-ext4_sync_parent.patch: ext4:
-  fix races in ext4_sync_parent().
-- patches.taobao/ext4-free-allocated-and-pre-allocated-blocks-when-ch.patch:
-  ext4: free allocated and pre-allocated blocks when
-  check_eofblocks_fl fails.
-- scripts/apply-patches.sh:
-- scripts/mkspec.py:
-- scripts/package.py:
-
--------------------------------------------------------------------
 Wed Aug 31 10:35:19 CST 2011 - gaoyang.zyh@taobao.com
 
 - scripts/apply-patches.sh: forgot to add execute bit...
