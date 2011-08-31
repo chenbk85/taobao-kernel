@@ -41,9 +41,11 @@ Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
  include/linux/fs.h |   16 +++++++++++++
  6 files changed, 169 insertions(+)
 
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -872,6 +872,13 @@ static ssize_t disk_discard_alignment_sh
+Index: linux-2.6.32-131.12.1.el6/block/genhd.c
+===================================================================
+--- linux-2.6.32-131.12.1.el6.orig/block/genhd.c
++++ linux-2.6.32-131.12.1.el6/block/genhd.c
+@@ -903,6 +903,13 @@ static ssize_t disk_discard_alignment_sh
  	return sprintf(buf, "%d\n", queue_discard_alignment(disk->queue));
  }
  
@@ -57,7 +59,7 @@ Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
  static DEVICE_ATTR(range, S_IRUGO, disk_range_show, NULL);
  static DEVICE_ATTR(ext_range, S_IRUGO, disk_ext_range_show, NULL);
  static DEVICE_ATTR(removable, S_IRUGO, disk_removable_show, NULL);
-@@ -892,6 +899,10 @@ static struct device_attribute dev_attr_
+@@ -923,6 +930,10 @@ static struct device_attribute dev_attr_
  	__ATTR(io-timeout-fail,  S_IRUGO|S_IWUSR, part_timeout_show,
  		part_timeout_store);
  #endif
@@ -68,7 +70,7 @@ Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
  
  static struct attribute *disk_attrs[] = {
  	&dev_attr_range.attr,
-@@ -913,15 +924,66 @@ static struct attribute *disk_attrs[] = 
+@@ -944,15 +955,66 @@ static struct attribute *disk_attrs[] =
  	NULL
  };
  
@@ -135,8 +137,10 @@ Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
  static void disk_free_ptbl_rcu_cb(struct rcu_head *head)
  {
  	struct disk_part_tbl *ptbl =
---- a/fs/bio.c
-+++ b/fs/bio.c
+Index: linux-2.6.32-131.12.1.el6/fs/bio.c
+===================================================================
+--- linux-2.6.32-131.12.1.el6.orig/fs/bio.c
++++ linux-2.6.32-131.12.1.el6/fs/bio.c
 @@ -1408,6 +1408,35 @@ void bio_check_pages_dirty(struct bio *b
  	}
  }
@@ -185,8 +189,10 @@ Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
  	if (bio->bi_end_io)
  		bio->bi_end_io(bio, error);
  }
---- a/fs/block_dev.c
-+++ b/fs/block_dev.c
+Index: linux-2.6.32-131.12.1.el6/fs/block_dev.c
+===================================================================
+--- linux-2.6.32-131.12.1.el6.orig/fs/block_dev.c
++++ linux-2.6.32-131.12.1.el6/fs/block_dev.c
 @@ -29,6 +29,9 @@
  #include <asm/uaccess.h>
  #include "internal.h"
@@ -252,9 +258,11 @@ Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
  
  		put_disk(disk);
  		module_put(owner);
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1114,6 +1114,9 @@ struct ext4_sb_info {
+Index: linux-2.6.32-131.12.1.el6/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-131.12.1.el6.orig/fs/ext4/ext4.h
++++ linux-2.6.32-131.12.1.el6/fs/ext4/ext4.h
+@@ -1115,6 +1115,9 @@ struct ext4_sb_info {
  
  	/* workqueue for dio unwritten */
  	struct workqueue_struct *dio_unwritten_wq;
@@ -264,8 +272,10 @@ Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
  };
  
  static inline struct ext4_sb_info *EXT4_SB(struct super_block *sb)
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
+Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
+===================================================================
+--- linux-2.6.32-131.12.1.el6.orig/fs/ext4/super.c
++++ linux-2.6.32-131.12.1.el6/fs/ext4/super.c
 @@ -334,6 +334,18 @@ static void ext4_handle_error(struct sup
  			sb->s_id);
  }
@@ -300,7 +310,7 @@ Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
  	if (sbi->s_journal) {
  		err = jbd2_journal_destroy(sbi->s_journal);
  		sbi->s_journal = NULL;
-@@ -2417,6 +2437,8 @@ static int ext4_fill_super(struct super_
+@@ -2426,6 +2446,8 @@ static int ext4_fill_super(struct super_
  	__u64 blocks_count;
  	int err;
  	unsigned int journal_ioprio = DEFAULT_JOURNAL_IOPRIO;
@@ -309,7 +319,7 @@ Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
  
  	sbi = kzalloc(sizeof(*sbi), GFP_KERNEL);
  	if (!sbi)
-@@ -3008,6 +3030,22 @@ no_journal:
+@@ -3013,6 +3035,22 @@ no_journal:
  
  	ext4_msg(sb, KERN_INFO, "mounted filesystem with%s", descr);
  
@@ -332,8 +342,10 @@ Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
  	lock_kernel();
  	return 0;
  
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
+Index: linux-2.6.32-131.12.1.el6/include/linux/fs.h
+===================================================================
+--- linux-2.6.32-131.12.1.el6.orig/include/linux/fs.h
++++ linux-2.6.32-131.12.1.el6/include/linux/fs.h
 @@ -678,6 +678,20 @@ struct address_space {
  	 * of struct page's "mapping" pointer be used for PAGE_MAPPING_ANON.
  	 */

@@ -21,11 +21,11 @@ Acked-by: Tao Ma <boyu.mt@taobao.com>
  fs/ext4/super.c |   40 ++++++++++++++++++----------------------
  1 files changed, 18 insertions(+), 22 deletions(-)
 
-Index: linux-2.6.32-131.6.1.el5/fs/ext4/super.c
+Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-131.6.1.el5.orig/fs/ext4/super.c
-+++ linux-2.6.32-131.6.1.el5/fs/ext4/super.c
-@@ -2806,24 +2806,6 @@ static int ext4_fill_super(struct super_
+--- linux-2.6.32-131.12.1.el6.orig/fs/ext4/super.c
++++ linux-2.6.32-131.12.1.el6/fs/ext4/super.c
+@@ -2765,24 +2765,6 @@ static int ext4_fill_super(struct super_
  	get_random_bytes(&sbi->s_next_generation, sizeof(u32));
  	spin_lock_init(&sbi->s_next_gen_lock);
  
@@ -49,8 +49,8 @@ Index: linux-2.6.32-131.6.1.el5/fs/ext4/super.c
 -
  	sbi->s_stripe = ext4_get_stripe_size(sbi);
  	sbi->s_max_writeback_mb_bump = 128;
- 	sbi->s_eio_threshold = 10;
-@@ -2946,6 +2928,20 @@ static int ext4_fill_super(struct super_
+ 
+@@ -2902,6 +2884,20 @@ static int ext4_fill_super(struct super_
  
  no_journal:
  
@@ -71,7 +71,7 @@ Index: linux-2.6.32-131.6.1.el5/fs/ext4/super.c
  	if (test_opt(sb, NOBH)) {
  		if (!(test_opt(sb, DATA_FLAGS) == EXT4_MOUNT_WRITEBACK_DATA)) {
  			ext4_msg(sb, KERN_WARNING, "Ignoring nobh option - "
-@@ -3078,6 +3074,10 @@ failed_mount_wq:
+@@ -3034,6 +3030,10 @@ failed_mount_wq:
  		jbd2_journal_destroy(sbi->s_journal);
  		sbi->s_journal = NULL;
  	}
@@ -82,7 +82,7 @@ Index: linux-2.6.32-131.6.1.el5/fs/ext4/super.c
  failed_mount3:
  	if (sbi->s_flex_groups) {
  		if (is_vmalloc_addr(sbi->s_flex_groups))
-@@ -3085,10 +3085,6 @@ failed_mount3:
+@@ -3041,10 +3041,6 @@ failed_mount3:
  		else
  			kfree(sbi->s_flex_groups);
  	}
