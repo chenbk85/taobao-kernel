@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Aug 31 15:21:08 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/rhel6-add-missing-key.h: Add
+  cropt/signature/key.h which is missing in rhel6 2.6.32-131.12.1.
+
+-------------------------------------------------------------------
 Wed Aug 31 14:30:36 CST 2011 - bosong.ly@taobao.com
 
 - update to RHEL6 linux-2.6.32-131.12.1 kernel
