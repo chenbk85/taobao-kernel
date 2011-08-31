@@ -138,8 +138,12 @@ if __name__ == "__main__":
     index = patch_start_no
     for cn in patches:
         text += "Source%d: %s\n" % (index, cn)
-        applypatch +="ApplyPatch %%{SOURCE%d}\n" % (index,)
+        applypatch +="tar xjf %%{SOURCE%d}\n" % (index,)
         index +=1
+
+    applypatch += "%_sourcedir/apply-patches.sh %_sourcedir/series.conf .\n"
+    for cn in patches:
+        applypatch += "rm -rf `echo %s|sed 's/.tar.bz2//'`\n" % (cn,)
 
 
     spec_temple = spec_temple.replace("%%PATCH_LIST%%", text)

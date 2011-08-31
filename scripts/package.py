@@ -40,7 +40,7 @@ TSFILE = "source-timestamp"
 misc_files_to_copy = ["series.conf", "scripts/merge.pl", \
                       "rpm/Makefile.common","scripts/perf","scripts/kabitool","scripts/check-kabi", \
                       "scripts/genkey", "scripts/perf-archive", "scripts/find-provides", "scripts/extrakeys.pub", \
-                      "rpm/Makefile.config", "scripts/getarch.py"]
+                      "rpm/Makefile.config", "scripts/getarch.py", "scripts/apply-patches.sh", "scripts/guard.py"]
 # End of default configs
 
 using_git = config.whether_using_git()
@@ -206,7 +206,7 @@ if __name__ == "__main__":
     for x in misc_files_to_copy:
         shutil.copy(x, BUILD_DIR)
 
-    os.chmod(os.path.join(BUILD_DIR, "series.conf"), 644)
+#    os.chmod(os.path.join(BUILD_DIR, "series.conf"), 644)
 
 
     referenced_files = commands.getoutput("%s < series.conf |sort -u" \
