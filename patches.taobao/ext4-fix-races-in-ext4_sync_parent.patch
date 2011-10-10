@@ -40,11 +40,11 @@ Acked-by: Tao Ma <boyu.mt@taobao.com>
  fs/ext4/fsync.c |   26 +++++++++++++++++++++-----
  1 files changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/fs/ext4/fsync.c b/fs/ext4/fsync.c
-index ce66d2f..f9dbe33 100644
---- a/fs/ext4/fsync.c
-+++ b/fs/ext4/fsync.c
-@@ -129,15 +129,30 @@ static int ext4_sync_parent(struct inode *inode)
+Index: linux-2.6.32-131.17.1.el6/fs/ext4/fsync.c
+===================================================================
+--- linux-2.6.32-131.17.1.el6.orig/fs/ext4/fsync.c
++++ linux-2.6.32-131.17.1.el6/fs/ext4/fsync.c
+@@ -46,15 +46,30 @@ static int ext4_sync_parent(struct inode
  {
  	struct writeback_control wbc;
  	struct dentry *dentry = NULL;
@@ -69,18 +69,18 @@ index ce66d2f..f9dbe33 100644
 +		}
 +		spin_unlock(&inode->i_lock);
 +		if (!dentry)
-+			break;
+ 			break;
+-		inode = dentry->d_parent->d_inode;
 +		next = igrab(dentry->d_parent->d_inode);
 +		dput(dentry);
 +		if (!next)
- 			break;
--		inode = dentry->d_parent->d_inode;
++			break;
 +		iput(inode);
 +		inode = next;
  		ret = sync_mapping_buffers(inode->i_mapping);
  		if (ret)
  			break;
-@@ -148,6 +163,7 @@ static int ext4_sync_parent(struct inode *inode)
+@@ -65,6 +80,7 @@ static int ext4_sync_parent(struct inode
  		if (ret)
  			break;
  	}
@@ -88,6 +88,3 @@ index ce66d2f..f9dbe33 100644
  	return ret;
  }
  
--- 
-1.6.3.3.334.g916e1.dirty
-

@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Tue Oct 11 00:16:52 CST 2011 - bosong.ly@taobao.com
+
+- Rebase patches for RHEL6 linux-2.6.32-131.17.1 source:
+  - patches.taobao/ext4-fix-races-in-ext4_sync_parent.patch: Refresh.
+  - patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch: Refresh.
+  - patches.taobao/netoops_016_oops_pass_regs_to_oops_exit.patch: Refresh.
+  - patches.taobao/netoops_017_kmsg_dumper_pass_pt_regs_along_to_dumpers.patch: Refresh.
+  - patches.taobao/perf-Validate-cpu-early-in-perf_event_alloc.patch: Refresh.
+
+- Disable patches.taobao/perf-x86-Fix-Intel-fixed-counters-base-initializatio.patch in
+  series.conf because this patch is merged by redhat in linux-2.6.32-131.17.1
+
+-------------------------------------------------------------------
 Mon Oct 10 16:20:05 CST 2011 - bosong.ly@taobao.com
 
 - Update to RHEL6 linux-2.6.32-131.17.1 kernel

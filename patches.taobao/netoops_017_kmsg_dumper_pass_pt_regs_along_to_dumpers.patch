@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-131.0.15.el6/include/linux/kmsg_dump.h
+Index: linux-2.6.32-131.17.1.el6/include/linux/kmsg_dump.h
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/include/linux/kmsg_dump.h
-+++ linux-2.6.32-131.0.15.el6/include/linux/kmsg_dump.h
+--- linux-2.6.32-131.17.1.el6.orig/include/linux/kmsg_dump.h
++++ linux-2.6.32-131.17.1.el6/include/linux/kmsg_dump.h
 @@ -14,6 +14,8 @@
  
  #include <linux/list.h>
@@ -43,10 +43,10 @@ Index: linux-2.6.32-131.0.15.el6/include/linux/kmsg_dump.h
  {
  }
  
-Index: linux-2.6.32-131.0.15.el6/kernel/kexec.c
+Index: linux-2.6.32-131.17.1.el6/kernel/kexec.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/kernel/kexec.c
-+++ linux-2.6.32-131.0.15.el6/kernel/kexec.c
+--- linux-2.6.32-131.17.1.el6.orig/kernel/kexec.c
++++ linux-2.6.32-131.17.1.el6/kernel/kexec.c
 @@ -1081,10 +1081,11 @@ void crash_kexec(struct pt_regs *regs)
  		if (kexec_crash_image) {
  			struct pt_regs fixed_regs;
@@ -61,10 +61,10 @@ Index: linux-2.6.32-131.0.15.el6/kernel/kexec.c
  			machine_crash_shutdown(&fixed_regs);
  			machine_kexec(kexec_crash_image);
  		}
-Index: linux-2.6.32-131.0.15.el6/kernel/panic.c
+Index: linux-2.6.32-131.17.1.el6/kernel/panic.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/kernel/panic.c
-+++ linux-2.6.32-131.0.15.el6/kernel/panic.c
+--- linux-2.6.32-131.17.1.el6.orig/kernel/panic.c
++++ linux-2.6.32-131.17.1.el6/kernel/panic.c
 @@ -82,7 +82,7 @@ NORET_TYPE void panic(const char * fmt,
  	 */
  	crash_kexec(NULL);
@@ -74,7 +74,7 @@ Index: linux-2.6.32-131.0.15.el6/kernel/panic.c
  
  	/*
  	 * Note smp_send_stop is the usual smp shutdown function, which
-@@ -364,7 +364,7 @@ void oops_exit(struct pt_regs *regs)
+@@ -368,7 +368,7 @@ void oops_exit(struct pt_regs *regs)
  {
  	do_oops_enter_exit();
  	print_oops_end_marker();
@@ -83,10 +83,10 @@ Index: linux-2.6.32-131.0.15.el6/kernel/panic.c
  }
  
  #ifdef WANT_WARN_ON_SLOWPATH
-Index: linux-2.6.32-131.0.15.el6/kernel/printk.c
+Index: linux-2.6.32-131.17.1.el6/kernel/printk.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/kernel/printk.c
-+++ linux-2.6.32-131.0.15.el6/kernel/printk.c
+--- linux-2.6.32-131.17.1.el6.orig/kernel/printk.c
++++ linux-2.6.32-131.17.1.el6/kernel/printk.c
 @@ -1492,7 +1492,7 @@ static const char *kmsg_to_str(enum kmsg
   * Iterate through each of the dump devices and call the oops/panic
   * callbacks with the log buffer.

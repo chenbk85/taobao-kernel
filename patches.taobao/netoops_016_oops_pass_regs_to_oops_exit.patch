@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-131.0.15.el6/arch/arm/kernel/traps.c
+Index: linux-2.6.32-131.17.1.el6/arch/arm/kernel/traps.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/arch/arm/kernel/traps.c
-+++ linux-2.6.32-131.0.15.el6/arch/arm/kernel/traps.c
+--- linux-2.6.32-131.17.1.el6.orig/arch/arm/kernel/traps.c
++++ linux-2.6.32-131.17.1.el6/arch/arm/kernel/traps.c
 @@ -263,7 +263,7 @@ NORET_TYPE void die(const char *str, str
  	bust_spinlocks(0);
  	add_taint(TAINT_DIE);
@@ -19,10 +19,10 @@ Index: linux-2.6.32-131.0.15.el6/arch/arm/kernel/traps.c
  
  	if (in_interrupt())
  		panic("Fatal exception in interrupt");
-Index: linux-2.6.32-131.0.15.el6/arch/parisc/kernel/traps.c
+Index: linux-2.6.32-131.17.1.el6/arch/parisc/kernel/traps.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/arch/parisc/kernel/traps.c
-+++ linux-2.6.32-131.0.15.el6/arch/parisc/kernel/traps.c
+--- linux-2.6.32-131.17.1.el6.orig/arch/parisc/kernel/traps.c
++++ linux-2.6.32-131.17.1.el6/arch/parisc/kernel/traps.c
 @@ -294,7 +294,7 @@ void die_if_kernel(char *str, struct pt_
  		panic("Fatal exception");
  	}
@@ -32,10 +32,10 @@ Index: linux-2.6.32-131.0.15.el6/arch/parisc/kernel/traps.c
  	do_exit(SIGSEGV);
  }
  
-Index: linux-2.6.32-131.0.15.el6/arch/powerpc/kernel/traps.c
+Index: linux-2.6.32-131.17.1.el6/arch/powerpc/kernel/traps.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/arch/powerpc/kernel/traps.c
-+++ linux-2.6.32-131.0.15.el6/arch/powerpc/kernel/traps.c
+--- linux-2.6.32-131.17.1.el6.orig/arch/powerpc/kernel/traps.c
++++ linux-2.6.32-131.17.1.el6/arch/powerpc/kernel/traps.c
 @@ -168,7 +168,7 @@ int die(const char *str, struct pt_regs
  	if (panic_on_oops)
  		panic("Fatal exception");
@@ -45,10 +45,10 @@ Index: linux-2.6.32-131.0.15.el6/arch/powerpc/kernel/traps.c
  	do_exit(err);
  
  	return 0;
-Index: linux-2.6.32-131.0.15.el6/arch/s390/kernel/traps.c
+Index: linux-2.6.32-131.17.1.el6/arch/s390/kernel/traps.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/arch/s390/kernel/traps.c
-+++ linux-2.6.32-131.0.15.el6/arch/s390/kernel/traps.c
+--- linux-2.6.32-131.17.1.el6.orig/arch/s390/kernel/traps.c
++++ linux-2.6.32-131.17.1.el6/arch/s390/kernel/traps.c
 @@ -274,7 +274,7 @@ void die(const char * str, struct pt_reg
  		panic("Fatal exception in interrupt");
  	if (panic_on_oops)
@@ -58,10 +58,10 @@ Index: linux-2.6.32-131.0.15.el6/arch/s390/kernel/traps.c
  	do_exit(SIGSEGV);
  }
  
-Index: linux-2.6.32-131.0.15.el6/arch/sh/kernel/traps_32.c
+Index: linux-2.6.32-131.17.1.el6/arch/sh/kernel/traps_32.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/arch/sh/kernel/traps_32.c
-+++ linux-2.6.32-131.0.15.el6/arch/sh/kernel/traps_32.c
+--- linux-2.6.32-131.17.1.el6.orig/arch/sh/kernel/traps_32.c
++++ linux-2.6.32-131.17.1.el6/arch/sh/kernel/traps_32.c
 @@ -181,7 +181,7 @@ void die(const char * str, struct pt_reg
  	bust_spinlocks(0);
  	add_taint(TAINT_DIE);
@@ -71,10 +71,10 @@ Index: linux-2.6.32-131.0.15.el6/arch/sh/kernel/traps_32.c
  
  	if (kexec_should_crash(current))
  		crash_kexec(regs);
-Index: linux-2.6.32-131.0.15.el6/arch/x86/kernel/dumpstack.c
+Index: linux-2.6.32-131.17.1.el6/arch/x86/kernel/dumpstack.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/arch/x86/kernel/dumpstack.c
-+++ linux-2.6.32-131.0.15.el6/arch/x86/kernel/dumpstack.c
+--- linux-2.6.32-131.17.1.el6.orig/arch/x86/kernel/dumpstack.c
++++ linux-2.6.32-131.17.1.el6/arch/x86/kernel/dumpstack.c
 @@ -248,7 +248,7 @@ void __kprobes oops_end(unsigned long fl
  		/* Nest count reaches zero, release the lock. */
  		__raw_spin_unlock(&die_lock);
@@ -84,10 +84,10 @@ Index: linux-2.6.32-131.0.15.el6/arch/x86/kernel/dumpstack.c
  
  	if (!signr)
  		return;
-Index: linux-2.6.32-131.0.15.el6/include/linux/kernel.h
+Index: linux-2.6.32-131.17.1.el6/include/linux/kernel.h
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/include/linux/kernel.h
-+++ linux-2.6.32-131.0.15.el6/include/linux/kernel.h
+--- linux-2.6.32-131.17.1.el6.orig/include/linux/kernel.h
++++ linux-2.6.32-131.17.1.el6/include/linux/kernel.h
 @@ -175,7 +175,7 @@ extern long (*panic_blink)(long time);
  NORET_TYPE void panic(const char * fmt, ...)
  	__attribute__ ((NORET_AND format (printf, 1, 2))) __cold;
@@ -97,11 +97,11 @@ Index: linux-2.6.32-131.0.15.el6/include/linux/kernel.h
  extern int oops_may_print(void);
  NORET_TYPE void do_exit(long error_code)
  	ATTRIB_NORET;
-Index: linux-2.6.32-131.0.15.el6/kernel/panic.c
+Index: linux-2.6.32-131.17.1.el6/kernel/panic.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/kernel/panic.c
-+++ linux-2.6.32-131.0.15.el6/kernel/panic.c
-@@ -360,7 +360,7 @@ static void print_oops_end_marker(void)
+--- linux-2.6.32-131.17.1.el6.orig/kernel/panic.c
++++ linux-2.6.32-131.17.1.el6/kernel/panic.c
+@@ -364,7 +364,7 @@ static void print_oops_end_marker(void)
   * Called when the architecture exits its oops handler, after printing
   * everything.
   */
