@@ -1,4 +1,45 @@
 -------------------------------------------------------------------
+Mon Oct 10 16:20:05 CST 2011 - bosong.ly@taobao.com
+
+- Update to RHEL6 linux-2.6.32-131.17.1 kernel
+  - MAINTAINERS:
+  - Update config files.
+  - redhat-kernel-changelog:
+  - redhat-kernel-source/kernel.spec:
+  - redhat-kernel-source/linux-2.6.32/arch/powerpc/platforms/pseries/iommu.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/apic/io_apic.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/cpu/perf_event.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kvm/x86.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/char/agp/generic.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/char/tpm/tpm.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/bnx2x/bnx2x_cmn.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/pci/msi.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/scsi/ibmvscsi/ibmvscsi.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/scsi/megaraid/megaraid_sas_fusion.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/serial/8250.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/serial/8250_pci.c:
+  - redhat-kernel-source/linux-2.6.32/fs/buffer.c:
+  - redhat-kernel-source/linux-2.6.32/fs/ecryptfs/main.c:
+  - redhat-kernel-source/linux-2.6.32/fs/ext4/inode.c:
+  - redhat-kernel-source/linux-2.6.32/fs/fscache/cache.c:
+  - redhat-kernel-source/linux-2.6.32/fs/fscache/main.c:
+  - redhat-kernel-source/linux-2.6.32/include/linux/buffer_head.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/if_packet.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/msi.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/netdevice.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/pci_ids.h:
+  - redhat-kernel-source/linux-2.6.32/include/net/sock.h:
+  - redhat-kernel-source/linux-2.6.32/kernel/panic.c:
+  - redhat-kernel-source/linux-2.6.32/kernel/perf_event.c:
+  - redhat-kernel-source/linux-2.6.32/kernel/taskstats.c:
+  - redhat-kernel-source/linux-2.6.32/mm/mmap.c:
+  - redhat-kernel-source/linux-2.6.32/mm/mremap.c:
+  - redhat-kernel-source/linux-2.6.32/net/bridge/br_multicast.c:
+  - redhat-kernel-source/linux-2.6.32/net/core/sock.c:
+  - redhat-kernel-source/linux-2.6.32/net/packet/af_packet.c:
+  - redhat-kernel-version:
+
+-------------------------------------------------------------------
 Wed Aug 31 15:56:58 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: add config items

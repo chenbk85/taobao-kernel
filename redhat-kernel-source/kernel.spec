@@ -19,7 +19,7 @@ Summary: The Linux kernel
 
 %define rhel 1
 %if %{rhel}
-%define distro_build 131.6.1
+%define distro_build 131.17.1
 %define signmodules 1
 %else
 # fedora_build defines which build revision of this kernel version we're
@@ -34,7 +34,7 @@ Summary: The Linux kernel
 # Don't stare at the awk too long, you'll go blind.
 %define fedora_cvs_origin   1462
 %define fedora_cvs_revision() %2
-%global distro_build %(echo %{fedora_cvs_origin}.%{fedora_cvs_revision $Revision: 1.81.2.20 $} | awk -F . '{ OFS = "."; ORS = ""; print $3 - $1 ; i = 4 ; OFS = ""; while (i <= NF) { print ".", $i ; i++} }')
+%global distro_build %(echo %{fedora_cvs_origin}.%{fedora_cvs_revision $Revision: 1.81.2.31 $} | awk -F . '{ OFS = "."; ORS = ""; print $3 - $1 ; i = 4 ; OFS = ""; while (i <= NF) { print ".", $i ; i++} }')
 %define distro_build %{fedora_build}
 %define signmodules 0
 %endif
@@ -168,7 +168,7 @@ Summary: The Linux kernel
 %endif
 
 # The kernel tarball/base version
-%define kversion 2.6.32-131.6.1.el6
+%define kversion 2.6.32-131.17.1.el6
 
 %define make_target bzImage
 
@@ -539,7 +539,7 @@ BuildConflicts: rhbuildsys(DiskFree) < 7Gb
 %define debuginfo_args --strict-build-id
 %endif
 
-Source0: linux-2.6.32-131.6.1.el6.tar.bz2
+Source0: linux-2.6.32-131.17.1.el6.tar.bz2
 
 Source1: Makefile.common
 
@@ -1646,6 +1646,117 @@ fi
 %endif
 
 %changelog
+* Thu Sep 29 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.17.1.el6]
+- Revert: [net] ipv6: make fragment identifications less predictable (Jiri Pirko) [723432 723433] {CVE-2011-2699}
+
+* Thu Sep 22 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.16.1.el6]
+- [net] br_multicast: Ensure to initialize BR_INPUT_SKB_CB(skb)->mrouters_only. (Frantisek Hrbata) [739477 738110]
+
+* Tue Sep 13 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.15.1.el6]
+- rebuild
+
+* Fri Sep 9 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.14.1.el6]
+- [scsi] megaraid_sas: Convert 6, 10, 12 byte CDB's for FastPath IO (Tomas Henzl) [710047 705835]
+- [x86] perf, x86: Fix Intel fixed counters base initialization (Don Zickus) [719229 736284] {CVE-2011-2521}
+- [net] ipv6: make fragment identifications less predictable (Jiri Pirko) [723432 723433] {CVE-2011-2699}
+- [fs] Ecryptfs: Add mount option to check uid of device being mounted = expect uid (Eric Sandeen) [731175 731176] {CVE-2011-1833}
+- [char] tpm: Fix uninitialized usage of data buffer (Stanislaw Gruszka) [684674 684675] {CVE-2011-1160}
+- [kernel] perf: Fix software event overflow (Frantisek Hrbata) [730707 730708] {CVE-2011-2918}
+- [serial] 8250_pci: ifdef for powerpc, to only add functionality to this arch (Steve Best) [732382 696695]
+- [serial] 8250: Fix capabilities when changing the port type (Steve Best) [732382 696695]
+- [serial] 8250_pci Add EEH support to the 8250 driver for IBM/Digi PCIe 2-port Adapter (Steve Best) [732382 696695]
+- [serial] 8250_pci: Add support for the Digi/IBM PCIe 2-port Adapter (Steve Best) [732382 696695]
+- [ppc] pseries/iommu: Add additional checks when changing iommu mask (Steve Best) [736065 704401]
+- [ppc] pseries/iommu: Use correct return type in dupe_ddw_if_already_created (Steve Best) [736065 704401]
+- [ppc] iommu: Restore iommu table pointer when restoring iommu ops (Steve Best) [736065 704401]
+- [ppc] Fix kexec with dynamic dma windows (Steve Best) [736065 704401]
+
+* Wed Aug 31 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.13.1.el6]
+- [net] af_packet: prevent information leak (Jiri Pirko) [728032 728033] {CVE-2011-2898}
+- [net] gro: Only reset frag0 when skb can be pulled (Jiri Pirko) [726555 726556] {CVE-2011-2723}
+- [fs] FS-Cache: Only call mark_tech_preview() when caching is actually begun (David Howells) [713463 696396]
+- [fs] Fix mark_tech_preview() to not disable lock debugging (David Howells) [713463 696396]
+- [fs] ext4: Rewrite ext4_page_mkwrite() to use generic helpers (Eric Sandeen) [723551 692167]
+- [fs] vfs: Block mmapped writes while the fs is frozen (Eric Sandeen) [723551 692167]
+- [fs] vfs: Create __block_page_mkwrite() helper passing error values back (Eric Sandeen) [723551 692167]
+- [mm] avoid wrapping vm_pgoff in mremap() and stack expansion (Jerome Marchand) [716540 716541] {CVE-2011-2496}
+- [pci] MSI: Restore read_msi_msg_desc(); add get_cached_msi_msg_desc() (Don Zickus) [728522 696511]
+- [pci] MSI: Remove unsafe and unnecessary hardware access (Don Zickus) [728522 696511]
+- [net] sock: do not change prot->obj_size (Jiri Pirko) [726626 725711]
+- [virt] x86: report valid microcode update ID (Marcelo Tosatti) [727838 694747]
+- [agp] fix arbitrary kernel memory writes (Jerome Marchand) [699307 699308] {CVE-2011-2022 CVE-2011-1745}
+- [agp] fix OOM and buffer overflow (Jerome Marchand) [699305 699306] {CVE-2011-1746}
+- [kernel] taskstats: don't allow duplicate entries in listener mode (Jerome Marchand) [715447 715448] {CVE-2011-2484}
+- [netdrv] bnx2x: remove a log-spamming message (Michal Schmidt) [732379 712000]
+- [scsi] ibmvscsi: Improve CRQ reset reliability (Steve Best) [727618 700165]
+
+* Sun Jul 31 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.12.1.el6]
+- [netdrv] be2net: clear intr bit in be_probe() (Ivan Vecera) [726308 722596]
+
+* Wed Jul 27 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.11.1.el6]
+- [mm] hold the page lock until after set_page_stable_node (Andrea Arcangeli) [726095 683658]
+- [netdrv] be2net: remove certain cmd failure logging (Ivan Vecera) [725329 719304]
+- [net] nl80211: missing check for valid SSID size in scan operation (Stanislaw Gruszka) [718157 718158] {CVE-2011-2517}
+- [net] bluetooth: l2cap and rfcomm: fix 1 byte infoleak to userspace. (Thomas Graf) [703022 703023] {CVE-2011-2492}
+- [net] inet_diag: fix validation of user data in inet_diag_bc_audit() (Thomas Graf) [714540 714541] {CVE-2011-2213}
+- [fs] proc: restrict access to /proc/PID/io (Oleg Nesterov) [716829 716830] {CVE-2011-2495}
+- [fs] validate size of EFI GUID partition entries (Anton Arapov) [703029 703030] {CVE-2011-1776}
+- [fs] ext4: Fix max file size and logical block counting of extent format file (Lukas Czerner) [722568 722569] {CVE-2011-2695}
+- [virt] kvm: Disable device assignment without interrupt remapping (Alex Williamson) [716306 711504] {CVE-2011-1898}
+- [virt] iommu-api: Extension to check for interrupt remapping (Alex Williamson) [716306 711504] {CVE-2011-1898}
+- [netdrv] r8169: fix Rx checksum offloading bugs (Ivan Vecera) [723807 635596]
+- [netdrv] be2net: changes for BE3 native mode support (Ivan Vecera) [723820 695231]
+
+* Thu Jul 21 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.10.1.el6]
+- [virt] ksm: fix race between ksmd and exiting task (Andrea Arcangeli) [710340 710341] {CVE-2011-2183}
+- [kernel] proc: signedness issue in next_pidmap() (Jerome Marchand) [697824 697825] {CVE-2011-1593}
+- [net] bluetooth: Prevent buffer overflow in l2cap config request (Jiri Pirko) [716809 716810] {CVE-2011-2497}
+- [fs] NLM: Don't hang forever on NLM unlock requests (Jeff Layton) [709548 709549] {CVE-2011-2491}
+- [fs] NFS: Fix NFSv3 exclusive open semantics (Jeff Layton) [719925 694210]
+- [fs] GFS2: Incorrect inode state during deallocation (Steven Whitehouse) [714982 712139]
+- [virt] KVM: Fix register corruption in pvclock_scale_delta (Avi Kivity) [719910 712102]
+- [netdrv] ehea: Fix memory hotplug oops (Steve Best) [720914 702036]
+- [net] Fix memory leak/corruption on VLAN GRO_DROP (Herbert Xu) [695175 695176] {CVE-2011-1576}
+- [md] Fix resync hang after surprise removal (James Paradis) [719928 707268]
+- GFS2: make sure fallocate bytes is a multiple of blksize (Benjamin Marzinski) [720863 695763] {CVE-2011-2689}
+- [kernel] Prevent rt_sigqueueinfo and rt_tgsigqueueinfo from spoofing the signal code (Oleg Nesterov) [715521 690033] {CVE-2011-1182}
+- [redhat] config: enable parallel port printer support (Aristeu Rozanski) [713827 635968]
+
+* Thu Jul 14 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.9.1.el6]
+- [scsi] cciss: Annotate cciss_kdump_soft_reset and cciss_sent_reset as __devinit (Tomas Henzl) [715397 698268]
+- [scsi] cciss: Don't wait forever for soft reset to complete, give up after awhile (Tomas Henzl) [715397 698268]
+- [scsi] cciss: use cmd_alloc not cmd_special_alloc for the kdump soft reset command (Tomas Henzl) [715397 698268]
+- [scsi] cciss: do not use bit 2 doorbell reset (Tomas Henzl) [715397 698268]
+- [scsi] cciss: do not attempt PCI power management reset method if we know it won't work (Tomas Henzl) [715397 698268]
+- [scsi] cciss: increase timeouts for post-reset no-ops (Tomas Henzl) [715397 698268]
+- [scsi] cciss: remove superfluous sleeps around reset code (Tomas Henzl) [715397 698268]
+- [scsi] cciss: do soft reset if hard reset is broken (Tomas Henzl) [715397 698268]
+- [scsi] cciss: clarify messages around reset behavior (Tomas Henzl) [715397 698268]
+- [scsi] cciss: increase time to wait for board reset to start (Tomas Henzl) [715397 698268]
+- [scsi] cciss: factor out irq_request code (Tomas Henzl) [715397 698268]
+- [scsi] cciss: factor out scatterlist allocation functions (Tomas Henzl) [715397 698268]
+- [scsi] cciss: factor out command pool allocation functions (Tomas Henzl) [715397 698268]
+- [scsi] cciss: use new doorbell-bit-5 reset method (Tomas Henzl) [715397 698268]
+- [scsi] cciss: wait longer for no-op to complete after resetting controller (Tomas Henzl) [715397 698268]
+- [scsi] cciss: do a better job of detecting controller reset failure (Tomas Henzl) [715397 698268]
+- [scsi] hpsa: do not attempt PCI PM reset if we know it will not work (Tomas Henzl) [715397 698268]
+- [scsi] hpsa: remove superfluous sleeps around reset code (Tomas Henzl) [715397 698268]
+- [scsi] hpsa: do soft reset if hard reset is broken (Tomas Henzl) [715397 698268]
+- [scsi] hpsa: clarify messages around reset behavior (Tomas Henzl) [715397 698268]
+- [scsi] hpsa: factor out irq request code (Tomas Henzl) [715397 698268]
+- [scsi] hpsa: factor out cmd_pool allocation functions (Tomas Henzl) [715397 698268]
+- [scsi] hpsa: do not use bit 2 doorbell reset, it causes NMIs (Tomas Henzl) [715397 698268]
+- [scsi] hpsa: wait longer for no-op to complete after resetting controller (Tomas Henzl) [715397 698268]
+- [scsi] hpsa: use new doorbell-bit-5 reset method (Tomas Henzl) [715397 698268]
+- [scsi] hpsa: adjust timing of post-reset sleeps (Tomas Henzl) [715397 698268]
+- [scsi] hpsa: do a better job of detecting controller reset failure (Tomas Henzl) [715397 698268]
+
+* Mon Jun 27 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.8.1.el6]
+- [fs] GFS2: force a log flush when invalidating the rindex glock (Benjamin Marzinski) [717018 702263]
+
+* Fri Jun 24 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.7.1.el6]
+- [virt] xen: bump memory limit for x86_64 domU PV guest to 128Gb (Igor Mammedov) [716539 669739]
+
 * Mon Jun 20 2011 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-131.6.1.el6]
 - [audit] ia32entry.S sign extend error codes when calling 64 bit code (Eric Paris) [713831 703935]
 - [audit] push audit success and retcode into arch ptrace.h (Eric Paris) [713831 703935]
