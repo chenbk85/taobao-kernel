@@ -8,6 +8,6 @@ else
 fi
 for name in `ls *.rpm`
 do 
-  yum-upload $name  --osver $ABS_OS --arch ${plat} --group yum --batch
+  name=${name/.rpm/}
+  yum-setbranch $name   $ABS_OS  ${plat} current
 done
-python ./taobao-kernel-buildqa.py $3 $4
