@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Nov  1 00:41:38 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/ext4-fix-no-dirty-buffer-in-convert-to-initialized.patch:
+  ext4: fix no mark dirty in ext4_ext_convert_to_initialized().
+
+This fix the redhat bugzilla 742091.
+
+-------------------------------------------------------------------
 Mon Sep  5 17:38:21 CST 2011 - gaoyang.zyh@taobao.com
 
 By introducing this fix we can alleviate the phenomemon that kernel
