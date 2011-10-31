@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Nov  1 00:41:38 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/ext4-fix-no-dirty-buffer-in-convert-to-initialized.patch:
+  ext4: fix no mark dirty in ext4_ext_convert_to_initialized().
+
+This fix the redhat bugzilla 742091.
+
+-------------------------------------------------------------------
 Mon Oct 31 14:14:25 CST 2011 - gaoyang.zyh@taobao.com
 Add these patches to support upstream strict rq_affinity feature,
 which can make the softirqs run on every cores.
