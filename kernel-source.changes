@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Mon Oct 31 14:14:25 CST 2011 - gaoyang.zyh@taobao.com
+Add these patches to support upstream strict rq_affinity feature,
+which can make the softirqs run on every cores.
+
+- patches.taobao/block-strict-rq_affinity-0001.patch: block:
+  strict rq_affinity.
+- patches.taobao/block-strict-rq_affinity-0002.patch: block:
+  Make rq_affinity = 1 work as expected.
+- patches.taobao/block-strict-rq_affinity-0003.patch: block:
+  improve rq_affinity placement.
+
+-------------------------------------------------------------------
 Mon Sep  5 18:35:16 CST 2011 - gaoyang.zyh@taobao.com
 By introducing this fix we can alleviate the phenomemon that kernel
 enables zone_reclaim_mode during boot by mistake on some servers
