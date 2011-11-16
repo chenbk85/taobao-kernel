@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Wed Nov 16 19:50:02 CST 2011 - bosong.ly@taobao.com
+
+- merge tlock_kern kernel module into 2.6.32 kernel:
+  - Update config files.
+  - patches.taobao/tlock.patch: tlock: port tlock_kern kernel
+    module to 2.6.32 version.
+
+-------------------------------------------------------------------
+Mon Nov 14 19:34:57 CST 2011 - bosong.ly@taobao.com
+
+- Add tlock kernel module (tlock_kern.ko) for tdbm
+  - Update config files.
+  - patches.taobao/tlock.patch:
+
+-------------------------------------------------------------------
 Tue Oct 11 00:16:52 CST 2011 - bosong.ly@taobao.com
 
 - Rebase patches for RHEL6 linux-2.6.32-131.17.1 source:
