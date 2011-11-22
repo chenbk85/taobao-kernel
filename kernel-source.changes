@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Tue Nov 22 11:29:33 CST 2011 - gaoyang.zyh@taobao.com
+
+merge 'strict rq-affinity' patch and numa distance patch from
+5u4 branch
+
+- patches.taobao/block-strict-rq_affinity-0001.patch: block:
+  strict rq_affinity.
+- patches.taobao/block-strict-rq_affinity-0002.patch: block:
+  Make rq_affinity = 1 work as expected.
+- patches.taobao/block-strict-rq_affinity-0003.patch: block:
+  improve rq_affinity placement.
+- patches.taobao/mm-increase-RECLAIM_DISTANCE-to-30.patch: mm:
+  increase RECLAIM_DISTANCE to 30.
+
+-------------------------------------------------------------------
 Wed Nov 16 19:50:02 CST 2011 - bosong.ly@taobao.com
 
 - merge tlock_kern kernel module into 2.6.32 kernel:
