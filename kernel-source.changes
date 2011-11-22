@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Nov 22 11:25:42 CST 2011 - gaoyang.zyh@taobao.com
+
+- Forgot to add the entry in series.conf, for mm-increase-RECLAIM_DISTANCE-to-30.patch 
+
+-------------------------------------------------------------------
 Tue Nov  1 00:41:38 CST 2011 - boyu.mt@taobao.com
 
 - patches.taobao/ext4-fix-no-dirty-buffer-in-convert-to-initialized.patch:
