@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Tue Nov 22 11:00:43 CST 2011 - gaoyang.zyh@taobao.com
+
+Add these patches to support upstream strict rq_affinity feature,
+which can make the softirqs run on every cores.
+
+- patches.taobao/block-strict-rq_affinity-0001.patch: block:
+  strict rq_affinity.
+- patches.taobao/block-strict-rq_affinity-0002.patch: block:
+  Make rq_affinity = 1 work as expected.
+- patches.taobao/block-strict-rq_affinity-0003.patch: block:
+  improve rq_affinity placement.
+
+-------------------------------------------------------------------
 Tue Nov  1 00:41:38 CST 2011 - boyu.mt@taobao.com
 
 - patches.taobao/ext4-fix-no-dirty-buffer-in-convert-to-initialized.patch:
