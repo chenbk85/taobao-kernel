@@ -276,7 +276,7 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
 ===================================================================
 --- linux-2.6.32-131.12.1.el6.orig/fs/ext4/super.c
 +++ linux-2.6.32-131.12.1.el6/fs/ext4/super.c
-@@ -334,6 +334,18 @@ static void ext4_handle_error(struct sup
+@@ -335,6 +335,18 @@ static void ext4_handle_error(struct sup
  			sb->s_id);
  }
  
@@ -295,7 +295,7 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
  void __ext4_error(struct super_block *sb, const char *function,
  		const char *fmt, ...)
  {
-@@ -640,6 +652,14 @@ static void ext4_put_super(struct super_
+@@ -641,6 +653,14 @@ static void ext4_put_super(struct super_
  	if (sb->s_dirt)
  		ext4_commit_super(sb, 1);
  
@@ -310,7 +310,7 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
  	if (sbi->s_journal) {
  		err = jbd2_journal_destroy(sbi->s_journal);
  		sbi->s_journal = NULL;
-@@ -2426,6 +2446,8 @@ static int ext4_fill_super(struct super_
+@@ -2427,6 +2447,8 @@ static int ext4_fill_super(struct super_
  	__u64 blocks_count;
  	int err;
  	unsigned int journal_ioprio = DEFAULT_JOURNAL_IOPRIO;
@@ -319,7 +319,7 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
  
  	sbi = kzalloc(sizeof(*sbi), GFP_KERNEL);
  	if (!sbi)
-@@ -3013,6 +3035,22 @@ no_journal:
+@@ -3014,6 +3036,22 @@ no_journal:
  
  	ext4_msg(sb, KERN_INFO, "mounted filesystem with%s", descr);
  
