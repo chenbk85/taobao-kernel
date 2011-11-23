@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Nov 23 12:58:39 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/mm-increase-RECLAIM_DISTANCE-to-30.patch:
+  rebase to remove "offset -1" warning in patch applying.
+
+-------------------------------------------------------------------
 Tue Nov 22 11:29:33 CST 2011 - gaoyang.zyh@taobao.com
 
 merge 'strict rq-affinity' patch and numa distance patch from

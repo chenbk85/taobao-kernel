@@ -77,11 +77,11 @@ Signed-off-by: Zhu Yanhai <gaoyang.zyh@taobao.com>
  include/linux/topology.h |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/include/linux/topology.h b/include/linux/topology.h
-index b91a40e..fc839bf 100644
---- a/include/linux/topology.h
-+++ b/include/linux/topology.h
-@@ -60,7 +60,7 @@ int arch_update_cpu_topology(void);
+Index: linux-2.6.32-131.17.1.el6/include/linux/topology.h
+===================================================================
+--- linux-2.6.32-131.17.1.el6.orig/include/linux/topology.h
++++ linux-2.6.32-131.17.1.el6/include/linux/topology.h
+@@ -59,7 +59,7 @@ int arch_update_cpu_topology(void);
   * (in whatever arch specific measurement units returned by node_distance())
   * then switch on zone reclaim on boot.
   */
@@ -90,6 +90,3 @@ index b91a40e..fc839bf 100644
  #endif
  #ifndef PENALTY_FOR_NODE_WITH_CPUS
  #define PENALTY_FOR_NODE_WITH_CPUS	(1)
--- 
-1.7.4.4
-
