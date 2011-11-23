@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Nov 23 13:05:50 CST 2011 - bosong.ly@taobao.com
+
+- Rebase the patches to remove hunk offset warning in patche applying:
+  - patches.taobao/ext4-fix-races-in-ext4_sync_parent.patch
+  - patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch
+  - patches.taobao/mm-increase-RECLAIM_DISTANCE-to-30.patch
+
+-------------------------------------------------------------------
 Tue Nov 22 11:15:11 CST 2011 - gaoyang.zyh@taobao.com
 
 - Forgot to add the entry in series.conf, for mm-increase-RECLAIM_DISTANCE-to-30.patch

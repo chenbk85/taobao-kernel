@@ -41,10 +41,10 @@ Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
  include/linux/fs.h |   16 +++++++++++++
  6 files changed, 169 insertions(+)
 
-Index: linux-2.6.32-131.12.1.el6/block/genhd.c
+Index: linux-2.6.32-131.12.1.el5/block/genhd.c
 ===================================================================
---- linux-2.6.32-131.12.1.el6.orig/block/genhd.c
-+++ linux-2.6.32-131.12.1.el6/block/genhd.c
+--- linux-2.6.32-131.12.1.el5.orig/block/genhd.c
++++ linux-2.6.32-131.12.1.el5/block/genhd.c
 @@ -903,6 +903,13 @@ static ssize_t disk_discard_alignment_sh
  	return sprintf(buf, "%d\n", queue_discard_alignment(disk->queue));
  }
@@ -137,10 +137,10 @@ Index: linux-2.6.32-131.12.1.el6/block/genhd.c
  static void disk_free_ptbl_rcu_cb(struct rcu_head *head)
  {
  	struct disk_part_tbl *ptbl =
-Index: linux-2.6.32-131.12.1.el6/fs/bio.c
+Index: linux-2.6.32-131.12.1.el5/fs/bio.c
 ===================================================================
---- linux-2.6.32-131.12.1.el6.orig/fs/bio.c
-+++ linux-2.6.32-131.12.1.el6/fs/bio.c
+--- linux-2.6.32-131.12.1.el5.orig/fs/bio.c
++++ linux-2.6.32-131.12.1.el5/fs/bio.c
 @@ -1408,6 +1408,35 @@ void bio_check_pages_dirty(struct bio *b
  	}
  }
@@ -189,10 +189,10 @@ Index: linux-2.6.32-131.12.1.el6/fs/bio.c
  	if (bio->bi_end_io)
  		bio->bi_end_io(bio, error);
  }
-Index: linux-2.6.32-131.12.1.el6/fs/block_dev.c
+Index: linux-2.6.32-131.12.1.el5/fs/block_dev.c
 ===================================================================
---- linux-2.6.32-131.12.1.el6.orig/fs/block_dev.c
-+++ linux-2.6.32-131.12.1.el6/fs/block_dev.c
+--- linux-2.6.32-131.12.1.el5.orig/fs/block_dev.c
++++ linux-2.6.32-131.12.1.el5/fs/block_dev.c
 @@ -29,6 +29,9 @@
  #include <asm/uaccess.h>
  #include "internal.h"
@@ -258,10 +258,10 @@ Index: linux-2.6.32-131.12.1.el6/fs/block_dev.c
  
  		put_disk(disk);
  		module_put(owner);
-Index: linux-2.6.32-131.12.1.el6/fs/ext4/ext4.h
+Index: linux-2.6.32-131.12.1.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-131.12.1.el6.orig/fs/ext4/ext4.h
-+++ linux-2.6.32-131.12.1.el6/fs/ext4/ext4.h
+--- linux-2.6.32-131.12.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-131.12.1.el5/fs/ext4/ext4.h
 @@ -1115,6 +1115,9 @@ struct ext4_sb_info {
  
  	/* workqueue for dio unwritten */
@@ -272,11 +272,11 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/ext4.h
  };
  
  static inline struct ext4_sb_info *EXT4_SB(struct super_block *sb)
-Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
+Index: linux-2.6.32-131.12.1.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-131.12.1.el6.orig/fs/ext4/super.c
-+++ linux-2.6.32-131.12.1.el6/fs/ext4/super.c
-@@ -334,6 +334,18 @@ static void ext4_handle_error(struct sup
+--- linux-2.6.32-131.12.1.el5.orig/fs/ext4/super.c
++++ linux-2.6.32-131.12.1.el5/fs/ext4/super.c
+@@ -335,6 +335,18 @@ static void ext4_handle_error(struct sup
  			sb->s_id);
  }
  
@@ -295,7 +295,7 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
  void __ext4_error(struct super_block *sb, const char *function,
  		const char *fmt, ...)
  {
-@@ -640,6 +652,14 @@ static void ext4_put_super(struct super_
+@@ -641,6 +653,14 @@ static void ext4_put_super(struct super_
  	if (sb->s_dirt)
  		ext4_commit_super(sb, 1);
  
@@ -310,7 +310,7 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
  	if (sbi->s_journal) {
  		err = jbd2_journal_destroy(sbi->s_journal);
  		sbi->s_journal = NULL;
-@@ -2426,6 +2446,8 @@ static int ext4_fill_super(struct super_
+@@ -2427,6 +2447,8 @@ static int ext4_fill_super(struct super_
  	__u64 blocks_count;
  	int err;
  	unsigned int journal_ioprio = DEFAULT_JOURNAL_IOPRIO;
@@ -319,7 +319,7 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
  
  	sbi = kzalloc(sizeof(*sbi), GFP_KERNEL);
  	if (!sbi)
-@@ -3013,6 +3035,22 @@ no_journal:
+@@ -3014,6 +3036,22 @@ no_journal:
  
  	ext4_msg(sb, KERN_INFO, "mounted filesystem with%s", descr);
  
@@ -342,10 +342,10 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
  	lock_kernel();
  	return 0;
  
-Index: linux-2.6.32-131.12.1.el6/include/linux/fs.h
+Index: linux-2.6.32-131.12.1.el5/include/linux/fs.h
 ===================================================================
---- linux-2.6.32-131.12.1.el6.orig/include/linux/fs.h
-+++ linux-2.6.32-131.12.1.el6/include/linux/fs.h
+--- linux-2.6.32-131.12.1.el5.orig/include/linux/fs.h
++++ linux-2.6.32-131.12.1.el5/include/linux/fs.h
 @@ -678,6 +678,20 @@ struct address_space {
  	 * of struct page's "mapping" pointer be used for PAGE_MAPPING_ANON.
  	 */
