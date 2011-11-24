@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Nov 24 17:55:55 CST 2011 - bosong.ly@taobao.com
+
+- patches.driver/bnx2-disable-msi-when-no-per-vector-masking.patch:
+  Disable bnx2 MSI support when no per-vector masking capability
+  (BF#131606).
+
+-------------------------------------------------------------------
 Thu Nov 24 17:54:50 CST 2011 - bosong.ly@taobao.com
 
 - Update to RHEL6 kernel 2.6.32-131.21.1
