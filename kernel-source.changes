@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Nov 24 17:45:27 CST 2011 - bosong.ly@taobao.com
+
+- redhat-kernel-version: modify kernel version post-fix from el6 to el5.
+  Now we set RHEL5 as master branch OS environment.
+
+-------------------------------------------------------------------
 Thu Nov 24 17:27:49 CST 2011 - bosong.ly@taobao.com
 
 - patches.driver/bnx2-disable-msi-when-no-per-vector-masking.patch:
