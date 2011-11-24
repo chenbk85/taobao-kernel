@@ -1,4 +1,74 @@
 -------------------------------------------------------------------
+Thu Nov 24 17:54:50 CST 2011 - bosong.ly@taobao.com
+
+- Update to RHEL6 kernel 2.6.32-131.21.1
+  - redhat-kernel-changelog:
+  - redhat-kernel-source/kernel.spec:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/include/asm/pgtable-3level.h:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/include/asm/pgtable.h:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/mm/fault.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/mm/init_64.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/mm/pageattr.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/mm/pgtable.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/xen/mmu.c:
+  - redhat-kernel-source/linux-2.6.32/crypto/md5.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/acpi/osl.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/char/random.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/char/tpm/tpm.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/misc/enclosure.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/igb/igb_main.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/wireless/b43/dma.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/net/wireless/b43/dma.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/pci/hotplug/acpiphp_glue.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/scsi/iscsi_tcp.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/scsi/megaraid/megaraid_sas_base.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/scsi/scsi_error.c:
+  - redhat-kernel-source/linux-2.6.32/fs/cifs/cifssmb.c:
+  - redhat-kernel-source/linux-2.6.32/fs/cifs/connect.c:
+  - redhat-kernel-source/linux-2.6.32/fs/fuse/dev.c:
+  - redhat-kernel-source/linux-2.6.32/fs/nfs/nfs4xdr.c:
+  - redhat-kernel-source/linux-2.6.32/fs/partitions/efi.c:
+  - redhat-kernel-source/linux-2.6.32/include/acpi/acpiosxf.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/cryptohash.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/kvm_host.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/random.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/rcutree.h:
+  - redhat-kernel-source/linux-2.6.32/include/net/ipv6.h:
+  - redhat-kernel-source/linux-2.6.32/include/net/sctp/command.h:
+  - redhat-kernel-source/linux-2.6.32/include/net/secure_seq.h:
+  - redhat-kernel-source/linux-2.6.32/include/net/transp_v6.h:
+  - redhat-kernel-source/linux-2.6.32/include/scsi/scsi_host.h:
+  - redhat-kernel-source/linux-2.6.32/kernel/rcutree.c:
+  - redhat-kernel-source/linux-2.6.32/kernel/taskstats.c:
+  - redhat-kernel-source/linux-2.6.32/lib/Makefile:
+  - redhat-kernel-source/linux-2.6.32/lib/md5.c:
+  - redhat-kernel-source/linux-2.6.32/mm/rmap.c:
+  - redhat-kernel-source/linux-2.6.32/net/8021q/vlan_core.c:
+  - redhat-kernel-source/linux-2.6.32/net/core/Makefile:
+  - redhat-kernel-source/linux-2.6.32/net/core/secure_seq.c:
+  - redhat-kernel-source/linux-2.6.32/net/dccp/ipv4.c:
+  - redhat-kernel-source/linux-2.6.32/net/dccp/ipv6.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv4/inet_hashtables.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv4/inetpeer.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv4/netfilter/nf_nat_proto_common.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv4/route.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv4/tcp_ipv4.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv6/af_inet6.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv6/inet6_hashtables.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv6/ip6_output.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv6/tcp_ipv6.c:
+  - redhat-kernel-source/linux-2.6.32/net/ipv6/udp.c:
+  - redhat-kernel-source/linux-2.6.32/net/sctp/sm_sideeffect.c:
+  - redhat-kernel-source/linux-2.6.32/net/sctp/sm_statefuns.c:
+  - redhat-kernel-source/linux-2.6.32/net/sunrpc/cache.c:
+  - redhat-kernel-source/linux-2.6.32/net/sunrpc/rpcb_clnt.c:
+  - redhat-kernel-source/linux-2.6.32/net/sunrpc/sched.c:
+  - redhat-kernel-source/linux-2.6.32/tools/perf/util/config.c:
+  - redhat-kernel-source/linux-kernel-test.patch:
+  - redhat-kernel-version:
+  - redhat-kernel-source/.gitignore: Delete.
+
+-------------------------------------------------------------------
 Wed Nov 23 13:05:50 CST 2011 - bosong.ly@taobao.com
 
 - Rebase the patches to remove hunk offset warning in patche applying:
