@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Nov 29 01:56:50 CST 2011 - bosong.ly@taobao.com
+
+- MAINTAINERS: add zhengming@taobao.com into maintainers.
+
+-------------------------------------------------------------------
 Tue Nov 29 01:03:04 CST 2011 - bosong.ly@taobao.com
 
 - patches.driver/igb-3.2.10.patch: backport igb 3.2.10 driver
