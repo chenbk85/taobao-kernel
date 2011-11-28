@@ -40,10 +40,10 @@ Acked-by: Tao Ma <boyu.mt@taobao.com>
  fs/ext4/fsync.c |   26 +++++++++++++++++++++-----
  1 files changed, 21 insertions(+), 5 deletions(-)
 
-Index: linux-2.6.32-131.17.1.el6/fs/ext4/fsync.c
+Index: linux-2.6.32-131.12.1.el5/fs/ext4/fsync.c
 ===================================================================
---- linux-2.6.32-131.17.1.el6.orig/fs/ext4/fsync.c
-+++ linux-2.6.32-131.17.1.el6/fs/ext4/fsync.c
+--- linux-2.6.32-131.12.1.el5.orig/fs/ext4/fsync.c
++++ linux-2.6.32-131.12.1.el5/fs/ext4/fsync.c
 @@ -46,15 +46,30 @@ static int ext4_sync_parent(struct inode
  {
  	struct writeback_control wbc;

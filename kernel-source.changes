@@ -1,4 +1,24 @@
 -------------------------------------------------------------------
+Tue Nov 29 01:53:56 CST 2011 - bosong.ly@taobao.com
+
+- patches.driver/igb-3.2.10.patch: backport igb 3.2.10 driver
+  to RHEL6 2.6.32 kernel.
+- rebase patches to remove chunk offset warning in patches applying:
+  - patches.taobao/ext4-fix-races-in-ext4_sync_parent.patch
+  - patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch
+  - patches.taobao/mm-increase-RECLAIM_DISTANCE-to-30.patch
+  - patches.taobao/netoops_016_oops_pass_regs_to_oops_exit.patch
+  - patches.taobao/netoops_017_kmsg_dumper_pass_pt_regs_along_to_dumpers.patch
+  - patches.taobao/perf-Validate-cpu-early-in-perf_event_alloc.patch
+- change 4 building scripts to be same as the ones in 5u branch, since we take
+  rhel5 as default running environment for master branch kernel:
+  - rpm/kernel.spec.in:
+  - rpm/taobao-kernel-build.sh:
+  - rpm/taobao-kernel-buildpe.sh:
+  - rpm/taobao-kernel-buildqa.sh:
+- patches.taobao/tcp_v4_err.lock-fix.patch: tcp: Don't change unlocked socket state in tcp_v4_err().
+
+-------------------------------------------------------------------
 Thu Nov 24 17:45:27 CST 2011 - bosong.ly@taobao.com
 
 - redhat-kernel-version: modify kernel version post-fix from el6 to el5.

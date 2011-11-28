@@ -28,10 +28,10 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  kernel/perf_event.c |   10 ++++++----
  1 files changed, 6 insertions(+), 4 deletions(-)
 
-Index: linux-2.6.32-131.17.1.el6/kernel/perf_event.c
+Index: linux-2.6.32-131.21.1.el5/kernel/perf_event.c
 ===================================================================
---- linux-2.6.32-131.17.1.el6.orig/kernel/perf_event.c
-+++ linux-2.6.32-131.17.1.el6/kernel/perf_event.c
+--- linux-2.6.32-131.21.1.el5.orig/kernel/perf_event.c
++++ linux-2.6.32-131.21.1.el5/kernel/perf_event.c
 @@ -2216,9 +2216,6 @@ find_get_context(struct pmu *pmu, struct
  		if (perf_paranoid_cpu() && !capable(CAP_SYS_ADMIN))
  			return ERR_PTR(-EACCES);
