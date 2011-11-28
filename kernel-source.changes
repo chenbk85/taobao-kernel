@@ -1,4 +1,24 @@
 -------------------------------------------------------------------
+Tue Nov 29 02:03:23 CST 2011 - bosong.ly@taobao.com
+
+- MAINTAINERS: add zhengming@taobao.com into maintainers list.
+- patches.driver/igb-3.2.10.patch: backport igb 3.2.10 driver
+  to RHEL6 2.6.32 kernel.
+- rebase patches to remove chunk offset warning in patches applying:
+  - patches.taobao/netoops_016_oops_pass_regs_to_oops_exit.patch
+  - patches.taobao/netoops_017_kmsg_dumper_pass_pt_regs_along_to_dumpers.patch
+  - patches.taobao/perf-Validate-cpu-early-in-perf_event_alloc.patch
+- patches.taobao/tcp_v4_err.lock-fix.patch: Don't change unlocked socket state in tcp_v4_err().
+
+-------------------------------------------------------------------
+Tue Nov 29 02:00:33 CST 2011 - bosong.ly@taobao.com
+
+- MAINTAINERS:
+- patches.driver/igb-3.2.10.patch: backport igb 3.2.10 driver
+  to RHEL6 2.6.32 kernel.
+- patches.taobao/tcp_v4_err.lock-fix.patch:
+
+-------------------------------------------------------------------
 Thu Nov 24 17:52:50 CST 2011 - bosong.ly@taobao.com
 
 - patches.driver/bnx2-disable-msi-when-no-per-vector-masking.patch:
