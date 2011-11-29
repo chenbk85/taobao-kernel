@@ -30,10 +30,10 @@ Summary: The Linux kernel
 
 %define on_rhel5 %( \
 ret=`lsb_release -rs`; \
-if [ $ret = "5.4" ]; then \
+if [ $ret = "5.4" -o $ret = "5.6" ]; then \
         echo 1; \
 else \
-    if [ $ret = "6.0" ]; then\
+    if [ $ret = "6.0" -o $ret = "6.1" ]; then\
         echo 0; \
     else \
         echo 1; \

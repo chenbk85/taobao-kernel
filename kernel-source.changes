@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Nov 29 12:04:09 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: consolidate the lsb_release version judgement.
+
+-------------------------------------------------------------------
 Tue Nov 29 11:42:53 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/taobao-kernel-build.sh: turn on debug kernel build.
