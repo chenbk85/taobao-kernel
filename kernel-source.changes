@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Nov 29 12:13:23 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/kernel.spec.in: consolidate lsb_release version judgement.
+
+-------------------------------------------------------------------
 Tue Nov 29 01:53:56 CST 2011 - bosong.ly@taobao.com
 
 - patches.driver/igb-3.2.10.patch: backport igb 3.2.10 driver
