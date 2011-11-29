@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Nov 29 11:42:12 CST 2011 - gaoyang.zyh@taobao.com
+
+- rpm/taobao-kernel-build.sh: turn on debug kernel build.
+
+-------------------------------------------------------------------
 Tue Nov 29 01:56:50 CST 2011 - bosong.ly@taobao.com
 
 - MAINTAINERS: add zhengming@taobao.com into maintainers.
