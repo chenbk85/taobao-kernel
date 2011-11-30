@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Nov 30 21:26:15 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/mm-add-a-sysctl-to-decide-whether-to-do-context-readahead-or-not.patch:
+  mm: add a sysctl to decide whether to do context readahead
+  or not.
+
+-------------------------------------------------------------------
 Tue Nov 29 12:13:23 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: consolidate lsb_release version judgement.
