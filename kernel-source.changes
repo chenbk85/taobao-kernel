@@ -1,4 +1,24 @@
 -------------------------------------------------------------------
+Wed Nov 30 11:12:29 CST 2011 - gaoyang.zyh@taobao.com
+
+- differentiate the building release from the target running release.
+
+  Since Nov 29 we build the kernels for both RHEL5 and RHEL6 on RHEL6, for better fancy
+  debuginfo and the debuginfo package for debug kernel (well I know it's a bit confusing,
+  the rpmbuild module on old RHEL5 has a bug, which makes it unable to build the too large
+  debuginfo packages, e.g. the one for kernel-debug).
+  And we use the same build platform from now on, that I can't assume the build platform
+  is the same with the target platform anymore, so I made this change.
+
+  ***************************************************************************************
+  ** From now on, to build for RHEL5, you have to append a '--with rhel5' option to the *
+  ** rpmbuild command line.                                                             *
+  ***************************************************************************************
+
+	- rpm/kernel.spec.in:
+	- rpm/taobao-kernel-build.sh:
+
+-------------------------------------------------------------------
 Tue Nov 29 12:11:23 CST 2011 - gaoyang.zyh@taobao.com
 
 - rpm/kernel.spec.in: consolidate lsb_release version judgement.
