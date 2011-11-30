@@ -25,6 +25,10 @@ do
 	ac=${#t_pk_array[*]}
 	version=${t_pk_array[$ac-2]}
 	echo $version > $1/rpm/$2-VER.txt
+	buildnumber=${t_pk_array[$ac-1]}
+        sf=`echo $buildnumber|awk -F'.' '{print "."$(NF-2)"."$(NF-1)"."$NF}'`
+        buildnumber=${buildnumber/$sf/}
+        echo $buildnumber >  $1/rpm/BUILDNO.txt
 	break
 done
 
