@@ -116,7 +116,7 @@ fi)
 # Use dracut instead of mkinitrd for initrd image generation
 %define with_dracut       %{?_without_dracut:       0} %{?!_without_dracut:       1}
 
-%define with_rhel5	%{?_with_rhel5	1} %{?!_with_rhel5	0}
+%define with_rhel5	%{?_with_rhel5:		1} %{?!_with_rhel5:	0}
 
 # Build the kernel-doc package, but don't fail the build if it botches.
 # Here "true" means "continue" and "false" means "fail the build".
