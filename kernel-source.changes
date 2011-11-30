@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Nov 30 21:26:15 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/mm-add-a-sysctl-to-decide-whether-to-do-context-readahead-or-not.patch:
+  mm: add a sysctl to decide whether to do context readahead
+  or not.
+
+-------------------------------------------------------------------
 Wed Nov 30 11:12:29 CST 2011 - gaoyang.zyh@taobao.com
 
 - differentiate the building release from the target running release.
