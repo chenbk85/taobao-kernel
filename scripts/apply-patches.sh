@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Given a series.conf file and a directory with patches, applies them to the
 # current directory.

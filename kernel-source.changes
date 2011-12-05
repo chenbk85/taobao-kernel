@@ -1,4 +1,40 @@
 -------------------------------------------------------------------
+Mon Dec  5 18:02:49 CST 2011 - coly@taobao.com
+
+- patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
+  - renamed from patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch
+  - add "io-error-guard" header to kernel message, help people to identify
+    error info from other dmesg lines
+  - call kmsg_dump() when errors reaches threshold, so that netoops can
+    send out the error info.
+  - print out file system name when calling corresponding fiel system handler.
+- make sure interpreter header to be "#!/bin/bash" for bash scripts, so tools under scripts/
+  can continue to work on non-bash-as-default-sh system like ubuntu. then people can use
+  ubuntu as development/coding environment:
+  - scripts/abs-post-receive
+  - scripts/add-timestamp.sh
+  - scripts/apply-patches.sh
+  - scripts/check-cvs-add
+  - scripts/check-patch
+  - scripts/cvs-touched-files
+  - scripts/git-pre-commit
+  - scripts/log
+  - scripts/perf
+  - scripts/refresh_patch.sh
+  - scripts/vc
+  - scripts/wd-functions.sh
+
+-------------------------------------------------------------------
+Mon Dec  5 17:12:07 CST 2011 - coly@taobao.com
+
+- patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
+- scripts/cvs-touched-files:
+- scripts/log:
+- scripts/wd-functions.sh:
+- patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch:
+  Delete.
+
+-------------------------------------------------------------------
 Wed Nov 30 21:26:15 CST 2011 - boyu.mt@taobao.com
 
 - patches.taobao/mm-add-a-sysctl-to-decide-whether-to-do-context-readahead-or-not.patch:
