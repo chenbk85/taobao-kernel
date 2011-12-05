@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Dec 5 11:27:00 CST 2011 - gaoyang.zyh@taobao.com
+
+- The build experiment failed, so we fall back to build the rhel5 kernel on 
+  rhel5, exactly as before. The relevant commits are reverted now.
+
+-------------------------------------------------------------------
 Wed Nov 30 21:26:15 CST 2011 - boyu.mt@taobao.com
 
 - patches.taobao/mm-add-a-sysctl-to-decide-whether-to-do-context-readahead-or-not.patch:
