@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Thu Dec  8 18:27:23 CST 2011 - boyu.mt@taobao.com
+
+This patch series can solve cpu idle and iowait time calculation incorret
+problem.
+
+- patches.taobao/nohz-0001-fix-update_ts_time_stat-idle-accouting.patch:
+  nohz: Fix update_ts_time_stat idle accounting.
+- patches.taobao/nohz-0002-make-idle-iowait-counter-update-conditional.patch:
+  nohz: Make idle/iowait counter update conditional.
+- patches.taobao/nohz-0003-proc-consider-nohz-when-printing-idle-and-iowait-times.patch:
+  Consider NO_HZ when printing idle and iowait times.
+
+-------------------------------------------------------------------
 Mon Dec  5 18:02:49 CST 2011 - coly@taobao.com
 
 - patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
