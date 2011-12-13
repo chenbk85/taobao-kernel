@@ -1,5 +1,43 @@
 -------------------------------------------------------------------
-Fri Dec  9 14:09:08 CST 2011 - coly@taobao.com
+Tue Dec 13 23:33:42 CST 2011 - bosong.ly@taobao.com
+
+- Rebase part of patches to RHEL 6.2 2.6.32-220 kernel
+  - Update config files.
+  - patches.driver/bnx2-disable-msi-when-no-per-vector-masking.patch:
+  - patches.taobao/Makefile_fix_CPP_PATCH_number_assignment_error.patch:
+  - patches.taobao/block-strict-rq_affinity-0001.patch:
+  - patches.taobao/cfq_avoid_async_write_starve.patch:
+  - patches.taobao/cfq_request_deadline_policy.patch:
+  - patches.taobao/context_switch_per_cpu_stat.patch:
+  - patches.taobao/ext4-Adding-error-check-after-calling-ext4_mb_regular_allocator.patch:
+  - patches.taobao/ext4-Fix-buffer-head-leaks-after-calls-to-ext4_get_inode_loc.diff:
+  - patches.taobao/ext4-Fix-overflow-caused-by-missing-cast-in-ext4_fal.patch:
+  - patches.taobao/ext4-Make-fsync-sync-new-parent-directories-in-no-jo.patch:
+  - patches.taobao/ext4-Remove-extraneous-newlines-in-ext4_msg-calls.diff:
+  - patches.taobao/ext4-add-tracepoint-for-ext4_journal_start.patch:
+  - patches.taobao/ext4-don-t-show-mount-options-in-proc-mounts-if-ther.patch:
+  - patches.taobao/ext4-fix-kernel-oops-if-the-journal-superblock-has-a-non-zero-j_errno.diff:
+  - patches.taobao/ext4-free-allocated-and-pre-allocated-blocks-when-ch.patch:
+  - patches.taobao/ext4-init-statistics-after-journal-recovery.patch:
+  - patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
+  - patches.taobao/ext4-remove-ext4_mb_return_to_preallocation.patch:
+  - patches.taobao/ext4-use-dedicated-slab-caches-for-group_info-structures.patch:
+  - patches.taobao/mm-0001-compaction-checks-correct-fragmentation-index.patch:
+  - patches.taobao/mm-0002-batch-free-pcp-list-if-possible.patch:
+  - patches.taobao/mm-0003-compaction-abort-compaction-if-too-many-pages-are.patch:
+  - patches.taobao/mm-0008-page-allocator-reduce-fragmentation-in-buddy-allocat.patch:
+  - patches.taobao/mm-0009-Fix-section-mismatch-for-setup_zone_pageset.patch:
+  - patches.taobao/mm-0010-page_alloc.c-prevent-unending-loop-in-__alloc_pag.patch:
+  - patches.taobao/mm-add-a-sysctl-to-decide-whether-to-do-context-readahead-or-not.patch:
+  - patches.taobao/net-tcp-timewait-dynamic-config.patch:
+  - patches.taobao/nohz-0003-proc-consider-nohz-when-printing-idle-and-iowait-times.patch:
+  - patches.taobao/pagecache_hit_accounting_002_add_func_and_structures.patch:
+  - patches.taobao/tlock.patch:
+- Add a patch to fix compiling failure to RHEL 6.2 2.6.32-220 kerenl
+  - patches.taobao/fix-type-of-cputime_to_usecs-in-asm-generic-cputime.h.patch:
+
+-------------------------------------------------------------------
+Fri Dec  9 14:09:08 CST 2011 - bosong.ly@taobao.com
 
 - A first effort to update to RHEL6 2.6.32-220 kernel, not finished yet.
   - Update config files.
@@ -2400,7 +2438,7 @@ problem.
   Consider NO_HZ when printing idle and iowait times.
 
 -------------------------------------------------------------------
-Mon Dec  5 18:02:49 CST 2011 - coly@taobao.com
+Mon Dec  5 18:02:49 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
   - renamed from patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch
@@ -2426,7 +2464,7 @@ Mon Dec  5 18:02:49 CST 2011 - coly@taobao.com
   - scripts/wd-functions.sh
 
 -------------------------------------------------------------------
-Mon Dec  5 17:12:07 CST 2011 - coly@taobao.com
+Mon Dec  5 17:12:07 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
 - scripts/cvs-touched-files:

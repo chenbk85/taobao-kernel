@@ -22,11 +22,11 @@ Acked-by: Tao Ma <boyu.mt@taobao.com>
  fs/ext4/extents.c |    7 +++----
  1 files changed, 3 insertions(+), 4 deletions(-)
 
-Index: linux-2.6.32-131.6.1.el5/fs/ext4/extents.c
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/extents.c
 ===================================================================
---- linux-2.6.32-131.6.1.el5.orig/fs/ext4/extents.c
-+++ linux-2.6.32-131.6.1.el5/fs/ext4/extents.c
-@@ -3578,10 +3578,9 @@ int ext4_ext_get_blocks(handle_t *handle
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/extents.c	2011-12-13 14:15:21.435062221 +0800
++++ linux-2.6.32-220.0.0.el5/fs/ext4/extents.c	2011-12-13 14:29:45.639347577 +0800
+@@ -3525,10 +3525,9 @@
  	}
  
  	err = check_eofblocks_fl(handle, inode, iblock, path, ar.len);

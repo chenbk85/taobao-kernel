@@ -61,10 +61,10 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  include/linux/fs.h |   16 +++++++++++++
  6 files changed, 169 insertions(+)
 
-Index: linux-2.6.32-131.21.1.el5/block/genhd.c
+Index: linux-2.6.32-220.0.0.el5/block/genhd.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/block/genhd.c	2011-12-03 14:48:36.965752988 +0800
-+++ linux-2.6.32-131.21.1.el5/block/genhd.c	2011-12-05 12:17:44.164010639 +0800
+--- linux-2.6.32-220.0.0.el5.orig/block/genhd.c	2011-12-13 22:00:56.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/block/genhd.c	2011-12-13 22:05:32.569775773 +0800
 @@ -903,6 +903,13 @@
  	return sprintf(buf, "%d\n", queue_discard_alignment(disk->queue));
  }
@@ -157,20 +157,19 @@ Index: linux-2.6.32-131.21.1.el5/block/genhd.c
  static void disk_free_ptbl_rcu_cb(struct rcu_head *head)
  {
  	struct disk_part_tbl *ptbl =
-Index: linux-2.6.32-131.21.1.el5/fs/bio.c
+Index: linux-2.6.32-220.0.0.el5/fs/bio.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/bio.c	2011-12-03 14:48:36.993753134 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/bio.c	2011-12-05 12:20:09.136729529 +0800
-@@ -26,7 +26,7 @@
+--- linux-2.6.32-220.0.0.el5.orig/fs/bio.c	2011-12-13 22:00:56.196405316 +0800
++++ linux-2.6.32-220.0.0.el5/fs/bio.c	2011-12-13 22:06:39.282106488 +0800
+@@ -26,7 +26,6 @@
  #include <linux/mempool.h>
  #include <linux/workqueue.h>
  #include <scsi/sg.h>		/* for struct sg_iovec */
 -
-+#include <linux/kmsg_dump.h>
  #include <trace/events/block.h>
  
  /*
-@@ -1408,6 +1408,46 @@
+@@ -1408,6 +1407,43 @@
  	}
  }
  
@@ -207,9 +206,6 @@ Index: linux-2.6.32-131.21.1.el5/fs/bio.c
 +				eio_handler->handler(eio_handler);
 +			}
 +		}
-+		/* dump above kmessage to make sure netoops can send out
-+		   the io-error-guard info */
-+		kmsg_dump(KMSG_DUMP_SOFT, NULL);
 +	}
 +	spin_unlock(&eio->lock);
 +}
@@ -217,7 +213,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/bio.c
  /**
   * bio_endio - end I/O on a bio
   * @bio:	bio
-@@ -1429,6 +1469,11 @@
+@@ -1429,6 +1465,11 @@
  	else if (!test_bit(BIO_UPTODATE, &bio->bi_flags))
  		error = -EIO;
  
@@ -229,10 +225,10 @@ Index: linux-2.6.32-131.21.1.el5/fs/bio.c
  	if (bio->bi_end_io)
  		bio->bi_end_io(bio, error);
  }
-Index: linux-2.6.32-131.21.1.el5/fs/block_dev.c
+Index: linux-2.6.32-220.0.0.el5/fs/block_dev.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/block_dev.c	2011-12-03 14:48:36.969753005 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/block_dev.c	2011-12-05 12:17:44.164010639 +0800
+--- linux-2.6.32-220.0.0.el5.orig/fs/block_dev.c	2011-12-13 22:00:56.204405359 +0800
++++ linux-2.6.32-220.0.0.el5/fs/block_dev.c	2011-12-13 22:05:32.569775773 +0800
 @@ -29,6 +29,9 @@
  #include <asm/uaccess.h>
  #include "internal.h"
@@ -276,7 +272,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/block_dev.c
  
  	if (inode->i_state & I_NEW) {
  		bdev->bd_contains = NULL;
-@@ -580,6 +588,9 @@
+@@ -581,6 +589,9 @@
  		spin_lock(&bdev_lock);
  		list_add(&bdev->bd_list, &all_bdevs);
  		spin_unlock(&bdev_lock);
@@ -286,7 +282,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/block_dev.c
  		unlock_new_inode(inode);
  	}
  	return bdev;
-@@ -1379,6 +1390,11 @@
+@@ -1380,6 +1391,11 @@
  	}
  	if (!bdev->bd_openers) {
  		struct module *owner = disk->fops->owner;
@@ -298,32 +294,31 @@ Index: linux-2.6.32-131.21.1.el5/fs/block_dev.c
  
  		put_disk(disk);
  		module_put(owner);
-Index: linux-2.6.32-131.21.1.el5/fs/ext4/ext4.h
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/ext4/ext4.h	2011-12-05 12:17:44.104010344 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/ext4/ext4.h	2011-12-05 12:17:44.164010639 +0800
-@@ -1115,6 +1115,9 @@
- 
- 	/* workqueue for dio unwritten */
- 	struct workqueue_struct *dio_unwritten_wq;
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/ext4.h	2011-12-13 22:05:32.489775381 +0800
++++ linux-2.6.32-220.0.0.el5/fs/ext4/ext4.h	2011-12-13 22:05:32.569775773 +0800
+@@ -1141,6 +1141,9 @@
+ 	struct ext4_li_request *s_li_request;
+ 	/* Wait multiplier for lazy initialization thread */
+ 	unsigned int s_li_wait_mult;
 +
 +	/* IO error handler when counter reach threshold */
 +	struct eio_handler s_eio_handler;
  };
  
  static inline struct ext4_sb_info *EXT4_SB(struct super_block *sb)
-Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/ext4/super.c	2011-12-05 12:17:44.136010502 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/ext4/super.c	2011-12-05 12:17:44.168010664 +0800
-@@ -335,6 +335,24 @@
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/super.c	2011-12-13 22:05:32.529775587 +0800
++++ linux-2.6.32-220.0.0.el5/fs/ext4/super.c	2011-12-13 22:43:03.560937876 +0800
+@@ -344,6 +344,23 @@
  			sb->s_id);
  }
  
 +static void ext4_eio_handler(struct eio_handler *handler)
 +{
 +	struct super_block *sb = handler->bdev->bd_super;
-+	int err = 0;
 +
 +	if (sb->s_flags & MS_RDONLY) {
 +		return;
@@ -335,19 +330,19 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
 +	 * ext4_sync_fs */
 +	ext4_sync_fs(sb, 0);
 +	sb->s_flags |= MS_RDONLY;
-+	ext4_msg(sb, KERN_CRIT, "io-error-guard: set file system to read-only.\n");
++	ext4_msg(sb, KERN_CRIT, "io-error-guard: set file system to read-only.");
 +}
 +
  void __ext4_error(struct super_block *sb, const char *function,
  		const char *fmt, ...)
  {
-@@ -627,6 +645,19 @@
+@@ -636,6 +653,19 @@
  	}
  }
  
-+void ext4_io_error_guard_destory(struct superblock *sb)
++void ext4_io_error_guard_destory(struct super_block *sb)
 +{
-+	struct ext4_sb_info = EXT4_SB(sb);
++	struct ext4_sb_info *sbi = EXT4_SB(sb);
 +	struct eio_handler *eio_handler = &sbi->s_eio_handler;
 +	struct eio *eio = &sb->s_bdev->bd_contains->bd_eio;
 +
@@ -361,7 +356,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  static void ext4_put_super(struct super_block *sb)
  {
  	struct ext4_sb_info *sbi = EXT4_SB(sb);
-@@ -641,6 +672,9 @@
+@@ -652,6 +682,9 @@
  	if (sb->s_dirt)
  		ext4_commit_super(sb, 1);
  
@@ -371,8 +366,8 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  	if (sbi->s_journal) {
  		err = jbd2_journal_destroy(sbi->s_journal);
  		sbi->s_journal = NULL;
-@@ -2403,6 +2437,34 @@
- 	return 1;
+@@ -2807,6 +2840,34 @@
+ 	kthread_stop(ext4_lazyinit_task);
  }
  
 +/* must be called after sbi initialized */
@@ -380,12 +375,12 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
 +{
 +	struct eio *eio;
 +	struct eio_handler *eio_handler;
-+	struct ext4_sb_info = EXT4_SB(sb);
++	struct ext4_sb_info *sbi = EXT4_SB(sb);
 +	int ret = 0;
 +
 +	eio_handler = &sbi->s_eio_handler;
 +
-+	eio_handler->fs_name = kstrdup("ext4", KFP_NOFS);
++	eio_handler->fs_name = kstrdup("ext4", GFP_NOFS);
 +	if (eio_handler->fs_name == NULL) {
 +		ret = -ENOMEM;
 +		goto out;
@@ -406,14 +401,16 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  				__releases(kernel_lock)
  				__acquires(kernel_lock)
-@@ -3014,6 +3076,15 @@
- 
- 	ext4_msg(sb, KERN_INFO, "mounted filesystem with%s", descr);
+@@ -3444,6 +3505,17 @@
+ 		 "Opts: %s%s", descr, sbi->s_es->s_mount_opts,
+ 		 *sbi->s_es->s_mount_opts ? "; " : "");
  
 +	/*
 +	 * currently io-error-guard only works for non-journal mode on Ext4
 +	 */
 +	if (!EXT4_SB(sb)->s_journal) {
++		ext4_msg(sb, KERN_INFO, "in no-journal mode,"
++			"enable Ext4 io-error-guard plugin");
 +		err = ext4_io_error_guard_init(sb);
 +		if (err)
 +			goto failed_mount4;
@@ -422,11 +419,11 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  	lock_kernel();
  	return 0;
  
-Index: linux-2.6.32-131.21.1.el5/include/linux/fs.h
+Index: linux-2.6.32-220.0.0.el5/include/linux/fs.h
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/include/linux/fs.h	2011-12-03 14:48:36.957752947 +0800
-+++ linux-2.6.32-131.21.1.el5/include/linux/fs.h	2011-12-05 12:17:44.168010664 +0800
-@@ -678,6 +678,21 @@
+--- linux-2.6.32-220.0.0.el5.orig/include/linux/fs.h	2011-12-13 22:00:56.172405196 +0800
++++ linux-2.6.32-220.0.0.el5/include/linux/fs.h	2011-12-13 22:05:32.573775794 +0800
+@@ -680,6 +680,21 @@
  	 * of struct page's "mapping" pointer be used for PAGE_MAPPING_ANON.
  	 */
  
@@ -448,7 +445,7 @@ Index: linux-2.6.32-131.21.1.el5/include/linux/fs.h
  struct block_device {
  	dev_t			bd_dev;  /* not a kdev_t - it's a search key */
  	struct inode *		bd_inode;	/* will die */
-@@ -709,6 +724,8 @@
+@@ -711,6 +726,8 @@
  	int			bd_fsfreeze_count;
  	/* Mutex for freeze */
  	struct mutex		bd_fsfreeze_mutex;

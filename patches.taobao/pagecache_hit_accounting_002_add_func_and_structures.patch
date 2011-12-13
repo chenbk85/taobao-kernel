@@ -25,10 +25,10 @@ Acked-by:
  create mode 100644 include/trace/events/mm.h
  create mode 100644 kernel/trace/pagecache.c
 
-Index: linux-2.6.32-131.0.15.el6/block/blk-sysfs.c
+Index: linux-2.6.32-220.0.0.el5/block/blk-sysfs.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/block/blk-sysfs.c
-+++ linux-2.6.32-131.0.15.el6/block/blk-sysfs.c
+--- linux-2.6.32-220.0.0.el5.orig/block/blk-sysfs.c	2011-12-13 13:40:04.588565349 +0800
++++ linux-2.6.32-220.0.0.el5/block/blk-sysfs.c	2011-12-13 14:13:07.050395841 +0800
 @@ -6,6 +6,7 @@
  #include <linux/bio.h>
  #include <linux/blkdev.h>
@@ -37,7 +37,7 @@ Index: linux-2.6.32-131.0.15.el6/block/blk-sysfs.c
  
  #include "blk.h"
  
-@@ -527,6 +528,10 @@ int blk_register_queue(struct gendisk *d
+@@ -526,6 +527,10 @@
  	if (ret)
  		return ret;
  
@@ -48,7 +48,7 @@ Index: linux-2.6.32-131.0.15.el6/block/blk-sysfs.c
  	ret = kobject_add(&q->kobj, kobject_get(&dev->kobj), "%s", "queue");
  	if (ret < 0)
  		return ret;
-@@ -541,6 +546,7 @@ int blk_register_queue(struct gendisk *d
+@@ -540,6 +545,7 @@
  		kobject_uevent(&q->kobj, KOBJ_REMOVE);
  		kobject_del(&q->kobj);
  		blk_trace_remove_sysfs(disk_to_dev(disk));
@@ -56,17 +56,17 @@ Index: linux-2.6.32-131.0.15.el6/block/blk-sysfs.c
  		return ret;
  	}
  
-@@ -560,5 +566,6 @@ void blk_unregister_queue(struct gendisk
+@@ -559,5 +565,6 @@
  	kobject_uevent(&q->kobj, KOBJ_REMOVE);
  	kobject_del(&q->kobj);
  	blk_trace_remove_sysfs(disk_to_dev(disk));
 +	pagecache_trace_remove_sysfs(disk_to_dev(disk));
  	kobject_put(&disk_to_dev(disk)->kobj);
  }
-Index: linux-2.6.32-131.0.15.el6/fs/partitions/check.c
+Index: linux-2.6.32-220.0.0.el5/fs/partitions/check.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/fs/partitions/check.c
-+++ linux-2.6.32-131.0.15.el6/fs/partitions/check.c
+--- linux-2.6.32-220.0.0.el5.orig/fs/partitions/check.c	2011-12-13 13:40:04.608565449 +0800
++++ linux-2.6.32-220.0.0.el5/fs/partitions/check.c	2011-12-13 14:13:07.050395841 +0800
 @@ -20,6 +20,7 @@
  #include <linux/ctype.h>
  #include <linux/genhd.h>
@@ -75,7 +75,7 @@ Index: linux-2.6.32-131.0.15.el6/fs/partitions/check.c
  
  #include "check.h"
  
-@@ -327,6 +328,9 @@ static const struct attribute_group *par
+@@ -327,6 +328,9 @@
  #ifdef CONFIG_BLK_DEV_IO_TRACE
  	&blk_trace_attr_group,
  #endif
@@ -85,11 +85,11 @@ Index: linux-2.6.32-131.0.15.el6/fs/partitions/check.c
  	NULL
  };
  
-Index: linux-2.6.32-131.0.15.el6/include/linux/genhd.h
+Index: linux-2.6.32-220.0.0.el5/include/linux/genhd.h
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/include/linux/genhd.h
-+++ linux-2.6.32-131.0.15.el6/include/linux/genhd.h
-@@ -85,6 +85,11 @@ struct disk_stats {
+--- linux-2.6.32-220.0.0.el5.orig/include/linux/genhd.h	2011-12-13 13:40:04.572565267 +0800
++++ linux-2.6.32-220.0.0.el5/include/linux/genhd.h	2011-12-13 14:13:07.050395841 +0800
+@@ -85,6 +85,11 @@
  	unsigned long ticks[2];
  	unsigned long io_ticks;
  	unsigned long time_in_queue;
@@ -101,10 +101,10 @@ Index: linux-2.6.32-131.0.15.el6/include/linux/genhd.h
  };
  	
  struct hd_struct {
-Index: linux-2.6.32-131.0.15.el6/include/linux/pagecache_api.h
+Index: linux-2.6.32-220.0.0.el5/include/linux/pagecache_api.h
 ===================================================================
---- /dev/null
-+++ linux-2.6.32-131.0.15.el6/include/linux/pagecache_api.h
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ linux-2.6.32-220.0.0.el5/include/linux/pagecache_api.h	2011-12-13 14:13:07.050395841 +0800
 @@ -0,0 +1,18 @@
 +#ifndef PAGECACHE_API_H
 +#define PAGECACHE_API_H
@@ -124,10 +124,10 @@ Index: linux-2.6.32-131.0.15.el6/include/linux/pagecache_api.h
 +
 +#endif /* CONFIG_PAGE_CACHE_ACCT */
 +#endif
-Index: linux-2.6.32-131.0.15.el6/include/trace/events/mm.h
+Index: linux-2.6.32-220.0.0.el5/include/trace/events/mm.h
 ===================================================================
---- /dev/null
-+++ linux-2.6.32-131.0.15.el6/include/trace/events/mm.h
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ linux-2.6.32-220.0.0.el5/include/trace/events/mm.h	2011-12-13 14:13:07.050395841 +0800
 @@ -0,0 +1,27 @@
 +#ifndef _TRACE_MM_H
 +#define _TRACE_MM_H
@@ -156,11 +156,11 @@ Index: linux-2.6.32-131.0.15.el6/include/trace/events/mm.h
 +	TP_ARGS(sb, rw));
 +
 +#endif
-Index: linux-2.6.32-131.0.15.el6/kernel/trace/Makefile
+Index: linux-2.6.32-220.0.0.el5/kernel/trace/Makefile
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/kernel/trace/Makefile
-+++ linux-2.6.32-131.0.15.el6/kernel/trace/Makefile
-@@ -20,6 +20,7 @@ endif
+--- linux-2.6.32-220.0.0.el5.orig/kernel/trace/Makefile	2011-12-13 13:40:04.592565363 +0800
++++ linux-2.6.32-220.0.0.el5/kernel/trace/Makefile	2011-12-13 14:13:07.050395841 +0800
+@@ -20,6 +20,7 @@
  # relied on by ptrace for example:
  #
  obj-y += trace_clock.o
@@ -168,10 +168,10 @@ Index: linux-2.6.32-131.0.15.el6/kernel/trace/Makefile
  
  obj-$(CONFIG_FUNCTION_TRACER) += libftrace.o
  obj-$(CONFIG_RING_BUFFER) += ring_buffer.o
-Index: linux-2.6.32-131.0.15.el6/kernel/trace/pagecache.c
+Index: linux-2.6.32-220.0.0.el5/kernel/trace/pagecache.c
 ===================================================================
---- /dev/null
-+++ linux-2.6.32-131.0.15.el6/kernel/trace/pagecache.c
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ linux-2.6.32-220.0.0.el5/kernel/trace/pagecache.c	2011-12-13 14:13:07.050395841 +0800
 @@ -0,0 +1,192 @@
 +#include <linux/genhd.h>
 +#include <trace/events/mm.h>
