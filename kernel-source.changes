@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Dec 14 12:07:44 CST 2011 - boyu.mt@taobao.com
+
+- Rebase cfq_request_deadline_policy.patch 
+As we don't support flashcache in our product system, and the patch
+isn't updated for some time, so disable it now. 
+
+-------------------------------------------------------------------
 Tue Dec 13 23:33:42 CST 2011 - bosong.ly@taobao.com
 
 - Rebase part of patches to RHEL 6.2 2.6.32-220 kernel
