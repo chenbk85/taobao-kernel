@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Thu Dec 22 18:31:05 CST 2011 - bosong.ly@taobao.com
+
+- Update config files: disable NO_HZ.
+- Fix incorrect bash interpreter header to #!/bin/bash
+  - scripts/abs-post-receive:
+  - scripts/add-timestamp.sh:
+  - scripts/apply-patches.sh:
+  - scripts/check-cvs-add:
+  - scripts/check-patch:
+  - scripts/cvs-touched-files:
+  - scripts/git-pre-commit:
+  - scripts/install-git-hooks:
+  - scripts/log:
+  - scripts/perf:
+  - scripts/refresh_patch.sh:
+  - scripts/vc:
+
+-------------------------------------------------------------------
 Thu Dec  8 18:27:23 CST 2011 - boyu.mt@taobao.com
 
 This patch series can solve cpu idle and iowait time calculation incorret
