@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Dec 22 17:49:24 CST 2011 - bosong.ly@taobao.com
+
+- patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
+  remove extra `,' in printk.
+
+-------------------------------------------------------------------
 Mon Dec 19 15:34:27 CST 2011 - bosong.ly@taobao.com
 
 - remove "+merged" lines from series.conf

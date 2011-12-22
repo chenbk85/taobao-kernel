@@ -195,11 +195,11 @@ Index: linux-2.6.32-220.0.0.el5/fs/bio.c
 +		eio->counter, eio->counter > 1 ? "s.": ".");
 +
 +	if (eio->counter >= threshold) {
-+		printk(KERN_ERR, "io-error-guard: cached continuous bio "
++		printk(KERN_ERR "io-error-guard: catched continuous bio "
 +				"errors reaches threshold.\n");
 +		list_for_each_entry(eio_handler, &eio->head, list) {
 +			if (eio_handler->handler) {
-+				printk(KERN_ERR,
++				printk(KERN_ERR
 +					"io-error-guard: call error handler "
 +					"for corresponding file system %s.\n",
 +					eio_handler->fs_name);
