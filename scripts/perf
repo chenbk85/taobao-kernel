@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # In pathological situations, this will print some error about uname.
 kverrel="`uname -r`" || exit
