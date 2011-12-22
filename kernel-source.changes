@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Dec 22 19:14:37 CST 2011 - bosong.ly@taobao.com
+
+- Update config files against RHEL6 2.6.32-220 kernel config.
+
+-------------------------------------------------------------------
 Thu Dec 22 17:49:24 CST 2011 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
