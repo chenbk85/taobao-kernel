@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Dec 26 17:32:59 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/nohz-0002-make-idle-iowait-counter-update-conditional.patch:
+  Refresh.
+
+  Fix a build bug with no_hz disbled.
+
+-------------------------------------------------------------------
 Thu Dec 22 18:31:05 CST 2011 - bosong.ly@taobao.com
 
 - Update config files: disable NO_HZ.

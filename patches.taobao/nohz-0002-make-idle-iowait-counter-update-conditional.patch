@@ -107,3 +107,15 @@ Index: linux-2.6.32-131.21.1.el5/kernel/time/tick-sched.c
  }
  EXPORT_SYMBOL_GPL(get_cpu_iowait_time_us);
  
+Index: linux-2.6.32-131.21.1.el5/include/linux/tick.h
+===================================================================
+--- linux-2.6.32-131.21.1.el5.orig/include/linux/tick.h
++++ linux-2.6.32-131.21.1.el5/include/linux/tick.h
+@@ -135,6 +135,7 @@ static inline ktime_t tick_nohz_get_slee
+ }
+ static inline u64 get_cpu_idle_time_us(int cpu, u64 *unused) { return -1; }
+ static inline u64 get_cpu_iowait(int cpu, u64 *unused) { return -1; }
++static inline u64 get_cpu_iowait_time_us(int cpu, u64 *unused) { return -1; }
+ # endif /* !NO_HZ */
+ 
+ #endif
