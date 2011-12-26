@@ -1,4 +1,48 @@
 -------------------------------------------------------------------
+Mon Dec 26 15:55:35 CST 2011 - bosong.ly@taobao.com
+
+- Update to RHEL6.2 2.6.32-220.2.1 kernel
+  - Update config files.
+  - redhat-kernel-source/kernel.spec:
+  - redhat-kernel-source/linux-2.6.32/Documentation/kernel-parameters.txt:
+  - redhat-kernel-source/linux-2.6.32/arch/powerpc/kernel/smp.c:
+  - redhat-kernel-source/linux-2.6.32/arch/s390/kernel/smp.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/include/asm/hpet.h:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/cpu/amd.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/cpu/common.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/hpet.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/quirks.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/smp.c:
+  - redhat-kernel-source/linux-2.6.32/block/scsi_ioctl.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/block/cciss.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/block/ub.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/block/virtio_blk.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/cdrom/cdrom.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/cpufreq/cpufreq.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/gpu/drm/i915/i915_debugfs.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/gpu/drm/i915/i915_reg.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/gpu/drm/i915/i915_suspend.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/gpu/drm/i915/intel_display.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/gpu/drm/i915/intel_drv.h:
+  - redhat-kernel-source/linux-2.6.32/drivers/md/dm-flakey.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/md/dm-linear.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/md/dm-mpath.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/md/raid1.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/pci/intel-iommu.c:
+  - redhat-kernel-source/linux-2.6.32/drivers/scsi/sd.c:
+  - redhat-kernel-source/linux-2.6.32/include/linux/blkdev.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/cpufreq.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/idr.h:
+  - redhat-kernel-source/linux-2.6.32/include/linux/sched.h:
+  - redhat-kernel-source/linux-2.6.32/kabitool:
+  - redhat-kernel-source/linux-2.6.32/kernel/fork.c:
+  - redhat-kernel-source/linux-2.6.32/kernel/sched.c:
+  - redhat-kernel-source/linux-2.6.32/kernel/sched_fair.c:
+  - redhat-kernel-source/linux-2.6.32/lib/idr.c:
+  - redhat-kernel-version:
+  - config/Makefile.config: Delete.
+
+-------------------------------------------------------------------
 Thu Dec 22 19:14:37 CST 2011 - bosong.ly@taobao.com
 
 - Update config files against RHEL6 2.6.32-220 kernel config.
