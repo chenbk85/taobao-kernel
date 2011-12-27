@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Dec 27 14:37:06 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/nohz-0002-make-idle-iowait-counter-update-conditional.patch:
+  Refresh.
+
+  Fix a build bug with no_hz disbled.
+
+-------------------------------------------------------------------
 Mon Dec 26 15:55:35 CST 2011 - bosong.ly@taobao.com
 
 - Update to RHEL6.2 2.6.32-220.2.1 kernel
