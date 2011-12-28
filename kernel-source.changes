@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Dec 28 12:32:28 CST 2011 - boyu.mt@taobao.com
+
+- patches.taobao/list-remove-prefetching-from-regular-list-iterators.patch:
+  Refresh.
+
+ Rebase to 220 kernel.
+
+-------------------------------------------------------------------
 Tue Dec 27 14:37:06 CST 2011 - boyu.mt@taobao.com
 
 - patches.taobao/nohz-0002-make-idle-iowait-counter-update-conditional.patch:

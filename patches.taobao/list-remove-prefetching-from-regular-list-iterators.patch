@@ -18,12 +18,13 @@ anything but add useless instructions).
 
 [Notes from Liu Zheng]
 This is a combined patch with upstream commit e66eed65, 75d65a42 and a1e4891f.
+e66eed65 and 75d65a42 are backported by Redhat in rhel 6.2 (2.6.32-220).
 e66eed65 removes prefetching from regular list iterator. 75d65a42 removes
 software prefetching in hlist iterator. a1e4891fd removes prefetch() from
 <linux/skbuff.h> and "netlabel_addrlist.h"
 prefetch() is removed from __d_find_alias() according to Andi Kleen's patch.
-In addition, <linux/prefetch.h> is retained in <linux/list.h> because of build dependency.
-
+In addition, <linux/prefetch.h> is retained in <linux/list.h> because of build 
+dependency.
     
 Acked-by: Ingo Molnar <mingo@elte.hu>
 Acked-by: David S. Miller <davem@davemloft.net>
@@ -43,176 +44,6 @@ Index: a/fs/dcache.c
  		alias = list_entry(tmp, struct dentry, d_alias);
   		if (S_ISDIR(inode->i_mode) || !d_unhashed(alias)) {
  			if (IS_ROOT(alias) &&
-Index: a/include/linux/list.h
-===================================================================
---- a/include/linux/list.h
-+++ b/include/linux/list.h
-@@ -3,6 +3,11 @@
- 
- #include <linux/stddef.h>
- #include <linux/poison.h>
-+/*
-+ * This file has been removed from <include/linux/list.h> in
-+ * upstream. We retain it in here in order not to handle build
-+ * dependency.
-+ */
- #include <linux/prefetch.h>
- #include <asm/system.h>
- 
-@@ -365,18 +370,15 @@ static inline void list_splice_tail_init
-  * @head:	the head for your list.
-  */
- #define list_for_each(pos, head) \
--	for (pos = (head)->next; prefetch(pos->next), pos != (head); \
--        	pos = pos->next)
-+	for (pos = (head)->next; pos != (head); pos = pos->next)
- 
- /**
-  * __list_for_each	-	iterate over a list
-  * @pos:	the &struct list_head to use as a loop cursor.
-  * @head:	the head for your list.
-  *
-- * This variant differs from list_for_each() in that it's the
-- * simplest possible list iteration code, no prefetching is done.
-- * Use this for code that knows the list to be very short (empty
-- * or 1 entry) most of the time.
-+ * This variant doesn't differ from list_for_each() any more.
-+ * We don't  do prefetching in either case.
-  */
- #define __list_for_each(pos, head) \
- 	for (pos = (head)->next; pos != (head); pos = pos->next)
-@@ -387,8 +389,7 @@ static inline void list_splice_tail_init
-  * @head:	the head for your list.
-  */
- #define list_for_each_prev(pos, head) \
--	for (pos = (head)->prev; prefetch(pos->prev), pos != (head); \
--        	pos = pos->prev)
-+	for (pos = (head)->prev; pos != (head); pos = pos->prev)
- 
- /**
-  * list_for_each_safe - iterate over a list safe against removal of list entry
-@@ -408,7 +409,7 @@ static inline void list_splice_tail_init
-  */
- #define list_for_each_prev_safe(pos, n, head) \
- 	for (pos = (head)->prev, n = pos->prev; \
--	     prefetch(pos->prev), pos != (head); \
-+	     pos != (head); \
- 	     pos = n, n = pos->prev)
- 
- /**
-@@ -419,7 +420,7 @@ static inline void list_splice_tail_init
-  */
- #define list_for_each_entry(pos, head, member)				\
- 	for (pos = list_entry((head)->next, typeof(*pos), member);	\
--	     prefetch(pos->member.next), &pos->member != (head); 	\
-+	     &pos->member != (head);	\
- 	     pos = list_entry(pos->member.next, typeof(*pos), member))
- 
- /**
-@@ -430,7 +431,7 @@ static inline void list_splice_tail_init
-  */
- #define list_for_each_entry_reverse(pos, head, member)			\
- 	for (pos = list_entry((head)->prev, typeof(*pos), member);	\
--	     prefetch(pos->member.prev), &pos->member != (head); 	\
-+	     &pos->member != (head);	\
- 	     pos = list_entry(pos->member.prev, typeof(*pos), member))
- 
- /**
-@@ -455,7 +456,7 @@ static inline void list_splice_tail_init
-  */
- #define list_for_each_entry_continue(pos, head, member) 		\
- 	for (pos = list_entry(pos->member.next, typeof(*pos), member);	\
--	     prefetch(pos->member.next), &pos->member != (head);	\
-+	     &pos->member != (head);	\
- 	     pos = list_entry(pos->member.next, typeof(*pos), member))
- 
- /**
-@@ -469,7 +470,7 @@ static inline void list_splice_tail_init
-  */
- #define list_for_each_entry_continue_reverse(pos, head, member)		\
- 	for (pos = list_entry(pos->member.prev, typeof(*pos), member);	\
--	     prefetch(pos->member.prev), &pos->member != (head);	\
-+	     &pos->member != (head);	\
- 	     pos = list_entry(pos->member.prev, typeof(*pos), member))
- 
- /**
-@@ -481,7 +482,7 @@ static inline void list_splice_tail_init
-  * Iterate over list of given type, continuing from current position.
-  */
- #define list_for_each_entry_from(pos, head, member) 			\
--	for (; prefetch(pos->member.next), &pos->member != (head);	\
-+	for (; &pos->member != (head);	\
- 	     pos = list_entry(pos->member.next, typeof(*pos), member))
- 
- /**
-@@ -649,8 +650,7 @@ static inline void hlist_move_list(struc
- #define hlist_entry(ptr, type, member) container_of(ptr,type,member)
- 
- #define hlist_for_each(pos, head) \
--	for (pos = (head)->first; pos && ({ prefetch(pos->next); 1; }); \
--	     pos = pos->next)
-+	for (pos = (head)->first; pos; pos = pos->next)
- 
- #define hlist_for_each_safe(pos, n, head) \
- 	for (pos = (head)->first; pos && ({ n = pos->next; 1; }); \
-@@ -665,7 +665,7 @@ static inline void hlist_move_list(struc
-  */
- #define hlist_for_each_entry(tpos, pos, head, member)			 \
- 	for (pos = (head)->first;					 \
--	     pos && ({ prefetch(pos->next); 1;}) &&			 \
-+	     pos &&							 \
- 		({ tpos = hlist_entry(pos, typeof(*tpos), member); 1;}); \
- 	     pos = pos->next)
- 
-@@ -677,7 +677,7 @@ static inline void hlist_move_list(struc
-  */
- #define hlist_for_each_entry_continue(tpos, pos, member)		 \
- 	for (pos = (pos)->next;						 \
--	     pos && ({ prefetch(pos->next); 1;}) &&			 \
-+	     pos &&							 \
- 		({ tpos = hlist_entry(pos, typeof(*tpos), member); 1;}); \
- 	     pos = pos->next)
- 
-@@ -688,7 +688,7 @@ static inline void hlist_move_list(struc
-  * @member:	the name of the hlist_node within the struct.
-  */
- #define hlist_for_each_entry_from(tpos, pos, member)			 \
--	for (; pos && ({ prefetch(pos->next); 1;}) &&			 \
-+	for (; pos &&							 \
- 		({ tpos = hlist_entry(pos, typeof(*tpos), member); 1;}); \
- 	     pos = pos->next)
- 
-Index: a/include/linux/rculist.h
-===================================================================
---- a/include/linux/rculist.h
-+++ b/include/linux/rculist.h
-@@ -241,7 +241,7 @@ static inline void list_splice_init_rcu(
-  */
- #define list_for_each_entry_rcu(pos, head, member) \
- 	for (pos = list_entry_rcu((head)->next, typeof(*pos), member); \
--		prefetch(pos->member.next), &pos->member != (head); \
-+		&pos->member != (head); \
- 		pos = list_entry_rcu(pos->member.next, typeof(*pos), member))
- 
- 
-@@ -258,7 +258,7 @@ static inline void list_splice_init_rcu(
-  */
- #define list_for_each_continue_rcu(pos, head) \
- 	for ((pos) = rcu_dereference((pos)->next); \
--		prefetch((pos)->next), (pos) != (head); \
-+		(pos) != (head); \
- 		(pos) = rcu_dereference((pos)->next))
- 
- /**
-@@ -405,7 +405,7 @@ static inline void hlist_add_after_rcu(s
-  */
- #define hlist_for_each_entry_rcu(tpos, pos, head, member)		 \
- 	for (pos = rcu_dereference((head)->first);			 \
--		pos && ({ prefetch(pos->next); 1; }) &&			 \
-+		pos &&							 \
- 		({ tpos = hlist_entry(pos, typeof(*tpos), member); 1; }); \
- 		pos = rcu_dereference(pos->next))
- 
 Index: a/include/linux/skbuff.h
 ===================================================================
 --- a/include/linux/skbuff.h
