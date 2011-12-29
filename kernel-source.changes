@@ -1,4 +1,80 @@
 -------------------------------------------------------------------
+Thu Dec 29 11:39:36 CST 2011 - sanbai@taobao.com
+
+backport ext4-bigalloc to 2.6.32-220
+
+- patches.taobao/bigalloc-001-change-block-and-max_blocks-to-map.patch:
+  ext4: change "block" and "max_blocks" to struct ext4_map_blocks.
+- patches.taobao/bigalloc-002-ext4-read-only-support-for-bigalloc-file-systems.patch:
+  ext4: read-only support for bigalloc file systems.
+- patches.taobao/bigalloc-003-enforce-bigalloc-restrictions-e.g.-no-online.patch:
+  ext4: enforce bigalloc restrictions (e.g., no online resizing,
+  etc.).
+- patches.taobao/bigalloc-004-convert-instances-of-EXT4_BLOCKS_PER_GROUP-to-EXT4_CLUSTERS_PER_GROUP.patch:
+  ext4: convert instances of EXT4_BLOCKS_PER_GROUP to
+  EXT4_CLUSTERS_PER_GROUP.
+- patches.taobao/bigalloc-005-factor-out-block-group-accounting-into-functions.patch:
+  ext4: factor out block group accounting into functions.
+- patches.taobao/bigalloc-006-split-out-ext4_free_blocks_after_init.patch:
+  ext4: split out ext4_free_blocks_after_init().
+- patches.taobao/bigalloc-007-bigalloc-changes-to-block-bitmap-initialization-functions.patch:
+  ext4: bigalloc changes to block bitmap initialization functions.
+- patches.taobao/bigalloc-008-convert-block-group-relative-offsets-to-use-clusters.patch:
+  ext4: convert block group-relative offsets to use clusters.
+- patches.taobao/bigalloc-009-teach-mballoc-preallocation-code-about-bigalloc-clusters.patch:
+  ext4: teach mballoc preallocation code about bigalloc clusters.
+- patches.taobao/bigalloc-010-teach-ext4_free_blocks-about-bigalloc-and-clusters.patch:
+  ext4: teach ext4_free_blocks() about bigalloc and clusters.
+- patches.taobao/bigalloc-011-teach-ext4_ext_map_blocks-about-the-bigalloc-feature.patch:
+  ext4: teach ext4_ext_map_blocks() about the bigalloc feature.
+- patches.taobao/bigalloc-012-teach-ext4_ext_truncate-about-the-bigalloc-feature.patch:
+  ext4: teach ext4_ext_truncate() about the bigalloc feature.
+- patches.taobao/bigalloc-013-convert-s_-dirty-free-blocks_counter-to-s_-dirty-free-clusters_counter.patch:
+  ext4: convert s_{dirty,free}blocks_counter to
+  s_{dirty,free}clusters_counter.
+- patches.taobao/bigalloc-014-convert-the-free_blocks-field-in-s_flex_groups-to-be-free_clusters.patch:
+  ext4: convert the free_blocks field in s_flex_groups to be
+  free_clusters.
+- patches.taobao/bigalloc-015-teach-ext4_statfs-to-deal-with-clusters-if-bigalloc-is-enabled.patch:
+  ext4: teach ext4_statfs() to deal with clusters if bigalloc
+  is enabled.
+- patches.taobao/bigalloc-016-tune-mballoc-s-default-group-prealloc-size-for-bigalloc-file-systems.patch:
+  ext4: tune mballoc's default group prealloc size for bigalloc
+  file systems.
+- patches.taobao/bigalloc-017-Fix-bigalloc-quota-accounting-and-i_blocks-value.patch:
+  ext4: Fix bigalloc quota accounting and i_blocks value.
+- patches.taobao/bigalloc-018-enable-mounting-bigalloc-as-read-write.patch:
+  ext4: enable mounting bigalloc as read/write.
+- patches.taobao/bigalloc-019-Rename-ext4_free_blks_-count-set-to-refer-to-clusters.patch:
+  ext4: Rename ext4_free_blks_{count,set}() to refer to clusters.
+- patches.taobao/bigalloc-020-rename-ext4_count_free_blocks-to-ext4_count_free_clusters.patch:
+  ext4: rename ext4_count_free_blocks() to
+  ext4_count_free_clusters().
+- patches.taobao/bigalloc-021-rename-ext4_free_blocks_after_init-to-ext4_free_clusters_after_init.patch:
+  ext4: rename ext4_free_blocks_after_init() to
+  ext4_free_clusters_after_init().
+- patches.taobao/bigalloc-022-rename-ext4_claim_free_blocks-to-ext4_claim_free_clusters.patch:
+  ext4: rename ext4_claim_free_blocks() to
+  ext4_claim_free_clusters().
+- patches.taobao/bigalloc-023-rename-ext4_has_free_blocks-to-ext4_has_free_clusters.patch:
+  ext4: rename ext4_has_free_blocks() to ext4_has_free_clusters().
+- patches.taobao/bigalloc-024-add-some-tracepoints-in-ext4-extents-c.patch:
+  ext4: add some tracepoints in ext4/extents.c.
+- patches.taobao/bigalloc-025-attempt-to-fix-race-in-bigalloc-code-path.patch:
+  ext4: attempt to fix race in bigalloc code path.
+- patches.taobao/bigalloc-026-convert-ext4_ext_handle_uninitialized_extents-to-map.patch:
+  ext4: change "block" and "max_blocks" to struct ext4_map_blocks
+  for ext4_ext_handle_uninitialized_extents.
+- patches.taobao/bio-0001-ext4-call-mpage_da_submit_io-from-mpage_da_map_block.patch:
+  ext4: call mpage_da_submit_io() from mpage_da_map_blocks().
+- patches.taobao/bio-0002-ext4-simplify-ext4_writepage.patch:
+  ext4: simplify ext4_writepage().
+- patches.taobao/bio-0003-ext4-inline-ext4_writepage-into-mpage_da_submit_io.patch:
+  ext4: inline ext4_writepage() into mpage_da_submit_io().
+- patches.taobao/bio-0004-ext4-inline-walk_page_buffers-into-mpage_da_submit_i.patch:
+  ext4: inline walk_page_buffers() into mpage_da_submit_io.
+
+-------------------------------------------------------------------
 Thu Dec 29 11:25:27 CST 2011 - sanbai@taobao.com
 
 rebase netoops to 2.6.32-220
