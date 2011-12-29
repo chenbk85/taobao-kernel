@@ -1,4 +1,53 @@
 -------------------------------------------------------------------
+Thu Dec 29 11:56:11 CST 2011 - sanbai@taobao.com
+
+backport ext4-inline_data to 2.6.32-220
+
+- patches.taobao/0001-ext4-Move-extra-inode-read-to-a-new-function.patch:
+  ext4: Move extra inode read to a new function.
+- patches.taobao/0002-ext4-export-inline-xattr-functions.patch:
+  ext4: export inline xattr functions.
+- patches.taobao/0003-ext4-Add-the-basic-function-for-inline-data-support.patch:
+  ext4: Add the basic function for inline data support.
+- patches.taobao/0004-ext4-Add-read-support-for-inline-data.patch:
+  ext4: Add read support for inline data.
+- patches.taobao/0005-ext4-Add-normal-write-support-for-inline-data.patch:
+  ext4: Add normal write support for inline data.
+- patches.taobao/0006-ext4-Add-journalled-write-support-for-inline-data.patch:
+  ext4: Add journalled write support for inline data.
+- patches.taobao/0007-ext4-Add-delalloc-support-for-inline-data.patch:
+  ext4: Add delalloc support for inline data.
+- patches.taobao/0008-ext4-Create-a-new-function-ext4_init_new_dir.patch:
+  ext4: Create a new function ext4_init_new_dir.
+- patches.taobao/0009-ext4-Refactor-__ext4_check_dir_entry-to-accepts-star.patch:
+  ext4: Refactor __ext4_check_dir_entry to accepts start and size.
+- patches.taobao/0010-ext4-Create-__ext4_insert_dentry-for-dir-entry-inser.patch:
+  ext4: Create __ext4_insert_dentry for dir entry insertion.
+- patches.taobao/0011-ext4-let-add_dir_entry-handle-inline-data-properly.patch:
+  ext4: let add_dir_entry handle inline data properly.
+- patches.taobao/0012-ext4-Let-ext4_readdir-handle-inline-data.patch:
+  ext4: Let ext4_readdir handle inline data.
+- patches.taobao/0013-ext4-Create-a-new-function-search_dir.patch:
+  ext4: Create a new function search_dir.
+- patches.taobao/0014-ext4-let-ext4_find_entry-handle-inline-data.patch:
+  ext4: let ext4_find_entry handle inline data.
+- patches.taobao/0015-ext4-make-ext4_delete_entry-generic.patch:
+  ext4: make ext4_delete_entry generic.
+- patches.taobao/0016-ext4-let-ext4_delete_entry-handle-inline-data.patch:
+  ext4: let ext4_delete_entry handle inline data.
+- patches.taobao/0017-ext4-let-empty_dir-handle-inline-dir.patch:
+  ext4: let empty_dir handle inline dir.
+- patches.taobao/0018-ext4-let-ext4_rename-handle-inline-dir.patch:
+  ext4: let ext4_rename handle inline dir.
+- patches.taobao/0019-ext4-Let-fiemap-work-with-inline-data.patch:
+  ext4: Let fiemap work with inline data.
+- patches.taobao/0020-ext4-Evict-inline-data-out-if-we-needs-to-strore-xat.patch:
+  ext4: Evict inline data out if we needs to strore xattr
+  in inode.
+- patches.taobao/0021-ext4-Enable-ext4-inline-support.patch:
+  ext4: Enable ext4 inline support.
+
+-------------------------------------------------------------------
 Thu Dec 29 11:39:36 CST 2011 - sanbai@taobao.com
 
 backport ext4-bigalloc to 2.6.32-220
