@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
+Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/drivers/net/netconsole.c	2011-04-19 12:21:39.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c	2011-04-19 12:56:48.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
 @@ -67,6 +67,9 @@
  struct netpoll_targets {
  	struct list_head list;
@@ -159,7 +159,7 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  
  #endif	/* CONFIG_NETCONSOLE_DYNAMIC */
  
-@@ -849,7 +845,7 @@
+@@ -868,7 +864,7 @@
  	if (err)
  		goto fail;
  
@@ -168,7 +168,7 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  	if (err)
  		goto undonotifier;
  
-@@ -882,7 +878,7 @@
+@@ -901,7 +897,7 @@
  	struct netconsole_target *nt, *tmp;
  
  	unregister_console(&netconsole);

@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
+Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/drivers/net/netconsole.c	2011-04-19 12:13:58.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c	2011-04-19 12:14:50.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:43.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
 @@ -326,6 +326,7 @@
  			     const char *buf,
  			     size_t count)

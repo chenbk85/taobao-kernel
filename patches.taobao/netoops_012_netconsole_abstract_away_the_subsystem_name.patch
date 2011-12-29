@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
+Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/drivers/net/netconsole.c	2011-04-19 12:59:01.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c	2011-04-19 13:00:05.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:45.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:45.000000000 +0800
 @@ -71,6 +71,7 @@
  	struct configfs_subsystem configfs_subsys;
  #endif
@@ -142,18 +142,18 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  	strlcpy(nt->np.dev_name, "eth0", IFNAMSIZ);
  	nt->np.local_port = 6665;
  	nt->np.remote_port = 6666;
-@@ -789,8 +795,8 @@
+@@ -797,8 +803,8 @@
  	}
  	spin_unlock_irqrestore(&nts->lock, flags);
- 	if (event == NETDEV_UNREGISTER || event == NETDEV_BONDING_DESLAVE)
--		printk(KERN_INFO "netconsole: network logging stopped, "
--			"interface %s %s\n",  dev->name,
-+		printk(KERN_INFO "%s: network logging stopped, "
-+			"interface %s %s\n", nts->subsys_name, dev->name,
- 			event == NETDEV_UNREGISTER ? "unregistered" : "released slaves");
- 
- done:
-@@ -865,12 +871,19 @@
+ 	if (stopped) {
+-		printk(KERN_INFO "netconsole: network logging stopped on "
+-		       "interface %s as it ", dev->name);
++		printk(KERN_INFO "%s: network logging stopped on "
++		       "interface %s %s", nts->subsys_name, dev->name);
+ 		switch (event) {
+ 		case NETDEV_UNREGISTER:
+ 			printk(KERN_CONT "unregistered\n");
+@@ -884,12 +890,19 @@
  	if (err)
  		goto fail;
  
@@ -174,7 +174,7 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  undonotifier:
  	unregister_netdevice_notifier(&nts->netdev_notifier);
  fail:
-@@ -906,6 +919,7 @@
+@@ -925,6 +938,7 @@
  		list_del(&nt->list);
  		free_param_target(nt);
  	}

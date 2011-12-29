@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
+Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/drivers/net/netconsole.c	2011-04-19 12:12:20.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c	2011-04-19 12:13:58.000000000 +0800
-@@ -670,7 +670,6 @@
+--- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:40:50.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:43.000000000 +0800
+@@ -671,7 +671,6 @@
  
  	spin_lock_irqsave(&target_list_lock, flags);
  	list_for_each_entry(nt, &target_list, list) {
@@ -18,15 +18,15 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  		if (nt->np.dev == dev) {
  			switch (event) {
  			case NETDEV_CHANGENAME:
-@@ -685,7 +684,6 @@
+@@ -687,7 +686,6 @@
  				break;
  			}
  		}
 -		netconsole_target_put(nt);
  	}
  	spin_unlock_irqrestore(&target_list_lock, flags);
- 	if (event == NETDEV_UNREGISTER || event == NETDEV_BONDING_DESLAVE)
-@@ -714,7 +712,6 @@
+ 	if (stopped) {
+@@ -727,7 +725,6 @@
  
  	spin_lock_irqsave(&target_list_lock, flags);
  	list_for_each_entry(nt, &target_list, list) {
@@ -34,7 +34,7 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  		if (nt->enabled && netif_running(nt->np.dev)) {
  			/*
  			 * We nest this inside the for-each-target loop above
-@@ -730,7 +727,6 @@
+@@ -743,7 +740,6 @@
  				left -= frag;
  			}
  		}
@@ -42,3 +42,15 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  	}
  	spin_unlock_irqrestore(&target_list_lock, flags);
  }
+Index: linux-2.6.32-220.0.0.el5/include/linux/notifier.h
+===================================================================
+--- linux-2.6.32-220.0.0.el5.orig/include/linux/notifier.h	2011-12-21 22:40:51.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/include/linux/notifier.h	2011-12-21 22:41:43.000000000 +0800
+@@ -205,6 +205,7 @@
+ #define NETDEV_BONDING_OLDTYPE  0x000E
+ #define NETDEV_BONDING_NEWTYPE  0x000F
+ #define NETDEV_RELEASE		0x0010
++#define NETDEV_BONDING_DESLAVE	0x0011
+ #define NETDEV_NOTIFY_PEERS	0x0013
+ #define NETDEV_JOIN		0x0014
+ 
