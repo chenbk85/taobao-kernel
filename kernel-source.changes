@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jan  5 17:47:33 CST 2012 - boyu.mt@taobao.com
+
+- Update seris.conf for patches.taobao/list-remove-prefetching-from-regular-list-iterators.patch
+  in series.conf.
+
+-------------------------------------------------------------------
 Thu Dec 29 11:56:11 CST 2011 - sanbai@taobao.com
 
 backport ext4-inline_data to 2.6.32-220
