@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jan  9 15:08:41 CST 2012 - sanbai@taobao.com
+
+- patches.taobao/tlock.patch: Refresh.
+
+  fix tlock panic bug, review: http://rb.corp.taobao.com/r/21879/
+
+-------------------------------------------------------------------
 Mon Jan  9 14:44:39 CST 2012 - sanbai@taobao.com
 
 - patches.taobao/ext4-dont-warn-about-mnt_count-if-it-has-been-disabled.patch:
