@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jan  9 14:44:39 CST 2012 - sanbai@taobao.com
+
+- patches.taobao/ext4-dont-warn-about-mnt_count-if-it-has-been-disabled.patch:
+  ext4: don't warn about mnt_count if it has been disabled
+  .
+  ext4: don't warn about mnt_count if it has been disabled
+-------------------------------------------------------------------
 Mon Jan  9 16:42:01 CST 2012 - boyu.mt@taobao.com
 
 Fix some inline data bugs.
