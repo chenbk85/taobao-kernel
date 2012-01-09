@@ -1,7 +1,7 @@
 From c5327fa99449e1170c8dd4d9ffc09b6c372daf98 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Mon, 26 Dec 2011 09:55:30 +0800
-Subject: [PATCH 11/21] ext4: let add_dir_entry handle inline data properly.
+Subject: [PATCH 11/22] ext4: let add_dir_entry handle inline data properly.
 
 This patch let add_dir_entry handle the inline data case. So the
 dir is initialized as inline dir first and then we can try to add

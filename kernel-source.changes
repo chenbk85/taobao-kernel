@@ -1,8 +1,113 @@
 -------------------------------------------------------------------
+Mon Jan  9 16:42:01 CST 2012 - boyu.mt@taobao.com
+
+Fix some inline data bugs.
+
+- patches.taobao/0001-ext4-Move-extra-inode-read-to-a-new-function.patch:
+  Refresh.
+- patches.taobao/0002-ext4-export-inline-xattr-functions.patch:
+  Refresh.
+- patches.taobao/0003-ext4-Add-the-basic-function-for-inline-data-support.patch:
+  Refresh.
+- patches.taobao/0004-ext4-Add-read-support-for-inline-data.patch:
+  Refresh.
+- patches.taobao/0005-ext4-Add-normal-write-support-for-inline-data.patch:
+  Refresh.
+- patches.taobao/0006-ext4-Add-journalled-write-support-for-inline-data.patch:
+  Refresh.
+- patches.taobao/0007-ext4-Add-delalloc-support-for-inline-data.patch:
+  Refresh.
+- patches.taobao/0008-ext4-Create-a-new-function-ext4_init_new_dir.patch:
+  Refresh.
+- patches.taobao/0009-ext4-Refactor-__ext4_check_dir_entry-to-accepts-star.patch:
+  Refresh.
+- patches.taobao/0010-ext4-Create-__ext4_insert_dentry-for-dir-entry-inser.patch:
+  Refresh.
+- patches.taobao/0011-ext4-let-add_dir_entry-handle-inline-data-properly.patch:
+  Refresh.
+- patches.taobao/0012-ext4-Let-ext4_readdir-handle-inline-data.patch:
+  Refresh.
+- patches.taobao/0013-ext4-Create-a-new-function-search_dir.patch:
+  Refresh.
+- patches.taobao/0014-ext4-let-ext4_find_entry-handle-inline-data.patch:
+  Refresh.
+- patches.taobao/0015-ext4-make-ext4_delete_entry-generic.patch:
+  Refresh.
+- patches.taobao/0016-ext4-let-ext4_delete_entry-handle-inline-data.patch:
+  Refresh.
+- patches.taobao/0017-ext4-let-empty_dir-handle-inline-dir.patch:
+  Refresh.
+- patches.taobao/0018-ext4-let-ext4_rename-handle-inline-dir.patch:
+  Refresh.
+- patches.taobao/0019-ext4-Let-fiemap-work-with-inline-data.patch:
+  Refresh.
+- patches.taobao/0020-ext4-Evict-inline-data-out-if-we-needs-to-strore-xat.patch:
+  Refresh.
+- patches.taobao/0021-ext4-Enable-ext4-inline-support.patch:
+  Refresh.
+- patches.taobao/0022-ext4-Fix-ext4_read_inline_page-bug.patch:
+  ext4: Enable ext4 inline support.
+
+-------------------------------------------------------------------
 Thu Jan  5 17:47:33 CST 2012 - boyu.mt@taobao.com
 
 - Update seris.conf for patches.taobao/list-remove-prefetching-from-regular-list-iterators.patch
   in series.conf.
+
+-------------------------------------------------------------------
+Mon Jan  9 14:41:49 CST 2012 - sanbai@taobao.com
+
+- patches.taobao/0001-ext4-Move-extra-inode-read-to-a-new-function.patch:
+  Refresh.
+- patches.taobao/0002-ext4-export-inline-xattr-functions.patch:
+  Refresh.
+- patches.taobao/0003-ext4-Add-the-basic-function-for-inline-data-support.patch:
+  Refresh.
+- patches.taobao/0004-ext4-Add-read-support-for-inline-data.patch:
+  Refresh.
+- patches.taobao/0005-ext4-Add-normal-write-support-for-inline-data.patch:
+  Refresh.
+- patches.taobao/0006-ext4-Add-journalled-write-support-for-inline-data.patch:
+  Refresh.
+- patches.taobao/0007-ext4-Add-delalloc-support-for-inline-data.patch:
+  Refresh.
+- patches.taobao/0008-ext4-Create-a-new-function-ext4_init_new_dir.patch:
+  Refresh.
+- patches.taobao/0009-ext4-Refactor-__ext4_check_dir_entry-to-accepts-star.patch:
+  Refresh.
+- patches.taobao/0010-ext4-Create-__ext4_insert_dentry-for-dir-entry-inser.patch:
+  Refresh.
+- patches.taobao/0011-ext4-let-add_dir_entry-handle-inline-data-properly.patch:
+  Refresh.
+- patches.taobao/0012-ext4-Let-ext4_readdir-handle-inline-data.patch:
+  Refresh.
+- patches.taobao/0013-ext4-Create-a-new-function-search_dir.patch:
+  Refresh.
+- patches.taobao/0014-ext4-let-ext4_find_entry-handle-inline-data.patch:
+  Refresh.
+- patches.taobao/0015-ext4-make-ext4_delete_entry-generic.patch:
+  Refresh.
+- patches.taobao/0016-ext4-let-ext4_delete_entry-handle-inline-data.patch:
+  Refresh.
+- patches.taobao/0017-ext4-let-empty_dir-handle-inline-dir.patch:
+  Refresh.
+- patches.taobao/0018-ext4-let-ext4_rename-handle-inline-dir.patch:
+  Refresh.
+- patches.taobao/0019-ext4-Let-fiemap-work-with-inline-data.patch:
+  Refresh.
+- patches.taobao/0020-ext4-Evict-inline-data-out-if-we-needs-to-strore-xat.patch:
+  Refresh.
+- patches.taobao/0021-ext4-Enable-ext4-inline-support.patch:
+  Refresh.
+- patches.taobao/0022-ext4-Fix-ext4_read_inline_page-bug.patch:
+  ext4: Enable ext4 inline support.
+
+  fix ext4_read_inline_page bug.
+
+  repeat processes:
+  1. touch file
+  2. truncate it bigger
+  3. overwrite it
 
 -------------------------------------------------------------------
 Thu Dec 29 11:56:11 CST 2011 - sanbai@taobao.com

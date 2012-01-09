@@ -1,7 +1,7 @@
 From 23573143717aa4adbbb62db255c0114df53dc5ce Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Wed, 26 Oct 2011 13:14:47 +0800
-Subject: [PATCH 09/21] ext4: Refactor __ext4_check_dir_entry to accepts start and size.
+Subject: [PATCH 09/22] ext4: Refactor __ext4_check_dir_entry to accepts start and size.
 
 __ext4_check_dir_entry is used to check whether the de is over
 the block boundary. Now with inline data, it could be within the

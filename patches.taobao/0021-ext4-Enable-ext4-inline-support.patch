@@ -1,7 +1,7 @@
 From db2a21d036834c326a901b88c5b223854022c621 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Mon, 12 Dec 2011 17:24:57 +0800
-Subject: [PATCH 21/21] ext4: Enable ext4 inline support.
+Subject: [PATCH 21/22] ext4: Enable ext4 inline support.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---

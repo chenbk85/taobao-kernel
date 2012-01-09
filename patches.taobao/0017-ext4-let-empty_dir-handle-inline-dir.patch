@@ -1,7 +1,7 @@
 From f3806f909bc8014011ad895d2a84db989364a692 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Tue, 22 Nov 2011 00:04:36 +0800
-Subject: [PATCH 17/21] ext4: let empty_dir handle inline dir.
+Subject: [PATCH 17/22] ext4: let empty_dir handle inline dir.
 
 empty_dir is used when deleting a dir. So it should handle
 inline dir properly.

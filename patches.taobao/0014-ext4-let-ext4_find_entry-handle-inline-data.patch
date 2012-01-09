@@ -1,7 +1,7 @@
 From e5c95ba0c4b78b4543f2ead159a5d1f811667011 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Mon, 28 Nov 2011 12:25:49 +0800
-Subject: [PATCH 14/21] ext4: let ext4_find_entry handle inline data.
+Subject: [PATCH 14/22] ext4: let ext4_find_entry handle inline data.
 
 Create a new ext4_find_inline_entry to handle the case
 of inline data.

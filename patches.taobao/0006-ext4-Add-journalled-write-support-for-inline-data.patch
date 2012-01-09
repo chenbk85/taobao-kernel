@@ -1,7 +1,7 @@
 From e637cb1be64b08c61c1d0a87556fce661a430d76 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Mon, 21 Nov 2011 22:42:51 +0800
-Subject: [PATCH 06/21] ext4: Add journalled write support for inline data.
+Subject: [PATCH 06/22] ext4: Add journalled write support for inline data.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
