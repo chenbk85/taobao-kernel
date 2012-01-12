@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jan 12 14:28:25 CST 2012 - gaoyang.zyh@taobao.com
+
+- patches.taobao/buffer-aio.patch: A readahead complete notify
+  approach to implement buffer aio.
+
+-------------------------------------------------------------------
 Mon Jan  9 15:08:41 CST 2012 - sanbai@taobao.com
 
 - patches.taobao/tlock.patch: Refresh.
