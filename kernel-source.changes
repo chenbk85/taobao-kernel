@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Jan 17 13:54:19 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/ext4-io-error-guard-add-netoops-support.patch:
+  Add netoops support to Ext4-io-error-guard, when IO errors
+  exceed threshold, dump kmesg via netoops to remote log target,
+  being helpful to harddisk error detection.
+
+-------------------------------------------------------------------
 Thu Jan 12 14:28:25 CST 2012 - gaoyang.zyh@taobao.com
 
 - patches.taobao/buffer-aio.patch: A readahead complete notify
