@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jan 18 19:00:56 CST 2012 - bosong.ly@taobao.com
+
+- Update config files, patches.taobao/flashcache.patch:
+  - Re-enable flashcache, Data Base team needs this feature.
+  - Update flashcache to upstream 760e01d4
+
+-------------------------------------------------------------------
 Tue Jan 17 18:27:26 CST 2012 - bosong.ly@taobao.com
 
 - Update config files: re-enable NO_HZ configure, we need more
