@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Jan 19 14:22:21 CST 2012 - bosong.ly@taobao.com
+
+- Update config files: We did testing ourselves, for haproxy disable
+  NO_HZ isn't that much faster as people reported. We don't gain any
+  benifit from having a different config item from RHEL6 kernel,
+  therefore re-enable it.
+
+-------------------------------------------------------------------
 Mon Dec 26 17:32:59 CST 2011 - boyu.mt@taobao.com
 
 - patches.taobao/nohz-0002-make-idle-iowait-counter-update-conditional.patch:
