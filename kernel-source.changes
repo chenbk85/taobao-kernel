@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jan 19 14:52:01 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/flashcache.patch: add missing flashcache_procfs.c
+
+-------------------------------------------------------------------
 Wed Jan 18 19:00:56 CST 2012 - bosong.ly@taobao.com
 
 - Update config files, patches.taobao/flashcache.patch:
