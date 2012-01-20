@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jan 20 17:54:59 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/process-life-cycle-resource-accounting.patch:
+  Process lifecycle resource accounting: The first effort,
+  just pass compiling.
+
+-------------------------------------------------------------------
 Thu Jan 19 14:52:01 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/flashcache.patch: add missing flashcache_procfs.c
