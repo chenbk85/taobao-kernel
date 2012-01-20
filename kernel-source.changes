@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jan 20 18:10:28 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/pcie_aspm_disable_on_default.patch: power
+  management: disable pcie_aspm on default.
+
+-------------------------------------------------------------------
 Fri Jan 20 17:54:59 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/process-life-cycle-resource-accounting.patch:
