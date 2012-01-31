@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue Jan 31 17:07:49 CST 2012 - boyu.mt@taobao.com
+
+- patches.taobao/0021-ext4-Enable-ext4-inline-support.patch:
+  Refresh.
+
+  Change EXT4_FEATURE_INCOMPAT_INLINEDATA to 0x2000 since
+  upstream had used this magic number for inline data.
+
+-------------------------------------------------------------------
 Tue Jan 31 11:16:55 CST 2012 - bosong.ly@taobao.com
 
 - recomment out developing patch patches.taobao/process-life-cycle-resource-accounting.patch
