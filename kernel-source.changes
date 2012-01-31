@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jan 31 17:36:32 CST 2012 - bosong.ly@taobao.com
+
+- Update debug config files.
+  - remove drbd since no-body uses it currently.
+  - add tlock kernel module from master branch.
+
+-------------------------------------------------------------------
 Tue Jan 31 16:51:50 CST 2012 - bosong.ly@taobao.com
 
 - Update config files:
