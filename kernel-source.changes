@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 31 11:16:55 CST 2012 - bosong.ly@taobao.com
+
+- recomment out developing patch patches.taobao/process-life-cycle-resource-accounting.patch
+
+-------------------------------------------------------------------
 Fri Jan 20 18:10:28 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/pcie_aspm_disable_on_default.patch: power
