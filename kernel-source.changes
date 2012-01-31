@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Tue Jan 31 16:49:38 CST 2012 - bosong.ly@taobao.com
+
+- Update config files:
+  - remove drbd since no-body uses it currently.
+  - add tlock kernel module from master branch.
+- patches.taobao/ext4-set-file-system-to-read-only-by-io-error-threshold.patch: Delete.
+- patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
+  Ext4: io error guard for file system protection on broken storage device.
+- patches.taobao/ext4-io-error-guard-add-netoops-support.patch:
+  Ext4: Add netoops support to io error guard.
+- patches.taobao/pcie_aspm_disable_on_default.patch: power
+  management: disable pcie_aspm on default.
+- patches.taobao/perf-Validate-cpu-early-in-perf_event_alloc.patch: Refresh.
+- patches.taobao/tlock.patch: tlock: port tlock_kern kernel module to 2.6.32 version.
+
+-------------------------------------------------------------------
 Thu Jan 19 14:31:37 CST 2012 - bosong.ly@taobao.com
 
 - Update config files: We did testing ourselves, for haproxy disable

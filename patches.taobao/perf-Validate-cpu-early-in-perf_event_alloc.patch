@@ -28,11 +28,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  kernel/perf_event.c |   10 ++++++----
  1 files changed, 6 insertions(+), 4 deletions(-)
 
-Index: linux-2.6.32-131.21.1.el6/kernel/perf_event.c
+Index: linux-2.6.32-131.21.1.el5/kernel/perf_event.c
 ===================================================================
---- linux-2.6.32-131.21.1.el6.orig/kernel/perf_event.c
-+++ linux-2.6.32-131.21.1.el6/kernel/perf_event.c
-@@ -2216,9 +2216,6 @@ find_get_context(struct pmu *pmu, struct
+--- linux-2.6.32-131.21.1.el5.orig/kernel/perf_event.c	2012-01-31 16:41:43.150310668 +0800
++++ linux-2.6.32-131.21.1.el5/kernel/perf_event.c	2012-01-31 16:41:44.686318284 +0800
+@@ -2216,9 +2216,6 @@
  		if (perf_paranoid_cpu() && !capable(CAP_SYS_ADMIN))
  			return ERR_PTR(-EACCES);
  
@@ -42,7 +42,7 @@ Index: linux-2.6.32-131.21.1.el6/kernel/perf_event.c
  		/*
  		 * We could be clever and allow to attach a event to an
  		 * offline CPU and activate it when the CPU comes up, but
-@@ -5618,6 +5615,11 @@ perf_event_alloc(struct perf_event_attr
+@@ -5618,6 +5615,11 @@
  	struct hw_perf_event *hwc;
  	long err;
  
