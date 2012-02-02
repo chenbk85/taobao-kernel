@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Feb  2 22:37:47 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/kernel-gdb-trace-point-20120131.patch:
+  add KGTP(Kernel GDB Trace Point) v20120131 into Taobao Kernel
+- Update config files: Enable KGTP as kernel module (gtp.ko)
+
+-------------------------------------------------------------------
 Tue Jan 31 17:07:49 CST 2012 - boyu.mt@taobao.com
 
 - patches.taobao/0021-ext4-Enable-ext4-inline-support.patch:
