@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb  3 11:52:48 CST 2012 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: add dependence to mkinitrd >= 5.1.19.6-61.tb345.
+  this modification only on 5u branch, on 6u system we don't need to
+  update mkinitrd.
+
+-------------------------------------------------------------------
 Tue Jan 31 17:36:32 CST 2012 - bosong.ly@taobao.com
 
 - Update debug config files.
