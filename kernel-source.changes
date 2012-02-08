@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Feb  8 16:56:59 CST 2012 - boyu.mt@taobao.com
+
+- patches.taobao/netoops_017_kmsg_dumper_pass_pt_regs_along_to_dumpers.patch:
+  Refresh.
+
+  The new "dump function" function of "struct kmsg_dumper" has add a new argument
+  "struct pt_regs", but the pstore still use the old "dump function".
+
+
+-------------------------------------------------------------------
 Thu Feb  2 22:37:47 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/kernel-gdb-trace-point-20120131.patch:

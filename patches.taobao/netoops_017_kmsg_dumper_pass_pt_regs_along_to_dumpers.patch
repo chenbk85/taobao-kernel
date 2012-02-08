@@ -105,3 +105,16 @@ Index: linux-2.6.32-220.0.0.el5/kernel/printk.c
  	spin_unlock_irqrestore(&dump_list_lock, flags);
  }
  #endif
+Index: linux-2.6.32-220.2.1.el5/fs/pstore/platform.c
+===================================================================
+--- linux-2.6.32-220.2.1.el5.orig/fs/pstore/platform.c
++++ linux-2.6.32-220.2.1.el5/fs/pstore/platform.c
+@@ -59,7 +59,7 @@ static char *reason_str[] = {
+  * as we can from the end of the buffer.
+  */
+ static void pstore_dump(struct kmsg_dumper *dumper,
+-	    enum kmsg_dump_reason reason,
++	    enum kmsg_dump_reason reason, struct pt_regs *pt_regs,
+ 	    const char *s1, unsigned long l1,
+ 	    const char *s2, unsigned long l2)
+ {
