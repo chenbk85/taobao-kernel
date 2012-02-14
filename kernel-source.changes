@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Feb 14 16:13:24 CST 2012 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: when kabichk is not enabled, do not generate
+  kernel-$KernelVer-kabideps file (we don't make KABI check currently)
+
+-------------------------------------------------------------------
 Tue Feb 14 23:31:59 CST 2012 - boyu.mt@taobao.com
 
 - patches.taobao/mm-sysctl-mlock-flush-pagevec.patch: mm:
