@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Feb 14 23:31:59 CST 2012 - boyu.mt@taobao.com
+
+- patches.taobao/mm-sysctl-mlock-flush-pagevec.patch: mm:
+  add a sysctl interface to enable/disable lru pagevec flush
+  in mlock/mlockall.
+
+-------------------------------------------------------------------
 Tue Feb 14 23:28:12 CST 2012 - boyu.mt@taobao.com
 
 - patches.taobao/bigalloc-013-convert-s_-dirty-free-blocks_counter-to-s_-dirty-free-clusters_counter.patch:
