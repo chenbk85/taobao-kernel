@@ -267,19 +267,21 @@ index b125823..9d9f174 100644
  failed_mount3:
  	if (sbi->s_flex_groups) {
  		if (is_vmalloc_addr(sbi->s_flex_groups))
-@@ -3906,9 +3906,9 @@ static int ext4_commit_super(struct super_block *sb, int sync)
+@@ -3906,9 +3906,10 @@ static int ext4_commit_super(struct super_block *sb, int sync)
  		cpu_to_le64(EXT4_SB(sb)->s_kbytes_written + 
  			    ((part_stat_read(sb->s_bdev->bd_part, sectors[1]) -
  			      EXT4_SB(sb)->s_sectors_written_start) >> 1));
 -	if (percpu_counter_initialized(&EXT4_SB(sb)->s_freeblocks_counter))
-+	if (percpu_counter_initialized(&EXT4_SB(sb)->s_freeclusters_counter))
- 		ext4_free_blocks_count_set(es, percpu_counter_sum_positive(
+-		ext4_free_blocks_count_set(es, percpu_counter_sum_positive(
 -					&EXT4_SB(sb)->s_freeblocks_counter));
-+					&EXT4_SB(sb)->s_freeclusters_counter));
++	if (percpu_counter_initialized(&EXT4_SB(sb)->s_freeclusters_counter))
++		ext4_free_blocks_count_set(es, EXT4_C2B(EXT4_SB(sb),
++					percpu_counter_sum_positive(
++					&EXT4_SB(sb)->s_freeclusters_counter)));
  	if (percpu_counter_initialized(&EXT4_SB(sb)->s_freeinodes_counter))
  		es->s_free_inodes_count =
  			cpu_to_le32(percpu_counter_sum_positive(
-@@ -4325,8 +4325,10 @@ static int ext4_statfs(struct dentry *dentry, struct kstatfs *buf)
+@@ -4325,8 +4326,10 @@ static int ext4_statfs(struct dentry *dentry, struct kstatfs *buf)
  	buf->f_type = EXT4_SUPER_MAGIC;
  	buf->f_bsize = sb->s_blocksize;
  	buf->f_blocks = ext4_blocks_count(es) - sbi->s_overhead_last;

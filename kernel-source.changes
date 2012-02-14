@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Tue Feb 14 23:28:12 CST 2012 - boyu.mt@taobao.com
+
+- patches.taobao/bigalloc-013-convert-s_-dirty-free-blocks_counter-to-s_-dirty-free-clusters_counter.patch:
+  Refresh.
+
+  Fix a backport problem in bigalloc backport.
+1. mke4fs -m 0 -I 4096 -C 1048576 -O ^has_journal,^resize_inode,^uninit_bg,extent,meta_bg,flex_bg,bigalloc /dev/sda3
+2. mount -t ext4 /dev/sda3 /test/
+3. dd if=/dev/zero of=/test/hello bs=8k count=1
+4. umount /test/
+5. e4fsck -f /dev/sda3
+
+then the fsck will say 
+
+	Free blocks count wrong (3801, counted=973056).
+	Fix<y>? 
+
+the reason is we forget a "EXT4_C2B" in ext4_commit_super when backporting bigalloc patches
+
+
+-------------------------------------------------------------------
 Wed Feb  8 16:56:59 CST 2012 - boyu.mt@taobao.com
 
 - patches.taobao/netoops_017_kmsg_dumper_pass_pt_regs_along_to_dumpers.patch:
