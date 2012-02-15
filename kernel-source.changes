@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Feb 15 18:54:21 CST 2012 - bosong.ly@taobao.com
+
+- rpm/kernel.spec.in: add username into kabideps file path, to
+  identify each building from different users. It's impossible to
+  simply disable kabicheck, because kabideps file is necessary
+  for kernel provided symbols information.
+
+-------------------------------------------------------------------
 Wed Feb 15 18:15:34 CST 2012 - bosong.ly@taobao.com
 
 - patches.driver/igb-3.2.10.patch: Rebase for 2.6.32-220.2.1

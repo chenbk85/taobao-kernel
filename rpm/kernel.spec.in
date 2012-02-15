@@ -1094,11 +1094,12 @@ hwcap 0 nosegneg"
     echo "**** GENERATING kernel ABI metadata ****"
     gzip -c9 < Module.symvers > $RPM_BUILD_ROOT/boot/symvers-$KernelVer.gz
 
-%if %{with_kabichk}
     chmod 0755 %_sourcedir/kabitool
-    rm -f %{_tmppath}/kernel-$KernelVer-kabideps
-    %_sourcedir/kabitool -s Module.symvers -o %{_tmppath}/kernel-$KernelVer-kabideps
+    buildusername=`whoami`
+    rm -f %{_tmppath}/kernel-$KernelVer-$buildusername-kabideps
+    %_sourcedir/kabitool -s Module.symvers -o %{_tmppath}/kernel-$KernelVer-$buildusername-kabideps
 
+%if %{with_kabichk}
     echo "**** kABI checking is enabled in kernel SPEC file. ****"
     chmod 0755 $RPM_SOURCE_DIR/check-kabi
     if [ -e $RPM_SOURCE_DIR/Module.kabi_%{_target_cpu}$Flavour ]; then
