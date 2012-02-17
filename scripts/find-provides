@@ -31,7 +31,7 @@ while true:
 	string.split(foo)
 	m = p.match(foo)
 	if m:
-		kabideps=sys.argv[1] + "/kernel-" + m.group(2) + "-kabideps"
+		kabideps=sys.argv[1] + "/kernel-" + m.group(2) + "-" + getpass.getuser() + "-kabideps"
 	
 if kabideps == "":
 	sys.exit(0)

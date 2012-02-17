@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Fri Feb 17 16:09:40 CST 2012 - bosong.ly@taobao.com
+
+- Update config files: add CONFIG_TOA=m
+- patches.taobao/lvs-toa-rs-export-symbols.patch: export symbols
+  needed for TOA kernel module.
+- patches.taobao/toa.patch: TOA: Tcp Option: Address.
+- scripts/find-provides: add user name into kapideps file name.
+
+-------------------------------------------------------------------
 Wed Feb 15 20:33:25 CST 2012 - bosong.ly@taobao.com
 
 - patches.driver/igb-fix-default-behavior-of-RSS-parameter-to-automatically-detect-number-of-Rx-Tx-queues.patch:
