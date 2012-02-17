@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Feb 17 16:24:37 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/toa.patch: add Pathed-mainline item in patch header. 
+
+-------------------------------------------------------------------
 Fri Feb 17 16:09:40 CST 2012 - bosong.ly@taobao.com
 
 - Update config files: add CONFIG_TOA=m
