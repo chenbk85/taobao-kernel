@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Feb 17 18:59:59 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/toa.patch: solve net/Kconfig merging confliction.
+
+-------------------------------------------------------------------
 Fri Feb 17 16:24:37 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/toa.patch: add Pathed-mainline item in patch header. 
