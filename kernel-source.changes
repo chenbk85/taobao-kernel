@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Fri Feb 17 19:19:49 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/0004-ext4-Add-read-support-for-inline-data.patch:
+  fix a NULL dereference by replacing file->f_mapping->host by
+  page->mapping->host.
+- patches.taobao/0022-ext4-Fix-ext4_read_inline_page-bug.patch:
+  refresh because this patch depends on
+  0004-ext4-Add-read-support-for-inline-data.patch
+
+-------------------------------------------------------------------
 Fri Feb 17 18:59:59 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/toa.patch: solve net/Kconfig merging confliction.

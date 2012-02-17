@@ -11,8 +11,8 @@ Acked-by:
 ---
 Index: linux-2.6.32-220.2.1.el5/fs/ext4/inline.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inline.c	2012-01-09 15:39:30.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/inline.c	2012-01-09 15:44:11.000000000 +0800
+--- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inline.c	2012-02-17 19:11:45.000000000 +0800
++++ linux-2.6.32-220.2.1.el5/fs/ext4/inline.c	2012-02-17 19:12:00.814175168 +0800
 @@ -441,21 +441,12 @@
  static int ext4_read_inline_page(struct inode *inode, struct page *page)
  {
@@ -73,14 +73,14 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inline.c
  	unlock_page(page);
 Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inode.c	2012-01-09 15:39:30.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/inode.c	2012-01-09 15:39:30.000000000 +0800
+--- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inode.c	2012-02-17 19:11:45.000000000 +0800
++++ linux-2.6.32-220.2.1.el5/fs/ext4/inode.c	2012-02-17 19:19:34.476424649 +0800
 @@ -3727,12 +3727,16 @@
  
  static int ext4_readpage(struct file *file, struct page *page)
  {
 +	int ret = -EAGAIN;
- 	struct inode *inode = file->f_mapping->host;
+ 	struct inode *inode = page->mapping->host;
  
  	if (ext4_has_inline_data(inode))
 -		return ext4_readpage_inline(inode, page);
