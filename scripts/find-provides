@@ -17,6 +17,7 @@ import os
 import re
 import string
 import sys
+import getpass
 
 false = 0
 true = 1

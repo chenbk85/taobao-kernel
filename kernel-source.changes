@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Feb 20 13:30:22 CST 2012 - bosong.ly@taobao.com
+
+- scripts/find-provides: add "import getpass" to get user name,
+  which is needed when inserting user-name into kapideps file name.
+
+-------------------------------------------------------------------
 Fri Feb 17 19:19:49 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/0004-ext4-Add-read-support-for-inline-data.patch:
