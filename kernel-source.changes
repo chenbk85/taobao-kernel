@@ -1,10 +1,4 @@
 -------------------------------------------------------------------
-Mon Feb 20 13:14:46 CST 2012 - bosong.ly@taobao.com
-
-- rpm/kernel.spec.in: change "Taobao kernel" to "Taobao lvs-kernel"
-- series.conf: remove unnecessary patches for LVS customized kernel.
-
--------------------------------------------------------------------
 Fri Feb 17 19:19:49 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/0004-ext4-Add-read-support-for-inline-data.patch:

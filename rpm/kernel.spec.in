@@ -552,14 +552,13 @@ BuildRoot: %{_tmppath}/kernel-%{KVERREL}-root
 %define __find_requires /usr/lib/rpm/redhat/find-requires kernel
 
 %description
-The lvs-kernel package contains the cusomized Linux kernel (vmlinuz) for
-Linux Virtual Server, the core of any Linux operating system.
-The kernel handles the basic functions of the operating system:
-memory allocation, process allocation, device input and output,
-etc.
+The kernel package contains the Linux kernel (vmlinuz), the core of any
+Linux operating system.  The kernel handles the basic functions
+of the operating system: memory allocation, process allocation, device
+input and output, etc.
 This kernel package is based on Redhat Enterprise Linux 6 plus 
-various patches developed by the LVS developers in Taobao.com.
-This is built from Taobao lvs-kernel git repo, whose commit id is
+various patches developed by the engineers in Taobao.com.
+This is built from Taobao kernel git repo, whose commit id is
 %%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 
@@ -568,7 +567,7 @@ Summary: Various documentation bits found in the kernel source
 Packager: gaoyang.zyh
 Group: Documentation
 %description doc
-This package contains documentation files from the lvs-kernel
+This package contains documentation files from the kernel
 source. Various bits of information about the Linux kernel and the
 device drivers shipped with it are documented in these files.
 
@@ -588,7 +587,7 @@ between the Linux kernel and userspace libraries and programs.  The
 header files define structures and constants that are needed for
 building most standard programs and are also needed for rebuilding the
 glibc package.
-This is built from Taobao lvs-kernel git repo, whose commit id is
+This is built from Taobao kernel git repo, whose commit id is
 %%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 %package firmware
@@ -604,7 +603,7 @@ Provides: kernel-firmware = %{rpmversion}-%{pkg_release}
 %description firmware
 Kernel-firmware includes firmware files required for some devices to
 operate.
-This is built from Taobao lvs-kernel git repo, whose commit id is
+This is built from Taobao kernel git repo, whose commit id is
 %%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 
@@ -624,7 +623,7 @@ Group: Development/Debug
 %description debuginfo-common-%{_target_cpu}
 This package is required by %{name}-debuginfo subpackages.
 It provides the kernel source files common to all builds.
- This is built from Taobao lvs-kernel git repo, whose commit id is
+ This is built from Taobao kernel git repo, whose commit id is
 %%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 %package -n perf
@@ -635,7 +634,7 @@ License: GPLv2
 %description -n perf
 This package provides the supporting documentation for the perf tool
 shipped in each kernel image subpackage.
-This is built from Taobao lvs-kernel git repo, whose commit id is
+This is built from Taobao kernel git repo, whose commit id is
 %%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 #
@@ -652,7 +651,7 @@ Provides: %{name}%{?1:-%{1}}-debuginfo-%{_target_cpu} = %{version}-%{release}\
 AutoReqProv: no\
 %description -n %{name}%{?1:-%{1}}-debuginfo\
 This package provides debug information for package %{name}%{?1:-%{1}}.\
-This is built from Taobao lvs-kernel git repo, whose commit id is\
+This is built from Taobao kernel git repo, whose commit id is\
 %%COMMITID%%, based on Redhat %%RHELBASE%%.\
 This is required to use SystemTap with %{name}%{?1:-%{1}}-%{KVERREL}.\
 %{expand:%%global debuginfo_args %{?debuginfo_args} -p '/.*/%%{KVERREL}%{?1:\.%{1}}/.*|/.*%%{KVERREL}%{?1:\.%{1}}(\.debug)?' -o debuginfo%{?1}.list}\
@@ -676,7 +675,7 @@ Requires(pre): /usr/bin/find\
 %description -n kernel%{?variant}%{?1:-%{1}}-devel\
 This package provides kernel headers and makefiles sufficient to build modules\
 against the %{?2:%{2} }kernel package.\
-This is built from Taobao lvs-kernel git repo, whose commit id is\
+This is built from Taobao kernel git repo, whose commit id is\
 %%COMMITID%%, based on Redhat %%RHELBASE%%.\
 %{nil}
 
@@ -747,7 +746,7 @@ input and output, etc.
 This variant of the kernel has numerous debugging options enabled.
 It should only be installed when trying to gather additional information
 on kernel bugs, as some of these options impact performance noticably.
- This is built from Taobao lvs-kernel git repo, whose commit id is
+ This is built from Taobao kernel git repo, whose commit id is
 %%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 
@@ -757,7 +756,7 @@ on kernel bugs, as some of these options impact performance noticably.
 This package includes a kdump version of the Linux kernel. It is
 required only on machines which will use the kexec-based kernel crash dump
 mechanism.
- This is built from Taobao lvs-kernel git repo, whose commit id is
+ This is built from Taobao kernel git repo, whose commit id is
 %%COMMITID%%, based on Redhat %%RHELBASE%%.
 
 
