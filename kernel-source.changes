@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Tue Feb 21 19:28:30 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/ext4-io-error-guard-add-netoops-support.patch: refresh
+- patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
+  fix several NULL dereference bugs.
+- patches.taobao/fix-typo-of-do_hypervisor_callback-in-entry_64.S.patch:
+  fix typo of do_hypervisor_callback in entry_64.S.
+- patches.taobao/remove-redundant-variable-in-struct-pmcraid_cmd.patch:
+  remove redundant sense_buffer member in pmcraid_cmd.
+- patches.taobao/x86-gcc-4.6-Use-gcc--m-options-when-building-vdso.patch:
+  fix compiling warnings.
+
+-------------------------------------------------------------------
 Tue Jan 31 17:38:22 CST 2012 - bosong.ly@taobao.com
 
 - Update debug config files.
