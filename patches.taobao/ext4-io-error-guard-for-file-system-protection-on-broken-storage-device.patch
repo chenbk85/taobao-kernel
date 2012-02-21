@@ -63,8 +63,8 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
 
 Index: linux-2.6.32-131.21.1.el5/block/genhd.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/block/genhd.c	2012-01-31 13:02:14.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/block/genhd.c	2012-01-31 13:06:18.890222722 +0800
+--- linux-2.6.32-131.21.1.el5.orig/block/genhd.c	2012-02-21 19:05:07.000000000 +0800
++++ linux-2.6.32-131.21.1.el5/block/genhd.c	2012-02-21 19:06:11.421666717 +0800
 @@ -903,6 +903,13 @@
  	return sprintf(buf, "%d\n", queue_discard_alignment(disk->queue));
  }
@@ -159,8 +159,8 @@ Index: linux-2.6.32-131.21.1.el5/block/genhd.c
  	struct disk_part_tbl *ptbl =
 Index: linux-2.6.32-131.21.1.el5/fs/bio.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/bio.c	2012-01-31 13:02:15.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/bio.c	2012-01-31 13:06:18.890222722 +0800
+--- linux-2.6.32-131.21.1.el5.orig/fs/bio.c	2012-02-21 19:05:08.000000000 +0800
++++ linux-2.6.32-131.21.1.el5/fs/bio.c	2012-02-21 19:06:11.421666717 +0800
 @@ -26,7 +26,6 @@
  #include <linux/mempool.h>
  #include <linux/workqueue.h>
@@ -169,20 +169,32 @@ Index: linux-2.6.32-131.21.1.el5/fs/bio.c
  #include <trace/events/block.h>
  
  /*
-@@ -1408,6 +1407,43 @@
+@@ -1408,6 +1407,55 @@
  	}
  }
  
 +static void bio_error_handler(struct block_device *bdev)
 +{
-+	struct eio *eio = &bdev->bd_contains->bd_eio;
++	struct eio *eio;
 +	struct eio_handler *eio_handler;
 +	unsigned long time;
-+	unsigned int threshold = eio->threshold;
++	unsigned int threshold;
 +
-+	if (threshold == 0) {
++	if (bdev == NULL ||
++	    bdev->bd_contains == NULL) {
++		printk(KERN_ERR "io-error-guard: device kobj removed, "
++			"failed to featch bdev structure.");
 +		return;
 +	}
++	eio = &(bdev->bd_contains->bd_eio);
++	if (eio == NULL) {
++		printk(KERN_ERR "io-error-guard: device kobj removed, "
++			"failed to fetch eio structure.");
++		return;
++	}
++	threshold = eio->threshold;
++	if (threshold == 0)
++		return;
 +
 +	spin_lock(&eio->lock);
 +	time = jiffies;
@@ -192,7 +204,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/bio.c
 +		eio->counter = 1;
 +	eio->last_jiffies = time;
 +	printk(KERN_ERR "io-error-guard: catch %u continuous bio error%s\n",
-+		eio->counter, eio->counter > 1 ? "s.": ".");
++		eio->counter, eio->counter > 1 ? "s." : ".");
 +
 +	if (eio->counter >= threshold) {
 +		printk(KERN_ERR "io-error-guard: catched continuous bio "
@@ -201,7 +213,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/bio.c
 +			if (eio_handler->handler) {
 +				printk(KERN_ERR
 +					"io-error-guard: call error handler "
-+					"for corresponding file system %s.\n",
++					"for file system %s.\n",
 +					eio_handler->fs_name);
 +				eio_handler->handler(eio_handler);
 +			}
@@ -213,7 +225,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/bio.c
  /**
   * bio_endio - end I/O on a bio
   * @bio:	bio
-@@ -1429,6 +1465,11 @@
+@@ -1429,6 +1477,11 @@
  	else if (!test_bit(BIO_UPTODATE, &bio->bi_flags))
  		error = -EIO;
  
@@ -227,8 +239,8 @@ Index: linux-2.6.32-131.21.1.el5/fs/bio.c
  }
 Index: linux-2.6.32-131.21.1.el5/fs/block_dev.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/block_dev.c	2012-01-31 13:02:15.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/block_dev.c	2012-01-31 13:06:18.890222722 +0800
+--- linux-2.6.32-131.21.1.el5.orig/fs/block_dev.c	2012-02-21 19:05:08.000000000 +0800
++++ linux-2.6.32-131.21.1.el5/fs/block_dev.c	2012-02-21 19:06:11.421666717 +0800
 @@ -29,6 +29,9 @@
  #include <asm/uaccess.h>
  #include "internal.h"
@@ -286,18 +298,18 @@ Index: linux-2.6.32-131.21.1.el5/fs/block_dev.c
  	}
  	if (!bdev->bd_openers) {
  		struct module *owner = disk->fops->owner;
-+		if (bdev->bd_contains == bdev) {
-+			struct eio *eio = &bdev->bd_contains->bd_eio;
-+
-+			WARN_ON(!list_empty(&eio->head));
++		if (bdev->bd_contains == bdev && bdev && bdev->bd_contains) {
++			struct eio *eio = &(bdev->bd_contains->bd_eio);
++			if (eio)
++				WARN_ON(!list_empty(&eio->head));
 +		}
  
  		put_disk(disk);
  		module_put(owner);
 Index: linux-2.6.32-131.21.1.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/ext4/ext4.h	2012-01-31 13:03:26.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/ext4/ext4.h	2012-01-31 13:11:45.887844228 +0800
+--- linux-2.6.32-131.21.1.el5.orig/fs/ext4/ext4.h	2012-02-21 19:05:10.000000000 +0800
++++ linux-2.6.32-131.21.1.el5/fs/ext4/ext4.h	2012-02-21 19:08:37.130389367 +0800
 @@ -1115,6 +1115,9 @@
  
  	/* workqueue for dio unwritten */
@@ -310,19 +322,25 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/ext4.h
  static inline struct ext4_sb_info *EXT4_SB(struct super_block *sb)
 Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/ext4/super.c	2012-01-31 13:03:26.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/ext4/super.c	2012-01-31 13:06:18.894222737 +0800
-@@ -335,6 +335,23 @@
+--- linux-2.6.32-131.21.1.el5.orig/fs/ext4/super.c	2012-02-21 19:05:10.000000000 +0800
++++ linux-2.6.32-131.21.1.el5/fs/ext4/super.c	2012-02-21 19:06:11.425666732 +0800
+@@ -335,6 +335,30 @@
  			sb->s_id);
  }
  
 +static void ext4_eio_handler(struct eio_handler *handler)
 +{
-+	struct super_block *sb = handler->bdev->bd_super;
-+
-+	if (sb->s_flags & MS_RDONLY) {
++	struct super_block *sb;
++	if (handler == NULL ||
++	    handler->bdev == NULL) {
++		printk(KERN_CRIT "io-error-guard: device kobj removed, "
++			"failed to set file system to read-only.");
 +		return;
 +	}
++
++	sb = handler->bdev->bd_super;
++	if (sb == NULL || (sb->s_flags & MS_RDONLY))
++		return;
 +
 +	/* sync file system before set it to read-only, considering
 +	 * there is already I/O errors, waiting jbd2 commit to be
@@ -330,13 +348,14 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
 +	 * ext4_sync_fs */
 +	ext4_sync_fs(sb, 0);
 +	sb->s_flags |= MS_RDONLY;
-+	ext4_msg(sb, KERN_CRIT, "io-error-guard: set file system to read-only.");
++	ext4_msg(sb, KERN_CRIT, "io-error-guard: "
++			"set file system to read-only.");
 +}
 +
  void __ext4_error(struct super_block *sb, const char *function,
  		const char *fmt, ...)
  {
-@@ -627,6 +644,19 @@
+@@ -627,6 +651,18 @@
  	}
  }
  
@@ -346,8 +365,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
 +	struct eio_handler *eio_handler = &sbi->s_eio_handler;
 +	struct eio *eio = &sb->s_bdev->bd_contains->bd_eio;
 +
-+	if (eio_handler->fs_name)
-+		kfree(eio_handler->fs_name);
++	kfree(eio_handler->fs_name);
 +	spin_lock_bh(&eio->lock);
 +	list_del_init(&eio_handler->list);
 +	spin_unlock_bh(&eio->lock);
@@ -356,7 +374,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  static void ext4_put_super(struct super_block *sb)
  {
  	struct ext4_sb_info *sbi = EXT4_SB(sb);
-@@ -641,6 +671,9 @@
+@@ -641,6 +677,9 @@
  	if (sb->s_dirt)
  		ext4_commit_super(sb, 1);
  
@@ -366,7 +384,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  	if (sbi->s_journal) {
  		err = jbd2_journal_destroy(sbi->s_journal);
  		sbi->s_journal = NULL;
-@@ -2403,6 +2436,34 @@
+@@ -2403,6 +2442,34 @@
  	return 1;
  }
  
@@ -401,7 +419,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  				__releases(kernel_lock)
  				__acquires(kernel_lock)
-@@ -3014,6 +3075,17 @@
+@@ -3014,6 +3081,17 @@
  
  	ext4_msg(sb, KERN_INFO, "mounted filesystem with%s", descr);
  
@@ -421,8 +439,8 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  
 Index: linux-2.6.32-131.21.1.el5/include/linux/fs.h
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/include/linux/fs.h	2012-01-31 13:02:14.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/include/linux/fs.h	2012-01-31 13:06:18.898222756 +0800
+--- linux-2.6.32-131.21.1.el5.orig/include/linux/fs.h	2012-02-21 19:05:07.000000000 +0800
++++ linux-2.6.32-131.21.1.el5/include/linux/fs.h	2012-02-21 19:06:11.425666732 +0800
 @@ -678,6 +678,21 @@
  	 * of struct page's "mapping" pointer be used for PAGE_MAPPING_ANON.
  	 */

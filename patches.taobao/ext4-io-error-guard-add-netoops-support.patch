@@ -10,10 +10,10 @@ being helpful to harddisk error detection.
 
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: linux-2.6.32-220.2.1.el5/fs/bio.c
+Index: linux-2.6.32-131.21.1.el5/fs/bio.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/bio.c	2012-01-13 21:02:45.471800027 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/bio.c	2012-01-13 21:59:48.268772681 +0800
+--- linux-2.6.32-131.21.1.el5.orig/fs/bio.c	2012-02-21 19:06:11.421666717 +0800
++++ linux-2.6.32-131.21.1.el5/fs/bio.c	2012-02-21 19:11:05.391124431 +0800
 @@ -27,7 +27,7 @@
  #include <linux/workqueue.h>
  #include <scsi/sg.h>		/* for struct sg_iovec */
@@ -23,7 +23,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/bio.c
  /*
   * Test patch to inline a certain number of bi_io_vec's inside the bio
   * itself, to shrink a bio data allocation from two mempool calls to one
-@@ -1442,6 +1442,7 @@
+@@ -1454,6 +1454,7 @@
  		}
  	}
  	spin_unlock(&eio->lock);
