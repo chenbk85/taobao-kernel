@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Feb 21 19:03:33 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
+  fix quite a few NULL dereference bugs.
+- patches.taobao/toa.patch: Refresh.
+
+-------------------------------------------------------------------
 Mon Feb 20 13:30:22 CST 2012 - bosong.ly@taobao.com
 
 - scripts/find-provides: add "import getpass" to get user name,
