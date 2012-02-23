@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Feb 23 13:20:11 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
+  do not call ext4_sync_fs() before setting MS_RDONLY flag.
+
+-------------------------------------------------------------------
 Tue Feb 21 19:28:30 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-io-error-guard-add-netoops-support.patch: refresh

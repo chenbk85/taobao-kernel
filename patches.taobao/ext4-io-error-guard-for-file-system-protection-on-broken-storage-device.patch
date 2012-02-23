@@ -342,11 +342,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
 +	if (sb == NULL || (sb->s_flags & MS_RDONLY))
 +		return;
 +
-+	/* sync file system before set it to read-only, considering
-+	 * there is already I/O errors, waiting jbd2 commit to be
-+	 * synced may not help too much, set wait = 0 when calling
-+	 * ext4_sync_fs */
-+	ext4_sync_fs(sb, 0);
++	/* DONOT sync anything back to disk, just set MS_RDONLY flag */
 +	sb->s_flags |= MS_RDONLY;
 +	ext4_msg(sb, KERN_CRIT, "io-error-guard: "
 +			"set file system to read-only.");
