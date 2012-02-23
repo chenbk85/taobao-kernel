@@ -63,8 +63,8 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
 
 Index: linux-2.6.32-131.21.1.el5/block/genhd.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/block/genhd.c	2012-02-21 19:05:07.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/block/genhd.c	2012-02-21 19:06:11.421666717 +0800
+--- linux-2.6.32-131.21.1.el5.orig/block/genhd.c	2012-02-23 13:05:13.000000000 +0800
++++ linux-2.6.32-131.21.1.el5/block/genhd.c	2012-02-23 13:30:32.648420733 +0800
 @@ -903,6 +903,13 @@
  	return sprintf(buf, "%d\n", queue_discard_alignment(disk->queue));
  }
@@ -159,8 +159,8 @@ Index: linux-2.6.32-131.21.1.el5/block/genhd.c
  	struct disk_part_tbl *ptbl =
 Index: linux-2.6.32-131.21.1.el5/fs/bio.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/bio.c	2012-02-21 19:05:08.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/bio.c	2012-02-21 19:06:11.421666717 +0800
+--- linux-2.6.32-131.21.1.el5.orig/fs/bio.c	2012-02-23 13:05:24.000000000 +0800
++++ linux-2.6.32-131.21.1.el5/fs/bio.c	2012-02-23 13:30:32.648420733 +0800
 @@ -26,7 +26,6 @@
  #include <linux/mempool.h>
  #include <linux/workqueue.h>
@@ -239,8 +239,8 @@ Index: linux-2.6.32-131.21.1.el5/fs/bio.c
  }
 Index: linux-2.6.32-131.21.1.el5/fs/block_dev.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/block_dev.c	2012-02-21 19:05:08.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/block_dev.c	2012-02-21 19:06:11.421666717 +0800
+--- linux-2.6.32-131.21.1.el5.orig/fs/block_dev.c	2012-02-23 13:05:24.000000000 +0800
++++ linux-2.6.32-131.21.1.el5/fs/block_dev.c	2012-02-23 13:30:32.648420733 +0800
 @@ -29,6 +29,9 @@
  #include <asm/uaccess.h>
  #include "internal.h"
@@ -308,8 +308,8 @@ Index: linux-2.6.32-131.21.1.el5/fs/block_dev.c
  		module_put(owner);
 Index: linux-2.6.32-131.21.1.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/ext4/ext4.h	2012-02-21 19:05:10.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/ext4/ext4.h	2012-02-21 19:08:37.130389367 +0800
+--- linux-2.6.32-131.21.1.el5.orig/fs/ext4/ext4.h	2012-02-23 13:28:09.000000000 +0800
++++ linux-2.6.32-131.21.1.el5/fs/ext4/ext4.h	2012-02-23 13:30:32.648420733 +0800
 @@ -1115,6 +1115,9 @@
  
  	/* workqueue for dio unwritten */
@@ -322,9 +322,9 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/ext4.h
  static inline struct ext4_sb_info *EXT4_SB(struct super_block *sb)
 Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/fs/ext4/super.c	2012-02-21 19:05:10.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/fs/ext4/super.c	2012-02-21 19:06:11.425666732 +0800
-@@ -335,6 +335,30 @@
+--- linux-2.6.32-131.21.1.el5.orig/fs/ext4/super.c	2012-02-23 13:28:09.347710155 +0800
++++ linux-2.6.32-131.21.1.el5/fs/ext4/super.c	2012-02-23 13:31:59.540851168 +0800
+@@ -335,6 +335,26 @@
  			sb->s_id);
  }
  
@@ -342,7 +342,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
 +	if (sb == NULL || (sb->s_flags & MS_RDONLY))
 +		return;
 +
-+	/* DONOT sync anything back to disk, just set MS_RDONLY flag */
++	 /* DONOT sync anything back to disk here */
 +	sb->s_flags |= MS_RDONLY;
 +	ext4_msg(sb, KERN_CRIT, "io-error-guard: "
 +			"set file system to read-only.");
@@ -351,7 +351,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  void __ext4_error(struct super_block *sb, const char *function,
  		const char *fmt, ...)
  {
-@@ -627,6 +651,18 @@
+@@ -627,6 +647,18 @@
  	}
  }
  
@@ -370,7 +370,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  static void ext4_put_super(struct super_block *sb)
  {
  	struct ext4_sb_info *sbi = EXT4_SB(sb);
-@@ -641,6 +677,9 @@
+@@ -641,6 +673,9 @@
  	if (sb->s_dirt)
  		ext4_commit_super(sb, 1);
  
@@ -380,7 +380,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  	if (sbi->s_journal) {
  		err = jbd2_journal_destroy(sbi->s_journal);
  		sbi->s_journal = NULL;
-@@ -2403,6 +2442,34 @@
+@@ -2403,6 +2438,34 @@
  	return 1;
  }
  
@@ -415,7 +415,7 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  				__releases(kernel_lock)
  				__acquires(kernel_lock)
-@@ -3014,6 +3081,17 @@
+@@ -3014,6 +3077,17 @@
  
  	ext4_msg(sb, KERN_INFO, "mounted filesystem with%s", descr);
  
@@ -435,8 +435,8 @@ Index: linux-2.6.32-131.21.1.el5/fs/ext4/super.c
  
 Index: linux-2.6.32-131.21.1.el5/include/linux/fs.h
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/include/linux/fs.h	2012-02-21 19:05:07.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5/include/linux/fs.h	2012-02-21 19:06:11.425666732 +0800
+--- linux-2.6.32-131.21.1.el5.orig/include/linux/fs.h	2012-02-23 13:05:11.856879544 +0800
++++ linux-2.6.32-131.21.1.el5/include/linux/fs.h	2012-02-23 13:30:32.652420754 +0800
 @@ -678,6 +678,21 @@
  	 * of struct page's "mapping" pointer be used for PAGE_MAPPING_ANON.
  	 */

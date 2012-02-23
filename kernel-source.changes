@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Feb 23 13:32:20 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
+  Refresh to remove merge confliction.
+
+-------------------------------------------------------------------
 Thu Feb 23 13:19:28 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
