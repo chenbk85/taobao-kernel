@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb 24 13:25:43 CST 2012 - bosong.ly@taobao.com
+
+- Update config files.
+- rpm/kernel.spec.in:
+- scripts/install-git-hooks:
+
+-------------------------------------------------------------------
 Fri Feb 24 12:32:58 CST 2012 - bosong.ly@taobao.com
 
 - Two patches for writeback performance improvement:
