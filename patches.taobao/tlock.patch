@@ -31,10 +31,10 @@ I do appreciate for his help during the code porting.
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 Cc: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.2.1.el5/fs/file_table.c
+Index: linux-2.6.32-220.4.2.el5/fs/file_table.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/file_table.c	2012-01-09 14:46:58.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/file_table.c	2012-01-09 14:47:36.000000000 +0800
+--- linux-2.6.32-220.4.2.el5.orig/fs/file_table.c	2012-02-24 17:14:49.272491687 +0800
++++ linux-2.6.32-220.4.2.el5/fs/file_table.c	2012-02-24 17:15:26.044674017 +0800
 @@ -320,6 +320,18 @@
  	return file;
  }
@@ -54,10 +54,10 @@ Index: linux-2.6.32-220.2.1.el5/fs/file_table.c
  
  void put_filp(struct file *file)
  {
-Index: linux-2.6.32-220.2.1.el5/include/linux/sched.h
+Index: linux-2.6.32-220.4.2.el5/include/linux/sched.h
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/include/linux/sched.h	2012-01-09 14:47:34.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/include/linux/sched.h	2012-01-09 14:47:36.000000000 +0800
+--- linux-2.6.32-220.4.2.el5.orig/include/linux/sched.h	2012-02-24 17:14:49.228491461 +0800
++++ linux-2.6.32-220.4.2.el5/include/linux/sched.h	2012-02-24 17:15:26.048674062 +0800
 @@ -2732,6 +2732,10 @@
  	return task_rlimit_max(current, limit);
  }
@@ -69,10 +69,10 @@ Index: linux-2.6.32-220.2.1.el5/include/linux/sched.h
  #endif /* __KERNEL__ */
  
  #endif
-Index: linux-2.6.32-220.2.1.el5/kernel/pid.c
+Index: linux-2.6.32-220.4.2.el5/kernel/pid.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/kernel/pid.c	2012-01-09 14:46:53.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/kernel/pid.c	2012-01-09 14:47:36.000000000 +0800
+--- linux-2.6.32-220.4.2.el5.orig/kernel/pid.c	2012-02-24 17:14:49.264491642 +0800
++++ linux-2.6.32-220.4.2.el5/kernel/pid.c	2012-02-24 17:15:26.048674062 +0800
 @@ -422,6 +422,7 @@
  {
  	return pid_task(find_pid_ns(nr, ns), PIDTYPE_PID);
@@ -81,11 +81,11 @@ Index: linux-2.6.32-220.2.1.el5/kernel/pid.c
  
  struct task_struct *find_task_by_vpid(pid_t vnr)
  {
-Index: linux-2.6.32-220.2.1.el5/kernel/sched.c
+Index: linux-2.6.32-220.4.2.el5/kernel/sched.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/kernel/sched.c	2012-01-09 14:47:36.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/kernel/sched.c	2012-01-09 14:47:36.000000000 +0800
-@@ -1019,6 +1019,17 @@
+--- linux-2.6.32-220.4.2.el5.orig/kernel/sched.c	2012-02-24 17:14:56.284526456 +0800
++++ linux-2.6.32-220.4.2.el5/kernel/sched.c	2012-02-24 17:15:26.048674062 +0800
+@@ -1020,6 +1020,17 @@
  }
  early_param("nortsched", parse_nortsched);
  
@@ -103,20 +103,20 @@ Index: linux-2.6.32-220.2.1.el5/kernel/sched.c
  
  static inline u64 global_rt_period(void)
  {
-Index: linux-2.6.32-220.2.1.el5/drivers/misc/tlock/Makefile
+Index: linux-2.6.32-220.4.2.el5/drivers/misc/tlock/Makefile
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/drivers/misc/tlock/Makefile	2012-01-09 14:47:36.000000000 +0800
++++ linux-2.6.32-220.4.2.el5/drivers/misc/tlock/Makefile	2012-02-24 17:15:26.052674086 +0800
 @@ -0,0 +1,5 @@
 +#
 +# Makefile for misc devices that really don't fit anywhere else.
 +#
 +
 +obj-$(CONFIG_TLOCK)		+= tlock_kern.o
-Index: linux-2.6.32-220.2.1.el5/drivers/misc/tlock/queue.h
+Index: linux-2.6.32-220.4.2.el5/drivers/misc/tlock/queue.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/drivers/misc/tlock/queue.h	2012-01-09 14:47:36.000000000 +0800
++++ linux-2.6.32-220.4.2.el5/drivers/misc/tlock/queue.h	2012-02-24 17:15:26.052674086 +0800
 @@ -0,0 +1,549 @@
 +/*
 + * Copyright (c) 1991, 1993
@@ -667,10 +667,10 @@ Index: linux-2.6.32-220.2.1.el5/drivers/misc/tlock/queue.h
 +#endif /* _KERNEL */
 +
 +#endif /* !_SYS_QUEUE_H_ */
-Index: linux-2.6.32-220.2.1.el5/drivers/misc/tlock/tlock_kern.c
+Index: linux-2.6.32-220.4.2.el5/drivers/misc/tlock/tlock_kern.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/drivers/misc/tlock/tlock_kern.c	2012-01-09 14:51:51.000000000 +0800
++++ linux-2.6.32-220.4.2.el5/drivers/misc/tlock/tlock_kern.c	2012-02-24 17:15:26.052674086 +0800
 @@ -0,0 +1,631 @@
 +#include <linux/module.h>
 +#include <linux/kernel.h>
@@ -1303,20 +1303,20 @@ Index: linux-2.6.32-220.2.1.el5/drivers/misc/tlock/tlock_kern.c
 +
 +module_init(tlock_kern_init);
 +module_exit(tlock_kern_exit);
-Index: linux-2.6.32-220.2.1.el5/drivers/misc/Makefile
+Index: linux-2.6.32-220.4.2.el5/drivers/misc/Makefile
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/drivers/misc/Makefile	2012-01-09 14:47:15.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/drivers/misc/Makefile	2012-01-09 14:47:36.000000000 +0800
+--- linux-2.6.32-220.4.2.el5.orig/drivers/misc/Makefile	2012-02-24 17:14:49.240491525 +0800
++++ linux-2.6.32-220.4.2.el5/drivers/misc/Makefile	2012-02-24 17:15:26.052674086 +0800
 @@ -23,4 +23,5 @@
  obj-$(CONFIG_C2PORT)		+= c2port/
  obj-y				+= eeprom/
  obj-y				+= cb710/
 +obj-y				+= tlock/
  obj-$(CONFIG_VMWARE_BALLOON)	+= vmware_balloon.o
-Index: linux-2.6.32-220.2.1.el5/drivers/misc/Kconfig
+Index: linux-2.6.32-220.4.2.el5/drivers/misc/Kconfig
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/drivers/misc/Kconfig	2012-01-09 14:47:15.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/drivers/misc/Kconfig	2012-01-09 14:47:36.000000000 +0800
+--- linux-2.6.32-220.4.2.el5.orig/drivers/misc/Kconfig	2012-02-24 17:14:49.256491609 +0800
++++ linux-2.6.32-220.4.2.el5/drivers/misc/Kconfig	2012-02-24 17:15:26.052674086 +0800
 @@ -233,6 +233,13 @@
  	  This driver can also be built as a module.  If so, the module
  	  will be called isl29003.
@@ -1331,10 +1331,10 @@ Index: linux-2.6.32-220.2.1.el5/drivers/misc/Kconfig
  config EP93XX_PWM
  	tristate "EP93xx PWM support"
  	depends on ARCH_EP93XX
-Index: linux-2.6.32-220.2.1.el5/include/linux/file.h
+Index: linux-2.6.32-220.4.2.el5/include/linux/file.h
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/include/linux/file.h	2012-01-09 14:47:34.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/include/linux/file.h	2012-01-09 14:47:36.000000000 +0800
+--- linux-2.6.32-220.4.2.el5.orig/include/linux/file.h	2012-02-24 17:14:49.224491450 +0800
++++ linux-2.6.32-220.4.2.el5/include/linux/file.h	2012-02-24 17:15:26.052674086 +0800
 @@ -38,5 +38,7 @@
  extern void put_unused_fd(unsigned int fd);
  
