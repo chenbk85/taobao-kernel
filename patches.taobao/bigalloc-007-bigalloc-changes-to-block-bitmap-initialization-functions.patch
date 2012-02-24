@@ -2,6 +2,7 @@ From d5b8f31007a93777cfb0603b665858fb7aebebfc Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 18:44:51 -0400
 Subject: [PATCH 07/26] ext4: bigalloc changes to block bitmap initialization functions
+Patch-mainline: 3.2
 
 Add bigalloc support to ext4_init_block_bitmap() and
 ext4_free_blocks_after_init().

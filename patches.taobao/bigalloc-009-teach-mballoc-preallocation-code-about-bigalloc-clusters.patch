@@ -2,6 +2,7 @@ From 53accfa9f819c80056db6f03f9c5cfa4bcba1ed8 Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 18:48:51 -0400
 Subject: [PATCH 09/26] ext4: teach mballoc preallocation code about bigalloc clusters
+Patch-mainline: 3.2
 
 In most of mballoc.c, we do everything in units of clusters, since the
 block allocation bitmaps and buddy bitmaps are all denominated in

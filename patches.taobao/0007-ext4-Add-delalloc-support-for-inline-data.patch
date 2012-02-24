@@ -2,6 +2,7 @@ From d173cd21ba1402cbc0a05ce955213cf27c3d0690 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Fri, 16 Dec 2011 22:34:24 +0800
 Subject: [PATCH 07/22] ext4: Add delalloc support for inline data.
+Patch-mainline: in-house
 
 For delayed allocation mode, we write to inline data if the file
 is small enough. And in case of we write to some offset larger

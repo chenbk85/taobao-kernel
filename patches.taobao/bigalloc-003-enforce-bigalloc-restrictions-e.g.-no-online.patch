@@ -2,6 +2,7 @@ From bab08ab9646288f1b0b72a7aaeecdff94bd62c18 Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 18:36:51 -0400
 Subject: [PATCH 03/26] ext4: enforce bigalloc restrictions (e.g., no online resizing, etc.)
+Patch-mainline: 3.2
 
 At least initially if the bigalloc feature is enabled, we will not
 support non-extent mapped inodes, online resizing, online defrag, or

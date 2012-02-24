@@ -2,6 +2,7 @@ From 5704265188ffe4290ed73b3cb685206c3ed8209d Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 18:56:51 -0400
 Subject: [PATCH 13/26] ext4: convert s_{dirty,free}blocks_counter to s_{dirty,free}clusters_counter
+Patch-mainline: 3.2
 
 Convert the percpu counters s_dirtyblocks_counter and
 s_freeblocks_counter in struct ext4_super_info to be

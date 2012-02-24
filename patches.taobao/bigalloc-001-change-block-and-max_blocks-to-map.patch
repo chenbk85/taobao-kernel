@@ -1,5 +1,8 @@
 From: Robin Dong <sanbai@taobao.com>
 Subject: [PATCH 01/26] ext4: change "block" and "max_blocks" to struct ext4_map_blocks
+Patch-mainline: 3.2
+
+This patch changes "block" and "max_blocks" to struct ext4_map_blocks.
 
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---

@@ -2,6 +2,7 @@ From 0aa060000e83ca3d09ddc446a7174fb0820d99bc Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 18:54:51 -0400
 Subject: [PATCH 12/26] ext4: teach ext4_ext_truncate() about the bigalloc feature
+Patch-mainline: 3.2
 
 When we are truncating (as opposed unlinking) a file, we need to worry
 about partial truncates of a file, especially in the light of sparse

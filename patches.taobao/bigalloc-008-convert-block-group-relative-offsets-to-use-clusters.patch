@@ -2,6 +2,7 @@ From 3212a80a58062056bb922811071062be58d8fee1 Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 18:46:51 -0400
 Subject: [PATCH 08/26] ext4: convert block group-relative offsets to use clusters
+Patch-mainline: 3.2
 
 Certain parts of the ext4 code base, primarily in mballoc.c, use a
 block group number and offset from the beginning of the block group.

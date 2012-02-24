@@ -2,6 +2,7 @@ From 78e07d7a752b79d90935005a240edc6fece8675a Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Sun, 20 Nov 2011 23:08:20 +0800
 Subject: [PATCH 08/22] ext4: Create a new function ext4_init_new_dir.
+Patch-mainline: in-house
 
 Currently, the initialization of dot and dotdot are encapsulated in
 ext4_mkdir and also bond with dir_block. So create a new function

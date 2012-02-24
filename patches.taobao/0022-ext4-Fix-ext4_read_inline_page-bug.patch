@@ -3,7 +3,9 @@ From: Tao Ma <boyu.mt@taobao.com>
 Date: Mon, 12 Dec 2011 17:24:57 +0800
 Subject: [PATCH 22/22] ext4: Enable ext4 inline support.
 Patch-mainline: Will be upstream soon.
-References: 
+References: in house 
+
+this patch enables ext4 inline support
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 Acked-by: 

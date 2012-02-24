@@ -2,6 +2,7 @@ From 8afdd5b5a6846394a2522e650776cccd50141b46 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Fri, 18 Nov 2011 23:51:22 +0800
 Subject: [PATCH 15/22] ext4: make ext4_delete_entry generic.
+Patch-mainline: in house
 
 Currently ext4_delete_entry is used only for dir entry
 removing from a dir block. So let us create a new function

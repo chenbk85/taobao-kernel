@@ -2,6 +2,7 @@ From 49f7f9af4bb4d7972f3a35a74877937fec9f622d Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 18:40:51 -0400
 Subject: [PATCH 05/26] ext4: factor out block group accounting into functions
+Patch-mainline: 3.2
 
 This makes it easier to understand how ext4_init_block_bitmap() works,
 and it will assist when we split out ext4_free_blocks_after_init() in

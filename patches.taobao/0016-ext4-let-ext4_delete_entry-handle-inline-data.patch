@@ -2,6 +2,7 @@ From 86ce62e9807f78045d855559f9103020275c03f8 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Thu, 15 Dec 2011 10:43:27 +0800
 Subject: [PATCH 16/22] ext4: let ext4_delete_entry handle inline data.
+Patch-mainline: in house
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---

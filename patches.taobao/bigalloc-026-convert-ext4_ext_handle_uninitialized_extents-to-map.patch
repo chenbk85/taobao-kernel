@@ -1,5 +1,8 @@
 From: Robin Dong <sanbai@taobao.com>
 Subject: [PATCH 26/26] ext4: change "block" and "max_blocks" to struct ext4_map_blocks for ext4_ext_handle_uninitialized_extents
+Patch-mainline: 3.2
+
+This patch changes "block" and "max_blocks" to struct ext4_map_blocks for ext4_ext_handle_uninitialized_extents.
 
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---

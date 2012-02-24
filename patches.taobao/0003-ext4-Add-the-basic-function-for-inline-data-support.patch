@@ -2,6 +2,7 @@ From 7ad35df87ca68c86d9e20369fa23fb46f9143011 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Fri, 16 Dec 2011 12:23:25 +0800
 Subject: [PATCH 03/22] ext4: Add the basic function for inline data support.
+Patch-mainline: in-house
 
 Implement inline data with xattr. This idea is inspired by Andreas.
 So now we use "system.data" to store xattr.
