@@ -40,7 +40,6 @@ else \
     fi \
 fi)
 
-
 %define cpu_nr %( /usr/bin/getconf _NPROCESSORS_ONLN )
 %define _smp_mflags -j%{cpu_nr}
 ## If this is a released kernel ##

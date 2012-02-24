@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb 24 16:42:40 CST 2012 - bosong.ly@taobao.com
+
+- Update config files.
+- rpm/kernel.spec.in: add username into kapideps file path
+- scripts/install-git-hooks:
+
+-------------------------------------------------------------------
 Fri Feb 24 12:32:58 CST 2012 - bosong.ly@taobao.com
 
 - Two patches for writeback performance improvement:
