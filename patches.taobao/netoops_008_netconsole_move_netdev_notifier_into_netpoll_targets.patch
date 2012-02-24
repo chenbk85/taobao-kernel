@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
+Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/drivers/net/netconsole.c	2011-04-19 12:56:48.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c	2011-04-19 12:57:18.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
 @@ -70,6 +70,7 @@
  #ifdef	CONFIG_NETCONSOLE_DYNAMIC
  	struct configfs_subsystem configfs_subsys;
@@ -27,7 +27,7 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  	unsigned long flags;
  	struct netconsole_target *nt;
  	struct net_device *dev = ptr;
-@@ -747,8 +750,8 @@
+@@ -749,8 +752,8 @@
  	      event == NETDEV_BONDING_DESLAVE))
  		goto done;
  
@@ -35,19 +35,19 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
 -	list_for_each_entry(nt, &targets.list, list) {
 +	spin_lock_irqsave(&nts->lock, flags);
 +	list_for_each_entry(nt, &nts->list, list) {
- 		if (nt->np_state == NETPOLL_ENABLED && nt->np.dev == dev) {
+ 		if (nt->np.dev == dev && nt->np_state == NETPOLL_ENABLED) {
  			switch (event) {
  			case NETDEV_CHANGENAME:
-@@ -764,7 +767,7 @@
+@@ -772,7 +775,7 @@
  			}
  		}
  	}
 -	spin_unlock_irqrestore(&targets.lock, flags);
 +	spin_unlock_irqrestore(&nts->lock, flags);
- 	if (event == NETDEV_UNREGISTER || event == NETDEV_BONDING_DESLAVE)
- 		printk(KERN_INFO "netconsole: network logging stopped, "
- 			"interface %s %s\n",  dev->name,
-@@ -774,10 +777,6 @@
+ 	if (stopped) {
+ 		printk(KERN_INFO "netconsole: network logging stopped on "
+ 		       "interface %s as it ", dev->name);
+@@ -793,10 +796,6 @@
  	return NOTIFY_DONE;
  }
  
@@ -58,7 +58,7 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  static void write_msg(struct console *con, const char *msg, unsigned int len)
  {
  	int frag, left;
-@@ -841,7 +840,8 @@
+@@ -860,7 +859,8 @@
  		}
  	}
  
@@ -68,7 +68,7 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  	if (err)
  		goto fail;
  
-@@ -855,7 +855,7 @@
+@@ -874,7 +874,7 @@
  	return err;
  
  undonotifier:
@@ -77,7 +77,7 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  
  fail:
  	printk(KERN_ERR "netconsole: cleaning up\n");
-@@ -879,7 +879,7 @@
+@@ -898,7 +898,7 @@
  
  	unregister_console(&netconsole);
  	dynamic_netpoll_targets_exit(&targets);

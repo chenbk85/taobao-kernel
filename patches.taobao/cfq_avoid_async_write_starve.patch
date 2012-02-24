@@ -6,11 +6,11 @@ References:
 Acked-by: 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 
-Index: linux-2.6.32-131.4.1.el5/block/cfq-iosched.c
+Index: linux-2.6.32-220.0.0.el5/block/cfq-iosched.c
 ===================================================================
---- linux-2.6.32-131.4.1.el5.orig/block/cfq-iosched.c
-+++ linux-2.6.32-131.4.1.el5/block/cfq-iosched.c
-@@ -3242,8 +3242,15 @@ cfq_should_preempt(struct cfq_data *cfqd
+--- linux-2.6.32-220.0.0.el5.orig/block/cfq-iosched.c	2011-12-13 13:40:03.292558923 +0800
++++ linux-2.6.32-220.0.0.el5/block/cfq-iosched.c	2011-12-13 14:48:47.385009197 +0800
+@@ -3312,8 +3312,15 @@
  	 * if the new request is sync, but the currently running queue is
  	 * not, let the sync request have priority.
  	 */

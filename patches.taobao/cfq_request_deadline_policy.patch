@@ -27,10 +27,10 @@ Acked-by: Tao Ma <boyu.mt@taobao.com>
  block/cfq-iosched.c |   93 +++++++++++++++++++++++++++++++++++++++++++++++++++
  1 files changed, 93 insertions(+), 0 deletions(-)
 
-Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
+Index: linux-2.6.32-220.0.0.el5/block/cfq-iosched.c
 ===================================================================
---- linux-2.6.32-131.6.1.el5.orig/block/cfq-iosched.c
-+++ linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
+--- linux-2.6.32-220.0.0.el5.orig/block/cfq-iosched.c	2011-12-13 14:48:47.385009197 +0800
++++ linux-2.6.32-220.0.0.el5/block/cfq-iosched.c	2011-12-13 15:01:40.916844930 +0800
 @@ -21,6 +21,7 @@
  /* max queue in one round of service */
  static const int cfq_quantum = 8;
@@ -39,7 +39,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  /* maximum backwards seek, in KiB */
  static const int cfq_back_max = 16 * 1024;
  /* penalty of a backwards seek */
-@@ -115,6 +116,11 @@ struct cfq_queue {
+@@ -115,6 +116,11 @@
  	/* fifo list of requests in sort_list */
  	struct list_head fifo;
  
@@ -51,7 +51,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  	/* time when queue got scheduled in to dispatch first request. */
  	unsigned long dispatch_start;
  	unsigned int allocated_slice;
-@@ -226,6 +232,11 @@ struct cfq_data {
+@@ -226,6 +232,11 @@
  	 */
  	struct rb_root prio_trees[CFQ_PRIO_LISTS];
  
@@ -63,7 +63,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  	unsigned int busy_queues;
  
  	int rq_in_driver;
-@@ -267,6 +278,7 @@ struct cfq_data {
+@@ -267,6 +278,7 @@
  	 */
  	unsigned int cfq_quantum;
  	unsigned int cfq_fifo_expire[2];
@@ -71,7 +71,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  	unsigned int cfq_back_penalty;
  	unsigned int cfq_back_max;
  	unsigned int cfq_slice[2];
-@@ -1349,6 +1361,46 @@ static void cfq_prio_tree_add(struct cfq
+@@ -1420,6 +1432,46 @@
  		cfqq->p_root = NULL;
  }
  
@@ -118,7 +118,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  /*
   * Update cfqq's position in the service tree.
   */
-@@ -1375,6 +1427,7 @@ static void cfq_add_cfqq_rr(struct cfq_d
+@@ -1446,6 +1498,7 @@
  	cfqd->busy_queues++;
  
  	cfq_resort_rr_list(cfqd, cfqq);
@@ -126,7 +126,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  }
  
  /*
-@@ -1517,11 +1570,16 @@ static void cfq_deactivate_request(struc
+@@ -1583,11 +1636,16 @@
  static void cfq_remove_request(struct request *rq)
  {
  	struct cfq_queue *cfqq = RQ_CFQQ(rq);
@@ -143,7 +143,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  	cfq_del_rq_rb(rq);
  
  	cfqq->cfqd->rq_queued--;
-@@ -2487,6 +2545,27 @@ static bool cfq_dispatch_request(struct 
+@@ -2553,6 +2611,27 @@
  	return true;
  }
  
@@ -171,7 +171,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  /*
   * Find the cfqq that we need to service and move a request from that to the
   * dispatch list
-@@ -2502,6 +2581,9 @@ static int cfq_dispatch_requests(struct 
+@@ -2568,6 +2647,9 @@
  	if (unlikely(force))
  		return cfq_forced_dispatch(cfqd);
  
@@ -181,15 +181,15 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  	cfqq = cfq_select_queue(cfqd);
  	if (!cfqq)
  		return 0;
-@@ -2840,6 +2922,7 @@ static void cfq_init_cfqq(struct cfq_dat
+@@ -2910,6 +2992,7 @@
  {
  	RB_CLEAR_NODE(&cfqq->rb_node);
  	RB_CLEAR_NODE(&cfqq->p_node);
 +	RB_CLEAR_NODE(&cfqq->fifo_node);
  	INIT_LIST_HEAD(&cfqq->fifo);
  
- 	atomic_set(&cfqq->ref, 0);
-@@ -3877,6 +3960,8 @@ static void *cfq_init_queue(struct reque
+ 	cfqq->ref = 0;
+@@ -3986,6 +4069,8 @@
  	for (i = 0; i < CFQ_PRIO_LISTS; i++)
  		cfqd->prio_trees[i] = RB_ROOT;
  
@@ -198,7 +198,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  	/*
  	 * Our fallback cfqq if cfq_find_alloc_queue() runs into OOM issues.
  	 * Grab a permanent reference to it, so that the normal code flow
-@@ -3899,6 +3984,8 @@ static void *cfq_init_queue(struct reque
+@@ -4008,6 +4093,8 @@
  	cfqd->cfq_quantum = cfq_quantum;
  	cfqd->cfq_fifo_expire[0] = cfq_fifo_expire[0];
  	cfqd->cfq_fifo_expire[1] = cfq_fifo_expire[1];
@@ -207,7 +207,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  	cfqd->cfq_back_max = cfq_back_max;
  	cfqd->cfq_back_penalty = cfq_back_penalty;
  	cfqd->cfq_slice[0] = cfq_slice_async;
-@@ -3976,6 +4063,8 @@ static ssize_t __FUNC(struct elevator_qu
+@@ -4084,6 +4171,8 @@
  SHOW_FUNCTION(cfq_quantum_show, cfqd->cfq_quantum, 0);
  SHOW_FUNCTION(cfq_fifo_expire_sync_show, cfqd->cfq_fifo_expire[1], 1);
  SHOW_FUNCTION(cfq_fifo_expire_async_show, cfqd->cfq_fifo_expire[0], 1);
@@ -216,7 +216,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  SHOW_FUNCTION(cfq_back_seek_max_show, cfqd->cfq_back_max, 0);
  SHOW_FUNCTION(cfq_back_seek_penalty_show, cfqd->cfq_back_penalty, 0);
  SHOW_FUNCTION(cfq_slice_idle_show, cfqd->cfq_slice_idle, 1);
-@@ -4008,6 +4097,8 @@ STORE_FUNCTION(cfq_fifo_expire_sync_stor
+@@ -4116,6 +4205,8 @@
  		UINT_MAX, 1);
  STORE_FUNCTION(cfq_fifo_expire_async_store, &cfqd->cfq_fifo_expire[0], 1,
  		UINT_MAX, 1);
@@ -225,7 +225,7 @@ Index: linux-2.6.32-131.6.1.el5/block/cfq-iosched.c
  STORE_FUNCTION(cfq_back_seek_max_store, &cfqd->cfq_back_max, 0, UINT_MAX, 0);
  STORE_FUNCTION(cfq_back_seek_penalty_store, &cfqd->cfq_back_penalty, 1,
  		UINT_MAX, 0);
-@@ -4028,6 +4119,8 @@ static struct elv_fs_entry cfq_attrs[] =
+@@ -4136,6 +4227,8 @@
  	CFQ_ATTR(quantum),
  	CFQ_ATTR(fifo_expire_sync),
  	CFQ_ATTR(fifo_expire_async),

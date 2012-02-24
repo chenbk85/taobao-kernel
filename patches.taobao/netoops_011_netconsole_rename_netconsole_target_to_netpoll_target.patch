@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
+Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/drivers/net/netconsole.c	2011-04-19 12:58:30.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c	2011-04-19 12:59:01.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:45.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:45.000000000 +0800
 @@ -83,7 +83,7 @@
  #define NETPOLL_CLEANING	3
  
@@ -533,9 +533,9 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
 -	struct netconsole_target *nt;
 +	struct netpoll_target *nt;
  	struct net_device *dev = ptr;
+ 	bool stopped = false;
  
- 	if (!(event == NETDEV_CHANGENAME || event == NETDEV_UNREGISTER ||
-@@ -801,7 +801,7 @@
+@@ -820,7 +820,7 @@
  {
  	int frag, left;
  	unsigned long flags;
@@ -544,7 +544,7 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  	const char *tmp;
  
  	/* Avoid taking lock and disabling interrupts unnecessarily */
-@@ -841,7 +841,7 @@
+@@ -860,7 +860,7 @@
  					   char *static_targets)
  {
  	int err;
@@ -553,7 +553,7 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  	char *target_config;
  	char *input = static_targets;
  	unsigned long flags;
-@@ -860,7 +860,7 @@
+@@ -879,7 +879,7 @@
  		}
  	}
  
@@ -562,7 +562,7 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  	err = register_netdevice_notifier(&nts->netdev_notifier);
  	if (err)
  		goto fail;
-@@ -889,7 +889,7 @@
+@@ -908,7 +908,7 @@
  
  static void __exit unregister_netpoll_targets(struct netpoll_targets *nts)
  {

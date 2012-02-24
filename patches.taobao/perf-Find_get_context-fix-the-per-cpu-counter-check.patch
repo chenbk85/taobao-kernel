@@ -29,10 +29,10 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  kernel/perf_event.c |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: linux-2.6.32-131.4.1.el6/kernel/perf_event.c
+Index: linux-2.6.32-131.4.1.el6/kernel/events/core.c
 ===================================================================
---- linux-2.6.32-131.4.1.el6.orig/kernel/perf_event.c
-+++ linux-2.6.32-131.4.1.el6/kernel/perf_event.c
+--- linux-2.6.32-131.4.1.el6.orig/kernel/events/core.c
++++ linux-2.6.32-131.4.1.el6/kernel/events/core.c
 @@ -2211,7 +2211,7 @@ find_get_context(struct pmu *pmu, struct
  	unsigned long flags;
  	int ctxn, err;

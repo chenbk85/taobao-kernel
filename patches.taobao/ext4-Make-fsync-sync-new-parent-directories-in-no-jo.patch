@@ -23,11 +23,11 @@ Acked-by: Tao Ma <boyu.mt@taobao.com>
  fs/ext4/namei.c |    2 ++
  3 files changed, 32 insertions(+), 2 deletions(-)
 
-Index: linux-2.6.32-131.12.1.el6/fs/ext4/ext4.h
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-131.12.1.el6.orig/fs/ext4/ext4.h
-+++ linux-2.6.32-131.12.1.el6/fs/ext4/ext4.h
-@@ -1151,6 +1151,7 @@ enum {
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/ext4.h	2011-12-13 13:40:04.004562453 +0800
++++ linux-2.6.32-220.0.0.el5/fs/ext4/ext4.h	2011-12-13 14:22:55.737314977 +0800
+@@ -1177,6 +1177,7 @@
  	EXT4_STATE_DA_ALLOC_CLOSE,	/* Alloc DA blks on close */
  	EXT4_STATE_EXT_MIGRATE,		/* Inode is migrating */
  	EXT4_STATE_DIO_UNWRITTEN,	/* need convert on dio done*/
@@ -35,10 +35,10 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/ext4.h
  };
  
  #define EXT4_INODE_BIT_FNS(name, field)					\
-Index: linux-2.6.32-131.12.1.el6/fs/ext4/fsync.c
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/fsync.c
 ===================================================================
---- linux-2.6.32-131.12.1.el6.orig/fs/ext4/fsync.c
-+++ linux-2.6.32-131.12.1.el6/fs/ext4/fsync.c
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/fsync.c	2011-12-13 13:40:04.016562513 +0800
++++ linux-2.6.32-220.0.0.el5/fs/ext4/fsync.c	2011-12-13 14:22:55.741315000 +0800
 @@ -35,6 +35,29 @@
  #include <trace/events/ext4.h>
  
@@ -69,7 +69,7 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/fsync.c
   * akpm: A new design for ext4_sync_file().
   *
   * This is only called from sys_fsync(), sys_fdatasync() and sys_msync().
-@@ -67,8 +90,12 @@ int ext4_sync_file(struct file *file, st
+@@ -67,8 +90,12 @@
  	if (ret < 0)
  		return ret;
  
@@ -84,11 +84,11 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/fsync.c
  
  	/*
  	 * data=writeback,ordered:
-Index: linux-2.6.32-131.12.1.el6/fs/ext4/namei.c
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/namei.c
 ===================================================================
---- linux-2.6.32-131.12.1.el6.orig/fs/ext4/namei.c
-+++ linux-2.6.32-131.12.1.el6/fs/ext4/namei.c
-@@ -1495,6 +1495,8 @@ static int ext4_add_entry(handle_t *hand
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/namei.c	2011-12-13 13:40:04.008562467 +0800
++++ linux-2.6.32-220.0.0.el5/fs/ext4/namei.c	2011-12-13 14:22:55.741315000 +0800
+@@ -1495,6 +1495,8 @@
  	de->rec_len = ext4_rec_len_to_disk(blocksize, blocksize);
  	retval = add_dirent_to_buf(handle, dentry, inode, de, bh);
  	brelse(bh);

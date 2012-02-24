@@ -32,11 +32,11 @@ Acked-by: Tao Ma <boyu.mt@taobao.com>
  fs/ext4/extents.c |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: linux-2.6.32-131.6.1.el5/fs/ext4/extents.c
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/extents.c
 ===================================================================
---- linux-2.6.32-131.6.1.el5.orig/fs/ext4/extents.c
-+++ linux-2.6.32-131.6.1.el5/fs/ext4/extents.c
-@@ -3800,7 +3800,7 @@ retry:
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/extents.c	2011-12-13 14:29:45.639347577 +0800
++++ linux-2.6.32-220.0.0.el5/fs/ext4/extents.c	2011-12-13 14:30:53.547684323 +0800
+@@ -3747,7 +3747,7 @@
  						blkbits) >> blkbits))
  			new_size = offset + len;
  		else

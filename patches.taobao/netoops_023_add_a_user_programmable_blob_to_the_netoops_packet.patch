@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-71.18.2.el6/drivers/net/netoops.c
+Index: linux-2.6.32-220.0.0.el5/drivers/net/netoops.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/drivers/net/netoops.c	2011-04-21 13:34:50.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/drivers/net/netoops.c	2011-04-21 13:41:13.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/drivers/net/netoops.c	2011-12-21 22:41:47.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/drivers/net/netoops.c	2011-12-21 22:41:47.000000000 +0800
 @@ -29,6 +29,7 @@
  #define NETOOPS_VERSION 0x0003
  #define NETOOPS_PORT 2004

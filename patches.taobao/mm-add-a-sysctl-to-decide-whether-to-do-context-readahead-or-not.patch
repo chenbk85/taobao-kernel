@@ -17,11 +17,11 @@ FALSE.
 Reviewed-by: Coly Li <bosong.ly@taobao.com>
 Signed-off-by: Sha Zhengju <handai.szj@taobao.com>
 ---
-Index: linux-2.6.32-131.21.1.el5/kernel/sysctl.c
+Index: linux-2.6.32-220.0.0.el5/kernel/sysctl.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/kernel/sysctl.c	2011-11-29 20:31:31.296077666 +0800
-+++ linux-2.6.32-131.21.1.el5/kernel/sysctl.c	2011-11-29 20:35:16.876077566 +0800
-@@ -97,6 +97,7 @@
+--- linux-2.6.32-220.0.0.el5.orig/kernel/sysctl.c	2011-12-13 14:45:32.436042491 +0800
++++ linux-2.6.32-220.0.0.el5/kernel/sysctl.c	2011-12-13 15:26:06.476112244 +0800
+@@ -96,6 +96,7 @@
  extern int sysctl_nr_trim_pages;
  #endif
  extern int kexec_load_disabled;
@@ -29,7 +29,7 @@ Index: linux-2.6.32-131.21.1.el5/kernel/sysctl.c
  
  int exec_shield = (1<<0);
  /* exec_shield is a bitmask:
-@@ -1576,6 +1577,15 @@
+@@ -1589,6 +1590,15 @@
  		.extra2		= &one,
  	},
  #endif
@@ -45,10 +45,10 @@ Index: linux-2.6.32-131.21.1.el5/kernel/sysctl.c
  
  /*
   * NOTE: do not add new entries to this table unless you have read
-Index: linux-2.6.32-131.21.1.el5/mm/readahead.c
+Index: linux-2.6.32-220.0.0.el5/mm/readahead.c
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/mm/readahead.c	2011-11-29 20:36:27.506077535 +0800
-+++ linux-2.6.32-131.21.1.el5/mm/readahead.c	2011-11-29 20:38:18.706077486 +0800
+--- linux-2.6.32-220.0.0.el5.orig/mm/readahead.c	2011-12-13 14:13:22.226471099 +0800
++++ linux-2.6.32-220.0.0.el5/mm/readahead.c	2011-12-13 15:26:06.476112244 +0800
 @@ -18,6 +18,9 @@
  #include <linux/pagemap.h>
  #include <trace/events/mm.h>
@@ -72,10 +72,10 @@ Index: linux-2.6.32-131.21.1.el5/mm/readahead.c
  
  	/*
  	 * standalone, small random read
-Index: linux-2.6.32-131.21.1.el5/include/linux/sysctl.h
+Index: linux-2.6.32-220.0.0.el5/include/linux/sysctl.h
 ===================================================================
---- linux-2.6.32-131.21.1.el5.orig/include/linux/sysctl.h	2011-11-29 20:39:36.286077452 +0800
-+++ linux-2.6.32-131.21.1.el5/include/linux/sysctl.h	2011-11-29 21:56:37.166075408 +0800
+--- linux-2.6.32-220.0.0.el5.orig/include/linux/sysctl.h	2011-12-13 14:45:32.428042455 +0800
++++ linux-2.6.32-220.0.0.el5/include/linux/sysctl.h	2011-12-13 15:26:06.476112244 +0800
 @@ -204,6 +204,7 @@
  	VM_PANIC_ON_OOM=33,	/* panic at out-of-memory */
  	VM_VDSO_ENABLED=34,	/* map VDSO into new processes? */
@@ -84,4 +84,3 @@ Index: linux-2.6.32-131.21.1.el5/include/linux/sysctl.h
  };
  
  
-

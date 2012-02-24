@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-71.18.2.el6/Documentation/sysrq.txt
+Index: linux-2.6.32-220.0.0.el5/Documentation/sysrq.txt
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/Documentation/sysrq.txt	2011-04-19 12:11:59.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/Documentation/sysrq.txt	2011-04-19 17:30:38.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/Documentation/sysrq.txt	2011-12-21 22:40:51.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/Documentation/sysrq.txt	2011-12-21 22:41:46.000000000 +0800
 @@ -116,6 +116,10 @@
  
  'x'	- Used by xmon interface on ppc/powerpc platforms.
@@ -21,10 +21,10 @@ Index: linux-2.6.32-71.18.2.el6/Documentation/sysrq.txt
  'z'	- Dump the ftrace buffer
  
  '0'-'9' - Sets the console log level, controlling which kernel messages
-Index: linux-2.6.32-71.18.2.el6/drivers/char/sysrq.c
+Index: linux-2.6.32-220.0.0.el5/drivers/char/sysrq.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/drivers/char/sysrq.c	2011-04-19 12:12:09.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/drivers/char/sysrq.c	2011-04-19 17:34:36.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/drivers/char/sysrq.c	2011-12-21 22:40:51.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/drivers/char/sysrq.c	2011-12-21 22:41:46.000000000 +0800
 @@ -38,6 +38,7 @@
  #include <linux/workqueue.h>
  #include <linux/hrtimer.h>

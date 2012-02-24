@@ -1092,9 +1092,11 @@ hwcap 0 nosegneg"
     # create the kABI metadata for use in packaging
     echo "**** GENERATING kernel ABI metadata ****"
     gzip -c9 < Module.symvers > $RPM_BUILD_ROOT/boot/symvers-$KernelVer.gz
+
     chmod 0755 %_sourcedir/kabitool
-    rm -f %{_tmppath}/kernel-$KernelVer-kabideps
-    %_sourcedir/kabitool -s Module.symvers -o %{_tmppath}/kernel-$KernelVer-kabideps
+    buildusername=`whoami`
+    rm -f %{_tmppath}/kernel-$KernelVer-$buildusername-kabideps
+    %_sourcedir/kabitool -s Module.symvers -o %{_tmppath}/kernel-$KernelVer-$buildusername-kabideps
 
 %if %{with_kabichk}
     echo "**** kABI checking is enabled in kernel SPEC file. ****"
