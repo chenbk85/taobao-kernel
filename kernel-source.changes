@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Fri Feb 24 13:16:35 CST 2012 - bosong.ly@taobao.com
+
+- delete patches which are merged by redhat already:
+  - patches.taobao/block-eliminate-potential-for-infinite-loop-in-blkde.patch:
+  - patches.taobao/block-fix-patch-import-error-in-max_discard_sectors-.patch:
+  - patches.taobao/ext4-Fix-possible-lost-inode-write-in-no-journal-mode.diff:
+  - patches.taobao/jbd2_Fix_forever_sleeping_process_in_do_get_write_access.patch:
+  - patches.taobao/jbd_Fix_forever_sleeping_process_in_do_get_write_access.patch:
+  - patches.taobao/kgdb-0001-repair-gdbstub-to-match-the-gdbserial-protocol-speci.patch:
+  - patches.taobao/mm-0005-compaction-ensure-that-the-compaction-free-scanne.patch:
+  - patches.taobao/perf-Find_get_context-fix-the-per-cpu-counter-check.patch:
+  - patches.taobao/perf-Validate-cpu-early-in-perf_event_alloc.patch:
+
+-------------------------------------------------------------------
 Fri Feb 24 12:55:51 CST 2012 - bosong.ly@taobao.com
 
 - Update to Redhat RHEL6.2 linux-2.6.32-220.2.1 kernel.
