@@ -14,11 +14,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  fs/ext4/super.c |    2 +-
  2 files changed, 4 insertions(+), 4 deletions(-)
 
-Index: linux-2.6.32-131.12.1.el6/fs/ext4/inode.c
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-131.12.1.el6.orig/fs/ext4/inode.c
-+++ linux-2.6.32-131.12.1.el6/fs/ext4/inode.c
-@@ -2342,7 +2342,7 @@ static int mpage_da_map_blocks(struct mp
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/inode.c	2011-12-13 14:15:21.439062252 +0800
++++ linux-2.6.32-220.0.0.el5/fs/ext4/inode.c	2011-12-13 14:18:15.955927627 +0800
+@@ -2342,7 +2342,7 @@
  		ext4_msg(mpd->inode->i_sb, KERN_CRIT,
  			 "delayed block allocation failed for inode %lu at "
  			 "logical offset %llu with max blocks %zd with "
@@ -27,7 +27,7 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/inode.c
  			 (unsigned long long) next,
  			 mpd->b_size >> mpd->inode->i_blkbits, err);
  		printk(KERN_CRIT "This should not happen!!  "
-@@ -3124,7 +3124,7 @@ retry:
+@@ -3124,7 +3124,7 @@
  		if (IS_ERR(handle)) {
  			ret = PTR_ERR(handle);
  			ext4_msg(inode->i_sb, KERN_CRIT, "%s: jbd2_start: "
@@ -36,7 +36,7 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/inode.c
  				wbc->nr_to_write, inode->i_ino, ret);
  			goto out_writepages;
  		}
-@@ -3198,7 +3198,7 @@ retry:
+@@ -3198,7 +3198,7 @@
  	if (pages_skipped != wbc->pages_skipped)
  		ext4_msg(inode->i_sb, KERN_CRIT,
  			 "This should not happen leaving %s "
@@ -45,11 +45,11 @@ Index: linux-2.6.32-131.12.1.el6/fs/ext4/inode.c
  			 __func__, wbc->nr_to_write, ret);
  
  	/* Update index */
-Index: linux-2.6.32-131.12.1.el6/fs/ext4/super.c
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-131.12.1.el6.orig/fs/ext4/super.c
-+++ linux-2.6.32-131.12.1.el6/fs/ext4/super.c
-@@ -2977,7 +2977,7 @@ no_journal:
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/super.c	2011-12-13 13:40:04.168563263 +0800
++++ linux-2.6.32-220.0.0.el5/fs/ext4/super.c	2011-12-13 14:18:15.955927627 +0800
+@@ -3401,7 +3401,7 @@
  	err = ext4_setup_system_zone(sb);
  	if (err) {
  		ext4_msg(sb, KERN_ERR, "failed to initialize system "

@@ -6,6 +6,8 @@
 
 #include <asm/hpet.h>
 
+struct pci_dev *mcp55_rewrite = NULL;
+
 #if defined(CONFIG_X86_IO_APIC) && defined(CONFIG_SMP) && defined(CONFIG_PCI)
 
 static void __devinit quirk_intel_irqbalance(struct pci_dev *dev)
@@ -45,8 +47,6 @@ static void __devinit quirk_intel_irqbalance(struct pci_dev *dev)
 	if (!(config & 0x2))
 		pci_write_config_byte(dev, 0xf4, config);
 }
-
-struct pci_dev *mcp55_rewrite = NULL;
 
 static void __devinit check_mcp55_legacy_irq_routing(struct pci_dev *dev)
 {
@@ -537,15 +537,10 @@ void force_hpet_resume(void)
 /*
  * HPET MSI on some boards (ATI SB700/SB800) has side effect on
  * floppy DMA. Disable HPET MSI on such platforms.
- *
- * Also force the read back of the CMP register in hpet_next_event()
- * to work around the problem that the CMP register write seems to be
- * delayed. See hpet_next_event() for details.
  */
 static void force_disable_hpet_msi(struct pci_dev *unused)
 {
 	hpet_msi_disable = 1;
-	hpet_readback_cmp = 1;
 }
 
 DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_SBX00_SMBUS,

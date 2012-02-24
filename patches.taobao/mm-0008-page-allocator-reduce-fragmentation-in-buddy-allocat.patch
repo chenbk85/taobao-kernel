@@ -229,11 +229,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  mm/page_alloc.c |   30 +++++++++++++++++++++++++-----
  1 files changed, 25 insertions(+), 5 deletions(-)
 
-Index: linux-2.6.32-131.6.1.el6/mm/page_alloc.c
+Index: linux-2.6.32-220.0.0.el5/mm/page_alloc.c
 ===================================================================
---- linux-2.6.32-131.6.1.el6.orig/mm/page_alloc.c
-+++ linux-2.6.32-131.6.1.el6/mm/page_alloc.c
-@@ -470,6 +470,8 @@ static inline void __free_one_page(struc
+--- linux-2.6.32-220.0.0.el5.orig/mm/page_alloc.c	2011-12-13 14:50:41.113573143 +0800
++++ linux-2.6.32-220.0.0.el5/mm/page_alloc.c	2011-12-13 14:54:08.242600243 +0800
+@@ -514,6 +514,8 @@
  		int migratetype)
  {
  	unsigned long page_idx;
@@ -242,7 +242,7 @@ Index: linux-2.6.32-131.6.1.el6/mm/page_alloc.c
  
  	if (unlikely(PageCompound(page)))
  		if (unlikely(destroy_compound_page(page, order)))
-@@ -483,9 +485,6 @@ static inline void __free_one_page(struc
+@@ -527,9 +529,6 @@
  	VM_BUG_ON(bad_range(zone, page));
  
  	while (order < MAX_ORDER-1) {
@@ -252,7 +252,7 @@ Index: linux-2.6.32-131.6.1.el6/mm/page_alloc.c
  		buddy = __page_find_buddy(page, page_idx, order);
  		if (!page_is_buddy(page, buddy, order))
  			break;
-@@ -500,8 +499,29 @@ static inline void __free_one_page(struc
+@@ -544,8 +543,29 @@
  		order++;
  	}
  	set_page_order(page, order);

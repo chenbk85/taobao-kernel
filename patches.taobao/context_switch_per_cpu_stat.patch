@@ -6,11 +6,11 @@ References:
 Acked-by: 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 
-Index: linux-2.6.32-131.2.1.el6/fs/proc/stat.c
+Index: linux-2.6.32-220.2.1.el5/fs/proc/stat.c
 ===================================================================
---- linux-2.6.32-131.2.1.el6.orig/fs/proc/stat.c
-+++ linux-2.6.32-131.2.1.el6/fs/proc/stat.c
-@@ -130,6 +130,10 @@ static int show_stat(struct seq_file *p,
+--- linux-2.6.32-220.2.1.el5.orig/fs/proc/stat.c	2012-02-24 11:59:22.026636549 +0800
++++ linux-2.6.32-220.2.1.el5/fs/proc/stat.c	2012-02-24 11:59:33.810694976 +0800
+@@ -122,6 +122,10 @@
  		seq_printf(p, " %u", per_softirq_sums[i]);
  	seq_printf(p, "\n");
  
@@ -21,11 +21,11 @@ Index: linux-2.6.32-131.2.1.el6/fs/proc/stat.c
  	return 0;
  }
  
-Index: linux-2.6.32-131.2.1.el6/include/linux/kernel_stat.h
+Index: linux-2.6.32-220.2.1.el5/include/linux/kernel_stat.h
 ===================================================================
---- linux-2.6.32-131.2.1.el6.orig/include/linux/kernel_stat.h
-+++ linux-2.6.32-131.2.1.el6/include/linux/kernel_stat.h
-@@ -42,6 +42,8 @@ DECLARE_PER_CPU(struct kernel_stat, ksta
+--- linux-2.6.32-220.2.1.el5.orig/include/linux/kernel_stat.h	2012-02-24 11:59:22.014636483 +0800
++++ linux-2.6.32-220.2.1.el5/include/linux/kernel_stat.h	2012-02-24 11:59:33.810694976 +0800
+@@ -43,6 +43,8 @@
  #define kstat_this_cpu	__get_cpu_var(kstat)
  
  extern unsigned long long nr_context_switches(void);
@@ -34,11 +34,11 @@ Index: linux-2.6.32-131.2.1.el6/include/linux/kernel_stat.h
  
  #ifndef CONFIG_GENERIC_HARDIRQS
  #define kstat_irqs_this_cpu(irq) \
-Index: linux-2.6.32-131.2.1.el6/kernel/sched.c
+Index: linux-2.6.32-220.2.1.el5/kernel/sched.c
 ===================================================================
---- linux-2.6.32-131.2.1.el6.orig/kernel/sched.c
-+++ linux-2.6.32-131.2.1.el6/kernel/sched.c
-@@ -2997,6 +2997,14 @@ unsigned long nr_uninterruptible(void)
+--- linux-2.6.32-220.2.1.el5.orig/kernel/sched.c	2012-02-24 11:59:22.018636503 +0800
++++ linux-2.6.32-220.2.1.el5/kernel/sched.c	2012-02-24 11:59:33.814695002 +0800
+@@ -3058,6 +3058,14 @@
  	return sum;
  }
  

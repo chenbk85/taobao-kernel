@@ -41,11 +41,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  mm/page_alloc.c |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: linux-2.6.32-131.6.1.el6/mm/page_alloc.c
+Index: linux-2.6.32-220.0.0.el5/mm/page_alloc.c
 ===================================================================
---- linux-2.6.32-131.6.1.el6.orig/mm/page_alloc.c
-+++ linux-2.6.32-131.6.1.el6/mm/page_alloc.c
-@@ -2003,6 +2003,7 @@ restart:
+--- linux-2.6.32-220.0.0.el5.orig/mm/page_alloc.c	2011-12-13 14:55:23.258972223 +0800
++++ linux-2.6.32-220.0.0.el5/mm/page_alloc.c	2011-12-13 14:58:36.607930986 +0800
+@@ -2092,6 +2092,7 @@
  	 */
  	alloc_flags = gfp_to_alloc_flags(gfp_mask);
  
@@ -53,7 +53,7 @@ Index: linux-2.6.32-131.6.1.el6/mm/page_alloc.c
  	/* This is the last chance, in general, before the goto nopage. */
  	page = get_page_from_freelist(gfp_mask, nodemask, order, zonelist,
  			high_zoneidx, alloc_flags & ~ALLOC_NO_WATERMARKS,
-@@ -2010,7 +2011,6 @@ restart:
+@@ -2099,7 +2100,6 @@
  	if (page)
  		goto got_pg;
  

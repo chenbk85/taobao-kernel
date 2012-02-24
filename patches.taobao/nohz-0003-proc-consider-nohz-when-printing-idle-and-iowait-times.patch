@@ -31,10 +31,10 @@ Link: http://lkml.kernel.org/r/39181366adac1b39cb6aa3cd53ff0f7c78d32676.13141720
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 
-Index: linux-2.6.32-131.17.1.el6/fs/proc/stat.c
+Index: linux-2.6.32-220.0.0.el5/fs/proc/stat.c
 ===================================================================
---- linux-2.6.32-131.17.1.el6.orig/fs/proc/stat.c
-+++ linux-2.6.32-131.17.1.el6/fs/proc/stat.c
+--- linux-2.6.32-220.0.0.el5.orig/fs/proc/stat.c	2011-12-13 14:48:22.768887136 +0800
++++ linux-2.6.32-220.0.0.el5/fs/proc/stat.c	2011-12-13 15:27:30.376528282 +0800
 @@ -11,6 +11,7 @@
  #include <linux/time.h>
  #include <linux/irqnr.h>
@@ -79,7 +79,7 @@ Index: linux-2.6.32-131.17.1.el6/fs/proc/stat.c
  static int show_stat(struct seq_file *p, void *v)
  {
  	int i, j;
-@@ -44,9 +74,8 @@ static int show_stat(struct seq_file *p,
+@@ -43,9 +73,8 @@
  		user = cputime64_add(user, kstat_cpu(i).cpustat.user);
  		nice = cputime64_add(nice, kstat_cpu(i).cpustat.nice);
  		system = cputime64_add(system, kstat_cpu(i).cpustat.system);
@@ -91,7 +91,7 @@ Index: linux-2.6.32-131.17.1.el6/fs/proc/stat.c
  		irq = cputime64_add(irq, kstat_cpu(i).cpustat.irq);
  		softirq = cputime64_add(softirq, kstat_cpu(i).cpustat.softirq);
  		steal = cputime64_add(steal, kstat_cpu(i).cpustat.steal);
-@@ -81,9 +110,8 @@ static int show_stat(struct seq_file *p,
+@@ -78,9 +107,8 @@
  		user = kstat_cpu(i).cpustat.user;
  		nice = kstat_cpu(i).cpustat.nice;
  		system = kstat_cpu(i).cpustat.system;
@@ -103,11 +103,11 @@ Index: linux-2.6.32-131.17.1.el6/fs/proc/stat.c
  		irq = kstat_cpu(i).cpustat.irq;
  		softirq = kstat_cpu(i).cpustat.softirq;
  		steal = kstat_cpu(i).cpustat.steal;
-Index: linux-2.6.32-131.17.1.el6/include/asm-generic/cputime.h
+Index: linux-2.6.32-220.0.0.el5/include/asm-generic/cputime.h
 ===================================================================
---- linux-2.6.32-131.17.1.el6.orig/include/asm-generic/cputime.h
-+++ linux-2.6.32-131.17.1.el6/include/asm-generic/cputime.h
-@@ -31,6 +31,15 @@ typedef u64 cputime64_t;
+--- linux-2.6.32-220.0.0.el5.orig/include/asm-generic/cputime.h	2011-12-13 13:40:02.492554953 +0800
++++ linux-2.6.32-220.0.0.el5/include/asm-generic/cputime.h	2011-12-13 15:27:30.376528282 +0800
+@@ -31,6 +31,15 @@
  #define jiffies64_to_cputime64(__jif)	(__jif)
  #define cputime_to_cputime64(__ct)	((u64) __ct)
  

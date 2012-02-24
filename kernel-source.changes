@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Feb 24 16:31:16 CST 2012 - bosong.ly@taobao.com
+
+- Update to RHEL6.2 2.6.32-220.2.1 kernel.
+
+-------------------------------------------------------------------
 Thu Feb 23 13:40:22 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:

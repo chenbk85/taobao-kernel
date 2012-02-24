@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-71.18.2.el6/drivers/net/netoops.c
+Index: linux-2.6.32-220.0.0.el5/drivers/net/netoops.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/drivers/net/netoops.c	2011-04-21 17:02:58.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/drivers/net/netoops.c	2011-04-22 17:57:32.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/drivers/net/netoops.c	2011-12-21 22:41:47.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/drivers/net/netoops.c	2011-12-21 22:41:47.000000000 +0800
 @@ -113,6 +113,7 @@
  static size_t netoops_user_blob_length;
  static char netoops_user_blob[NETOOPS_BLOB_BYTES];
@@ -75,10 +75,10 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netoops.c
  	NULL,
  };
  
-Index: linux-2.6.32-71.18.2.el6/include/linux/kmsg_dump.h
+Index: linux-2.6.32-220.0.0.el5/include/linux/kmsg_dump.h
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/include/linux/kmsg_dump.h	2011-04-21 17:02:53.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/include/linux/kmsg_dump.h	2011-04-22 16:45:54.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/include/linux/kmsg_dump.h	2011-12-21 22:41:46.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/include/linux/kmsg_dump.h	2011-12-21 22:41:47.000000000 +0800
 @@ -21,6 +21,7 @@
  	KMSG_DUMP_PANIC,
  	KMSG_DUMP_KEXEC,
@@ -87,20 +87,20 @@ Index: linux-2.6.32-71.18.2.el6/include/linux/kmsg_dump.h
  };
  
  /**
-Index: linux-2.6.32-71.18.2.el6/mm/oom_kill.c
+Index: linux-2.6.32-220.0.0.el5/mm/oom_kill.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/mm/oom_kill.c	2011-04-21 13:10:23.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/mm/oom_kill.c	2011-04-22 16:53:13.000000000 +0800
-@@ -27,6 +27,7 @@
- #include <linux/notifier.h>
+--- linux-2.6.32-220.0.0.el5.orig/mm/oom_kill.c	2011-12-21 22:40:49.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/mm/oom_kill.c	2011-12-21 22:41:47.000000000 +0800
+@@ -30,6 +30,7 @@
  #include <linux/memcontrol.h>
+ #include <linux/mempolicy.h>
  #include <linux/security.h>
 +#include <linux/kmsg_dump.h>
+ #include <linux/ptrace.h>
  
  int sysctl_panic_on_oom;
- int sysctl_oom_kill_allocating_task;
-@@ -649,4 +650,6 @@
- 	 */
+@@ -800,4 +801,6 @@
+ 	}
  	if (!test_thread_flag(TIF_MEMDIE))
  		schedule_timeout_uninterruptible(1);
 +

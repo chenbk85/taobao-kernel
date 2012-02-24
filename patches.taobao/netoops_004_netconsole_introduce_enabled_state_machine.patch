@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
+Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-71.18.2.el6.orig/drivers/net/netconsole.c	2011-04-19 12:14:50.000000000 +0800
-+++ linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c	2011-04-19 12:16:13.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
 @@ -70,16 +70,24 @@
  /* This needs to be a spinlock because write_msg() cannot sleep */
  static DEFINE_SPINLOCK(target_list_lock);
@@ -132,34 +132,28 @@ Index: linux-2.6.32-71.18.2.el6/drivers/net/netconsole.c
  		netpoll_cleanup(&nt->np);
  
  	config_item_put(&nt->item);
-@@ -679,23 +698,19 @@
- 	struct net_device *dev = ptr;
+@@ -680,16 +699,18 @@
+ 	bool stopped = false;
  
  	if (!(event == NETDEV_CHANGENAME || event == NETDEV_UNREGISTER ||
--	      event == NETDEV_BONDING_DESLAVE || event == NETDEV_GOING_DOWN))
+-	      event == NETDEV_RELEASE || event == NETDEV_JOIN))
++	      event == NETDEV_RELEASE || event == NETDEV_JOIN ||
 +	      event == NETDEV_BONDING_DESLAVE))
  		goto done;
  
  	spin_lock_irqsave(&target_list_lock, flags);
  	list_for_each_entry(nt, &target_list, list) {
 -		if (nt->np.dev == dev) {
-+		if (nt->np_state == NETPOLL_ENABLED && nt->np.dev == dev) {
++		if (nt->np.dev == dev && nt->np_state == NETPOLL_ENABLED) {
  			switch (event) {
  			case NETDEV_CHANGENAME:
  				strlcpy(nt->np.dev_name, dev->name, IFNAMSIZ);
  				break;
 +			case NETDEV_BONDING_DESLAVE:
+ 			case NETDEV_RELEASE:
+ 			case NETDEV_JOIN:
  			case NETDEV_UNREGISTER:
- 				netpoll_cleanup(&nt->np);
--				/* Fall through */
--			case NETDEV_GOING_DOWN:
--			case NETDEV_BONDING_DESLAVE:
--				nt->enabled = 0;
--				break;
- 			}
- 		}
- 	}
-@@ -726,7 +741,8 @@
+@@ -739,7 +760,8 @@
  
  	spin_lock_irqsave(&target_list_lock, flags);
  	list_for_each_entry(nt, &target_list, list) {

@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-71.24.1.el6/drivers/net/netconsole.c
+Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-71.24.1.el6.orig/drivers/net/netconsole.c	2011-04-25 16:55:08.000000000 +0800
-+++ linux-2.6.32-71.24.1.el6/drivers/net/netconsole.c	2011-04-25 16:58:34.000000000 +0800
+--- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
++++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
 @@ -105,6 +105,7 @@
  #endif
  	int			np_state;
@@ -122,9 +122,9 @@ Index: linux-2.6.32-71.24.1.el6/drivers/net/netconsole.c
  /* Handle network interface device notifications */
  static int netconsole_netdev_event(struct notifier_block *this,
  				   unsigned long event,
-@@ -710,7 +757,11 @@
- 				break;
- 			case NETDEV_BONDING_DESLAVE:
+@@ -714,7 +761,11 @@
+ 			case NETDEV_RELEASE:
+ 			case NETDEV_JOIN:
  			case NETDEV_UNREGISTER:
 -				netpoll_cleanup(&nt->np);
 +				/*
@@ -132,6 +132,6 @@ Index: linux-2.6.32-71.24.1.el6/drivers/net/netconsole.c
 +				 * Kick it off as deferred work.
 +				 */
 +				defer_netpoll_cleanup(nt);
- 			}
- 		}
- 	}
+ 				/* Fall through */
+ 				nt->enabled = 0;
+ 				stopped = true;
