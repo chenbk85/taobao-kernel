@@ -9,11 +9,11 @@ bigalloc changes easier to read/understand.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 7d85820..0f47117 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -254,7 +254,7 @@ struct ext4_group_desc
+Index: linux-2.6.32-220.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-220.2.1.el5.orig/fs/ext4/ext4.h	2012-02-24 11:56:58.025922482 +0800
++++ linux-2.6.32-220.2.1.el5/fs/ext4/ext4.h	2012-02-24 11:57:06.201962976 +0800
+@@ -254,7 +254,7 @@
  
  struct flex_groups {
  	atomic_t free_inodes;
@@ -22,11 +22,11 @@ index 7d85820..0f47117 100644
  	atomic_t used_dirs;
  };
  
-diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
-index b1cd765..fd5d9cf 100644
---- a/fs/ext4/ialloc.c
-+++ b/fs/ext4/ialloc.c
-@@ -352,7 +352,7 @@ static int find_group_flex(struct super_block *sb, struct inode *parent,
+Index: linux-2.6.32-220.2.1.el5/fs/ext4/ialloc.c
+===================================================================
+--- linux-2.6.32-220.2.1.el5.orig/fs/ext4/ialloc.c	2012-02-24 11:56:58.025922482 +0800
++++ linux-2.6.32-220.2.1.el5/fs/ext4/ialloc.c	2012-02-24 11:57:06.201962976 +0800
+@@ -352,7 +352,7 @@
  	int flex_size = ext4_flex_bg_size(sbi);
  	ext4_group_t best_flex = parent_fbg_group;
  	int blocks_per_flex = sbi->s_blocks_per_group * flex_size;
@@ -35,7 +35,7 @@ index b1cd765..fd5d9cf 100644
  	int flex_freeb_ratio;
  	ext4_group_t n_fbg_groups;
  	ext4_group_t i;
-@@ -361,8 +361,9 @@ static int find_group_flex(struct super_block *sb, struct inode *parent,
+@@ -361,8 +361,9 @@
  		sbi->s_log_groups_per_flex;
  
  find_close_to_parent:
@@ -47,7 +47,7 @@ index b1cd765..fd5d9cf 100644
  	if (atomic_read(&flex_group[best_flex].free_inodes) &&
  	    flex_freeb_ratio > free_block_ratio)
  		goto found_flexbg;
-@@ -376,8 +377,9 @@ find_close_to_parent:
+@@ -376,8 +377,9 @@
  		if (i == parent_fbg_group || i == parent_fbg_group - 1)
  			continue;
  
@@ -59,7 +59,7 @@ index b1cd765..fd5d9cf 100644
  
  		if (flex_freeb_ratio > free_block_ratio &&
  		    (atomic_read(&flex_group[i].free_inodes))) {
-@@ -386,14 +388,14 @@ find_close_to_parent:
+@@ -386,14 +388,14 @@
  		}
  
  		if ((atomic_read(&flex_group[best_flex].free_inodes) == 0) ||
@@ -77,7 +77,7 @@ index b1cd765..fd5d9cf 100644
  		return -1;
  
  found_flexbg:
-@@ -413,7 +415,7 @@ out:
+@@ -413,7 +415,7 @@
  
  struct orlov_stats {
  	__u32 free_inodes;
@@ -86,7 +86,7 @@ index b1cd765..fd5d9cf 100644
  	__u32 used_dirs;
  };
  
-@@ -430,7 +432,7 @@ void get_orlov_stats(struct super_block *sb, ext4_group_t g,
+@@ -430,7 +432,7 @@
  
  	if (flex_size > 1) {
  		stats->free_inodes = atomic_read(&flex_group[g].free_inodes);
@@ -95,7 +95,7 @@ index b1cd765..fd5d9cf 100644
  		stats->used_dirs = atomic_read(&flex_group[g].used_dirs);
  		return;
  	}
-@@ -438,11 +440,11 @@ void get_orlov_stats(struct super_block *sb, ext4_group_t g,
+@@ -438,11 +440,11 @@
  	desc = ext4_get_group_desc(sb, g, NULL);
  	if (desc) {
  		stats->free_inodes = ext4_free_inodes_count(sb, desc);
@@ -109,7 +109,7 @@ index b1cd765..fd5d9cf 100644
  		stats->used_dirs = 0;
  	}
  }
-@@ -477,10 +479,10 @@ static int find_group_orlov(struct super_block *sb, struct inode *parent,
+@@ -477,10 +479,10 @@
  	ext4_group_t real_ngroups = ext4_get_groups_count(sb);
  	int inodes_per_group = EXT4_INODES_PER_GROUP(sb);
  	unsigned int freei, avefreei;
@@ -122,7 +122,7 @@ index b1cd765..fd5d9cf 100644
  	ext4_group_t i, grp, g, ngroups;
  	struct ext4_group_desc *desc;
  	struct orlov_stats stats;
-@@ -498,8 +500,8 @@ static int find_group_orlov(struct super_block *sb, struct inode *parent,
+@@ -498,8 +500,8 @@
  	avefreei = freei / ngroups;
  	freeb = EXT4_C2B(sbi,
  		percpu_counter_read_positive(&sbi->s_freeclusters_counter));
@@ -133,7 +133,7 @@ index b1cd765..fd5d9cf 100644
  	ndirs = percpu_counter_read_positive(&sbi->s_dirs_counter);
  
  	if (S_ISDIR(mode) &&
-@@ -525,7 +527,7 @@ static int find_group_orlov(struct super_block *sb, struct inode *parent,
+@@ -525,7 +527,7 @@
  				continue;
  			if (stats.free_inodes < avefreei)
  				continue;
@@ -142,7 +142,7 @@ index b1cd765..fd5d9cf 100644
  				continue;
  			grp = g;
  			ret = 0;
-@@ -563,7 +565,7 @@ static int find_group_orlov(struct super_block *sb, struct inode *parent,
+@@ -563,7 +565,7 @@
  	min_inodes = avefreei - inodes_per_group*flex_size / 4;
  	if (min_inodes < 1)
  		min_inodes = 1;
@@ -151,7 +151,7 @@ index b1cd765..fd5d9cf 100644
  
  	/*
  	 * Start looking in the flex group where we last allocated an
-@@ -582,7 +584,7 @@ static int find_group_orlov(struct super_block *sb, struct inode *parent,
+@@ -582,7 +584,7 @@
  			continue;
  		if (stats.free_inodes < min_inodes)
  			continue;
@@ -160,11 +160,11 @@ index b1cd765..fd5d9cf 100644
  			continue;
  		goto found_flex_bg;
  	}
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index 604a087..a1ab980 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
-@@ -2830,7 +2830,7 @@ ext4_mb_mark_diskspace_used(struct ext4_allocation_context *ac,
+Index: linux-2.6.32-220.2.1.el5/fs/ext4/mballoc.c
+===================================================================
+--- linux-2.6.32-220.2.1.el5.orig/fs/ext4/mballoc.c	2012-02-24 11:56:58.029922501 +0800
++++ linux-2.6.32-220.2.1.el5/fs/ext4/mballoc.c	2012-02-24 11:57:06.201962976 +0800
+@@ -2830,7 +2830,7 @@
  		ext4_group_t flex_group = ext4_flex_group(sbi,
  							  ac->ac_b_ex.fe_group);
  		atomic_sub(ac->ac_b_ex.fe_len,
@@ -173,7 +173,7 @@ index 604a087..a1ab980 100644
  	}
  
  	err = ext4_handle_dirty_metadata(handle, NULL, bitmap_bh);
-@@ -4683,7 +4683,8 @@ do_more:
+@@ -4683,7 +4683,8 @@
  
  	if (sbi->s_log_groups_per_flex) {
  		ext4_group_t flex_group = ext4_flex_group(sbi, block_group);
@@ -183,7 +183,7 @@ index 604a087..a1ab980 100644
  	}
  
  	ext4_mb_release_desc(&e4b);
-@@ -4822,7 +4823,7 @@ void ext4_add_groupblocks(handle_t *handle, struct super_block *sb,
+@@ -4822,7 +4823,7 @@
  	if (sbi->s_log_groups_per_flex) {
  		ext4_group_t flex_group = ext4_flex_group(sbi, block_group);
  		atomic_add(blocks_freed,
@@ -192,11 +192,11 @@ index 604a087..a1ab980 100644
  	}
  
  	ext4_mb_release_desc(&e4b);
-diff --git a/fs/ext4/resize.c b/fs/ext4/resize.c
-index 6513c7a..b62c53b 100644
---- a/fs/ext4/resize.c
-+++ b/fs/ext4/resize.c
-@@ -900,8 +900,8 @@ int ext4_group_add(struct super_block *sb, struct ext4_new_group_data *input)
+Index: linux-2.6.32-220.2.1.el5/fs/ext4/resize.c
+===================================================================
+--- linux-2.6.32-220.2.1.el5.orig/fs/ext4/resize.c	2012-02-24 11:56:58.029922501 +0800
++++ linux-2.6.32-220.2.1.el5/fs/ext4/resize.c	2012-02-24 11:57:06.201962976 +0800
+@@ -900,8 +900,8 @@
  	    sbi->s_log_groups_per_flex) {
  		ext4_group_t flex_group;
  		flex_group = ext4_flex_group(sbi, input->group);
@@ -207,11 +207,11 @@ index 6513c7a..b62c53b 100644
  		atomic_add(EXT4_INODES_PER_GROUP(sb),
  			   &sbi->s_flex_groups[flex_group].free_inodes);
  	}
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 9d9f174..4c27d7b 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -1870,7 +1870,7 @@ static int ext4_fill_flex_info(struct super_block *sb)
+Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
+===================================================================
+--- linux-2.6.32-220.2.1.el5.orig/fs/ext4/super.c	2012-02-24 11:56:58.029922501 +0800
++++ linux-2.6.32-220.2.1.el5/fs/ext4/super.c	2012-02-24 11:57:06.205963056 +0800
+@@ -1872,7 +1872,7 @@
  		atomic_add(ext4_free_inodes_count(sb, gdp),
  			   &sbi->s_flex_groups[flex_group].free_inodes);
  		atomic_add(ext4_free_blks_count(sb, gdp),

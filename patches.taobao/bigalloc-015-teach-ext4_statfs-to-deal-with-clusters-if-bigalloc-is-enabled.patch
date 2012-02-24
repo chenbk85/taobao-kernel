@@ -6,11 +6,11 @@ Subject: [PATCH 15/26] ext4: teach ext4_statfs() to deal with clusters if bigall
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 4c27d7b..6f3044f 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -4276,15 +4276,33 @@ restore_opts:
+Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
+===================================================================
+--- linux-2.6.32-220.2.1.el5.orig/fs/ext4/super.c	2012-02-24 11:57:06.205963056 +0800
++++ linux-2.6.32-220.2.1.el5/fs/ext4/super.c	2012-02-24 11:57:10.853986081 +0800
+@@ -4279,15 +4279,33 @@
  	return err;
  }
  
@@ -44,7 +44,7 @@ index 4c27d7b..6f3044f 100644
  	} else if (sbi->s_blocks_last != ext4_blocks_count(es)) {
  		ext4_group_t i, ngroups = ext4_get_groups_count(sb);
  		ext4_fsblk_t overhead = 0;
-@@ -4299,24 +4317,16 @@ static int ext4_statfs(struct dentry *dentry, struct kstatfs *buf)
+@@ -4302,24 +4320,16 @@
  		 * All of the blocks before first_data_block are
  		 * overhead
  		 */
@@ -73,7 +73,7 @@ index 4c27d7b..6f3044f 100644
  		sbi->s_overhead_last = overhead;
  		smp_wmb();
  		sbi->s_blocks_last = ext4_blocks_count(es);
-@@ -4324,7 +4334,8 @@ static int ext4_statfs(struct dentry *dentry, struct kstatfs *buf)
+@@ -4327,7 +4337,8 @@
  
  	buf->f_type = EXT4_SUPER_MAGIC;
  	buf->f_bsize = sb->s_blocksize;

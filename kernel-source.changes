@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Fri Feb 24 12:32:58 CST 2012 - bosong.ly@taobao.com
+
+- Two patches for writeback performance improvement:
+  - patches.taobao/writeback-improve-001-stop-on-wrap-linux_mm_page-writeback.patch:
+    writeback: quit on wrap for .range_cyclic (write_cache_pages).
+  - patches.taobao/writeback-improve-002-relax-busy-overwrites.patch:
+    writeback: delay periodic work on wrap.
+- rebase patches to remove offset warning,
+  - patches.taobao/0005-ext4-Add-normal-write-support-for-inline-data.patch: Refresh.
+  - patches.taobao/bigalloc-002-ext4-read-only-support-for-bigalloc-file-systems.patch: Refresh.
+  - patches.taobao/bigalloc-003-enforce-bigalloc-restrictions-e.g.-no-online.patch: Refresh.
+  - patches.taobao/bigalloc-013-convert-s_-dirty-free-blocks_counter-to-s_-dirty-free-clusters_counter.patch: Refresh.
+  - patches.taobao/bigalloc-014-convert-the-free_blocks-field-in-s_flex_groups-to-be-free_clusters.patch: Refresh.
+  - patches.taobao/bigalloc-015-teach-ext4_statfs-to-deal-with-clusters-if-bigalloc-is-enabled.patch: Refresh.
+  - patches.taobao/bigalloc-017-Fix-bigalloc-quota-accounting-and-i_blocks-value.patch: Refresh.
+  - patches.taobao/bigalloc-019-Rename-ext4_free_blks_-count-set-to-refer-to-clusters.patch: Refresh.
+  - patches.taobao/bigalloc-020-rename-ext4_count_free_blocks-to-ext4_count_free_clusters.patch: Refresh.
+  - patches.taobao/context_switch_per_cpu_stat.patch: Refresh.
+  - patches.taobao/ext4-dont-warn-about-mnt_count-if-it-has-been-disabled.patch: Refresh.
+  - patches.taobao/ext4-io-error-guard-add-netoops-support.patch: Refresh.
+  - patches.taobao/list-remove-prefetching-from-regular-list-iterators.patch: Refresh.
+
+-------------------------------------------------------------------
 Thu Feb 23 13:18:03 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:

@@ -11,11 +11,11 @@ that case.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 137ad2e..87294d1 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -1792,7 +1792,7 @@ static int ext4_setup_super(struct super_block *sb, struct ext4_super_block *es,
+Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
+===================================================================
+--- linux-2.6.32-220.2.1.el5.orig/fs/ext4/super.c	2012-02-24 11:57:24.502053771 +0800
++++ linux-2.6.32-220.2.1.el5/fs/ext4/super.c	2012-02-24 11:57:57.738218589 +0800
+@@ -1794,7 +1794,7 @@
  		ext4_msg(sb, KERN_WARNING,
  			 "warning: mounting fs with errors, "
  			 "running e2fsck is recommended");

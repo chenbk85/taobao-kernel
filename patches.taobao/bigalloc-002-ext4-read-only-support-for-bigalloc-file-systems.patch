@@ -11,11 +11,11 @@ group is too big.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index d1fffbe..272e7aa 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -193,8 +193,11 @@ typedef struct ext4_io_end {
+Index: linux-2.6.32-220.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-220.2.1.el5.orig/fs/ext4/ext4.h	2012-02-24 11:56:25.341760399 +0800
++++ linux-2.6.32-220.2.1.el5/fs/ext4/ext4.h	2012-02-24 11:56:26.081764046 +0800
+@@ -193,8 +193,11 @@
  # define EXT4_BLOCK_SIZE(s)		(EXT4_MIN_BLOCK_SIZE << (s)->s_log_block_size)
  #endif
  #define	EXT4_ADDR_PER_BLOCK(s)		(EXT4_BLOCK_SIZE(s) / sizeof(__u32))
@@ -27,7 +27,7 @@ index d1fffbe..272e7aa 100644
  #else
  # define EXT4_BLOCK_SIZE_BITS(s)	((s)->s_log_block_size + 10)
  #endif
-@@ -260,6 +263,7 @@ struct flex_groups {
+@@ -260,6 +263,7 @@
  #define EXT4_DESC_SIZE(s)		(EXT4_SB(s)->s_desc_size)
  #ifdef __KERNEL__
  # define EXT4_BLOCKS_PER_GROUP(s)	(EXT4_SB(s)->s_blocks_per_group)
@@ -35,7 +35,7 @@ index d1fffbe..272e7aa 100644
  # define EXT4_DESC_PER_BLOCK(s)		(EXT4_SB(s)->s_desc_per_block)
  # define EXT4_INODES_PER_GROUP(s)	(EXT4_SB(s)->s_inodes_per_group)
  # define EXT4_DESC_PER_BLOCK_BITS(s)	(EXT4_SB(s)->s_desc_per_block_bits)
-@@ -905,9 +909,9 @@ struct ext4_super_block {
+@@ -905,9 +909,9 @@
  /*10*/	__le32	s_free_inodes_count;	/* Free inodes count */
  	__le32	s_first_data_block;	/* First Data Block */
  	__le32	s_log_block_size;	/* Block size */
@@ -47,7 +47,7 @@ index d1fffbe..272e7aa 100644
  	__le32	s_inodes_per_group;	/* # Inodes per group */
  	__le32	s_mtime;		/* Mount time */
  /*30*/	__le32	s_wtime;		/* Write time */
-@@ -1003,7 +1007,10 @@ struct ext4_super_block {
+@@ -1003,7 +1007,10 @@
  	__u8	s_last_error_func[32];	/* function where the error happened */
  #define EXT4_S_ERR_END offsetof(struct ext4_super_block, s_mount_opts)
  	__u8	s_mount_opts[64];
@@ -59,7 +59,7 @@ index d1fffbe..272e7aa 100644
  };
  
  #ifdef __KERNEL__
-@@ -1021,6 +1028,7 @@ struct ext4_sb_info {
+@@ -1021,6 +1028,7 @@
  	unsigned long s_desc_size;	/* Size of a group descriptor in bytes */
  	unsigned long s_inodes_per_block;/* Number of inodes per block */
  	unsigned long s_blocks_per_group;/* Number of blocks in a group */
@@ -67,7 +67,7 @@ index d1fffbe..272e7aa 100644
  	unsigned long s_inodes_per_group;/* Number of inodes in a group */
  	unsigned long s_itb_per_group;	/* Number of inode table blocks per group */
  	unsigned long s_gdb_count;	/* Number of group descriptor blocks */
-@@ -1029,6 +1037,8 @@ struct ext4_sb_info {
+@@ -1029,6 +1037,8 @@
  	ext4_group_t s_blockfile_groups;/* Groups acceptable for non-extent files */
  	unsigned long s_overhead_last;  /* Last calculated overhead */
  	unsigned long s_blocks_last;    /* Last seen block count */
@@ -76,7 +76,7 @@ index d1fffbe..272e7aa 100644
  	loff_t s_bitmap_maxbytes;	/* max bytes for bitmap files */
  	struct buffer_head * s_sbh;	/* Buffer containing the super block */
  	struct ext4_super_block *s_es;	/* Pointer to the super block in the buffer */
-@@ -1273,6 +1283,9 @@ EXT4_INODE_BIT_FNS(state, state_flags)
+@@ -1273,6 +1283,9 @@
  #define EXT4_FEATURE_RO_COMPAT_GDT_CSUM		0x0010
  #define EXT4_FEATURE_RO_COMPAT_DIR_NLINK	0x0020
  #define EXT4_FEATURE_RO_COMPAT_EXTRA_ISIZE	0x0040
@@ -86,11 +86,11 @@ index d1fffbe..272e7aa 100644
  
  #define EXT4_FEATURE_INCOMPAT_COMPRESSION	0x0001
  #define EXT4_FEATURE_INCOMPAT_FILETYPE		0x0002
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 5b521f7..2815b48 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -1784,7 +1784,7 @@ static int ext4_setup_super(struct super_block *sb, struct ext4_super_block *es,
+Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
+===================================================================
+--- linux-2.6.32-220.2.1.el5.orig/fs/ext4/super.c	2012-02-24 11:52:45.880672162 +0800
++++ linux-2.6.32-220.2.1.el5/fs/ext4/super.c	2012-02-24 11:56:26.085764043 +0800
+@@ -1786,7 +1786,7 @@
  		res = MS_RDONLY;
  	}
  	if (read_only)
@@ -99,7 +99,7 @@ index 5b521f7..2815b48 100644
  	if (!(sbi->s_mount_state & EXT4_VALID_FS))
  		ext4_msg(sb, KERN_WARNING, "warning: mounting unchecked fs, "
  			 "running e2fsck is recommended");
-@@ -1815,6 +1815,7 @@ static int ext4_setup_super(struct super_block *sb, struct ext4_super_block *es,
+@@ -1817,6 +1817,7 @@
  		EXT4_SET_INCOMPAT_FEATURE(sb, EXT4_FEATURE_INCOMPAT_RECOVER);
  
  	ext4_commit_super(sb, 1);
@@ -107,7 +107,7 @@ index 5b521f7..2815b48 100644
  	if (test_opt(sb, DEBUG))
  		printk(KERN_INFO "[EXT4 FS bs=%lu, gc=%u, "
  				"bpg=%lu, ipg=%lu, mo=%04x]\n",
-@@ -2885,10 +2886,10 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -2887,10 +2888,10 @@
  	char *cp;
  	const char *descr;
  	int ret = -EINVAL;
@@ -120,7 +120,7 @@ index 5b521f7..2815b48 100644
  	__u64 blocks_count;
  	int err;
  	unsigned int journal_ioprio = DEFAULT_JOURNAL_IOPRIO;
-@@ -3141,12 +3142,53 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -3143,12 +3144,53 @@
  		sb->s_dirt = 1;
  	}
  
