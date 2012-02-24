@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Fri Feb 24 19:06:10 CST 2012 - bosong.ly@taobao.com
+
+- Update to RHEL6.2 linux-2.6.32-220.4.2 kernel
+  - Update config files.
+  - redhat-kernel-source/kabitool:
+  - redhat-kernel-source/kernel.spec:
+  - redhat-kernel-source/linux-2.6.32/Documentation/kernel-parameters.txt:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/include/asm/timer.h:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/module.c:
+  - redhat-kernel-source/linux-2.6.32/arch/x86/kernel/tsc.c:
+  - redhat-kernel-source/linux-2.6.32/fs/proc/base.c:
+  - redhat-kernel-source/linux-2.6.32/kabitool:
+  - redhat-kernel-source/linux-2.6.32/kernel/sched.c:
+  - redhat-kernel-version:
+
+-------------------------------------------------------------------
 Fri Feb 24 16:31:16 CST 2012 - bosong.ly@taobao.com
 
 - Update to RHEL6.2 2.6.32-220.2.1 kernel.
