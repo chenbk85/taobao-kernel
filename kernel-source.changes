@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Feb 27 16:11:09 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/context_switch_per_cpu_stat.patch: Refresh.
+- patches.taobao/tlock.patch: Refresh.
+- enable patches.taobao/fix-type-of-cputime_to_usecs-in-asm-generic-cputime.h.patch
+
+-------------------------------------------------------------------
 Mon Feb 27 15:45:25 CST 2012 - bosong.ly@taobao.com
 
 - Update config files: modify ACPI_APET_GHES from m to y in -debug.config
