@@ -12,10 +12,10 @@ Currently TOA only supports IPv4.
 Signed-off-by: Pu Kong <pukong.wjm@taobao.com>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: linux-2.6.32-220.2.1.el5/net/Kconfig
+Index: linux-2.6.32-220.4.2.el5/net/Kconfig
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/net/Kconfig	2012-02-21 18:16:56.783015446 +0800
-+++ linux-2.6.32-220.2.1.el5/net/Kconfig	2012-02-21 18:56:29.270779985 +0800
+--- linux-2.6.32-220.4.2.el5.orig/net/Kconfig	2012-02-28 18:00:49.411782850 +0800
++++ linux-2.6.32-220.4.2.el5/net/Kconfig	2012-02-28 18:00:59.335832067 +0800
 @@ -49,6 +49,7 @@
  source "net/unix/Kconfig"
  source "net/xfrm/Kconfig"
@@ -32,10 +32,10 @@ Index: linux-2.6.32-220.2.1.el5/net/Kconfig
  endif
  
  source "net/dccp/Kconfig"
-Index: linux-2.6.32-220.2.1.el5/net/toa/Kconfig
+Index: linux-2.6.32-220.4.2.el5/net/toa/Kconfig
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/net/toa/Kconfig	2012-02-21 18:56:29.270779985 +0800
++++ linux-2.6.32-220.4.2.el5/net/toa/Kconfig	2012-02-28 18:00:59.335832067 +0800
 @@ -0,0 +1,7 @@
 +config	TOA
 +	tristate "Tcp Option for Address"
@@ -44,20 +44,20 @@ Index: linux-2.6.32-220.2.1.el5/net/toa/Kconfig
 +	  A new Tcp option for address (ip + port)
 +
 +	  Say N if unsure.
-Index: linux-2.6.32-220.2.1.el5/net/toa/Makefile
+Index: linux-2.6.32-220.4.2.el5/net/toa/Makefile
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/net/toa/Makefile	2012-02-21 18:56:29.270779985 +0800
++++ linux-2.6.32-220.4.2.el5/net/toa/Makefile	2012-02-28 18:00:59.347832119 +0800
 @@ -0,0 +1,4 @@
 +#
 +# Makefile for TOA module.
 +#
 +obj-$(CONFIG_TOA) += toa.o
-Index: linux-2.6.32-220.2.1.el5/net/toa/toa.c
+Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/net/toa/toa.c	2012-02-21 18:56:29.270779985 +0800
-@@ -0,0 +1,442 @@
++++ linux-2.6.32-220.4.2.el5/net/toa/toa.c	2012-02-28 18:39:19.907239955 +0800
+@@ -0,0 +1,441 @@
 +#include "toa.h"
 +
 +/*
@@ -81,8 +81,7 @@ Index: linux-2.6.32-220.2.1.el5/net/toa/toa.c
 +	TOA_STAT_END
 +};
 +
-+DEFINE_TOA_STAT(struct toa_stat_mib, ext_stats);
-+
++struct toa_stat_mib *ext_stats;
 +/*
 + * Funcs for toa hooks
 + */
@@ -293,7 +292,7 @@ Index: linux-2.6.32-220.2.1.el5/net/toa/toa.c
 +	/* set our value if need */
 +	if (NULL != newsock && NULL == newsock->sk_user_data) {
 +		newsock->sk_user_data = get_toa_data(skb);
-+		if (NULL != newsock->sk_user_data) {
++		if (NULL != newsock->sk_user_data)
 +			TOA_INC_STATS(ext_stats, SYN_RECV_SOCK_TOA_CNT);
 +		else
 +			TOA_INC_STATS(ext_stats, SYN_RECV_SOCK_NO_TOA_CNT);
@@ -319,7 +318,7 @@ Index: linux-2.6.32-220.2.1.el5/net/toa/toa.c
 +#ifdef CONFIG_IP_VS_IPV6
 +	/* hook inet6_getname for ipv6 */
 +	struct proto_ops *inet6_stream_ops_p =
-+			struct proto_ops *)&inet6_stream_ops;
++			(struct proto_ops *)&inet6_stream_ops;
 +	/* hook tcp_v6_syn_recv_sock for ipv6 */
 +	struct inet_connection_sock_af_ops *ipv6_specific_p =
 +			(struct inet_connection_sock_af_ops *)&ipv6_specific;
@@ -500,11 +499,11 @@ Index: linux-2.6.32-220.2.1.el5/net/toa/toa.c
 +module_init(toa_init);
 +module_exit(toa_exit);
 +MODULE_LICENSE("GPL");
-Index: linux-2.6.32-220.2.1.el5/net/toa/toa.h
+Index: linux-2.6.32-220.4.2.el5/net/toa/toa.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/net/toa/toa.h	2012-02-21 18:56:29.274780013 +0800
-@@ -0,0 +1,84 @@
++++ linux-2.6.32-220.4.2.el5/net/toa/toa.h	2012-02-28 18:38:36.203022742 +0800
+@@ -0,0 +1,82 @@
 +#ifndef __NET__TOA_H__
 +#define __NET__TOA_H__
 +
@@ -583,16 +582,14 @@ Index: linux-2.6.32-220.2.1.el5/net/toa/toa.h
 +	unsigned long mibs[TOA_STAT_LAST];
 +};
 +
-+#define DEFINE_TOA_STAT(type, name)       \
-+	(__typeof__(type) *name)
 +#define TOA_INC_STATS(mib, field)         \
 +	(per_cpu_ptr(mib, smp_processor_id())->mibs[field]++)
 +
 +#endif
-Index: linux-2.6.32-220.2.1.el5/include/net/ipv6.h
+Index: linux-2.6.32-220.4.2.el5/include/net/ipv6.h
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/include/net/ipv6.h	2012-02-21 18:56:29.254779903 +0800
-+++ linux-2.6.32-220.2.1.el5/include/net/ipv6.h	2012-02-21 18:56:29.274780013 +0800
+--- linux-2.6.32-220.4.2.el5.orig/include/net/ipv6.h	2012-02-28 18:00:59.319831987 +0800
++++ linux-2.6.32-220.4.2.el5/include/net/ipv6.h	2012-02-28 18:00:59.355832152 +0800
 @@ -598,7 +598,7 @@
  /*
   * reassembly.c
@@ -602,3 +599,12 @@ Index: linux-2.6.32-220.2.1.el5/include/net/ipv6.h
  extern const struct proto_ops inet6_dgram_ops;
  
  struct group_source_req;
+Index: linux-2.6.32-220.4.2.el5/net/Makefile
+===================================================================
+--- linux-2.6.32-220.4.2.el5.orig/net/Makefile	2012-02-28 18:00:49.231781954 +0800
++++ linux-2.6.32-220.4.2.el5/net/Makefile	2012-02-28 18:03:34.864603203 +0800
+@@ -65,3 +65,4 @@
+ obj-$(CONFIG_SYSCTL)		+= sysctl_net.o
+ endif
+ obj-$(CONFIG_WIMAX)		+= wimax/
++obj-$(CONFIG_TOA)		+= toa/
