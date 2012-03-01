@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Mar  1 11:10:54 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/toa.patch: remove compiling error.
+
+-------------------------------------------------------------------
 Mon Feb 27 16:11:09 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/context_switch_per_cpu_stat.patch: Refresh.
