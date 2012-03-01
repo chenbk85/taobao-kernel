@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Mar  1 11:47:47 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/kvm-set-KSM_RUN_STOP-by-default.patch: kvm:
+  set KSM_RUN_STOP by default.
+
+-------------------------------------------------------------------
 Tue Feb 28 19:02:41 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/toa.patch: remove compiling error.
