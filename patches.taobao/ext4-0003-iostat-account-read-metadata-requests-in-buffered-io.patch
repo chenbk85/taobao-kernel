@@ -1,0 +1,304 @@
+From: Zheng Liu <wenqing.lz@taobao.com>
+Subject: [PATCH v2 3/8] ext4: account the metadata request of read operations in buffered io
+Patch-mainline: in house patch
+
+We replace all the call to the buffer layer with wrapper functions we defined
+
+Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
+Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
+
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/balloc.c
+===================================================================
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/balloc.c
++++ linux-2.6.32-220.0.0.el5/fs/ext4/balloc.c
+@@ -343,7 +343,7 @@ ext4_read_block_bitmap(struct super_bloc
+ 	 * get set with buffer lock held.
+ 	 */
+ 	set_bitmap_uptodate(bh);
+-	if (bh_submit_read(bh) < 0) {
++	if (ext4_bh_submit_read(bh, sb, EXT4_IOS_BLOCK_BITMAP, 1) < 0) {
+ 		put_bh(bh);
+ 		ext4_error(sb, "Cannot read block bitmap - "
+ 			    "block_group = %u, block_bitmap = %llu",
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/extents.c
+===================================================================
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/extents.c
++++ linux-2.6.32-220.0.0.el5/fs/ext4/extents.c
+@@ -691,7 +691,8 @@ ext4_ext_find_extent(struct inode *inode
+ 		if (unlikely(!bh))
+ 			goto err;
+ 		if (!bh_uptodate_or_lock(bh)) {
+-			if (bh_submit_read(bh) < 0) {
++			if (ext4_bh_submit_read(bh, inode->i_sb,
++				EXT4_IOS_EXTENT_BLOCK, 1) < 0) {
+ 				put_bh(bh);
+ 				goto err;
+ 			}
+@@ -1379,7 +1380,8 @@ got_index:
+ 	ix++;
+ 	block = idx_pblock(ix);
+ 	while (++depth < path->p_depth) {
+-		bh = sb_bread(inode->i_sb, block);
++		bh = ext4_sb_bread(inode->i_sb, block,
++				   EXT4_IOS_EXTENT_BLOCK, 1);
+ 		if (bh == NULL)
+ 			return -EIO;
+ 		eh = ext_block_hdr(bh);
+@@ -1393,7 +1395,7 @@ got_index:
+ 		put_bh(bh);
+ 	}
+ 
+-	bh = sb_bread(inode->i_sb, block);
++	bh = ext4_sb_bread(inode->i_sb, block, EXT4_IOS_EXTENT_BLOCK, 1);
+ 	if (bh == NULL)
+ 		return -EIO;
+ 	eh = ext_block_hdr(bh);
+@@ -2433,7 +2435,8 @@ again:
+ 			ext_debug("move to level %d (block %llu)\n",
+ 				  i + 1, idx_pblock(path[i].p_idx));
+ 			memset(path + i + 1, 0, sizeof(*path));
+-			bh = sb_bread(sb, idx_pblock(path[i].p_idx));
++			bh = ext4_sb_bread(sb, idx_pblock(path[i].p_idx),
++					   EXT4_IOS_EXTENT_BLOCK, 1);
+ 			if (!bh) {
+ 				/* should we reset i_size? */
+ 				err = -EIO;
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/ialloc.c
+===================================================================
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/ialloc.c
++++ linux-2.6.32-220.0.0.el5/fs/ext4/ialloc.c
+@@ -152,7 +152,7 @@ ext4_read_inode_bitmap(struct super_bloc
+ 	 * get set with buffer lock held.
+ 	 */
+ 	set_bitmap_uptodate(bh);
+-	if (bh_submit_read(bh) < 0) {
++	if (ext4_bh_submit_read(bh, sb, EXT4_IOS_INODE_BITMAP, 1) < 0) {
+ 		put_bh(bh);
+ 		ext4_error(sb, "Cannot read inode bitmap - "
+ 			    "block_group = %u, inode_bitmap = %llu",
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/inode.c
+===================================================================
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-220.0.0.el5/fs/ext4/inode.c
+@@ -462,7 +462,8 @@ static Indirect *ext4_get_branch(struct 
+ 			goto failure;
+ 
+ 		if (!bh_uptodate_or_lock(bh)) {
+-			if (bh_submit_read(bh) < 0) {
++			if (ext4_bh_submit_read(bh, sb,
++				EXT4_IOS_INDIRECT_BLOCK, 1) < 0) {
+ 				put_bh(bh);
+ 				goto failure;
+ 			}
+@@ -1534,11 +1535,10 @@ struct buffer_head *ext4_bread(handle_t 
+ 	bh = ext4_getblk(handle, inode, block, create, err);
+ 	if (!bh)
+ 		return bh;
+-	if (buffer_uptodate(bh))
++	if (bh_uptodate_or_lock(bh))
+ 		return bh;
+-	ll_rw_block(READ_META, 1, &bh);
+-	wait_on_buffer(bh);
+-	if (buffer_uptodate(bh))
++	if (!ext4_submit_bh_read(READ_META, bh, inode->i_sb,
++				 EXT4_IOS_DIR_ENTRY, 1))
+ 		return bh;
+ 	put_bh(bh);
+ 	*err = -EIO;
+@@ -4544,7 +4544,8 @@ static void ext4_free_branches(handle_t 
+ 				continue;		/* A hole */
+ 
+ 			/* Go read the buffer for the next level down */
+-			bh = sb_bread(inode->i_sb, nr);
++			bh = ext4_sb_bread(inode->i_sb, nr,
++					   EXT4_IOS_INDIRECT_BLOCK, 1);
+ 
+ 			/*
+ 			 * A read failure? Report error and clear slot
+@@ -4964,7 +4965,8 @@ make_io:
+ 			if (end > table)
+ 				end = table;
+ 			while (b <= end)
+-				sb_breadahead(sb, b++);
++				ext4_sb_breadahead(sb, b++,
++					EXT4_IOS_INODE_TABLE);
+ 		}
+ 
+ 		/*
+@@ -4972,11 +4974,8 @@ make_io:
+ 		 * has in-inode xattrs, or we don't have this inode in memory.
+ 		 * Read the block from disk.
+ 		 */
+-		get_bh(bh);
+-		bh->b_end_io = end_buffer_read_sync;
+-		submit_bh(READ_META, bh);
+-		wait_on_buffer(bh);
+-		if (!buffer_uptodate(bh)) {
++		if (ext4_submit_bh_read(READ_META, bh, sb,
++					EXT4_IOS_INODE_TABLE, 1)) {
+ 			ext4_error(sb, "unable to read inode block - inode=%lu,"
+ 				   " block=%llu", inode->i_ino, block);
+ 			brelse(bh);
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
+===================================================================
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/mballoc.c
++++ linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
+@@ -864,7 +864,6 @@ static int ext4_mb_init_cache(struct pag
+ 			unlock_buffer(bh[i]);
+ 			continue;
+ 		}
+-		get_bh(bh[i]);
+ 		/*
+ 		 * submit the buffer_head for read. We can
+ 		 * safely mark the bitmap as uptodate now.
+@@ -872,8 +871,8 @@ static int ext4_mb_init_cache(struct pag
+ 		 * get set with buffer lock held.
+ 		 */
+ 		set_bitmap_uptodate(bh[i]);
+-		bh[i]->b_end_io = end_buffer_read_sync;
+-		submit_bh(READ, bh[i]);
++		ext4_submit_bh_read_nowait(READ, bh[i], sb,
++					EXT4_IOS_BLOCK_BITMAP, 1);
+ 		mb_debug(1, "read bitmap for group %u\n", first_group + i);
+ 	}
+ 
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/move_extent.c
+===================================================================
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/move_extent.c
++++ linux-2.6.32-220.0.0.el5/fs/ext4/move_extent.c
+@@ -99,7 +99,8 @@ mext_next_extent(struct inode *inode, st
+ 			if (path[ppos+1].p_bh)
+ 				brelse(path[ppos+1].p_bh);
+ 			path[ppos+1].p_bh =
+-				sb_bread(inode->i_sb, path[ppos].p_block);
++				ext4_sb_bread(inode->i_sb, path[ppos].p_block,
++					      EXT4_IOS_EXTENT_BLOCK, 1);
+ 			if (!path[ppos+1].p_bh)
+ 				return -EIO;
+ 			path[ppos+1].p_hdr =
+@@ -113,8 +114,9 @@ mext_next_extent(struct inode *inode, st
+ 					idx_pblock(path[cur_ppos].p_idx);
+ 				if (path[cur_ppos+1].p_bh)
+ 					brelse(path[cur_ppos+1].p_bh);
+-				path[cur_ppos+1].p_bh = sb_bread(inode->i_sb,
+-					path[cur_ppos].p_block);
++				path[cur_ppos+1].p_bh = ext4_sb_bread(
++					inode->i_sb, path[cur_ppos].p_block,
++					EXT4_IOS_EXTENT_BLOCK, 1);
+ 				if (!path[cur_ppos+1].p_bh)
+ 					return -EIO;
+ 				path[cur_ppos+1].p_hdr =
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/namei.c
+===================================================================
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/namei.c
++++ linux-2.6.32-220.0.0.el5/fs/ext4/namei.c
+@@ -910,8 +910,9 @@ restart:
+ 				num++;
+ 				bh = ext4_getblk(NULL, dir, b++, 0, &err);
+ 				bh_use[ra_max] = bh;
+-				if (bh)
+-					ll_rw_block(READ_META, 1, &bh);
++				if (bh && !bh_uptodate_or_lock(bh))
++					ext4_submit_bh_read_nowait( READ_META,
++						bh, sb, EXT4_IOS_DIR_ENTRY, 1);
+ 			}
+ 		}
+ 		if ((bh = bh_use[ra_ptr++]) == NULL)
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/super.c
+===================================================================
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/super.c
++++ linux-2.6.32-220.0.0.el5/fs/ext4/super.c
+@@ -2951,7 +2951,8 @@ static int ext4_fill_super(struct super_
+ 		logical_sb_block = sb_block;
+ 	}
+ 
+-	if (!(bh = sb_bread(sb, logical_sb_block))) {
++	if (!(bh = ext4_sb_bread(sb, logical_sb_block,
++				 EXT4_IOS_SUPER_BLOCK, 1))) {
+ 		ext4_msg(sb, KERN_ERR, "unable to read superblock");
+ 		goto out_fail;
+ 	}
+@@ -3072,7 +3073,8 @@ static int ext4_fill_super(struct super_
+ 		brelse(bh);
+ 		logical_sb_block = sb_block * EXT4_MIN_BLOCK_SIZE;
+ 		offset = do_div(logical_sb_block, blocksize);
+-		bh = sb_bread(sb, logical_sb_block);
++		bh = ext4_sb_bread(sb, logical_sb_block,
++				   EXT4_IOS_SUPER_BLOCK, 1);
+ 		if (!bh) {
+ 			ext4_msg(sb, KERN_ERR,
+ 			       "Can't read superblock on 2nd try");
+@@ -3242,7 +3244,8 @@ static int ext4_fill_super(struct super_
+ 
+ 	for (i = 0; i < db_count; i++) {
+ 		block = descriptor_loc(sb, logical_sb_block, i);
+-		sbi->s_group_desc[i] = sb_bread(sb, block);
++		sbi->s_group_desc[i] = ext4_sb_bread(sb, block,
++					EXT4_IOS_GROUP_DESC, 1);
+ 		if (!sbi->s_group_desc[i]) {
+ 			ext4_msg(sb, KERN_ERR,
+ 			       "can't read group descriptor %d", i);
+Index: linux-2.6.32-220.0.0.el5/fs/ext4/xattr.c
+===================================================================
+--- linux-2.6.32-220.0.0.el5.orig/fs/ext4/xattr.c
++++ linux-2.6.32-220.0.0.el5/fs/ext4/xattr.c
+@@ -221,7 +221,8 @@ ext4_xattr_block_get(struct inode *inode
+ 	if (!EXT4_I(inode)->i_file_acl)
+ 		goto cleanup;
+ 	ea_idebug(inode, "reading block %u", EXT4_I(inode)->i_file_acl);
+-	bh = sb_bread(inode->i_sb, EXT4_I(inode)->i_file_acl);
++	bh = ext4_sb_bread(inode->i_sb, EXT4_I(inode)->i_file_acl,
++			   EXT4_IOS_EXTENDED_ATTR, 1);
+ 	if (!bh)
+ 		goto cleanup;
+ 	ea_bdebug(bh, "b_count=%d, refcount=%d",
+@@ -363,7 +364,8 @@ ext4_xattr_block_list(struct inode *inod
+ 	if (!EXT4_I(inode)->i_file_acl)
+ 		goto cleanup;
+ 	ea_idebug(inode, "reading block %u", EXT4_I(inode)->i_file_acl);
+-	bh = sb_bread(inode->i_sb, EXT4_I(inode)->i_file_acl);
++	bh = ext4_sb_bread(inode->i_sb, EXT4_I(inode)->i_file_acl,
++			   EXT4_IOS_EXTENDED_ATTR, 1);
+ 	error = -EIO;
+ 	if (!bh)
+ 		goto cleanup;
+@@ -654,7 +656,8 @@ ext4_xattr_block_find(struct inode *inod
+ 
+ 	if (EXT4_I(inode)->i_file_acl) {
+ 		/* The inode already has an extended attribute block. */
+-		bs->bh = sb_bread(sb, EXT4_I(inode)->i_file_acl);
++		bs->bh = ext4_sb_bread(sb, EXT4_I(inode)->i_file_acl,
++				       EXT4_IOS_EXTENDED_ATTR, 1);
+ 		error = -EIO;
+ 		if (!bs->bh)
+ 			goto cleanup;
+@@ -1184,7 +1187,8 @@ retry:
+ 	 * EA block can hold new_extra_isize bytes.
+ 	 */
+ 	if (EXT4_I(inode)->i_file_acl) {
+-		bh = sb_bread(inode->i_sb, EXT4_I(inode)->i_file_acl);
++		bh = ext4_sb_bread(inode->i_sb, EXT4_I(inode)->i_file_acl,
++				   EXT4_IOS_EXTENDED_ATTR, 1);
+ 		error = -EIO;
+ 		if (!bh)
+ 			goto cleanup;
+@@ -1363,7 +1367,8 @@ ext4_xattr_delete_inode(handle_t *handle
+ 
+ 	if (!EXT4_I(inode)->i_file_acl)
+ 		goto cleanup;
+-	bh = sb_bread(inode->i_sb, EXT4_I(inode)->i_file_acl);
++	bh = ext4_sb_bread(inode->i_sb, EXT4_I(inode)->i_file_acl,
++			   EXT4_IOS_EXTENDED_ATTR, 1);
+ 	if (!bh) {
+ 		ext4_error(inode->i_sb, "inode %lu: block %llu read error",
+ 			   inode->i_ino, EXT4_I(inode)->i_file_acl);
+@@ -1495,7 +1500,8 @@ again:
+ 				goto again;
+ 			break;
+ 		}
+-		bh = sb_bread(inode->i_sb, ce->e_block);
++		bh = ext4_sb_bread(inode->i_sb, ce->e_block,
++				   EXT4_IOS_EXTENDED_ATTR, 1);
+ 		if (!bh) {
+ 			ext4_error(inode->i_sb,
+ 				"inode %lu: block %lu read error",
