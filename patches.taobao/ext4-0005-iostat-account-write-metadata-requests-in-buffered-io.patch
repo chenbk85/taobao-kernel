@@ -7,10 +7,10 @@ Calling ext4_ios_write to account metadata request of write in buffered io.
 Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/extents.c
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/extents.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/extents.c
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/extents.c
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/extents.c
++++ linux-2.6.32-220.4.2.el5/fs/ext4/extents.c
 @@ -143,6 +143,8 @@ static int ext4_ext_dirty(handle_t *hand
  	int err;
  	if (path->p_bh) {
@@ -45,10 +45,10 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/extents.c
  	err = ext4_handle_dirty_metadata(handle, inode, bh);
  	if (err)
  		goto out;
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/ialloc.c
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/ialloc.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/ialloc.c
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/ialloc.c
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/ialloc.c
++++ linux-2.6.32-220.4.2.el5/fs/ext4/ialloc.c
 @@ -286,10 +286,12 @@ void ext4_free_inode(handle_t *handle, s
  			}
  		}
@@ -88,10 +88,10 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/ialloc.c
  	err = ext4_handle_dirty_metadata(handle, NULL, group_desc_bh);
  	if (err)
  		goto fail;
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inode.c
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-220.4.2.el5/fs/ext4/inode.c
 @@ -826,6 +826,8 @@ static int ext4_alloc_branch(handle_t *h
  		unlock_buffer(bh);
  
@@ -152,7 +152,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
  					ext4_handle_dirty_metadata(handle,
  								   inode,
  								   parent_bh);
-@@ -5604,6 +5617,8 @@ static int ext4_do_update_inode(handle_t
+@@ -5609,6 +5622,8 @@ static int ext4_do_update_inode(handle_t
  					EXT4_FEATURE_RO_COMPAT_LARGE_FILE);
  			sb->s_dirt = 1;
  			ext4_handle_sync(handle);
@@ -161,7 +161,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
  			err = ext4_handle_dirty_metadata(handle, NULL,
  					EXT4_SB(sb)->s_sbh);
  		}
-@@ -5634,6 +5649,7 @@ static int ext4_do_update_inode(handle_t
+@@ -5639,6 +5654,7 @@ static int ext4_do_update_inode(handle_t
  	}
  
  	BUFFER_TRACE(bh, "call ext4_handle_dirty_metadata");
@@ -169,10 +169,10 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
  	rc = ext4_handle_dirty_metadata(handle, NULL, bh);
  	if (!err)
  		err = rc;
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/mballoc.c
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/mballoc.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/mballoc.c
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/mballoc.c
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/mballoc.c
++++ linux-2.6.32-220.4.2.el5/fs/ext4/mballoc.c
 @@ -2802,6 +2802,7 @@ ext4_mb_mark_diskspace_used(struct ext4_
  		mb_set_bits(bitmap_bh->b_data, ac->ac_b_ex.fe_start,
  			    ac->ac_b_ex.fe_len);
@@ -205,10 +205,10 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/mballoc.c
  	BUFFER_TRACE(gd_bh, "dirtied group descriptor block");
  	ret = ext4_handle_dirty_metadata(handle, NULL, gd_bh);
  	if (!err)
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/move_extent.c
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/move_extent.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/move_extent.c
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/move_extent.c
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/move_extent.c
++++ linux-2.6.32-220.4.2.el5/fs/ext4/move_extent.c
 @@ -438,6 +438,8 @@ mext_insert_extents(handle_t *handle, st
  						end_ext, eh, range_to_move);
  
@@ -218,10 +218,10 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/move_extent.c
  		ret = ext4_handle_dirty_metadata(handle, orig_inode,
  						 orig_path->p_bh);
  		if (ret)
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/namei.c
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/namei.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/namei.c
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/namei.c
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/namei.c
++++ linux-2.6.32-220.4.2.el5/fs/ext4/namei.c
 @@ -1252,9 +1252,11 @@ static struct ext4_dir_entry_2 *do_split
  		de = de2;
  	}
@@ -287,11 +287,11 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/namei.c
  		ext4_handle_dirty_metadata(handle, old_dir, dir_bh);
  		ext4_dec_count(handle, old_dir);
  		if (new_inode) {
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/super.c
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/super.c
-@@ -3940,6 +3940,7 @@ static int ext4_commit_super(struct supe
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/super.c
++++ linux-2.6.32-220.4.2.el5/fs/ext4/super.c
+@@ -3943,6 +3943,7 @@ static int ext4_commit_super(struct supe
  					&EXT4_SB(sb)->s_freeinodes_counter));
  	sb->s_dirt = 0;
  	BUFFER_TRACE(sbh, "marking dirty");
@@ -299,10 +299,10 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
  	mark_buffer_dirty(sbh);
  	if (sync) {
  		error = sync_dirty_buffer(sbh);
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/xattr.c
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/xattr.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/xattr.c
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/xattr.c
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/xattr.c
++++ linux-2.6.32-220.4.2.el5/fs/ext4/xattr.c
 @@ -485,6 +485,8 @@ ext4_xattr_release_block(handle_t *handl
  		ext4_forget(handle, 1, inode, bh, bh->b_blocknr);
  	} else {

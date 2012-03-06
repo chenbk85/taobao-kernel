@@ -11,10 +11,10 @@ We create three files to control io type accouting and show the result.
 Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/ext4.h
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/ext4.h
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/ext4.h
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-220.4.2.el5/fs/ext4/ext4.h
 @@ -1070,6 +1070,8 @@ struct ext4_super_block {
  #define EXT4_MF_MNTDIR_SAMPLED	0x0001
  #define EXT4_MF_FS_ABORTED	0x0002	/* Fatal error detected */
@@ -32,11 +32,11 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/ext4.h
  	struct percpu_counter s_ios_counters[EXT4_IOS_TYPE_END][2];
  };
  
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/super.c
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/super.c
-@@ -2339,6 +2339,100 @@ static ssize_t inode_readahead_blks_stor
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/super.c
++++ linux-2.6.32-220.4.2.el5/fs/ext4/super.c
+@@ -2341,6 +2341,100 @@ static ssize_t inode_readahead_blks_stor
  	return count;
  }
  
@@ -137,7 +137,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
  static ssize_t sbi_ui_show(struct ext4_attr *a,
  			   struct ext4_sb_info *sbi, char *buf)
  {
-@@ -2372,6 +2466,7 @@ static struct ext4_attr ext4_attr_##name
+@@ -2374,6 +2468,7 @@ static struct ext4_attr ext4_attr_##name
  
  #define EXT4_INFO_ATTR(name) EXT4_ATTR(name, 0444, NULL, NULL)
  #define EXT4_RO_ATTR(name) EXT4_ATTR(name, 0444, name##_show, NULL)
@@ -145,7 +145,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
  #define EXT4_RW_ATTR(name) EXT4_ATTR(name, 0644, name##_show, name##_store)
  #define EXT4_RW_ATTR_SBI_UI(name, elname)	\
  	EXT4_ATTR_OFFSET(name, 0644, sbi_ui_show, sbi_ui_store, elname)
-@@ -2380,6 +2475,9 @@ static struct ext4_attr ext4_attr_##name
+@@ -2382,6 +2477,9 @@ static struct ext4_attr ext4_attr_##name
  EXT4_RO_ATTR(delayed_allocation_blocks);
  EXT4_RO_ATTR(session_write_kbytes);
  EXT4_RO_ATTR(lifetime_write_kbytes);
@@ -155,7 +155,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
  EXT4_ATTR_OFFSET(inode_readahead_blks, 0644, sbi_ui_show,
  		 inode_readahead_blks_store, s_inode_readahead_blks);
  EXT4_RW_ATTR_SBI_UI(inode_goal, s_inode_goal);
-@@ -2395,6 +2493,9 @@ static struct attribute *ext4_attrs[] = 
+@@ -2397,6 +2495,9 @@ static struct attribute *ext4_attrs[] = 
  	ATTR_LIST(delayed_allocation_blocks),
  	ATTR_LIST(session_write_kbytes),
  	ATTR_LIST(lifetime_write_kbytes),
@@ -165,7 +165,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
  	ATTR_LIST(inode_readahead_blks),
  	ATTR_LIST(inode_goal),
  	ATTR_LIST(mb_stats),
-@@ -2941,8 +3042,10 @@ static int ext4_fill_super(struct super_
+@@ -2943,8 +3044,10 @@ static int ext4_fill_super(struct super_
  
  	/*
  	 * Note: s_ios_counters must be initialized as soon as possible because
@@ -177,7 +177,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
  	for (i = 0; i < EXT4_IOS_TYPE_END; i++) {
  		if (percpu_counter_init(&sbi->s_ios_counters[i][READ], 0))
  			goto out_init_ios;
-@@ -4671,7 +4774,9 @@ void __ext4_io_stat(struct super_block *
+@@ -4674,7 +4777,9 @@ void __ext4_io_stat(struct super_block *
  	struct ext4_sb_info *sbi = EXT4_SB(sb);
  
  	BUG_ON(type < 0 || type >= EXT4_IOS_TYPE_END);

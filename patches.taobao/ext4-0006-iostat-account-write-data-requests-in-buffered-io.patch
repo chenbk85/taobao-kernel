@@ -8,11 +8,11 @@ buffered io.
 Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 
-Index: linux-2.6.32-220.0.0.el5/fs/ext4/inode.c
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/fs/ext4/inode.c
-+++ linux-2.6.32-220.0.0.el5/fs/ext4/inode.c
-@@ -2782,6 +2782,8 @@ static int ext4_writepage(struct page *p
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-220.4.2.el5/fs/ext4/inode.c
+@@ -2961,6 +2961,8 @@ static int ext4_writepage(struct page *p
  	struct inode *inode = page->mapping->host;
  
  	trace_ext4_writepage(inode, page);
@@ -21,7 +21,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/inode.c
  	size = i_size_read(inode);
  	if (page->index == size >> PAGE_CACHE_SHIFT)
  		len = size & ~PAGE_CACHE_MASK;
-@@ -3219,6 +3221,8 @@ retry:
+@@ -3383,6 +3385,8 @@ retry:
  out_writepages:
  	wbc->nr_to_write -= nr_to_writebump;
  	wbc->range_start = range_start;
@@ -30,7 +30,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/inode.c
  	trace_ext4_da_writepages_result(inode, wbc, ret, pages_written);
  	return ret;
  }
-@@ -4274,6 +4278,8 @@ int ext4_block_truncate_page(handle_t *h
+@@ -4487,6 +4491,8 @@ int ext4_block_truncate_page(handle_t *h
  	} else {
  		if (ext4_should_order_data(inode))
  			err = ext4_jbd2_file_inode(handle, inode);

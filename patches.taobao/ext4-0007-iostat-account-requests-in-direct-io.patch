@@ -8,11 +8,11 @@ to count direct io.
 Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/ext4.h
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/ext4.h
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/ext4.h
-@@ -1689,6 +1689,8 @@ extern qsize_t *ext4_get_reserved_space(
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-220.4.2.el5/fs/ext4/ext4.h
+@@ -1816,6 +1816,8 @@ extern qsize_t *ext4_get_reserved_space(
  extern int flush_aio_dio_completed_IO(struct inode *inode);
  extern void ext4_da_update_reserve_space(struct inode *inode,
  					int used, int quota_claim);
@@ -21,11 +21,11 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/ext4.h
  /* ioctl.c */
  extern long ext4_ioctl(struct file *, unsigned int, unsigned long);
  extern long ext4_compat_ioctl(struct file *, unsigned int, unsigned long);
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
+Index: linux-2.6.32-220.4.2.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inode.c
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
-@@ -3636,9 +3636,10 @@ static ssize_t ext4_ind_direct_IO(int rw
+--- linux-2.6.32-220.4.2.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-220.4.2.el5/fs/ext4/inode.c
+@@ -3842,9 +3842,10 @@ static ssize_t ext4_ind_direct_IO(int rw
  	}
  
  retry:
@@ -39,7 +39,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
  	if (ret == -ENOSPC && ext4_should_retry_alloc(inode->i_sb, &retries))
  		goto retry;
  
-@@ -4026,11 +4027,11 @@ static ssize_t ext4_ext_direct_IO(int rw
+@@ -4235,11 +4236,11 @@ static ssize_t ext4_ext_direct_IO(int rw
  			EXT4_I(inode)->cur_aio_dio = iocb->private;
  		}
  
@@ -56,7 +56,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
  		if (iocb->private)
  			EXT4_I(inode)->cur_aio_dio = NULL;
  		/*
-@@ -4070,6 +4071,18 @@ static ssize_t ext4_ext_direct_IO(int rw
+@@ -4279,6 +4280,18 @@ static ssize_t ext4_ext_direct_IO(int rw
  	return ext4_ind_direct_IO(rw, iocb, iov, offset, nr_segs);
  }
  
