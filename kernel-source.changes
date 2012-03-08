@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Fri Mar  9 01:32:23 CST 2012 - boyu.mt@taobao.com
+
+Add i/o stat for ext4.
+
+- patches.taobao/ext4-0001-iostat-add-counters-and-functions.patch:
+- patches.taobao/ext4-0002-iostat-define-wrapper-functions-for-buffer-layer.patch:
+- patches.taobao/ext4-0003-iostat-account-read-metadata-requests-in-buffered-io.patch:
+- patches.taobao/ext4-0004-iostat-account-read-data-requests-in-buffered-io.patch:
+- patches.taobao/ext4-0005-iostat-account-write-metadata-requests-in-buffered-io.patch:
+- patches.taobao/ext4-0006-iostat-account-write-data-requests-in-buffered-io.patch:
+- patches.taobao/ext4-0007-iostat-account-requests-in-direct-io.patch:
+- patches.taobao/ext4-0008-iostat-show-the-result-of-accouting.patch:
+
+-------------------------------------------------------------------
 Thu Mar  1 15:42:59 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/kvm-set-KSM_RUN_STOP-by-default.patch: kvm:
