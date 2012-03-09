@@ -2,6 +2,7 @@ From cb20d5188366f04d96d2e07b1240cc92170ade40 Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Wed, 27 Oct 2010 21:30:09 -0400
 Subject: [PATCH 3/4] ext4: inline ext4_writepage() into mpage_da_submit_io()
+Patch-mainline: 2.6.37
 
 As a prepratory step to switching to bio_submit, inline
 ext4_writepage() into mpage_da_submit() and then simplify things a

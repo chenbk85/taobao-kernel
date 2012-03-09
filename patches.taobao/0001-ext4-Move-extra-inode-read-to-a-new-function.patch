@@ -2,6 +2,7 @@ From f4fc17f19d7fa4e601b3320afbf7b7ac1b04dc07 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Tue, 1 Nov 2011 14:44:53 +0800
 Subject: [PATCH 01/22] ext4: Move extra inode read to a new function.
+Patch-mainline: in-house
 
 Currently, in ext4_iget we do a simple check to see whether
 there does exist some information starting from the end

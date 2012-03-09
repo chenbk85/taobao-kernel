@@ -2,6 +2,7 @@ From 5356f2615cd558c57a1f7d7528d1ad4de3640d96 Mon Sep 17 00:00:00 2001
 From: Aditya Kali <adityakali@google.com>
 Date: Fri, 9 Sep 2011 19:20:51 -0400
 Subject: [PATCH 25/26] ext4: attempt to fix race in bigalloc code path
+Patch-mainline: 3.2
 
 Currently, there exists a race between delayed allocated writes and
 the writeback when bigalloc feature is in use. The race was because we

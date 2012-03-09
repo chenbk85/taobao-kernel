@@ -2,6 +2,7 @@ From 3ecdb3a193a5f224f084c04a63aa28cdccf4d7d0 Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Wed, 27 Oct 2010 21:30:10 -0400
 Subject: [PATCH 4/4] ext4: inline walk_page_buffers() into mpage_da_submit_io
+Patch-mainline: 2.6.37
 
 Expand the call:
 

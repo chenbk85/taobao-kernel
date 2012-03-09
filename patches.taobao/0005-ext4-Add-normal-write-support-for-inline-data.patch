@@ -2,6 +2,7 @@ From 7e021975b04d8da8745c90146755567f72207452 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Fri, 16 Dec 2011 12:21:03 +0800
 Subject: [PATCH 05/22] ext4: Add normal write support for inline data.
+Patch-mainline: in-house
 
 For a normal write case(not journalled write, not delayed allocation),
 we write to the inline if the file is small and convert it to an extent

@@ -2,6 +2,7 @@ From 2bde0f9b321615091d600adb84890856e6d8e33b Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Fri, 18 Nov 2011 23:21:10 +0800
 Subject: [PATCH 13/22] ext4: Create a new function search_dir.
+Patch-mainline: in-house
 
 search_dirblock is used to search a dir block, but the code is
 almost the same for searching an inline dir.

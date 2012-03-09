@@ -1,5 +1,7 @@
+From: Fengguang Wu <fengguang.wu@intel.com>
 Subject: writeback: quit on wrap for .range_cyclic (write_cache_pages)
 Date: Fri Dec 16 19:10:57 CST 2011
+Patch-mainline: not-upstream-yet
 
 Convert wbc.range_cyclic to new behavior: when past EOF, abort the
 writeback of the current inode, which instructs writeback_single_inode()

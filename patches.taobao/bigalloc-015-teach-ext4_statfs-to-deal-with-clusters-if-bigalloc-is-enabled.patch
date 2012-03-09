@@ -2,6 +2,7 @@ From f975d6bcc7a698a10cc755115e27d3612dcfe322 Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 19:00:51 -0400
 Subject: [PATCH 15/26] ext4: teach ext4_statfs() to deal with clusters if bigalloc is enabled
+Patch-mainline: 3.2
 
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>

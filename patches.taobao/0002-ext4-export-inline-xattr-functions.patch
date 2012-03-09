@@ -2,6 +2,7 @@ From df2bb9ebf9e403c6231d99f7baaa4c0309895c31 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Tue, 15 Nov 2011 14:19:55 +0800
 Subject: [PATCH 02/22] ext4: export inline xattr functions.
+Patch-mainline: in-house
 
 Inline data needs some inline xattr functions, so export them
 from fs/ext4/xattr.c so that inline.c can uses them.

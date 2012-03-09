@@ -2,6 +2,7 @@ From dfc7a65fecb2c3e6a221355f859c6fbae617a9a7 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Tue, 22 Nov 2011 00:05:29 +0800
 Subject: [PATCH 18/22] ext4: let ext4_rename handle inline dir.
+Patch-mainline: in house
 
 In case of we rename a dir, ext4_rename has to read the dir block
 and change its dotdot's information. The old ext4_rename encapsulated

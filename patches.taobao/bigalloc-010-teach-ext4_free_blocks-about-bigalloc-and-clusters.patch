@@ -2,6 +2,7 @@ From 84130193e0e6568dfdfb823f0e1e19aec80aff6e Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 18:50:51 -0400
 Subject: [PATCH 10/26] ext4: teach ext4_free_blocks() about bigalloc and clusters
+Patch-mainline: 3.2
 
 The ext4_free_blocks() function now has two new flags that indicate
 whether a partial cluster at the beginning or the end of the block

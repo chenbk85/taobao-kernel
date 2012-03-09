@@ -2,6 +2,7 @@ From 1da3b3741aba4c34de3e66870952f5951cf12c31 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Fri, 16 Dec 2011 11:18:38 +0800
 Subject: [PATCH 20/22] ext4: Evict inline data out if we needs to strore xattr in inode.
+Patch-mainline:  in house
 
 Now we stores data in the inode, but in case we need to store some
 xattrs and inode doesn't have enough space, Andreas suggested that

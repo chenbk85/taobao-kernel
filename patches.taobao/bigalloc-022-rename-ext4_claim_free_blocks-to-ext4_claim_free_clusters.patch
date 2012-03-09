@@ -2,6 +2,7 @@ From e7d5f3156e6827970f75ab27ad7eb0155826eb0b Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 19:14:51 -0400
 Subject: [PATCH 22/26] ext4: rename ext4_claim_free_blocks() to ext4_claim_free_clusters()
+Patch-mainline: 3.2
 
 This function really claims a number of free clusters, not blocks, so
 rename it so it's clearer what's going on.

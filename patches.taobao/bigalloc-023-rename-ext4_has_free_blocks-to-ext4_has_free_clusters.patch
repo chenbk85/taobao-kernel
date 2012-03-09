@@ -2,6 +2,7 @@ From df55c99dc8ee4c3c886a5edc8a4aa6b131c95afc Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 19:16:51 -0400
 Subject: [PATCH 23/26] ext4: rename ext4_has_free_blocks() to ext4_has_free_clusters()
+Patch-mainline: 3.2
 
 Rename the function so it is more clear what is going on.  Also rename
 the various variables so it's clearer what's happening.

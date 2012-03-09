@@ -2,6 +2,7 @@ From 281b59959707dfae03ce038cdf231bf4904e170c Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 18:34:51 -0400
 Subject: [PATCH 02/26] ext4: read-only support for bigalloc file systems
+Patch-mainline: 3.2
 
 This adds supports for bigalloc file systems.  It teaches the mount
 code just enough about bigalloc superblock fields that it will mount

@@ -2,6 +2,7 @@ From cff1dfd767d1ee3c773fd8b57fe310957e5f8abb Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 19:12:51 -0400
 Subject: [PATCH 21/26] ext4: rename ext4_free_blocks_after_init() to ext4_free_clusters_after_init()
+Patch-mainline: 3.2
 
 This function really returns the number of clusters after initializing
 an uninitalized block bitmap has been initialized.

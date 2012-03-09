@@ -2,6 +2,7 @@ From 4d33b1ef10995d7ba6191d67456202c697a92a32 Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 18:52:51 -0400
 Subject: [PATCH 11/26] ext4: teach ext4_ext_map_blocks() about the bigalloc feature
+Patch-mainline: 3.2
 
 If we need to allocate a new block in ext4_ext_map_blocks(), the
 function needs to see if the cluster has already been allocated.

@@ -2,6 +2,7 @@ From 7b415bf60f6afb0499fd3dc0ee33444f54e28567 Mon Sep 17 00:00:00 2001
 From: Aditya Kali <adityakali@google.com>
 Date: Fri, 9 Sep 2011 19:04:51 -0400
 Subject: [PATCH 17/26] ext4: Fix bigalloc quota accounting and i_blocks value
+Patch-mainline: 3.2
 
 With bigalloc changes, the i_blocks value was not correctly set (it was still
 set to number of blocks being used, but in case of bigalloc, we want i_blocks

@@ -2,6 +2,7 @@ From 7137d7a48e2213eb1f6d6529da14c2ed3706b795 Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 18:38:51 -0400
 Subject: [PATCH 04/26] ext4: convert instances of EXT4_BLOCKS_PER_GROUP to EXT4_CLUSTERS_PER_GROUP
+Patch-mainline: 3.2
 
 Change the places in fs/ext4/mballoc.c where EXT4_BLOCKS_PER_GROUP are
 used to indicate the number of bits in a block bitmap (which is really

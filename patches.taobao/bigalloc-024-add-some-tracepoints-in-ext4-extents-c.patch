@@ -2,6 +2,7 @@ From d8990240d8c911064447f8aa5a440f9345a6d692 Mon Sep 17 00:00:00 2001
 From: Aditya Kali <adityakali@google.com>
 Date: Fri, 9 Sep 2011 19:18:51 -0400
 Subject: [PATCH 24/26] ext4: add some tracepoints in ext4/extents.c
+Patch-mainline: 3.2
 
 This patch adds some tracepoints in ext4/extents.c and updates a tracepoint in
 ext4/inode.c.

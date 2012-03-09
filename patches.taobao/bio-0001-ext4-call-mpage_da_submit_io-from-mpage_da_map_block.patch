@@ -2,6 +2,7 @@ From 5a87b7a5da250c9be6d757758425dfeaf8ed3179 Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Wed, 27 Oct 2010 21:30:09 -0400
 Subject: [PATCH 1/4] ext4: call mpage_da_submit_io() from mpage_da_map_blocks()
+Patch-mainline: 2.6.37
 
 Eventually we need to completely reorganize the ext4 writepage
 callpath, but for now, we simplify things a little by calling

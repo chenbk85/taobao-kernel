@@ -1,5 +1,6 @@
 From: Tao Ma <boyu.mt@taobao.com>
 Subject: ext4: don't warn about mnt_count if it has been disabled
+Patch-mainline: 3.0
         
 Currently, if we mkfs a new ext4 volume with s_max_mnt_count set to
 zero, and mount it for the first time, we will get the warning:

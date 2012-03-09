@@ -2,6 +2,7 @@ From 4b52308e618288ceebf99f21724cbbbe5258e951 Mon Sep 17 00:00:00 2001
 From: Tao Ma <boyu.mt@taobao.com>
 Date: Fri, 18 Nov 2011 16:27:28 +0800
 Subject: [PATCH 10/22] ext4: Create __ext4_insert_dentry for dir entry insertion.
+Patch-mainline: in-house
 
 The old add_dirent_to_buf handles all the work related to the
 work of adding dir entry to a dir block. Now we have inline data,

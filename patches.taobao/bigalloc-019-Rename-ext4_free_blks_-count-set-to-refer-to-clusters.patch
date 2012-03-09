@@ -2,6 +2,7 @@ From 021b65bb1e4e4b625c80bbb82651e5e155721ef3 Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Fri, 9 Sep 2011 19:08:51 -0400
 Subject: [PATCH 19/26] ext4: Rename ext4_free_blks_{count,set}() to refer to clusters
+Patch-mainline: 3.2
 
 The field bg_free_blocks_count_{lo,high} in the block group
 descriptor has been repurposed to hold the number of free clusters for

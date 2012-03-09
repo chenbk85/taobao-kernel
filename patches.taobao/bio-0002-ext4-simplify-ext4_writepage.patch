@@ -2,6 +2,7 @@ From a42afc5f56f319107e987aa6adf2f65d93d527c7 Mon Sep 17 00:00:00 2001
 From: Theodore Ts'o <tytso@mit.edu>
 Date: Wed, 27 Oct 2010 21:30:09 -0400
 Subject: [PATCH 2/4] ext4: simplify ext4_writepage()
+Patch-mainline: 2.6.37
 
 The actual code in ext4_writepage() is unnecessarily convoluted.
 Simplify it so it is easier to understand, but otherwise logically
