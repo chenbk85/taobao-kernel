@@ -14,8 +14,8 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
 Index: linux-2.6.32-220.4.2.el5/net/Kconfig
 ===================================================================
---- linux-2.6.32-220.4.2.el5.orig/net/Kconfig	2012-02-28 19:04:54.690850552 +0800
-+++ linux-2.6.32-220.4.2.el5/net/Kconfig	2012-03-01 11:08:23.542137879 +0800
+--- linux-2.6.32-220.4.2.el5.orig/net/Kconfig	2012-02-28 18:00:49.411782850 +0800
++++ linux-2.6.32-220.4.2.el5/net/Kconfig	2012-02-28 18:00:59.335832067 +0800
 @@ -49,6 +49,7 @@
  source "net/unix/Kconfig"
  source "net/xfrm/Kconfig"
@@ -35,7 +35,7 @@ Index: linux-2.6.32-220.4.2.el5/net/Kconfig
 Index: linux-2.6.32-220.4.2.el5/net/toa/Kconfig
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.4.2.el5/net/toa/Kconfig	2012-03-01 11:08:23.542137879 +0800
++++ linux-2.6.32-220.4.2.el5/net/toa/Kconfig	2012-02-28 18:00:59.335832067 +0800
 @@ -0,0 +1,7 @@
 +config	TOA
 +	tristate "Tcp Option for Address"
@@ -47,7 +47,7 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/Kconfig
 Index: linux-2.6.32-220.4.2.el5/net/toa/Makefile
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.4.2.el5/net/toa/Makefile	2012-03-01 11:08:23.542137879 +0800
++++ linux-2.6.32-220.4.2.el5/net/toa/Makefile	2012-02-28 18:00:59.347832119 +0800
 @@ -0,0 +1,4 @@
 +#
 +# Makefile for TOA module.
@@ -56,7 +56,7 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/Makefile
 Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.4.2.el5/net/toa/toa.c	2012-03-01 11:09:04.774342336 +0800
++++ linux-2.6.32-220.4.2.el5/net/toa/toa.c	2012-02-28 18:39:19.907239955 +0800
 @@ -0,0 +1,441 @@
 +#include "toa.h"
 +
@@ -502,7 +502,7 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 Index: linux-2.6.32-220.4.2.el5/net/toa/toa.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.4.2.el5/net/toa/toa.h	2012-03-01 11:09:16.850402212 +0800
++++ linux-2.6.32-220.4.2.el5/net/toa/toa.h	2012-02-28 18:38:36.203022742 +0800
 @@ -0,0 +1,82 @@
 +#ifndef __NET__TOA_H__
 +#define __NET__TOA_H__
@@ -588,8 +588,8 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.h
 +#endif
 Index: linux-2.6.32-220.4.2.el5/include/net/ipv6.h
 ===================================================================
---- linux-2.6.32-220.4.2.el5.orig/include/net/ipv6.h	2012-03-01 11:08:23.530137813 +0800
-+++ linux-2.6.32-220.4.2.el5/include/net/ipv6.h	2012-03-01 11:08:23.542137879 +0800
+--- linux-2.6.32-220.4.2.el5.orig/include/net/ipv6.h	2012-02-28 18:00:59.319831987 +0800
++++ linux-2.6.32-220.4.2.el5/include/net/ipv6.h	2012-02-28 18:00:59.355832152 +0800
 @@ -598,7 +598,7 @@
  /*
   * reassembly.c
@@ -599,3 +599,12 @@ Index: linux-2.6.32-220.4.2.el5/include/net/ipv6.h
  extern const struct proto_ops inet6_dgram_ops;
  
  struct group_source_req;
+Index: linux-2.6.32-220.4.2.el5/net/Makefile
+===================================================================
+--- linux-2.6.32-220.4.2.el5.orig/net/Makefile	2012-02-28 18:00:49.231781954 +0800
++++ linux-2.6.32-220.4.2.el5/net/Makefile	2012-02-28 18:03:34.864603203 +0800
+@@ -65,3 +65,4 @@
+ obj-$(CONFIG_SYSCTL)		+= sysctl_net.o
+ endif
+ obj-$(CONFIG_WIMAX)		+= wimax/
++obj-$(CONFIG_TOA)		+= toa/

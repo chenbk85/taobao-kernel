@@ -19,10 +19,10 @@ Acked-by:
  mm/filemap.c |   29 +++++++++++++++++++++++++----
  1 files changed, 25 insertions(+), 4 deletions(-)
 
-Index: linux-2.6.32-131.0.15.el6/fs/splice.c
+Index: linux-2.6.32-220.7.1.el5/fs/splice.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/fs/splice.c
-+++ linux-2.6.32-131.0.15.el6/fs/splice.c
+--- linux-2.6.32-220.7.1.el5.orig/fs/splice.c	2012-03-09 12:12:18.462345690 +0800
++++ linux-2.6.32-220.7.1.el5/fs/splice.c	2012-03-09 12:12:57.682540191 +0800
 @@ -30,6 +30,8 @@
  #include <linux/syscalls.h>
  #include <linux/uio.h>
@@ -32,7 +32,7 @@ Index: linux-2.6.32-131.0.15.el6/fs/splice.c
  
  /*
   * Attempt to steal a page from a pipe buffer. This should perhaps go into
-@@ -296,6 +298,11 @@ __generic_file_splice_read(struct file *
+@@ -296,6 +298,11 @@
  	spd.nr_pages = find_get_pages_contig(mapping, index, nr_pages, pages);
  	index += spd.nr_pages;
  
@@ -44,10 +44,10 @@ Index: linux-2.6.32-131.0.15.el6/fs/splice.c
  	/*
  	 * If find_get_pages_contig() returned fewer pages than we needed,
  	 * readahead/allocate the rest and fill in the holes.
-Index: linux-2.6.32-131.0.15.el6/mm/filemap.c
+Index: linux-2.6.32-220.7.1.el5/mm/filemap.c
 ===================================================================
---- linux-2.6.32-131.0.15.el6.orig/mm/filemap.c
-+++ linux-2.6.32-131.0.15.el6/mm/filemap.c
+--- linux-2.6.32-220.7.1.el5.orig/mm/filemap.c	2012-03-09 12:12:18.454345649 +0800
++++ linux-2.6.32-220.7.1.el5/mm/filemap.c	2012-03-09 12:12:57.682540191 +0800
 @@ -35,6 +35,7 @@
  #include <linux/memcontrol.h>
  #include <linux/mm_inline.h> /* for page_is_file_cache() */
@@ -56,7 +56,7 @@ Index: linux-2.6.32-131.0.15.el6/mm/filemap.c
  #include "internal.h"
  
  /*
-@@ -1035,10 +1036,16 @@ static void do_generic_file_read(struct
+@@ -1036,10 +1037,16 @@
  		pgoff_t end_index;
  		loff_t isize;
  		unsigned long nr, ret;
@@ -73,7 +73,7 @@ Index: linux-2.6.32-131.0.15.el6/mm/filemap.c
  		if (!page) {
  			page_cache_sync_readahead(mapping,
  					ra, filp,
-@@ -1163,6 +1170,7 @@ readpage:
+@@ -1164,6 +1171,7 @@
  		if (unlikely(error)) {
  			if (error == AOP_TRUNCATED_PAGE) {
  				page_cache_release(page);
@@ -81,7 +81,7 @@ Index: linux-2.6.32-131.0.15.el6/mm/filemap.c
  				goto find_page;
  			}
  			goto readpage_error;
-@@ -1179,6 +1187,7 @@ readpage:
+@@ -1180,6 +1188,7 @@
  					 */
  					unlock_page(page);
  					page_cache_release(page);
@@ -89,7 +89,7 @@ Index: linux-2.6.32-131.0.15.el6/mm/filemap.c
  					goto find_page;
  				}
  				unlock_page(page);
-@@ -1211,8 +1220,10 @@ no_cached_page:
+@@ -1212,8 +1221,10 @@
  						index, GFP_KERNEL);
  		if (error) {
  			page_cache_release(page);
@@ -101,7 +101,7 @@ Index: linux-2.6.32-131.0.15.el6/mm/filemap.c
  			desc->error = error;
  			goto out;
  		}
-@@ -1568,6 +1579,7 @@ int filemap_fault(struct vm_area_struct
+@@ -1569,6 +1580,7 @@
  	pgoff_t offset = vmf->pgoff;
  	struct page *page;
  	pgoff_t size;
@@ -109,7 +109,7 @@ Index: linux-2.6.32-131.0.15.el6/mm/filemap.c
  	int ret = 0;
  
  	size = (i_size_read(inode) + PAGE_CACHE_SIZE - 1) >> PAGE_CACHE_SHIFT;
-@@ -1578,6 +1590,11 @@ int filemap_fault(struct vm_area_struct
+@@ -1579,6 +1591,11 @@
  	 * Do we have something in the page cache already?
  	 */
  	page = find_get_page(mapping, offset);
@@ -121,7 +121,7 @@ Index: linux-2.6.32-131.0.15.el6/mm/filemap.c
  	if (likely(page)) {
  		/*
  		 * We found the page, so try async readahead before
-@@ -2255,20 +2272,25 @@ struct page *grab_cache_page_write_begin
+@@ -2256,20 +2273,25 @@
  		gfp_notmask = __GFP_FS;
  repeat:
  	page = find_lock_page(mapping, index);

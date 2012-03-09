@@ -6,10 +6,10 @@ References:
 Acked-by: 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 
-Index: linux-2.6.32-220.2.1.el5/fs/proc/stat.c
+Index: linux-2.6.32-220.4.2.el5/fs/proc/stat.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/proc/stat.c	2012-02-27 16:00:04.221481558 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/proc/stat.c	2012-02-27 16:00:12.873524468 +0800
+--- linux-2.6.32-220.4.2.el5.orig/fs/proc/stat.c	2012-02-24 17:14:49.824494422 +0800
++++ linux-2.6.32-220.4.2.el5/fs/proc/stat.c	2012-02-24 17:14:56.280526440 +0800
 @@ -122,6 +122,10 @@
  		seq_printf(p, " %u", per_softirq_sums[i]);
  	seq_printf(p, "\n");
@@ -21,10 +21,10 @@ Index: linux-2.6.32-220.2.1.el5/fs/proc/stat.c
  	return 0;
  }
  
-Index: linux-2.6.32-220.2.1.el5/include/linux/kernel_stat.h
+Index: linux-2.6.32-220.4.2.el5/include/linux/kernel_stat.h
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/include/linux/kernel_stat.h	2012-02-27 16:00:04.201481453 +0800
-+++ linux-2.6.32-220.2.1.el5/include/linux/kernel_stat.h	2012-02-27 16:00:12.873524468 +0800
+--- linux-2.6.32-220.4.2.el5.orig/include/linux/kernel_stat.h	2012-02-24 17:14:49.808494342 +0800
++++ linux-2.6.32-220.4.2.el5/include/linux/kernel_stat.h	2012-02-24 17:14:56.280526440 +0800
 @@ -43,6 +43,8 @@
  #define kstat_this_cpu	__get_cpu_var(kstat)
  
@@ -34,10 +34,10 @@ Index: linux-2.6.32-220.2.1.el5/include/linux/kernel_stat.h
  
  #ifndef CONFIG_GENERIC_HARDIRQS
  #define kstat_irqs_this_cpu(irq) \
-Index: linux-2.6.32-220.2.1.el5/kernel/sched.c
+Index: linux-2.6.32-220.4.2.el5/kernel/sched.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/kernel/sched.c	2012-02-27 16:00:04.213481525 +0800
-+++ linux-2.6.32-220.2.1.el5/kernel/sched.c	2012-02-27 16:00:12.877524478 +0800
+--- linux-2.6.32-220.4.2.el5.orig/kernel/sched.c	2012-02-24 17:14:49.816494382 +0800
++++ linux-2.6.32-220.4.2.el5/kernel/sched.c	2012-02-24 17:14:56.284526456 +0800
 @@ -3059,6 +3059,14 @@
  	return sum;
  }
