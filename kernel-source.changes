@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Fri Mar  9 12:18:23 CST 2012 - bosong.ly@taobao.com
+
+- Update to RHEL6 2.6.32-220.7.1 kernel
+  - patches.taobao/cfq_avoid_async_write_starve.patch: Refresh.
+  - patches.taobao/cfq_request_deadline_policy.patch: Refresh.
+  - patches.taobao/pagecache_hit_accounting_003_mm_add_accouting_for_pagecache.patch: Refresh.
+  - patches.taobao/pagecache_hit_accounting_004_add_readpages_accounting.patch: Refresh.
+  - redhat-kernel-changelog:
+  - redhat-kernel-version:
+  - redhat-kernel-source/
+
+-------------------------------------------------------------------
 Tue Mar  6 17:04:58 CST 2012 - boyu.mt@taobao.com
 
 rebase to the latest 220.
