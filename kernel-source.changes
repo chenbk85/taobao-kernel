@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Mar 20 16:16:28 CST 2012 - bosong.ly@taobao.com
+
+  - series.conf: add patches.taobao/nohz-0004-add-nsecs_to_jiffies64.patch
+  - patches.taobao/nohz-0004-sched-Cure-nr_iowait_cpu-users.patch: Delete.
+
+-------------------------------------------------------------------
 Tue Mar 20 16:00:01 CST 2012 - bosong.ly@taobao.com
 
 - Add nsecs_to_jiffies64() implementation for nohz fixes:
