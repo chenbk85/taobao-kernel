@@ -1,6 +1,7 @@
 From: Michal Hocko <mhocko@suse.cz>
-Subject: [PATCH 1/3] nohz: Fix update_ts_time_stat idle accounting
+Subject: [PATCH 1/6] nohz: Fix update_ts_time_stat idle accounting
 Patch-mainline: v3.1-rc1+
+Reference: BF#152721
 
 nohz: Fix update_ts_time_stat idle accounting
 
@@ -27,7 +28,7 @@ Cc: Alexey Dobriyan <adobriyan@gmail.com>
 Link: http://lkml.kernel.org/r/e9c909c221a8da402c4da07e4cd968c3218f8eb1.1314172057.git.mhocko@suse.cz
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
-
+---
 Index: linux-2.6.32-131.21.1.el5/drivers/cpufreq/cpufreq_conservative.c
 ===================================================================
 --- linux-2.6.32-131.21.1.el5.orig/drivers/cpufreq/cpufreq_conservative.c

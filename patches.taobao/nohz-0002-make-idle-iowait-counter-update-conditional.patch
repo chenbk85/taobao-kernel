@@ -1,6 +1,7 @@
 From: Michal Hocko <mhocko@suse.cz>
-Subject: [PATCH 2/3] nohz: Make idle/iowait counter update conditional
+Subject: [PATCH 2/6] nohz: Make idle/iowait counter update conditional
 Patch-mainline: v3.1-rc1+
+Reference: BF#152721
 
 nohz: Make idle/iowait counter update conditional
 
@@ -27,7 +28,7 @@ Cc: Alexey Dobriyan <adobriyan@gmail.com>
 Link: http://lkml.kernel.org/r/11f23179472635ce52e78921d47a20216b872f23.1314172057.git.mhocko@suse.cz
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
-
+---
 Index: linux-2.6.32-131.21.1.el5/kernel/time/tick-sched.c
 ===================================================================
 --- linux-2.6.32-131.21.1.el5.orig/kernel/time/tick-sched.c
@@ -54,10 +55,10 @@ Index: linux-2.6.32-131.21.1.el5/kernel/time/tick-sched.c
 -	update_ts_time_stats(ts, ktime_get(), last_update_time);
 +	now = ktime_get();
 +	if (last_update_time) {
-+		update_ts_time_stats(ts, now, last_update_time);
++		update_ts_time_stats(cpu, ts, now, last_update_time);
 +		idle = ts->idle_sleeptime;
 +	} else {
-+		if (ts->idle_active && !nr_iowait_cpu()) {
++		if (ts->idle_active && !nr_iowait_cpu(cpu)) {
 +			ktime_t delta = ktime_sub(now, ts->idle_entrytime);
 +			idle = ktime_add(ts->idle_sleeptime, delta);
 +		} else {
@@ -91,10 +92,10 @@ Index: linux-2.6.32-131.21.1.el5/kernel/time/tick-sched.c
 -	update_ts_time_stats(ts, ktime_get(), last_update_time);
 +	now = ktime_get();
 +	if (last_update_time) {
-+		update_ts_time_stats(ts, now, last_update_time);
++		update_ts_time_stats(cpu, ts, now, last_update_time);
 +		iowait = ts->iowait_sleeptime;
 +	} else {
-+		if (ts->idle_active && nr_iowait_cpu() > 0) {
++		if (ts->idle_active && nr_iowait_cpu(cpu) > 0) {
 +			ktime_t delta = ktime_sub(now, ts->idle_entrytime);
 +			iowait = ktime_add(ts->iowait_sleeptime, delta);
 +		} else {

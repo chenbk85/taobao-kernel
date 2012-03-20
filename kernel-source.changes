@@ -1,4 +1,24 @@
 -------------------------------------------------------------------
+Tue Mar 20 14:41:22 CST 2012 - bosong.ly@taobao.com
+
+- Update patch format for existing nohz fixes:
+  - patches.taobao/nohz-0001-fix-update_ts_time_stat-idle-accouting.patch:
+    Update references (BF#152721).
+  - patches.taobao/nohz-0002-make-idle-iowait-counter-update-conditional.patch:
+    Update references (BF#152721).
+  - patches.taobao/nohz-0003-proc-consider-nohz-when-printing-idle-and-iowait-times.patch:
+    Update references (BF#152721).
+
+- Add more fixes related to nohz:
+  - patches.taobao/nohz-0004-sched-Cure-nr_iowait_cpu-users.patch:
+    sched: Cure nr_iowait_cpu() users (BF#152721).
+  - patches.taobao/nohz-0005-procfs-do-not-overflow-get_idle-iowait_time-for-nohz.patch:
+  - patches.taobao/nohz-0006-procfs-do-not-confuse-jiffies-with-cputime64_t.patch:
+
+- Remove combined nohz fix patch:
+  - patches.taobao/nohz-idle-time-accounting-fix.patch: Delete.
+
+-------------------------------------------------------------------
 Thu Mar 15 19:46:44 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/nohz-idle-time-accounting-fix.patch: nohz idle

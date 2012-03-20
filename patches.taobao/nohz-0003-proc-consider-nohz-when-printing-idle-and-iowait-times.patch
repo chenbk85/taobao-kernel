@@ -1,6 +1,7 @@
 From: Michal Hocko <mhocko@suse.cz>
-Subject: [PATCH 3/3] Consider NO_HZ when printing idle and iowait times
+Subject: [PATCH 3/6] Consider NO_HZ when printing idle and iowait times
 Patch-mainline: v3.1-rc1+
+Reference: BF#152721
 
 proc: Consider NO_HZ when printing idle and iowait times
 
@@ -30,7 +31,7 @@ Cc: Alexey Dobriyan <adobriyan@gmail.com>
 Link: http://lkml.kernel.org/r/39181366adac1b39cb6aa3cd53ff0f7c78d32676.1314172057.git.mhocko@suse.cz
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
-
+---
 Index: linux-2.6.32-220.0.0.el5/fs/proc/stat.c
 ===================================================================
 --- linux-2.6.32-220.0.0.el5.orig/fs/proc/stat.c	2011-12-13 14:48:22.768887136 +0800
