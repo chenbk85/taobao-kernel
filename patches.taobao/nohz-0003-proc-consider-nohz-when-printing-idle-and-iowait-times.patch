@@ -1,5 +1,5 @@
 From: Michal Hocko <mhocko@suse.cz>
-Subject: [PATCH 3/6] Consider NO_HZ when printing idle and iowait times
+Subject: [PATCH 3/7] Consider NO_HZ when printing idle and iowait times
 Patch-mainline: v3.1-rc1+
 Reference: BF#152721
 

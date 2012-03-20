@@ -1,5 +1,5 @@
 From: Michal Hocko <mhocko@suse.cz>
-Subject: [PATCH 2/6] nohz: Make idle/iowait counter update conditional
+Subject: [PATCH 2/7] nohz: Make idle/iowait counter update conditional
 Patch-mainline: v3.1-rc1+
 Reference: BF#152721
 

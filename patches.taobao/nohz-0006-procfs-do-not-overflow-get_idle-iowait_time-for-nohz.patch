@@ -1,7 +1,7 @@
 commit 2a95ea6c0d129b4568fb64e1deda16ceb20e6636
 From: Michal Hocko <mhocko@suse.cz>
 Date: Thu Dec 8 14:34:32 2011 -0800
-Subject: [PATCH 5/6] procfs: do not overflow get_{idle,iowait}_time for nohz
+Subject: [PATCH 6/7] procfs: do not overflow get_{idle,iowait}_time for nohz
 Patch-mainline: 3.2
 Reference: BF#152721
 

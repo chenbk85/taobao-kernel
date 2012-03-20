@@ -1,5 +1,5 @@
 From: Michal Hocko <mhocko@suse.cz>
-Subject: [PATCH 1/6] nohz: Fix update_ts_time_stat idle accounting
+Subject: [PATCH 1/7] nohz: Fix update_ts_time_stat idle accounting
 Patch-mainline: v3.1-rc1+
 Reference: BF#152721
 

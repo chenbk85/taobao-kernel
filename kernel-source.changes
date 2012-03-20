@@ -1,4 +1,47 @@
 -------------------------------------------------------------------
+Tue Mar 20 16:00:01 CST 2012 - bosong.ly@taobao.com
+
+- Add nsecs_to_jiffies64() implementation for nohz fixes:
+  - patches.taobao/nohz-0004-add-nsecs_to_jiffies64.patch: backport:
+    add nsecs_to_jiffies64() and nsecs_to_jiffies() (BF#152721).
+
+- Rebase nohz fixes deu to a new patch added:
+  - patches.taobao/nohz-0001-fix-update_ts_time_stat-idle-accouting.patch: Refresh.
+  - patches.taobao/nohz-0002-make-idle-iowait-counter-update-conditional.patch: Refresh.
+  - patches.taobao/nohz-0003-proc-consider-nohz-when-printing-idle-and-iowait-times.patch: Refresh.
+  - patches.taobao/nohz-0005-sched-Cure-nr_iowait_cpu-users.patch: sched: Cure nr_iowait_cpu() users (BF#152721).
+  - patches.taobao/nohz-0005-procfs-do-not-overflow-get_idle-iowait_time-for-nohz.patch: Delete.
+  - patches.taobao/nohz-0006-procfs-do-not-overflow-get_idle-iowait_time-for-nohz.patch:
+  - patches.taobao/nohz-0006-procfs-do-not-confuse-jiffies-with-cputime64_t.patch: Delete.
+  - patches.taobao/nohz-0007-procfs-do-not-confuse-jiffies-with-cputime64_t.patch:
+
+-------------------------------------------------------------------
+Tue Mar 20 15:57:04 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/nohz-0001-fix-update_ts_time_stat-idle-accouting.patch:
+  Refresh.
+- patches.taobao/nohz-0002-make-idle-iowait-counter-update-conditional.patch:
+  Refresh.
+- patches.taobao/nohz-0003-proc-consider-nohz-when-printing-idle-and-iowait-times.patch:
+  Refresh.
+- patches.taobao/nohz-0004-add-nsecs_to_jiffies64.patch: backport:
+  add nsecs_to_jiffies64() and nsecs_to_jiffies() (BF#152721).
+- patches.taobao/nohz-0005-sched-Cure-nr_iowait_cpu-users.patch:
+  sched: Cure nr_iowait_cpu() users (BF#152721).
+- patches.taobao/nohz-0006-procfs-do-not-overflow-get_idle-iowait_time-for-nohz.patch:
+- patches.taobao/nohz-0007-procfs-do-not-confuse-jiffies-with-cputime64_t.patch:
+
+-------------------------------------------------------------------
+Tue Mar 20 15:56:11 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/nohz-0001-fix-update_ts_time_stat-idle-accouting.patch:
+  Refresh.
+- patches.taobao/nohz-0002-make-idle-iowait-counter-update-conditional.patch:
+  Refresh.
+- patches.taobao/nohz-0003-proc-consider-nohz-when-printing-idle-and-iowait-times.patch:
+  Refresh.
+
+-------------------------------------------------------------------
 Tue Mar 20 14:41:22 CST 2012 - bosong.ly@taobao.com
 
 - Update patch format for existing nohz fixes:

@@ -1,7 +1,7 @@
 commit 34845636a184f3be91a531098192592cbe6db587
 From: Andreas Schwab <schwab@linux-m68k.org>
 Date: Wed Dec 28 15:57:15 2011 -0800
-Subject: [PATCH 6/6] procfs: do not confuse jiffies with cputime64_t
+Subject: [PATCH 7/7] procfs: do not confuse jiffies with cputime64_t
 Patch-mainline: 3.2
 Reference: BF#152721
 
