@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Mar 28 00:47:42 CST 2012 - boyu.mt@taobao.com
+
+- patches.taobao/block-Make-cfq_target_latency-tunable-through-sysfs.patch:
+
+-------------------------------------------------------------------
 Tue Mar 20 16:16:28 CST 2012 - bosong.ly@taobao.com
 
   - series.conf: add patches.taobao/nohz-0004-add-nsecs_to_jiffies64.patch
