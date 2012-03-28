@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Mar 28 13:50:35 CST 2012 - bosong.ly@taobao.com
+
+- series.conf: add patches.driver/igb-fix-default-behavior-of-RSS-parameter-to-automatically-detect-number-of-Rx-Tx-queues.patch
+
+-------------------------------------------------------------------
 Wed Mar 21 12:13:45 CST 2012 - bosong.ly@taobao.com
 
 - More fixes for bugfree#125721 (idle & iowait ticks counter overflow):
