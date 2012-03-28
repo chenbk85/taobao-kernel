@@ -63,7 +63,7 @@ Index: linux-2.6.32-220.2.1.el5/mm/mlock.c
  #include "internal.h"
  
 +/* flush lru pagevec in mlock()/mlockall() */
-+int sysctl_mlock_flush_pagevec = 1;
++int sysctl_mlock_flush_pagevec = 0;
 +
  int can_do_mlock(void)
  {

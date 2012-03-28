@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Mar 28 18:28:57 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/mm-sysctl-mlock-flush-pagevec.patch:
+  set sysctl_mlock_flush_pagevec default to 0 (disable).
+
+-------------------------------------------------------------------
 Wed Mar 28 13:49:13 CST 2012 - bosong.ly@taobao.com
 
 - series.conf: add patches.driver/igb-fix-default-behavior-of-RSS-parameter-to-automatically-detect-number-of-Rx-Tx-queues.patch 
