@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Apr 13 17:11:56 CST 2012 - sanbai@taobao.com
+
+- patches.taobao/tlock.patch: Refresh.
+  fix tlock deadlock bug at Toabao-Ads-Hadoop-Cluster #158256
+
+-------------------------------------------------------------------
 Wed Mar 28 18:28:57 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/mm-sysctl-mlock-flush-pagevec.patch:
