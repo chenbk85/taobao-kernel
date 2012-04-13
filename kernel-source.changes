@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Apr 13 17:15:21 CST 2012 - hao.bigrat@gmail.com
+
+- Update config files.
+- patches.taobao/acridafs.patch:
+  port acridafs kernel module to 2.6.32 version.
+
+-------------------------------------------------------------------
 Fri Apr 13 17:11:56 CST 2012 - sanbai@taobao.com
 
 - patches.taobao/tlock.patch: Refresh.
