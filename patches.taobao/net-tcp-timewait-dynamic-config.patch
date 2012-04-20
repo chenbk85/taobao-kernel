@@ -15,10 +15,10 @@ the range of the legal value is <1,600> second(s)
 Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/include/linux/sysctl.h
+Index: linux-2.6.32-220.13.1.el5/include/linux/sysctl.h
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/include/linux/sysctl.h	2011-12-13 14:45:28.436022656 +0800
-+++ linux-2.6.32-220.0.0.el5/include/linux/sysctl.h	2011-12-13 14:45:32.428042455 +0800
+--- linux-2.6.32-220.13.1.el5.orig/include/linux/sysctl.h	2012-04-19 17:24:49.102453670 +0800
++++ linux-2.6.32-220.13.1.el5/include/linux/sysctl.h	2012-04-19 17:26:48.727046858 +0800
 @@ -434,6 +434,7 @@
  	NET_TCP_ALLOWED_CONG_CONTROL=123,
  	NET_TCP_MAX_SSTHRESH=124,
@@ -36,10 +36,10 @@ Index: linux-2.6.32-220.0.0.el5/include/linux/sysctl.h
  extern int proc_dointvec_userhz_jiffies(struct ctl_table *, int,
  					void __user *, size_t *, loff_t *);
  extern int proc_dointvec_ms_jiffies(struct ctl_table *, int,
-Index: linux-2.6.32-220.0.0.el5/include/net/tcp.h
+Index: linux-2.6.32-220.13.1.el5/include/net/tcp.h
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/include/net/tcp.h	2011-12-13 14:45:28.440022679 +0800
-+++ linux-2.6.32-220.0.0.el5/include/net/tcp.h	2011-12-13 14:45:32.432042471 +0800
+--- linux-2.6.32-220.13.1.el5.orig/include/net/tcp.h	2012-04-19 17:24:49.110453714 +0800
++++ linux-2.6.32-220.13.1.el5/include/net/tcp.h	2012-04-19 17:26:48.727046858 +0800
 @@ -209,6 +209,7 @@
  extern int sysctl_tcp_window_scaling;
  extern int sysctl_tcp_sack;
@@ -48,10 +48,10 @@ Index: linux-2.6.32-220.0.0.el5/include/net/tcp.h
  extern int sysctl_tcp_keepalive_time;
  extern int sysctl_tcp_keepalive_probes;
  extern int sysctl_tcp_keepalive_intvl;
-Index: linux-2.6.32-220.0.0.el5/kernel/sysctl_check.c
+Index: linux-2.6.32-220.13.1.el5/kernel/sysctl_check.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/kernel/sysctl_check.c	2011-12-13 14:45:28.484022894 +0800
-+++ linux-2.6.32-220.0.0.el5/kernel/sysctl_check.c	2011-12-13 14:45:32.432042471 +0800
+--- linux-2.6.32-220.13.1.el5.orig/kernel/sysctl_check.c	2012-04-19 17:24:49.178454052 +0800
++++ linux-2.6.32-220.13.1.el5/kernel/sysctl_check.c	2012-04-19 17:26:48.727046858 +0800
 @@ -323,6 +323,7 @@
  	{ NET_IPV4_TCP_RETRIES1,		"tcp_retries1" },
  	{ NET_IPV4_TCP_RETRIES2,		"tcp_retries2" },
@@ -68,10 +68,10 @@ Index: linux-2.6.32-220.0.0.el5/kernel/sysctl_check.c
  			    (table->proc_handler == proc_dointvec_userhz_jiffies) ||
  			    (table->proc_handler == proc_dointvec_ms_jiffies) ||
  			    (table->proc_handler == proc_doulongvec_minmax) ||
-Index: linux-2.6.32-220.0.0.el5/net/ipv4/sysctl_net_ipv4.c
+Index: linux-2.6.32-220.13.1.el5/net/ipv4/sysctl_net_ipv4.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/net/ipv4/sysctl_net_ipv4.c	2011-12-13 14:45:28.472022834 +0800
-+++ linux-2.6.32-220.0.0.el5/net/ipv4/sysctl_net_ipv4.c	2011-12-13 14:45:32.432042471 +0800
+--- linux-2.6.32-220.13.1.el5.orig/net/ipv4/sysctl_net_ipv4.c	2012-04-19 17:24:49.158453959 +0800
++++ linux-2.6.32-220.13.1.el5/net/ipv4/sysctl_net_ipv4.c	2012-04-19 17:26:48.727046858 +0800
 @@ -25,6 +25,8 @@
  static int tcp_retr1_max = 255;
  static int ip_local_port_range_min[] = { 1, 1 };
@@ -98,10 +98,10 @@ Index: linux-2.6.32-220.0.0.el5/net/ipv4/sysctl_net_ipv4.c
  #ifdef CONFIG_SYN_COOKIES
  	{
  		.ctl_name	= NET_TCP_SYNCOOKIES,
-Index: linux-2.6.32-220.0.0.el5/net/ipv4/tcp.c
+Index: linux-2.6.32-220.13.1.el5/net/ipv4/tcp.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/net/ipv4/tcp.c	2011-12-13 14:45:28.460022778 +0800
-+++ linux-2.6.32-220.0.0.el5/net/ipv4/tcp.c	2011-12-13 14:45:32.432042471 +0800
+--- linux-2.6.32-220.13.1.el5.orig/net/ipv4/tcp.c	2012-04-19 17:24:49.138453856 +0800
++++ linux-2.6.32-220.13.1.el5/net/ipv4/tcp.c	2012-04-19 17:26:48.727046858 +0800
 @@ -277,6 +277,9 @@
  
  int sysctl_tcp_fin_timeout __read_mostly = TCP_FIN_TIMEOUT;
@@ -124,10 +124,10 @@ Index: linux-2.6.32-220.0.0.el5/net/ipv4/tcp.c
  			} else {
  				tcp_time_wait(sk, TCP_FIN_WAIT2, tmo);
  				goto out;
-Index: linux-2.6.32-220.0.0.el5/net/ipv4/tcp_input.c
+Index: linux-2.6.32-220.13.1.el5/net/ipv4/tcp_input.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/net/ipv4/tcp_input.c	2011-12-13 14:45:28.452022738 +0800
-+++ linux-2.6.32-220.0.0.el5/net/ipv4/tcp_input.c	2011-12-13 14:45:32.432042471 +0800
+--- linux-2.6.32-220.13.1.el5.orig/net/ipv4/tcp_input.c	2012-04-19 17:24:49.130453806 +0800
++++ linux-2.6.32-220.13.1.el5/net/ipv4/tcp_input.c	2012-04-19 17:26:48.731046884 +0800
 @@ -5749,8 +5749,8 @@
  					}
  
@@ -139,10 +139,10 @@ Index: linux-2.6.32-220.0.0.el5/net/ipv4/tcp_input.c
  					} else if (th->fin || sock_owned_by_user(sk)) {
  						/* Bad case. We could lose such FIN otherwise.
  						 * It is not a big problem, but it looks confusing
-Index: linux-2.6.32-220.0.0.el5/net/ipv4/tcp_minisocks.c
+Index: linux-2.6.32-220.13.1.el5/net/ipv4/tcp_minisocks.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/net/ipv4/tcp_minisocks.c	2011-12-13 14:45:28.464022793 +0800
-+++ linux-2.6.32-220.0.0.el5/net/ipv4/tcp_minisocks.c	2011-12-13 14:45:32.436042491 +0800
+--- linux-2.6.32-220.13.1.el5.orig/net/ipv4/tcp_minisocks.c	2012-04-19 17:24:49.146453892 +0800
++++ linux-2.6.32-220.13.1.el5/net/ipv4/tcp_minisocks.c	2012-04-19 17:26:48.731046884 +0800
 @@ -163,10 +163,10 @@
  		    tcp_death_row.sysctl_tw_recycle && tcptw->tw_ts_recent_stamp &&
  		    tcp_v4_tw_remember_stamp(tw))
@@ -205,10 +205,10 @@ Index: linux-2.6.32-220.0.0.el5/net/ipv4/tcp_minisocks.c
  		inet_twsk_put(tw);
  	} else {
  		/* Sorry, if we're out of memory, just CLOSE this
-Index: linux-2.6.32-220.0.0.el5/net/ipv4/tcp_timer.c
+Index: linux-2.6.32-220.13.1.el5/net/ipv4/tcp_timer.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/net/ipv4/tcp_timer.c	2011-12-13 14:45:28.448022713 +0800
-+++ linux-2.6.32-220.0.0.el5/net/ipv4/tcp_timer.c	2011-12-13 14:45:32.436042491 +0800
+--- linux-2.6.32-220.13.1.el5.orig/net/ipv4/tcp_timer.c	2012-04-19 17:24:49.118453739 +0800
++++ linux-2.6.32-220.13.1.el5/net/ipv4/tcp_timer.c	2012-04-19 17:26:48.731046884 +0800
 @@ -83,7 +83,7 @@
  
  		/* Catch exceptional cases, when connection requires reset.
@@ -227,11 +227,11 @@ Index: linux-2.6.32-220.0.0.el5/net/ipv4/tcp_timer.c
  
  			if (tmo > 0) {
  				tcp_time_wait(sk, TCP_FIN_WAIT2, tmo);
-Index: linux-2.6.32-220.0.0.el5/kernel/sysctl.c
+Index: linux-2.6.32-220.13.1.el5/kernel/sysctl.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/kernel/sysctl.c	2011-12-13 14:45:28.480022878 +0800
-+++ linux-2.6.32-220.0.0.el5/kernel/sysctl.c	2011-12-13 14:45:32.436042491 +0800
-@@ -2864,6 +2864,69 @@
+--- linux-2.6.32-220.13.1.el5.orig/kernel/sysctl.c	2012-04-19 17:24:49.170454005 +0800
++++ linux-2.6.32-220.13.1.el5/kernel/sysctl.c	2012-04-19 17:26:48.731046884 +0800
+@@ -2880,6 +2880,69 @@
  				do_proc_dointvec_minmax_conv, &param);
  }
  
@@ -301,7 +301,7 @@ Index: linux-2.6.32-220.0.0.el5/kernel/sysctl.c
  static int __do_proc_doulongvec_minmax(void *data, struct ctl_table *table, int write,
  				     void __user *buffer,
  				     size_t *lenp, loff_t *ppos,
-@@ -3335,6 +3398,12 @@
+@@ -3351,6 +3414,12 @@
  	return -ENOSYS;
  }
  
@@ -314,7 +314,7 @@ Index: linux-2.6.32-220.0.0.el5/kernel/sysctl.c
  int proc_dointvec_userhz_jiffies(struct ctl_table *table, int write,
  		    void __user *buffer, size_t *lenp, loff_t *ppos)
  {
-@@ -3650,6 +3719,7 @@
+@@ -3666,6 +3735,7 @@
  EXPORT_SYMBOL(proc_dointvec);
  EXPORT_SYMBOL(proc_dointvec_jiffies);
  EXPORT_SYMBOL(proc_dointvec_minmax);
