@@ -33,10 +33,10 @@ Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: linux-2.6.32-220.7.1.el5/arch/ia64/include/asm/cputime.h
+Index: linux-2.6.32-220.13.1.el5/arch/ia64/include/asm/cputime.h
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/arch/ia64/include/asm/cputime.h	2012-03-20 14:40:05.873391483 +0800
-+++ linux-2.6.32-220.7.1.el5/arch/ia64/include/asm/cputime.h	2012-03-20 14:40:33.221527050 +0800
+--- linux-2.6.32-220.13.1.el5.orig/arch/ia64/include/asm/cputime.h	2012-04-19 17:32:55.000000000 +0800
++++ linux-2.6.32-220.13.1.el5/arch/ia64/include/asm/cputime.h	2012-04-19 18:19:47.426809203 +0800
 @@ -66,6 +66,7 @@
   */
  #define cputime_to_usecs(__ct)		((__ct) / NSEC_PER_USEC)
@@ -45,10 +45,10 @@ Index: linux-2.6.32-220.7.1.el5/arch/ia64/include/asm/cputime.h
  
  /*
   * Convert cputime <-> seconds
-Index: linux-2.6.32-220.7.1.el5/arch/powerpc/include/asm/cputime.h
+Index: linux-2.6.32-220.13.1.el5/arch/powerpc/include/asm/cputime.h
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/arch/powerpc/include/asm/cputime.h	2012-03-20 14:40:05.845391362 +0800
-+++ linux-2.6.32-220.7.1.el5/arch/powerpc/include/asm/cputime.h	2012-03-20 14:40:33.221527050 +0800
+--- linux-2.6.32-220.13.1.el5.orig/arch/powerpc/include/asm/cputime.h	2012-04-19 17:32:55.000000000 +0800
++++ linux-2.6.32-220.13.1.el5/arch/powerpc/include/asm/cputime.h	2012-04-19 18:19:47.426809203 +0800
 @@ -178,6 +178,8 @@
  	return ct;
  }
@@ -58,10 +58,10 @@ Index: linux-2.6.32-220.7.1.el5/arch/powerpc/include/asm/cputime.h
  /*
   * Convert cputime <-> seconds
   */
-Index: linux-2.6.32-220.7.1.el5/arch/s390/include/asm/cputime.h
+Index: linux-2.6.32-220.13.1.el5/arch/s390/include/asm/cputime.h
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/arch/s390/include/asm/cputime.h	2012-03-20 14:40:05.857391400 +0800
-+++ linux-2.6.32-220.7.1.el5/arch/s390/include/asm/cputime.h	2012-03-20 14:40:33.221527050 +0800
+--- linux-2.6.32-220.13.1.el5.orig/arch/s390/include/asm/cputime.h	2012-04-19 17:32:55.000000000 +0800
++++ linux-2.6.32-220.13.1.el5/arch/s390/include/asm/cputime.h	2012-04-19 18:19:47.426809203 +0800
 @@ -102,6 +102,8 @@
  	return (cputime_t) m * 4096;
  }
@@ -71,15 +71,15 @@ Index: linux-2.6.32-220.7.1.el5/arch/s390/include/asm/cputime.h
  /*
   * Convert cputime to milliseconds and back.
   */
-Index: linux-2.6.32-220.7.1.el5/fs/proc/stat.c
+Index: linux-2.6.32-220.13.1.el5/fs/proc/stat.c
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/fs/proc/stat.c	2012-03-20 14:40:28.949505881 +0800
-+++ linux-2.6.32-220.7.1.el5/fs/proc/stat.c	2012-03-20 14:40:33.221527050 +0800
+--- linux-2.6.32-220.13.1.el5.orig/fs/proc/stat.c	2012-04-19 18:19:30.000000000 +0800
++++ linux-2.6.32-220.13.1.el5/fs/proc/stat.c	2012-04-19 18:22:04.939491297 +0800
 @@ -33,7 +33,7 @@
  		idle = kstat_cpu(cpu).cpustat.idle;
  		idle = cputime64_add(idle, arch_idle_time(cpu));
  	} else
--		idle = nsecs_to_jiffies64(1000 * idle_time);
+-		idle = nsecs_to_jiffies(1000 * idle_time);
 +		idle = usecs_to_cputime64(idle_time);
  
  	return idle;
@@ -88,20 +88,20 @@ Index: linux-2.6.32-220.7.1.el5/fs/proc/stat.c
  		/* !NO_HZ so we can rely on cpustat.iowait */
  		iowait = kstat_cpu(cpu).cpustat.iowait;
  	else
--		iowait = nsecs_to_jiffies64(1000 * iowait_time);
+-		iowait = nsecs_to_jiffies(1000 * iowait_time);
 +		iowait = usecs_to_cputime64(iowait_time);
  
  	return iowait;
  }
-Index: linux-2.6.32-220.7.1.el5/include/asm-generic/cputime.h
+Index: linux-2.6.32-220.13.1.el5/include/asm-generic/cputime.h
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/include/asm-generic/cputime.h	2012-03-20 14:40:21.549469222 +0800
-+++ linux-2.6.32-220.7.1.el5/include/asm-generic/cputime.h	2012-03-20 14:40:33.221527050 +0800
+--- linux-2.6.32-220.13.1.el5.orig/include/asm-generic/cputime.h	2012-04-19 18:19:30.000000000 +0800
++++ linux-2.6.32-220.13.1.el5/include/asm-generic/cputime.h	2012-04-19 18:19:47.426809203 +0800
 @@ -52,6 +52,7 @@
   */
  #define cputime_to_usecs(__ct)		jiffies_to_usecs(__ct)
  #define usecs_to_cputime(__msecs)	usecs_to_jiffies(__msecs)
-+#define usecs_to_cputime64(__msecs)	nsecs_to_jiffies64((__msecs) * 1000)
++#define usecs_to_cputime64(__msecs)	nsecs_to_jiffies((__msecs) * 1000)
  
  /*
   * Convert cputime to seconds and back.

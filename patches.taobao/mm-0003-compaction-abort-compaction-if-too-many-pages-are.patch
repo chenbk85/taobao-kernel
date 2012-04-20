@@ -24,10 +24,10 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  mm/compaction.c |   29 ++++++++++++++++++++++++-----
  1 files changed, 24 insertions(+), 5 deletions(-)
 
-Index: linux-2.6.32-220.0.0.el5/mm/compaction.c
+Index: linux-2.6.32-220.13.1.el5/mm/compaction.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/mm/compaction.c	2011-12-13 14:49:40.337271775 +0800
-+++ linux-2.6.32-220.0.0.el5/mm/compaction.c	2011-12-13 14:53:29.942410314 +0800
+--- linux-2.6.32-220.13.1.el5.orig/mm/compaction.c	2012-04-19 17:26:57.799091854 +0800
++++ linux-2.6.32-220.13.1.el5/mm/compaction.c	2012-04-19 17:27:11.247158326 +0800
 @@ -248,11 +248,18 @@
  	return isolated > (inactive + active) / 2;
  }
@@ -73,7 +73,7 @@ Index: linux-2.6.32-220.0.0.el5/mm/compaction.c
  	}
  
  	/* Time to isolate some pages for migration */
-@@ -362,7 +373,7 @@
+@@ -384,7 +395,7 @@
  	spin_unlock_irq(&zone->lru_lock);
  	cc->migrate_pfn = low_pfn;
  
@@ -82,7 +82,7 @@ Index: linux-2.6.32-220.0.0.el5/mm/compaction.c
  }
  
  /*
-@@ -462,8 +473,15 @@
+@@ -484,8 +495,15 @@
  	while ((ret = compact_finished(zone, cc)) == COMPACT_CONTINUE) {
  		unsigned long nr_migrate, nr_remaining;
  
@@ -99,7 +99,7 @@ Index: linux-2.6.32-220.0.0.el5/mm/compaction.c
  
  		nr_migrate = cc->nr_migratepages;
  		migrate_pages(&cc->migratepages, compaction_alloc,
-@@ -485,6 +503,7 @@
+@@ -507,6 +525,7 @@
  
  	}
  

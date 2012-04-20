@@ -10,11 +10,11 @@ this kernel module is ported from 2.6.18 kernel to 2.6.32.
 
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/Kconfig b/fs/Kconfig
-index 3631f14..c6c90b4 100644
---- a/fs/Kconfig
-+++ b/fs/Kconfig
-@@ -189,6 +189,7 @@ source "fs/pstore/Kconfig"
+Index: linux-2.6.32-220.13.1.el5/fs/Kconfig
+===================================================================
+--- linux-2.6.32-220.13.1.el5.orig/fs/Kconfig	2012-04-19 17:32:50.824842401 +0800
++++ linux-2.6.32-220.13.1.el5/fs/Kconfig	2012-04-19 18:22:17.895555313 +0800
+@@ -189,6 +189,7 @@
  source "fs/sysv/Kconfig"
  source "fs/ufs/Kconfig"
  source "fs/exofs/Kconfig"
@@ -22,20 +22,19 @@ index 3631f14..c6c90b4 100644
  
  endif # MISC_FILESYSTEMS
  
-diff --git a/fs/Makefile b/fs/Makefile
-index ca5dcb4..87f21fa 100644
---- a/fs/Makefile
-+++ b/fs/Makefile
-@@ -122,3 +122,4 @@ obj-$(CONFIG_BTRFS_FS)		+= btrfs/
+Index: linux-2.6.32-220.13.1.el5/fs/Makefile
+===================================================================
+--- linux-2.6.32-220.13.1.el5.orig/fs/Makefile	2012-04-19 17:32:50.788842226 +0800
++++ linux-2.6.32-220.13.1.el5/fs/Makefile	2012-04-19 18:22:17.895555313 +0800
+@@ -122,3 +122,4 @@
  obj-$(CONFIG_GFS2_FS)           += gfs2/
  obj-$(CONFIG_EXOFS_FS)          += exofs/
  obj-$(CONFIG_PSTORE)		+= pstore/
 +obj-$(CONFIG_ACRIDAFS)		+= acridafs/
-diff --git a/fs/acridafs/Kconfig b/fs/acridafs/Kconfig
-new file mode 100644
-index 0000000..906f4a9
---- /dev/null
-+++ b/fs/acridafs/Kconfig
+Index: linux-2.6.32-220.13.1.el5/fs/acridafs/Kconfig
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/Kconfig	2012-04-19 18:22:17.895555313 +0800
 @@ -0,0 +1,6 @@
 +config ACRIDAFS
 +	tristate "Taobao Acridafs for Kuafu"
@@ -43,11 +42,10 @@ index 0000000..906f4a9
 +	---help---
 +	  This is for Taobao Acridafs, which is needed by Toabao Kuafu. The option
 +	  is recommended as M.
-diff --git a/fs/acridafs/Makefile b/fs/acridafs/Makefile
-new file mode 100644
-index 0000000..393bc7f
---- /dev/null
-+++ b/fs/acridafs/Makefile
+Index: linux-2.6.32-220.13.1.el5/fs/acridafs/Makefile
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/Makefile	2012-04-19 18:22:17.895555313 +0800
 @@ -0,0 +1,7 @@
 +#
 +# Makefile for the Taobao acridafs used by Kuafu Project
@@ -56,11 +54,10 @@ index 0000000..393bc7f
 +obj-$(CONFIG_ACRIDAFS) += acrida.o
 +
 +acrida-objs := acridafs.o kuafu_info.o
-diff --git a/fs/acridafs/acridafs.c b/fs/acridafs/acridafs.c
-new file mode 100644
-index 0000000..a55b4a4
---- /dev/null
-+++ b/fs/acridafs/acridafs.c
+Index: linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.c	2012-04-19 18:22:17.895555313 +0800
 @@ -0,0 +1,907 @@
 +/*
 + * Resizable simple ram filesystem for Linux.
@@ -969,11 +966,10 @@ index 0000000..a55b4a4
 +}
 +
 +MODULE_LICENSE("GPL");
-diff --git a/fs/acridafs/acridafs.h b/fs/acridafs/acridafs.h
-new file mode 100644
-index 0000000..b1fb042
---- /dev/null
-+++ b/fs/acridafs/acridafs.h
+Index: linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.h	2012-04-19 18:22:17.895555313 +0800
 @@ -0,0 +1,10 @@
 +#define COULD_READ     0x10
 +#define COULD_WRITE    0x11
@@ -985,11 +981,10 @@ index 0000000..b1fb042
 +#define DEL_FILE       0x21
 +
 +#define KFC_FAIL       0x20100521
-diff --git a/fs/acridafs/kuafu_info.c b/fs/acridafs/kuafu_info.c
-new file mode 100644
-index 0000000..3f43913
---- /dev/null
-+++ b/fs/acridafs/kuafu_info.c
+Index: linux-2.6.32-220.13.1.el5/fs/acridafs/kuafu_info.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/kuafu_info.c	2012-04-19 18:22:17.899555339 +0800
 @@ -0,0 +1,322 @@
 +#ifdef __KERNEL__
 +#include <linux/kernel.h>
@@ -1313,11 +1308,10 @@ index 0000000..3f43913
 +	return 0;
 +}
 +
-diff --git a/fs/acridafs/kuafu_info.h b/fs/acridafs/kuafu_info.h
-new file mode 100644
-index 0000000..95cab4c
---- /dev/null
-+++ b/fs/acridafs/kuafu_info.h
+Index: linux-2.6.32-220.13.1.el5/fs/acridafs/kuafu_info.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/kuafu_info.h	2012-04-19 18:22:17.899555339 +0800
 @@ -0,0 +1,58 @@
 +#ifdef __KERNEL__
 +#include <linux/types.h>

@@ -30,7 +30,7 @@ Reference: BF#152721
     reported MAX_JIFFY_OFFSET) and so the only change happening was for user
     system time.
     
-    Let's use nsecs_to_jiffies64 instead which doesn't reduce the precision
+    Let's use nsecs_to_jiffies instead which doesn't reduce the precision
     to 32b type and it is much more appropriate for cumulative time values
     (unlike usecs_to_jiffies which intended for timeout calculations).
     
@@ -53,7 +53,7 @@ Index: linux-2.6.32-220.7.1.el5/fs/proc/stat.c
  		idle = cputime64_add(idle, arch_idle_time(cpu));
  	} else
 -		idle = usecs_to_cputime(idle_time);
-+		idle = nsecs_to_jiffies64(1000 * idle_time);
++		idle = nsecs_to_jiffies(1000 * idle_time);
  
  	return idle;
  }
@@ -62,7 +62,7 @@ Index: linux-2.6.32-220.7.1.el5/fs/proc/stat.c
  		iowait = kstat_cpu(cpu).cpustat.iowait;
  	else
 -		iowait = usecs_to_cputime(iowait_time);
-+		iowait = nsecs_to_jiffies64(1000 * iowait_time);
++		iowait = nsecs_to_jiffies(1000 * iowait_time);
  
  	return iowait;
  }
