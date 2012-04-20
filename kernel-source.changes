@@ -1,4 +1,33 @@
 -------------------------------------------------------------------
+Fri Apr 20 14:06:31 CST 2012 - bosong.ly@taobao.com
+
+- Update to RHEL6 2.6.32-220.13.1
+  - Update config files.
+  - redhat-kernel-changelog:
+  - redhat-kernel-source/:
+  - redhat-kernel-version:
+
+- Rebase patches to RHEL6 2.6.32-220.13.1
+  - patches.taobao/buffer-aio.patch: 
+  - patches.taobao/ext4-io-error-guard-for-file-system-protection-on-broken-storage-device.patch:
+  - patches.taobao/mm-0001-compaction-checks-correct-fragmentation-index.patch:
+  - patches.taobao/mm-0003-compaction-abort-compaction-if-too-many-pages-are.patch:
+  - patches.taobao/mm-0006-compaction.c-avoid-double-mem_cgroup_del_lru.patch:
+  - patches.taobao/mm-add-a-sysctl-to-decide-whether-to-do-context-readahead-or-not.patch:
+  - patches.taobao/mm-sysctl-mlock-flush-pagevec.patch: Refresh.
+  - patches.taobao/net-tcp-timewait-dynamic-config.patch: Refresh.
+  - patches.taobao/nohz-0006-procfs-do-not-overflow-get_idle-iowait_time-for-nohz.patch:
+  - patches.taobao/tlock.patch: 
+
+- Delete patch due to we don't need it for s390 and ia64
+  - patches.taobao/nohz-0007-procfs-do-not-confuse-jiffies-with-cputime64_t.patch: Delete.
+
+- Merge patches from master branch
+  - patches.taobao/acridafs.patch: acridafs: port acridafs kernel module to 2.6.32 version.
+  - patches.taobao/block-Make-cfq_target_latency-tunable-through-sysfs.patch:
+    block: Make cfq_target_latency tunable through sysfs.
+
+-------------------------------------------------------------------
 Wed Mar 28 18:29:46 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/mm-sysctl-mlock-flush-pagevec.patch:
