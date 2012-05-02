@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed May  2 21:07:29 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/nohz-0007-procfs-do-not-confuse-jiffies-with-cputime64_t.patch:
+  Deleted since we don't need this fix currently, it makes code more confused.
+
+-------------------------------------------------------------------
 Wed May  2 20:59:49 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/sched_x86-Fix-overflow-in-cyc2ns_offset.patch:
