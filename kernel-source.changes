@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed May  2 20:59:49 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/sched_x86-Fix-overflow-in-cyc2ns_offset.patch:
+  Fix a minor TSC overflow when booting a kernel by kexec.
+
+-------------------------------------------------------------------
 Fri Apr 20 13:43:40 CST 2012 - bosong.ly@taobao.com
 
 - Update to RHEL6 2.6.32-220.13.1
