@@ -12,9 +12,9 @@ Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
 Index: linux-2.6.32-220.13.1.el5/fs/Kconfig
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/fs/Kconfig	2012-04-19 17:32:50.824842401 +0800
-+++ linux-2.6.32-220.13.1.el5/fs/Kconfig	2012-04-19 18:22:17.895555313 +0800
-@@ -189,6 +189,7 @@
+--- linux-2.6.32-220.13.1.el5.orig/fs/Kconfig	2012-05-07 17:23:19.635232428 +0800
++++ linux-2.6.32-220.13.1.el5/fs/Kconfig	2012-05-07 17:23:28.699277379 +0800
+@@ -190,6 +190,7 @@
  source "fs/sysv/Kconfig"
  source "fs/ufs/Kconfig"
  source "fs/exofs/Kconfig"
@@ -24,9 +24,9 @@ Index: linux-2.6.32-220.13.1.el5/fs/Kconfig
  
 Index: linux-2.6.32-220.13.1.el5/fs/Makefile
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/fs/Makefile	2012-04-19 17:32:50.788842226 +0800
-+++ linux-2.6.32-220.13.1.el5/fs/Makefile	2012-04-19 18:22:17.895555313 +0800
-@@ -122,3 +122,4 @@
+--- linux-2.6.32-220.13.1.el5.orig/fs/Makefile	2012-05-07 17:23:19.607232287 +0800
++++ linux-2.6.32-220.13.1.el5/fs/Makefile	2012-05-07 17:23:28.699277379 +0800
+@@ -123,3 +123,4 @@
  obj-$(CONFIG_GFS2_FS)           += gfs2/
  obj-$(CONFIG_EXOFS_FS)          += exofs/
  obj-$(CONFIG_PSTORE)		+= pstore/
@@ -34,7 +34,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/Makefile
 Index: linux-2.6.32-220.13.1.el5/fs/acridafs/Kconfig
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.13.1.el5/fs/acridafs/Kconfig	2012-04-19 18:22:17.895555313 +0800
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/Kconfig	2012-05-07 17:23:28.699277379 +0800
 @@ -0,0 +1,6 @@
 +config ACRIDAFS
 +	tristate "Taobao Acridafs for Kuafu"
@@ -45,7 +45,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/acridafs/Kconfig
 Index: linux-2.6.32-220.13.1.el5/fs/acridafs/Makefile
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.13.1.el5/fs/acridafs/Makefile	2012-04-19 18:22:17.895555313 +0800
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/Makefile	2012-05-07 17:23:28.699277379 +0800
 @@ -0,0 +1,7 @@
 +#
 +# Makefile for the Taobao acridafs used by Kuafu Project
@@ -57,7 +57,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/acridafs/Makefile
 Index: linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.c	2012-04-19 18:22:17.895555313 +0800
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.c	2012-05-07 17:23:28.699277379 +0800
 @@ -0,0 +1,907 @@
 +/*
 + * Resizable simple ram filesystem for Linux.
@@ -969,7 +969,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.c
 Index: linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.h	2012-04-19 18:22:17.895555313 +0800
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.h	2012-05-07 17:23:28.699277379 +0800
 @@ -0,0 +1,10 @@
 +#define COULD_READ     0x10
 +#define COULD_WRITE    0x11
@@ -984,7 +984,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/acridafs/acridafs.h
 Index: linux-2.6.32-220.13.1.el5/fs/acridafs/kuafu_info.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.13.1.el5/fs/acridafs/kuafu_info.c	2012-04-19 18:22:17.899555339 +0800
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/kuafu_info.c	2012-05-07 17:23:28.699277379 +0800
 @@ -0,0 +1,322 @@
 +#ifdef __KERNEL__
 +#include <linux/kernel.h>
@@ -1311,7 +1311,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/acridafs/kuafu_info.c
 Index: linux-2.6.32-220.13.1.el5/fs/acridafs/kuafu_info.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.13.1.el5/fs/acridafs/kuafu_info.h	2012-04-19 18:22:17.899555339 +0800
++++ linux-2.6.32-220.13.1.el5/fs/acridafs/kuafu_info.h	2012-05-07 17:23:28.699277379 +0800
 @@ -0,0 +1,58 @@
 +#ifdef __KERNEL__
 +#include <linux/types.h>
