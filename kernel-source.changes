@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon May  7 21:45:14 CST 2012 - bosong.ly@taobao.com
+
+- Correct patch format, add missing module_exit() lines,
+  - patches.taobao/overlayfs-0006-overlay-filesystem.patch: Refresh.
+  - patches.taobao/toa.patch: Refresh.
+
+-------------------------------------------------------------------
 Mon May  7 17:19:12 CST 2012 - bosong.ly@taobao.com
 
 - Merge overlay file system,
