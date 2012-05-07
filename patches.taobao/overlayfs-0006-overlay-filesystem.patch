@@ -2147,7 +2147,7 @@ new file mode 100644
 index 0000000..71cd541
 --- /dev/null
 +++ b/fs/overlayfs/super.c
-@@ -0,0 +1,611 @@
+@@ -0,0 +1,612 @@
 +/*
 + *
 + * Copyright (C) 2011 Novell Inc.
