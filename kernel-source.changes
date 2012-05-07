@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Mon May  7 15:18:45 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/export-necessary-kernel-symbols-for-kernel-modules.patch:
+  export symbols needed for external kernel module. (renamed and updated from
+  patches.taobao/lvs-toa-rs-export-symbols.patch)
+- patches.taobao/kernel-hookers-service.patch: kernel hookers service.
+- patches.taobao/net-SyncAck-rt_stat-per-IP-address.patch: net:
+  SyncAck rt_stat per IP address statistic.
+- patches.taobao/toa.patch: TOA: Tcp Option Address for IPv4.
+
+-------------------------------------------------------------------
 Wed May  2 21:07:29 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/nohz-0007-procfs-do-not-confuse-jiffies-with-cputime64_t.patch:
