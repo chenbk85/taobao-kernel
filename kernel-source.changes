@@ -1,4 +1,32 @@
 -------------------------------------------------------------------
+Mon May  7 17:19:12 CST 2012 - bosong.ly@taobao.com
+
+- Merge overlay file system,
+  - Update config files.
+  - patches.taobao/overlayfs-0001-fix-open-umount-race.patch: fix open/umount race.
+  - patches.taobao/overlayfs-0002-vfs-pass-struct-path-to-__dentry_open.patch:
+    vfs: pass struct path to __dentry_open().
+  - patches.taobao/overlayfs-0003-vfs-add-i_op-open.patch: vfs: add i_op->open().
+  - patches.taobao/overlayfs-0004-vfs-export-do_splice_direct-to-modules.patch:
+    vfs: export do_splice_direct() to modules.
+  - patches.taobao/overlayfs-0005-vfs-introduce-clone_private_mount.patch:
+    vfs: introduce clone_private_mount().
+  - patches.taobao/overlayfs-0006-overlay-filesystem.patch: overlay filesystem.
+  - patches.taobao/overlayfs-0007-overlayfs-add-statfs-support.patch:
+    overlayfs: add statfs support.
+  - patches.taobao/overlayfs-0008-overlayfs-implement-show_options.patch:
+    overlayfs: implement show_options.
+  - patches.taobao/overlayfs-0009-overlay-filesystem-documentation.patch:
+    overlay: overlay filesystem documentation.
+  - patches.taobao/overlayfs-0010-fs-limit-filesystem-stacking-depth.patch:
+    fs: limit filesystem stacking depth.
+  - patches.taobao/overlayfs-0011-fix-d_count-zero-problem-in-dget-of-ovl_permission.patch:
+    ovlayfs: fix d_count zero problem in ovl_permission.
+
+- Rebase due to overlayfs get merged.
+  - patches.taobao/acridafs.patch: Refresh.
+
+-------------------------------------------------------------------
 Mon May  7 15:52:49 CST 2012 - bosong.ly@taobao.com
 
 - Update kernel configs:
