@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Mon May  7 15:26:19 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/export-necessary-kernel-symbols-for-kernel-modules.patch:
+  export symbols needed for external kernel module (renamed and updated from
+  patches.taobao/lvs-toa-rs-export-symbols.patch).
+- patches.taobao/kernel-hookers-service.patch: kernel hookers service.
+- patches.taobao/net-SyncAck-rt_stat-per-IP-address.patch: net:
+  SyncAck rt_stat per IP address statistic.
+- patches.taobao/toa.patch: TOA: Tcp Option Address for IPv4.
+
+-------------------------------------------------------------------
+Mon May  7 15:25:26 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/export-necessary-kernel-symbols-for-kernel-modules.patch:
+  export symbols needed for external kernel module.
+- patches.taobao/kernel-hookers-service.patch: kernel hookers
+  service.
+- patches.taobao/net-SyncAck-rt_stat-per-IP-address.patch: net:
+  SyncAck rt_stat per IP address statistic.
+- patches.taobao/toa.patch: TOA: Tcp Option Address for IPv4.
+
+-------------------------------------------------------------------
 Wed May  2 21:05:20 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/sched_x86-Fix-overflow-in-cyc2ns_offset.patch:

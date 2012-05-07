@@ -1,5 +1,5 @@
 From: Pu Kong <pukong.wjm@taobao.com>
-Subject: [PATCH 2/2] TOA: Tcp Option: Address
+Subject: [PATCH] TOA: Tcp Option Address for IPv4
 Patch-mainline: in-house-usage
 
 This patch adds a new Tcp Option as Adress, here address including IP and Port.
@@ -7,16 +7,31 @@ By this patch, the real {IP,Port} can be added into option field of TCP header,
 with LVS load balancing, the backend services are still able to receive real
 {IP,Port} info.
 
-Currently TOA only supports IPv4.
+Currently TOA only supports IPv4. This patch is initially developped by
+Pu Kong <pukong.wjm@taobao.com>, currently maintained by Bing Tian 
+<bingtian.ly@taobao.com>.
 
 Signed-off-by: Pu Kong <pukong.wjm@taobao.com>
+Signed-off-by: Bing Tian <bingtian.ly@taobao.com>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: linux-2.6.32-220.4.2.el5/net/Kconfig
-===================================================================
---- linux-2.6.32-220.4.2.el5.orig/net/Kconfig	2012-02-28 18:00:49.411782850 +0800
-+++ linux-2.6.32-220.4.2.el5/net/Kconfig	2012-02-28 18:00:59.335832067 +0800
-@@ -49,6 +49,7 @@
+ net/Kconfig      |    1 +
+ net/Makefile     |    1 +
+ net/toa/Kconfig  |   10 ++
+ net/toa/Makefile |    4 +
+ net/toa/toa.c    |  388 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ net/toa/toa.h    |   91 +++++++++++++
+ 6 files changed, 495 insertions(+), 0 deletions(-)
+ create mode 100644 net/toa/Kconfig
+ create mode 100644 net/toa/Makefile
+ create mode 100644 net/toa/toa.c
+ create mode 100644 net/toa/toa.h
+
+diff --git a/net/Kconfig b/net/Kconfig
+index 041c35e..62db052 100644
+--- a/net/Kconfig
++++ b/net/Kconfig
+@@ -49,6 +49,7 @@ source "net/packet/Kconfig"
  source "net/unix/Kconfig"
  source "net/xfrm/Kconfig"
  source "net/iucv/Kconfig"
@@ -24,40 +39,47 @@ Index: linux-2.6.32-220.4.2.el5/net/Kconfig
  
  config INET
  	bool "TCP/IP networking"
-@@ -178,7 +179,6 @@
- source "net/ipv6/netfilter/Kconfig"
- source "net/decnet/netfilter/Kconfig"
- source "net/bridge/netfilter/Kconfig"
--
+diff --git a/net/Makefile b/net/Makefile
+index 1542e72..4ef7f1e 100644
+--- a/net/Makefile
++++ b/net/Makefile
+@@ -65,3 +65,4 @@ ifeq ($(CONFIG_NET),y)
+ obj-$(CONFIG_SYSCTL)		+= sysctl_net.o
  endif
- 
- source "net/dccp/Kconfig"
-Index: linux-2.6.32-220.4.2.el5/net/toa/Kconfig
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.4.2.el5/net/toa/Kconfig	2012-02-28 18:00:59.335832067 +0800
-@@ -0,0 +1,7 @@
+ obj-$(CONFIG_WIMAX)		+= wimax/
++obj-$(CONFIG_TOA)		+= toa/
+diff --git a/net/toa/Kconfig b/net/toa/Kconfig
+new file mode 100644
+index 0000000..c3d58f9
+--- /dev/null
++++ b/net/toa/Kconfig
+@@ -0,0 +1,10 @@
 +config	TOA
-+	tristate "Tcp Option for Address"
++	tristate "The private TCP option for support Taobao LVS full-NAT feature"
 +	default m
++	depends on HOOKERS
 +	---help---
-+	  A new Tcp option for address (ip + port)
++	  This option saves the original IP address and source port of a TCP segment
++	  after LVS performed NAT on it. So far, this module only supports IPv4 and
++	  IPv6 mapped IPv4.
 +
-+	  Say N if unsure.
-Index: linux-2.6.32-220.4.2.el5/net/toa/Makefile
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.4.2.el5/net/toa/Makefile	2012-02-28 18:00:59.347832119 +0800
++	  Say m if unsure.
+diff --git a/net/toa/Makefile b/net/toa/Makefile
+new file mode 100644
+index 0000000..a0e3620
+--- /dev/null
++++ b/net/toa/Makefile
 @@ -0,0 +1,4 @@
 +#
 +# Makefile for TOA module.
 +#
 +obj-$(CONFIG_TOA) += toa.o
-Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.4.2.el5/net/toa/toa.c	2012-02-28 18:39:19.907239955 +0800
-@@ -0,0 +1,441 @@
+diff --git a/net/toa/toa.c b/net/toa/toa.c
+new file mode 100644
+index 0000000..1e84c60
+--- /dev/null
++++ b/net/toa/toa.c
+@@ -0,0 +1,388 @@
 +#include "toa.h"
 +
 +/*
@@ -65,7 +87,7 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 + *	Address include ip+port, Now only support IPV4
 + */
 +
-+unsigned long sk_data_ready_addr = 0;
++unsigned long sk_data_ready_addr;
 +
 +/*
 + * Statistics of toa in proc /proc/net/toa_stats
@@ -127,7 +149,7 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 +				if (TCPOPT_TOA == opcode &&
 +				    TCPOLEN_TOA == opsize) {
 +					memcpy(&tdata, ptr - 2, sizeof(tdata));
-+					TOA_DBG("find toa data: ip = "
++					TOA_DBG("find toa data: ip = " \
 +						"%u.%u.%u.%u, port = %u\n",
 +						NIPQUAD(tdata.ip),
 +						ntohs(tdata.port));
@@ -155,18 +177,15 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 + */
 +static int
 +inet_getname_toa(struct socket *sock, struct sockaddr *uaddr,
-+		int *uaddr_len, int peer)
++		int *uaddr_len, int peer, int *p_retval)
 +{
-+	int retval = 0;
++	int retval = *p_retval;
 +	struct sock *sk = sock->sk;
 +	struct sockaddr_in *sin = (struct sockaddr_in *) uaddr;
 +	struct toa_data tdata;
 +
 +	TOA_DBG("inet_getname_toa called, sk->sk_user_data is %p\n",
 +		sk->sk_user_data);
-+
-+	/* call orginal one */
-+	retval = inet_getname(sock, uaddr, uaddr_len, peer);
 +
 +	/* set our value if need */
 +	if (retval == 0 && NULL != sk->sk_user_data && peer) {
@@ -175,7 +194,7 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 +			if (TCPOPT_TOA == tdata.opcode &&
 +			    TCPOLEN_TOA == tdata.opsize) {
 +				TOA_INC_STATS(ext_stats, GETNAME_TOA_OK_CNT);
-+				TOA_DBG("inet_getname_toa: set new sockaddr, "
++				TOA_DBG("inet_getname_toa: set new sockaddr, " \
 +					"ip %u.%u.%u.%u -> %u.%u.%u.%u, port "
 +					"%u -> %u\n",
 +					NIPQUAD(sin->sin_addr.s_addr),
@@ -186,7 +205,7 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 +			} else { /* sk_user_data doesn't belong to us */
 +				TOA_INC_STATS(ext_stats,
 +						GETNAME_TOA_MISMATCH_CNT);
-+				TOA_DBG("inet_getname_toa: invalid toa data, "
++				TOA_DBG("inet_getname_toa: invalid toa data, " \
 +					"ip %u.%u.%u.%u port %u opcode %u "
 +					"opsize %u\n",
 +					NIPQUAD(tdata.ip), ntohs(tdata.port),
@@ -202,21 +221,18 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 +	return retval;
 +}
 +
-+#ifdef CONFIG_IP_VS_IPV6
++#if defined(CONFIG_IPV6) || defined(CONFIG_IPV6_MODULE)
 +static int
 +inet6_getname_toa(struct socket *sock, struct sockaddr *uaddr,
-+		  int *uaddr_len, int peer)
++		  int *uaddr_len, int peer, int *p_retval)
 +{
-+	int retval = 0;
++	int retval = *p_retval;
 +	struct sock *sk = sock->sk;
 +	struct sockaddr_in6 *sin = (struct sockaddr_in6 *) uaddr;
 +	struct toa_data tdata;
 +
 +	TOA_DBG("inet6_getname_toa called, sk->sk_user_data is %p\n",
 +		sk->sk_user_data);
-+
-+	/* call orginal one */
-+	retval = inet6_getname(sock, uaddr, uaddr_len, peer);
 +
 +	/* set our value if need */
 +	if (retval == 0 && NULL != sk->sk_user_data && peer) {
@@ -254,14 +270,15 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 + */
 +static struct sock *
 +tcp_v4_syn_recv_sock_toa(struct sock *sk, struct sk_buff *skb,
-+			struct request_sock *req, struct dst_entry *dst)
++			struct request_sock *req, struct dst_entry *dst,
++						struct sock **p_newsock)
 +{
-+	struct sock *newsock = NULL;
++	struct sock *newsock = *p_newsock;
 +
 +	TOA_DBG("tcp_v4_syn_recv_sock_toa called\n");
 +
-+	/* call orginal one */
-+	newsock = tcp_v4_syn_recv_sock(sk, skb, req, dst);
++	if (!sk || !skb)
++		return NULL;
 +
 +	/* set our value if need */
 +	if (NULL != newsock && NULL == newsock->sk_user_data) {
@@ -270,24 +287,25 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 +			TOA_INC_STATS(ext_stats, SYN_RECV_SOCK_TOA_CNT);
 +		else
 +			TOA_INC_STATS(ext_stats, SYN_RECV_SOCK_NO_TOA_CNT);
-+		TOA_DBG("tcp_v4_syn_recv_sock_toa: set "
++		TOA_DBG("tcp_v4_syn_recv_sock_toa: set " \
 +			"sk->sk_user_data to %p\n",
 +			newsock->sk_user_data);
 +	}
 +	return newsock;
 +}
 +
-+#ifdef CONFIG_IP_VS_IPV6
++#if defined(CONFIG_IPV6) || defined(CONFIG_IPV6_MODULE)
 +static struct sock *
 +tcp_v6_syn_recv_sock_toa(struct sock *sk, struct sk_buff *skb,
-+			 struct request_sock *req, struct dst_entry *dst)
++			 struct request_sock *req, struct dst_entry *dst,
++					struct sock **p_newsock)
 +{
-+	struct sock *newsock = NULL;
++	struct sock *newsock = *p_newsock;
 +
 +	TOA_DBG("tcp_v4_syn_recv_sock_toa called\n");
 +
-+	/* call orginal one */
-+	newsock = tcp_v6_syn_recv_sock(sk, skb, req, dst);
++	if (!sk || !skb)
++		return NULL;
 +
 +	/* set our value if need */
 +	if (NULL != newsock && NULL == newsock->sk_user_data) {
@@ -305,90 +323,51 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 + * HOOK FUNCS
 + */
 +
++static struct hooker inet_getname_hooker = {
++	.func = inet_getname_toa,
++};
++
++static struct hooker inet_tcp_hooker = {
++	.func = tcp_v4_syn_recv_sock_toa,
++};
++
++#if defined(CONFIG_IPV6) || defined(CONFIG_IPV6_MODULE)
++static struct hooker inet6_getname_hooker = {
++	.func = inet6_getname_toa,
++};
++
++static struct hooker inet6_tcp_hooker = {
++	.func = tcp_v6_syn_recv_sock_toa,
++};
++#endif
++
 +/* replace the functions with our functions */
 +static inline int
 +hook_toa_functions(void)
 +{
-+	/* hook inet_getname for ipv4 */
-+	struct proto_ops *inet_stream_ops_p =
-+			(struct proto_ops *)&inet_stream_ops;
-+	/* hook tcp_v4_syn_recv_sock for ipv4 */
-+	struct inet_connection_sock_af_ops *ipv4_specific_p =
-+			(struct inet_connection_sock_af_ops *)&ipv4_specific;
-+#ifdef CONFIG_IP_VS_IPV6
-+	/* hook inet6_getname for ipv6 */
-+	struct proto_ops *inet6_stream_ops_p =
-+			(struct proto_ops *)&inet6_stream_ops;
-+	/* hook tcp_v6_syn_recv_sock for ipv6 */
-+	struct inet_connection_sock_af_ops *ipv6_specific_p =
-+			(struct inet_connection_sock_af_ops *)&ipv6_specific;
++	int ret;
++
++	ret = hooker_install(&inet_stream_ops.getname, &inet_getname_hooker);
++	ret |= hooker_install(&ipv4_specific.syn_recv_sock, &inet_tcp_hooker);
++
++#if defined(CONFIG_IPV6) || defined(CONFIG_IPV6_MODULE)
++	ret |= hooker_install(&inet6_stream_ops.getname, &inet6_getname_hooker);
++	ret |= hooker_install(&ipv6_specific.syn_recv_sock, &inet6_tcp_hooker);
 +#endif
-+
-+	inet_stream_ops_p->getname = inet_getname_toa;
-+	TOA_INFO("CPU [%u] hooked inet_getname <%p> --> <%p>\n",
-+		smp_processor_id(), inet_getname, inet_stream_ops_p->getname);
-+
-+#ifdef CONFIG_IP_VS_IPV6
-+	inet6_stream_ops_p->getname = inet6_getname_toa;
-+	TOA_INFO("CPU [%u] hooked inet6_getname <%p> --> <%p>\n",
-+		smp_processor_id(), inet6_getname, inet6_stream_ops_p->getname);
-+#endif
-+
-+	ipv4_specific_p->syn_recv_sock = tcp_v4_syn_recv_sock_toa;
-+	TOA_INFO("CPU [%u] hooked tcp_v4_syn_recv_sock <%p> --> <%p>\n",
-+		smp_processor_id(), tcp_v4_syn_recv_sock,
-+		ipv4_specific_p->syn_recv_sock);
-+
-+#ifdef CONFIG_IP_VS_IPV6
-+	ipv6_specific_p->syn_recv_sock = tcp_v6_syn_recv_sock_toa;
-+	TOA_INFO("CPU [%u] hooked tcp_v6_syn_recv_sock <%p> --> <%p>\n",
-+		smp_processor_id(), tcp_v6_syn_recv_sock,
-+		ipv6_specific_p->syn_recv_sock);
-+#endif
-+
-+	return 0;
++	return ret;
 +}
 +
 +/* replace the functions to original ones */
-+static int
++static void
 +unhook_toa_functions(void)
 +{
-+	/* unhook inet_getname for ipv4 */
-+	struct proto_ops *inet_stream_ops_p =
-+			(struct proto_ops *)&inet_stream_ops;
-+	/* unhook tcp_v4_syn_recv_sock for ipv4 */
-+	struct inet_connection_sock_af_ops *ipv4_specific_p =
-+			(struct inet_connection_sock_af_ops *)&ipv4_specific;
++	hooker_uninstall(&inet_getname_hooker);
++	hooker_uninstall(&inet_tcp_hooker);
 +
-+#ifdef CONFIG_IP_VS_IPV6
-+	/* unhook inet6_getname for ipv6 */
-+	struct proto_ops *inet6_stream_ops_p =
-+			(struct proto_ops *)&inet6_stream_ops;
-+	/* unhook tcp_v6_syn_recv_sock for ipv6 */
-+	struct inet_connection_sock_af_ops *ipv6_specific_p =
-+			(struct inet_connection_sock_af_ops *)&ipv6_specific;
++#if defined(CONFIG_IPV6) || defined(CONFIG_IPV6_MODULE)
++	hooker_uninstall(&inet6_getname_hooker);
++	hooker_uninstall(&inet6_tcp_hooker);
 +#endif
-+	inet_stream_ops_p->getname = inet_getname;
-+	TOA_INFO("CPU [%u] unhooked inet_getname\n",
-+		smp_processor_id());
-+
-+#ifdef CONFIG_IP_VS_IPV6
-+	inet6_stream_ops_p->getname = inet6_getname;
-+	TOA_INFO("CPU [%u] unhooked inet6_getname\n",
-+		smp_processor_id());
-+#endif
-+
-+	ipv4_specific_p->syn_recv_sock = tcp_v4_syn_recv_sock;
-+	TOA_INFO("CPU [%u] unhooked tcp_v4_syn_recv_sock\n",
-+		smp_processor_id());
-+
-+#ifdef CONFIG_IP_VS_IPV6
-+	ipv6_specific_p->syn_recv_sock = tcp_v6_syn_recv_sock;
-+	TOA_INFO("CPU [%u] unhooked tcp_v6_syn_recv_sock\n",
-+		smp_processor_id());
-+#endif
-+
-+	return 0;
 +}
 +
 +/*
@@ -444,41 +423,38 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 +static int __init
 +toa_init(void)
 +{
-+
-+	TOA_INFO("TOA " TOA_VERSION " by pukong.wjm\n");
++	sk_data_ready_addr = 0;
 +
 +	/* alloc statistics array for toa */
 +	ext_stats = alloc_percpu(struct toa_stat_mib);
-+	if (NULL == ext_stats)
-+		return 1;
-+	proc_net_fops_create(&init_net, "toa_stats", 0, &toa_stats_fops);
++	if (!ext_stats)
++		return -ENOMEM;
++
++	if (!proc_net_fops_create(&init_net, "toa_stats", 0, &toa_stats_fops)) {
++		TOA_INFO("cannot create procfs /proc/net/toa_stats.\n");
++		goto err_percpu;
++	}
 +
 +	/* get the address of function sock_def_readable
 +	 * so later we can know whether the sock is for rpc, tux or others
 +	 */
 +	sk_data_ready_addr = kallsyms_lookup_name("sock_def_readable");
-+	TOA_INFO("CPU [%u] sk_data_ready_addr = "
-+		"kallsyms_lookup_name(sock_def_readable) = %lu\n",
-+		 smp_processor_id(), sk_data_ready_addr);
-+	if (0 == sk_data_ready_addr) {
++	if (!sk_data_ready_addr) {
 +		TOA_INFO("cannot find sock_def_readable.\n");
-+		goto err;
++		goto err_proc;
 +	}
 +
 +	/* hook funcs for parse and get toa */
-+	hook_toa_functions();
++	if (hook_toa_functions())
++		goto err_proc;
 +
-+	TOA_INFO("toa loaded\n");
 +	return 0;
 +
-+err:
++err_proc:
 +	proc_net_remove(&init_net, "toa_stats");
-+	if (NULL != ext_stats) {
-+		free_percpu(ext_stats);
-+		ext_stats = NULL;
-+	}
-+
-+	return 1;
++err_percpu:
++	free_percpu(ext_stats);
++	return -ENODEV;
 +}
 +
 +/* module cleanup*/
@@ -486,24 +462,20 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.c
 +toa_exit(void)
 +{
 +	unhook_toa_functions();
-+	synchronize_net();
 +
 +	proc_net_remove(&init_net, "toa_stats");
-+	if (NULL != ext_stats) {
-+		free_percpu(ext_stats);
-+		ext_stats = NULL;
-+	}
-+	TOA_INFO("toa unloaded\n");
++	free_percpu(ext_stats);
 +}
 +
 +module_init(toa_init);
 +module_exit(toa_exit);
 +MODULE_LICENSE("GPL");
-Index: linux-2.6.32-220.4.2.el5/net/toa/toa.h
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.4.2.el5/net/toa/toa.h	2012-02-28 18:38:36.203022742 +0800
-@@ -0,0 +1,82 @@
+diff --git a/net/toa/toa.h b/net/toa/toa.h
+new file mode 100644
+index 0000000..c91361e
+--- /dev/null
++++ b/net/toa/toa.h
+@@ -0,0 +1,91 @@
 +#ifndef __NET__TOA_H__
 +#define __NET__TOA_H__
 +
@@ -523,15 +495,24 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.h
 +#include <linux/sysctl.h>
 +#include <linux/proc_fs.h>
 +#include <linux/kallsyms.h>
++
++#include <linux/hookers.h>
++
++#if defined(CONFIG_IPV6) || defined(CONFIG_IPV6_MODULE)
 +#include <net/ipv6.h>
 +#include <net/transp_v6.h>
++#endif
 +
 +#define TOA_VERSION "1.0.0.0"
 +
++#ifdef TOA_DEBUG
 +#define TOA_DBG(msg...)				\
 +	do {					\
 +		printk(KERN_DEBUG "[DEBUG] TOA: " msg); \
 +	} while (0)
++#else
++#define TOA_DBG(msg...)
++#endif
 +
 +#define TOA_INFO(msg...)				\
 +	do {						\
@@ -586,25 +567,6 @@ Index: linux-2.6.32-220.4.2.el5/net/toa/toa.h
 +	(per_cpu_ptr(mib, smp_processor_id())->mibs[field]++)
 +
 +#endif
-Index: linux-2.6.32-220.4.2.el5/include/net/ipv6.h
-===================================================================
---- linux-2.6.32-220.4.2.el5.orig/include/net/ipv6.h	2012-02-28 18:00:59.319831987 +0800
-+++ linux-2.6.32-220.4.2.el5/include/net/ipv6.h	2012-02-28 18:00:59.355832152 +0800
-@@ -598,7 +598,7 @@
- /*
-  * reassembly.c
-  */
--const struct proto_ops inet6_stream_ops;
-+extern struct proto_ops inet6_stream_ops;
- extern const struct proto_ops inet6_dgram_ops;
- 
- struct group_source_req;
-Index: linux-2.6.32-220.4.2.el5/net/Makefile
-===================================================================
---- linux-2.6.32-220.4.2.el5.orig/net/Makefile	2012-02-28 18:00:49.231781954 +0800
-+++ linux-2.6.32-220.4.2.el5/net/Makefile	2012-02-28 18:03:34.864603203 +0800
-@@ -65,3 +65,4 @@
- obj-$(CONFIG_SYSCTL)		+= sysctl_net.o
- endif
- obj-$(CONFIG_WIMAX)		+= wimax/
-+obj-$(CONFIG_TOA)		+= toa/
+-- 
+1.5.5.6
+
