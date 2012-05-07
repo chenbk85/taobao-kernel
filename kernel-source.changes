@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon May  7 15:52:49 CST 2012 - bosong.ly@taobao.com
+
+- Update kernel configs:
+  - configs/
+  - patches.taobao/kernel-hookers-service.patch
+
+-------------------------------------------------------------------
 Mon May  7 15:18:45 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/export-necessary-kernel-symbols-for-kernel-modules.patch:

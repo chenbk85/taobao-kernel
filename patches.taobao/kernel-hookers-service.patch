@@ -15,12 +15,13 @@ diff --git a/arch/Kconfig b/arch/Kconfig
 index cdea504..02f0301 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -140,4 +140,10 @@ config HAVE_PERF_EVENTS_NMI
+@@ -140,4 +140,11 @@ config HAVE_PERF_EVENTS_NMI
  	  subsystem.  Also has support for calculating CPU cycle events
  	  to determine how many clock cycles in a given period.
  
 +config HOOKERS
 +	tristate "Hooker service"
++	default m
 +	help
 +	  Allow replacing and restore the function pointer in any order.
 +	  See include/linux/hookers.h for details.
