@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue May  8 17:40:51 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/exception-trace-always-printk-segfault-info.patch:
+  exception-trace: always show segfault info in dmesg if
+  /proc/sys/debug/exception-trace set to 2.
+
+-------------------------------------------------------------------
 Mon May  7 21:45:14 CST 2012 - bosong.ly@taobao.com
 
 - Correct patch format, add missing module_exit() lines,
