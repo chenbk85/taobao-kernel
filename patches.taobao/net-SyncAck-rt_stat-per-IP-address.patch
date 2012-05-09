@@ -895,7 +895,7 @@ index be1bda6..a94f1a3 100644
  		return NULL;
  	}
 diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index ddc5826..d720308 100644
+index ddc5826..e770cf8 100644
 --- a/net/ipv6/tcp_ipv6.c
 +++ b/net/ipv6/tcp_ipv6.c
 @@ -1196,6 +1196,8 @@ static int tcp_v6_conn_request(struct sock *sk, struct sk_buff *skb)
@@ -907,12 +907,22 @@ index ddc5826..d720308 100644
  #ifdef CONFIG_TCP_MD5SIG
  	tcp_rsk(req)->af_specific = &tcp_request_sock_ipv6_ops;
  #endif
-@@ -1272,6 +1274,9 @@ struct sock *tcp_v6_syn_recv_sock(struct sock *sk, struct sk_buff *skb,
+@@ -1262,7 +1264,7 @@ struct sock *tcp_v6_syn_recv_sock(struct sock *sk, struct sk_buff *skb,
+ 					  struct dst_entry *dst)
+ {
+ 	struct inet6_request_sock *treq;
+-	struct ipv6_pinfo *newnp, *np = inet6_sk(sk);
++	struct ipv6_pinfo *newnp, *np;
+ 	struct tcp6_sock *newtcp6sk;
+ 	struct inet_sock *newinet;
+ 	struct tcp_sock *newtp;
+@@ -1272,6 +1274,10 @@ struct sock *tcp_v6_syn_recv_sock(struct sock *sk, struct sk_buff *skb,
  	struct tcp_md5sig_key *key;
  #endif
  
 +	if (!sk || !skb)
 +		return NULL;
++	np = inet6_sk(sk);
 +
  	if (skb->protocol == htons(ETH_P_IP)) {
  		/*
