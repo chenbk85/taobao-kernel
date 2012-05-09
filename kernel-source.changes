@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed May  9 17:19:41 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/net-SyncAck-rt_stat-per-IP-address.patch:
+  fix a NULL pointer deference on calling inet6_sk().
+
+-------------------------------------------------------------------
 Tue May  8 18:09:12 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/exception-trace-always-printk-segfault-info.patch:
