@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu May 10 18:57:20 CST 2012 - boyu.mt@taobao.com
+
+- patches.taobao/fallocate-expose-stale-data-0001-add-new-flag.patch:
+- patches.taobao/fallocate-expose-stale-data-0002-add-in-ext4.patch:
+- patches.taobao/fallocate-expose-stale-data-0003-add-sysfs.patch:
+- patches.taobao/vmscan-activate-executable-pages-after-first-usage.patch:
+
+-------------------------------------------------------------------
 Wed May  9 17:19:41 CST 2012 - bosong.ly@taobao.com
 
 - patches.taobao/net-SyncAck-rt_stat-per-IP-address.patch:
