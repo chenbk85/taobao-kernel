@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri May 11 01:35:46 CST 2012 - boyu.mt@taobao.com
+
+- patches.taobao/net-SyncAck-rt_stat-per-IP-address.patch:
+  dos2unix for the patch.
+
+-------------------------------------------------------------------
 Thu May 10 18:57:20 CST 2012 - boyu.mt@taobao.com
 
 - patches.taobao/fallocate-expose-stale-data-0001-add-new-flag.patch:
