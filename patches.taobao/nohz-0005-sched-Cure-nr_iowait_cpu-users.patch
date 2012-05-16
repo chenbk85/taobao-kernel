@@ -27,10 +27,10 @@ LKML-Reference: <1277968037.1868.120.camel@laptop>
 Signed-off-by: Ingo Molnar <mingo@elte.hu>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: linux-2.6.32-220.7.1.el5/drivers/cpuidle/governors/menu.c
+Index: linux-2.6.32-220.17.1.el5/drivers/cpuidle/governors/menu.c
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/drivers/cpuidle/governors/menu.c	2012-03-20 14:40:06.025392245 +0800
-+++ linux-2.6.32-220.7.1.el5/drivers/cpuidle/governors/menu.c	2012-03-20 14:40:22.689474880 +0800
+--- linux-2.6.32-220.17.1.el5.orig/drivers/cpuidle/governors/menu.c	2012-05-17 02:25:41.494064464 +0800
++++ linux-2.6.32-220.17.1.el5/drivers/cpuidle/governors/menu.c	2012-05-17 02:25:52.574119406 +0800
 @@ -143,7 +143,7 @@
  	 * This allows us to calculate
  	 * E(duration)|iowait
@@ -49,10 +49,10 @@ Index: linux-2.6.32-220.7.1.el5/drivers/cpuidle/governors/menu.c
  
  	return mult;
  }
-Index: linux-2.6.32-220.7.1.el5/include/linux/sched.h
+Index: linux-2.6.32-220.17.1.el5/include/linux/sched.h
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/include/linux/sched.h	2012-03-20 14:40:17.225447781 +0800
-+++ linux-2.6.32-220.7.1.el5/include/linux/sched.h	2012-03-20 14:40:22.689474880 +0800
+--- linux-2.6.32-220.17.1.el5.orig/include/linux/sched.h	2012-05-17 02:25:52.466118872 +0800
++++ linux-2.6.32-220.17.1.el5/include/linux/sched.h	2012-05-17 02:25:52.574119406 +0800
 @@ -142,7 +142,7 @@
  extern unsigned long nr_running(void);
  extern unsigned long nr_uninterruptible(void);
@@ -62,11 +62,11 @@ Index: linux-2.6.32-220.7.1.el5/include/linux/sched.h
  extern unsigned long this_cpu_load(void);
  
  
-Index: linux-2.6.32-220.7.1.el5/kernel/sched.c
+Index: linux-2.6.32-220.17.1.el5/kernel/sched.c
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/kernel/sched.c	2012-03-20 14:40:17.229447810 +0800
-+++ linux-2.6.32-220.7.1.el5/kernel/sched.c	2012-03-20 14:40:22.693474897 +0800
-@@ -3099,9 +3099,9 @@
+--- linux-2.6.32-220.17.1.el5.orig/kernel/sched.c	2012-05-17 02:25:52.466118872 +0800
++++ linux-2.6.32-220.17.1.el5/kernel/sched.c	2012-05-17 02:25:52.578119427 +0800
+@@ -3119,9 +3119,9 @@
  	return sum;
  }
  
@@ -78,10 +78,10 @@ Index: linux-2.6.32-220.7.1.el5/kernel/sched.c
  	return atomic_read(&this->nr_iowait);
  }
  
-Index: linux-2.6.32-220.7.1.el5/kernel/time/tick-sched.c
+Index: linux-2.6.32-220.17.1.el5/kernel/time/tick-sched.c
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/kernel/time/tick-sched.c	2012-03-20 14:40:20.497464016 +0800
-+++ linux-2.6.32-220.7.1.el5/kernel/time/tick-sched.c	2012-03-20 14:40:22.693474897 +0800
+--- linux-2.6.32-220.17.1.el5.orig/kernel/time/tick-sched.c	2012-05-17 02:25:52.554119311 +0800
++++ linux-2.6.32-220.17.1.el5/kernel/time/tick-sched.c	2012-05-17 02:25:52.578119427 +0800
 @@ -154,13 +154,13 @@
   * Updates the per cpu time idle statistics counters
   */
