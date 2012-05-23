@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu May 24 00:09:06 CST 2012 - boyu.mt@taobao.com
+
+- patches.taobao/block-throttle-Add-IO-throttled-information-in-blkcg.patch:
+
+-------------------------------------------------------------------
 Sat May 12 02:47:11 CST 2012 - boyu.mt@taobao.com
 
 - patches.taobao/ext4-allocate-delalloc-blocks-before-changing-journa.patch:
