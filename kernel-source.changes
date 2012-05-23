@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu May 24 00:09:06 CST 2012 - boyu.mt@taobao.com
+
+- patches.taobao/block-throttle-Add-IO-throttled-information-in-blkcg.patch:
+
+-------------------------------------------------------------------
 Thu May 17 02:26:47 CST 2012 - bosong.ly@taobao.com
 
 - Upgrade to RHEL6.2 2.6.32-220.17.1 kernel
