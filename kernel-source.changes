@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Fri May 25 11:30:07 CST 2012 - bosong.ly@taobao.com
+
+- Upgrade to RHEL6.2 2.6.32-220.17.1 kernel
+  - patches.taobao/block-strict-rq_affinity-0001.patch: Refresh.
+  - patches.taobao/buffer-aio.patch: Refresh.
+  - patches.taobao/context_switch_per_cpu_stat.patch: Refresh.
+  - patches.taobao/nohz-0005-sched-Cure-nr_iowait_cpu-users.patch: Refresh.
+  - patches.taobao/tlock.patch: Refresh.
+  - redhat-kernel-changelog:
+  - redhat-kernel-source/
+  - redhat-kernel-version:
+
+-------------------------------------------------------------------
 Thu May 24 00:09:06 CST 2012 - boyu.mt@taobao.com
 
 - patches.taobao/block-throttle-Add-IO-throttled-information-in-blkcg.patch:
