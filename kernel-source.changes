@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Fri May 25 11:23:08 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/block-throttle-Add-IO-throttled-information-in-blkcg.patch:
+  block/throttle: Add IO throttled information in blkcg.
+
+- Update to RHEL6.2 2.6.32-220.17.1 kernel
+  - patches.taobao/acridafs.patch: Refresh.
+  - patches.taobao/block-strict-rq_affinity-0001.patch: Refresh.
+  - patches.taobao/buffer-aio.patch: Refresh.
+  - patches.taobao/context_switch_per_cpu_stat.patch: Refresh.
+  - patches.taobao/nohz-0005-sched-Cure-nr_iowait_cpu-users.patch: Refresh.
+  - patches.taobao/tlock.patch: Refresh.
+  - redhat-kernel-changelog:
+  - redhat-kernel-source/
+  - redhat-kernel-version:
+
+-------------------------------------------------------------------
 Sat May 12 02:47:11 CST 2012 - boyu.mt@taobao.com
 
 - patches.taobao/ext4-allocate-delalloc-blocks-before-changing-journa.patch:

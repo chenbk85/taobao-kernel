@@ -26,10 +26,10 @@ Signed-off-by: Dan Williams <dan.j.williams@intel.com>
 Signed-off-by: Jens Axboe <jaxboe@fusionio.com>
 Signed-off-by: Gao Yang <gaoyang.zyh@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/Documentation/block/queue-sysfs.txt
+Index: linux-2.6.32-220.17.1.el5/Documentation/block/queue-sysfs.txt
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/Documentation/block/queue-sysfs.txt	2011-12-13 13:40:02.820556582 +0800
-+++ linux-2.6.32-220.0.0.el5/Documentation/block/queue-sysfs.txt	2011-12-13 15:19:44.558218412 +0800
+--- linux-2.6.32-220.17.1.el5.orig/Documentation/block/queue-sysfs.txt	2012-05-17 02:20:36.636552759 +0800
++++ linux-2.6.32-220.17.1.el5/Documentation/block/queue-sysfs.txt	2012-05-17 02:21:13.192734033 +0800
 @@ -45,9 +45,13 @@
  
  rq_affinity (RW)
@@ -47,11 +47,11 @@ Index: linux-2.6.32-220.0.0.el5/Documentation/block/queue-sysfs.txt
  
  scheduler (RW)
  --------------
-Index: linux-2.6.32-220.0.0.el5/block/blk-core.c
+Index: linux-2.6.32-220.17.1.el5/block/blk-core.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/block/blk-core.c	2011-12-13 13:40:02.808556524 +0800
-+++ linux-2.6.32-220.0.0.el5/block/blk-core.c	2011-12-13 15:19:44.558218412 +0800
-@@ -1411,7 +1411,7 @@
+--- linux-2.6.32-220.17.1.el5.orig/block/blk-core.c	2012-05-17 02:20:36.624552700 +0800
++++ linux-2.6.32-220.17.1.el5/block/blk-core.c	2012-05-17 02:21:13.192734033 +0800
+@@ -1412,7 +1412,7 @@
  	spin_lock_irq(q->queue_lock);
  	if (test_bit(QUEUE_FLAG_SAME_COMP, &q->queue_flags) ||
  	    bio_flagged(bio, BIO_CPU_AFFINE))
@@ -60,10 +60,10 @@ Index: linux-2.6.32-220.0.0.el5/block/blk-core.c
  	if (queue_should_plug(q) && elv_queue_empty(q))
  		blk_plug_device(q);
  
-Index: linux-2.6.32-220.0.0.el5/block/blk-softirq.c
+Index: linux-2.6.32-220.17.1.el5/block/blk-softirq.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/block/blk-softirq.c	2011-12-13 13:40:02.800556478 +0800
-+++ linux-2.6.32-220.0.0.el5/block/blk-softirq.c	2011-12-13 15:19:44.558218412 +0800
+--- linux-2.6.32-220.17.1.el5.orig/block/blk-softirq.c	2012-05-17 02:20:36.616552660 +0800
++++ linux-2.6.32-220.17.1.el5/block/blk-softirq.c	2012-05-17 02:21:13.192734033 +0800
 @@ -103,22 +103,25 @@
  
  void __blk_complete_request(struct request *req)
@@ -94,10 +94,10 @@ Index: linux-2.6.32-220.0.0.el5/block/blk-softirq.c
  		ccpu = cpu;
  
  	if (ccpu == cpu || ccpu == group_cpu) {
-Index: linux-2.6.32-220.0.0.el5/block/blk-sysfs.c
+Index: linux-2.6.32-220.17.1.el5/block/blk-sysfs.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/block/blk-sysfs.c	2011-12-13 14:13:07.050395841 +0800
-+++ linux-2.6.32-220.0.0.el5/block/blk-sysfs.c	2011-12-13 15:19:44.558218412 +0800
+--- linux-2.6.32-220.17.1.el5.orig/block/blk-sysfs.c	2012-05-17 02:20:36.628552724 +0800
++++ linux-2.6.32-220.17.1.el5/block/blk-sysfs.c	2012-05-17 02:21:13.192734033 +0800
 @@ -226,8 +226,9 @@
  static ssize_t queue_rq_affinity_show(struct request_queue *q, char *page)
  {
@@ -127,10 +127,10 @@ Index: linux-2.6.32-220.0.0.el5/block/blk-sysfs.c
  	spin_unlock_irq(q->queue_lock);
  #endif
  	return ret;
-Index: linux-2.6.32-220.0.0.el5/include/linux/blkdev.h
+Index: linux-2.6.32-220.17.1.el5/include/linux/blkdev.h
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/include/linux/blkdev.h	2011-12-13 13:40:02.796556464 +0800
-+++ linux-2.6.32-220.0.0.el5/include/linux/blkdev.h	2011-12-13 15:19:44.558218412 +0800
+--- linux-2.6.32-220.17.1.el5.orig/include/linux/blkdev.h	2012-05-17 02:20:36.612552641 +0800
++++ linux-2.6.32-220.17.1.el5/include/linux/blkdev.h	2012-05-17 02:21:13.192734033 +0800
 @@ -444,7 +444,7 @@
  #define QUEUE_FLAG_ELVSWITCH	8	/* don't use elevator, just do FIFO */
  #define QUEUE_FLAG_BIDI		9	/* queue supports bidi requests */
