@@ -30,10 +30,14 @@ Reference: BF#152721
     reported MAX_JIFFY_OFFSET) and so the only change happening was for user
     system time.
     
-    Let's use nsecs_to_jiffies instead which doesn't reduce the precision
+    Let's use nsecs_to_jiffies64 instead which doesn't reduce the precision
     to 32b type and it is much more appropriate for cumulative time values
     (unlike usecs_to_jiffies which intended for timeout calculations).
-    
+
+By Bosong: RHEL6 2.6.32-220.13 backported partial of this patch, which rename
+nsecs_to_jiffies64 (of this patch) to nsecs_to_jiffies (in Redhat kernel). Here
+I rename nsecs_to_jiffies64 to nsecs_to_jiffies to follow Redhat's change.
+
 Signed-off-by: Michal Hocko <mhocko@suse.cz>
 Tested-by: Artem S. Tashkinov <t.artem@mailcity.com>
 Cc: Dave Jones <davej@redhat.com>

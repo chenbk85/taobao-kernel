@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri May 25 11:53:07 CST 2012 - bosong.ly@taobao.com
+
+- patches.taobao/nohz-0006-procfs-do-not-overflow-get_idle-iowait_time-for-nohz.patch:
+  update commit log which is modified by Bosong.
+
+-------------------------------------------------------------------
 Thu May 24 00:09:06 CST 2012 - boyu.mt@taobao.com
 
 - patches.taobao/block-throttle-Add-IO-throttled-information-in-blkcg.patch:
