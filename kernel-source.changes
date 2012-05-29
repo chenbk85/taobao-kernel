@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed May 30 01:45:04 CST 2012 - boyu.mt@taobao.com
+
+fix a ^extent ext4 file system bug caused by the porting.
+
+- patches.taobao/bigalloc-025-attempt-to-fix-race-in-bigalloc-code-path.patch:
+- patches.taobao/bio-0004-ext4-inline-walk_page_buffers-into-mpage_da_submit_i.patch:
+
+-------------------------------------------------------------------
 Fri May 25 11:30:07 CST 2012 - bosong.ly@taobao.com
 
 - Upgrade to RHEL6.2 2.6.32-220.17.1 kernel
