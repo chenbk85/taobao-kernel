@@ -35,6 +35,64 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
 index 06efd69..517bcad 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
+@@ -958,7 +958,7 @@
+  * blocks.
+  */
+ static int ext4_ind_get_blocks(handle_t *handle, struct inode *inode,
+-			       ext4_lblk_t iblock, unsigned int maxblocks,
++			       struct ext4_map_blocks *map,
+ 			       struct buffer_head *bh_result,
+ 			       int flags)
+ {
+@@ -967,6 +967,8 @@
+ 	Indirect chain[4];
+ 	Indirect *partial;
+ 	ext4_fsblk_t goal;
++	ext4_lblk_t iblock = map->m_lblk;
++	unsigned int maxblocks = map->m_len;
+ 	int indirect_blks;
+ 	int blocks_to_boundary = 0;
+ 	int depth;
+@@ -1048,12 +1050,18 @@
+ 		goto cleanup;
+ 
+ 	set_buffer_new(bh_result);
++	map->m_flags |= EXT4_MAP_NEW;
+ 
+ 	ext4_update_inode_fsync_trans(handle, inode, 1);
+ got_it:
+ 	map_bh(bh_result, inode->i_sb, le32_to_cpu(chain[depth-1].key));
+-	if (count > blocks_to_boundary)
++	map->m_flags |= EXT4_MAP_MAPPED;
++	map->m_pblk = le32_to_cpu(chain[depth-1].key);
++	map->m_len = count;
++	if (count > blocks_to_boundary) {
+ 		set_buffer_boundary(bh_result);
++		map->m_flags |= EXT4_MAP_BOUNDARY;
++	}
+ 	err = count;
+ 	/* Clean up and exit */
+ 	partial = chain + depth - 1;	/* the whole chain */
+@@ -1295,8 +1303,7 @@
+ 	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)) {
+ 		retval =  ext4_ext_get_blocks(handle, inode, map, bh, 0);
+ 	} else {
+-		retval = ext4_ind_get_blocks(handle, inode, map->m_lblk, map->m_len,
+-					     bh, 0);
++		retval = ext4_ind_get_blocks(handle, inode, map, bh, 0);
+ 	}
+ 	up_read((&EXT4_I(inode)->i_data_sem));
+ 
+@@ -1356,8 +1363,7 @@
+ 	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)) {
+ 		retval =  ext4_ext_get_blocks(handle, inode, map, bh, flags);
+ 	} else {
+-		retval = ext4_ind_get_blocks(handle, inode, map->m_lblk,
+-					     map->m_len, bh, flags);
++		retval = ext4_ind_get_blocks(handle, inode, map, bh, flags);
+ 
+ 		if (retval > 0 && buffer_new(bh)) {
+ 			/*
 @@ -2085,7 +2085,8 @@ static void ext4_da_page_release_reservation(struct page *page,
   *
   * As pages are already locked by write_cache_pages(), we can't use it

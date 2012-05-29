@@ -290,7 +290,7 @@ index 517bcad..674c26b 100644
 +	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS))
 +		retval = ext4_ext_get_blocks(NULL, inode, map, bh, 0);
 +	else
-+		retval = ext4_ind_get_blocks(NULL, inode, map->m_lblk, map->m_len, bh, 0);
++		retval = ext4_ind_get_blocks(NULL, inode, map, bh, 0);
 +
 +	if (retval == 0) {
 +		/*
