@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue Jun  5 07:19:16 CST 2012 - boyu.mt@taobao.com
+
+Backported bug fixes for the loadavg calculation.
+
+- patches.taobao/loadavg-bug-fix-001.patch:
+- patches.taobao/loadavg-bug-fix-002.patch:
+- patches.taobao/loadavg-bug-fix-003.patch:
+
+-------------------------------------------------------------------
 Wed May 30 01:45:04 CST 2012 - boyu.mt@taobao.com
 
 fix a ^extent ext4 file system bug caused by the porting.
