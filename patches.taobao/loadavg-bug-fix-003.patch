@@ -31,7 +31,7 @@ Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
   * weights adjusted to the number of cycles missed.
   */
 -static void calc_global_nohz(unsigned long ticks)
-+static void calc_global_nohz()
++static void calc_global_nohz(void)
  {
  	long delta, active, n;
  	
@@ -93,7 +93,7 @@ Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
  }
  
 -static void calc_global_nohz(unsigned long ticks)
-+static void calc_global_nohz()
++static void calc_global_nohz(void)
  {
  }
  #endif
