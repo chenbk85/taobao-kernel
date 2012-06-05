@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jun  6 06:40:03 CST 2012 - boyu.mt@taobao.com
+
+Fix a build error.
+
+- patches.taobao/loadavg-bug-fix-003.patch:
+
+-------------------------------------------------------------------
 Tue Jun  5 07:08:19 CST 2012 - boyu.mt@taobao.com
 
 Backported bug fixes for the loadavg calculation.
