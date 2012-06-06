@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Jun  6 15:33:20 CST 2012 - bingtian.ly@taobao.com
+
+rt-stat: Export sum and total of RT samples in procfs instead of computing average in kernel.
+
+- patches.taobao/net-rt-stat-just-only-export-sum-and-count-RT-samples-in-procfs.patch:
+  rt-stat: Export sum and total of RT samples in procfs instead
+  of computing average in kernel.
+
+-------------------------------------------------------------------
 Wed Jun  6 06:40:03 CST 2012 - boyu.mt@taobao.com
 
 Fix a build error.
