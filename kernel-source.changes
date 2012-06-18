@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jun 19 01:47:25 CST 2012 - boyu.mt@taobao.com
+
+mm: fix wrong order of operations in __lru_cache_add.
+
+- patches.taobao/mm_fix_wrong_order_of_operations_in__lru_cache_add.patch:
+
+-------------------------------------------------------------------
 Mon Jun 18 17:31:41 CST 2012 - gaoyang.zyh@taobao.com
 
 'hwcap' in ldconfg is set to 1 by Redhat in REHL6, so we'd better keep align with it.
