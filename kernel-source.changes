@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jun 18 17:31:41 CST 2012 - gaoyang.zyh@taobao.com
+
+'hwcap' in ldconfg is set to 1 by Redhat in REHL6, so we'd better keep align with it.
+- rpm/kernel.spec.in:
+
+-------------------------------------------------------------------
 Fri Jun  8 12:13:46 CST 2012 - gaoyang.zyh@taobao.com
 
 Remove this one since it has been merged in RHEL kernel.
