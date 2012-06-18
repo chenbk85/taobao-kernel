@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jun 19 01:47:25 CST 2012 - boyu.mt@taobao.com
+
+mm: fix wrong order of operations in __lru_cache_add.
+
+- patches.taobao/mm_fix_wrong_order_of_operations_in__lru_cache_add.patch:
+
+-------------------------------------------------------------------
 Fri Jun  8 12:12:13 CST 2012 - gaoyang.zyh@taobao.com
 
 Remove this one since it has been merged in RHEL kernel.
