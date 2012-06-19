@@ -1,4 +1,32 @@
 -------------------------------------------------------------------
+Wed Jun 20 00:18:18 CST 2012 - bosong.ly@taobao.com
+
+- Upgrade to RHEL6.2 2.6.32-220.23.1 kernel,
+  - redhat-kernel-changelog:
+  - redhat-kernel-source/*
+  - redhat-kernel-version:
+
+- Rebase patches by 2.6.32-220.23.1 kernel,
+  - patches.taobao/0001-ext4-Move-extra-inode-read-to-a-new-function.patch:
+  - patches.taobao/0003-ext4-Add-the-basic-function-for-inline-data-support.patch:
+  - patches.taobao/0004-ext4-Add-read-support-for-inline-data.patch:
+  - patches.taobao/0005-ext4-Add-normal-write-support-for-inline-data.patch:
+  - patches.taobao/0006-ext4-Add-journalled-write-support-for-inline-data.patch:
+  - patches.taobao/0007-ext4-Add-delalloc-support-for-inline-data.patch:
+  - patches.taobao/0022-ext4-Fix-ext4_read_inline_page-bug.patch:
+  - patches.taobao/0023-ext4-add-truncate-supoort-with-inline-data.patch:
+  - patches.taobao/bigalloc-025-attempt-to-fix-race-in-bigalloc-code-path.patch:
+  - patches.taobao/ext4-0003-iostat-account-read-metadata-requests-in-buffered-io.patch:
+  - patches.taobao/ext4-0004-iostat-account-read-data-requests-in-buffered-io.patch:
+  - patches.taobao/ext4-0005-iostat-account-write-metadata-requests-in-buffered-io.patch:
+  - patches.taobao/ext4-0006-iostat-account-write-data-requests-in-buffered-io.patch:
+  - patches.taobao/ext4-0007-iostat-account-requests-in-direct-io.patch:
+  - patches.taobao/ext4-allocate-delalloc-blocks-before-changing-journa.patch:
+  - patches.taobao/loadavg-bug-fix-001.patch: 
+  - patches.taobao/loadavg-bug-fix-002.patch: 
+  - patches.taobao/loadavg-bug-fix-003.patch: 
+
+-------------------------------------------------------------------
 Tue Jun 19 01:47:25 CST 2012 - boyu.mt@taobao.com
 
 mm: fix wrong order of operations in __lru_cache_add.
