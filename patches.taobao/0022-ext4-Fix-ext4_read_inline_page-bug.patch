@@ -11,10 +11,10 @@ Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 Acked-by: 
 
 ---
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/inline.c
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inline.c	2012-02-17 19:11:45.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/inline.c	2012-02-17 19:12:00.814175168 +0800
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inline.c	2012-06-20 00:10:49.012018126 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/inline.c	2012-06-20 00:10:50.800026991 +0800
 @@ -441,21 +441,12 @@
  static int ext4_read_inline_page(struct inode *inode, struct page *page)
  {
@@ -73,11 +73,11 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inline.c
  	up_read(&EXT4_I(inode)->xattr_sem);
  
  	unlock_page(page);
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inode.c	2012-02-17 19:11:45.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/inode.c	2012-02-17 19:19:34.476424649 +0800
-@@ -3727,12 +3727,16 @@
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inode.c	2012-06-20 00:09:13.979546881 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/inode.c	2012-06-20 00:10:50.804027006 +0800
+@@ -3733,12 +3733,16 @@
  
  static int ext4_readpage(struct file *file, struct page *page)
  {

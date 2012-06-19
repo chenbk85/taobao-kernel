@@ -22,11 +22,11 @@ Signed-off-by: Ingo Molnar <mingo@elte.hu>
 Signed-off-by: Mu Ming <muming.wq@taobao.com>
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 
-Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
+Index: linux-2.6.32-220.23.1.el5/kernel/sched.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/kernel/sched.c
-+++ linux-2.6.32-220.13.1.el5/kernel/sched.c
-@@ -1923,7 +1923,7 @@ static inline void double_unlock_balance
+--- linux-2.6.32-220.23.1.el5.orig/kernel/sched.c	2012-06-20 00:07:23.638999729 +0800
++++ linux-2.6.32-220.23.1.el5/kernel/sched.c	2012-06-20 00:14:42.641176629 +0800
+@@ -1943,7 +1943,7 @@
  }
  #endif
  
@@ -35,7 +35,7 @@ Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
  static void update_sysctl(void);
  static void update_cpu_load(struct rq *this_rq);
  static int get_update_sysctl_factor(void);
-@@ -3118,6 +3118,61 @@ static unsigned long calc_load_update;
+@@ -3138,6 +3138,61 @@
  unsigned long avenrun[3];
  EXPORT_SYMBOL(avenrun);
  
@@ -97,7 +97,7 @@ Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
  /**
   * get_avenrun - get the load average array
   * @loads:	pointer to dest load array
-@@ -3164,20 +3219,21 @@ void calc_global_load(void)
+@@ -3184,20 +3239,21 @@
  }
  
  /*
@@ -128,7 +128,7 @@ Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
  }
  
  /*
-@@ -3294,10 +3350,7 @@ static void update_cpu_load_active(struc
+@@ -3314,10 +3370,7 @@
  {
  	update_cpu_load(this_rq);
  
@@ -140,11 +140,11 @@ Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
  }
  
  #ifdef CONFIG_SMP
-Index: linux-2.6.32-220.13.1.el5/kernel/sched_idletask.c
+Index: linux-2.6.32-220.23.1.el5/kernel/sched_idletask.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/kernel/sched_idletask.c
-+++ linux-2.6.32-220.13.1.el5/kernel/sched_idletask.c
-@@ -23,8 +23,7 @@ static void check_preempt_curr_idle(stru
+--- linux-2.6.32-220.23.1.el5.orig/kernel/sched_idletask.c	2012-06-20 00:04:49.482235306 +0800
++++ linux-2.6.32-220.23.1.el5/kernel/sched_idletask.c	2012-06-20 00:14:42.641176629 +0800
+@@ -23,8 +23,7 @@
  static struct task_struct *pick_next_task_idle(struct rq *rq)
  {
  	schedstat_inc(rq, sched_goidle);

@@ -22,11 +22,11 @@ Signed-off-by: Ingo Molnar <mingo@elte.hu>
 Signed-off-by: Mu Ming <muming.wq@taobao.com>
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 
-Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
+Index: linux-2.6.32-220.23.1.el5/kernel/sched.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/kernel/sched.c
-+++ linux-2.6.32-220.13.1.el5/kernel/sched.c
-@@ -3248,13 +3248,10 @@ calc_load_n(unsigned long load, unsigned
+--- linux-2.6.32-220.23.1.el5.orig/kernel/sched.c	2012-06-20 00:14:51.769221875 +0800
++++ linux-2.6.32-220.23.1.el5/kernel/sched.c	2012-06-20 00:14:54.453235178 +0800
+@@ -3268,13 +3268,10 @@
   * Once we've updated the global active value, we need to apply the exponential
   * weights adjusted to the number of cycles missed.
   */
@@ -41,7 +41,7 @@ Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
  	/*
  	 * If we crossed a calc_load_update boundary, make sure to fold
  	 * any pending idle changes, the respective CPUs might have
-@@ -3266,31 +3263,24 @@ static void calc_global_nohz(unsigned lo
+@@ -3286,31 +3283,24 @@
  		atomic_long_add(delta, &calc_load_tasks);
  	
  	/*
@@ -88,7 +88,7 @@ Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
  }
  #else
  static void calc_load_account_idle(struct rq *this_rq)
-@@ -3302,7 +3292,7 @@ static inline long calc_load_fold_idle(v
+@@ -3322,7 +3312,7 @@
  	return 0;
  }
  
@@ -97,7 +97,7 @@ Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
  {
  }
  #endif
-@@ -3330,8 +3320,6 @@ void calc_global_load(unsigned long tick
+@@ -3350,8 +3340,6 @@
  {
  	long active;
  
@@ -106,7 +106,7 @@ Index: linux-2.6.32-220.13.1.el5/kernel/sched.c
  	if (time_before(jiffies, calc_load_update + 10))
  		return;
  
-@@ -3343,6 +3331,17 @@ void calc_global_load(unsigned long tick
+@@ -3363,6 +3351,17 @@
  	avenrun[2] = calc_load(avenrun[2], EXP_15, active);
  
  	calc_load_update += LOAD_FREQ;

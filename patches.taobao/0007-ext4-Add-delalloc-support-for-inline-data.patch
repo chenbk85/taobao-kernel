@@ -12,11 +12,11 @@ is initialized with blocks, the inline part is removed.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 90cd1e8..0fdd221 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1717,6 +1717,8 @@ int ext4_get_block_write(struct inode *inode, sector_t iblock,
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/ext4.h	2012-06-20 00:09:08.279518617 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/ext4.h	2012-06-20 00:09:13.975546859 +0800
+@@ -1717,6 +1717,8 @@
  void ext4_truncate_failed_write(struct inode *inode);
  int ext4_get_block(struct inode *inode, sector_t iblock,
  				struct buffer_head *bh_result, int create);
@@ -25,7 +25,7 @@ index 90cd1e8..0fdd221 100644
  int walk_page_buffers(handle_t *handle,
  			     struct buffer_head *head,
  			     unsigned from,
-@@ -1726,6 +1728,8 @@ int walk_page_buffers(handle_t *handle,
+@@ -1726,6 +1728,8 @@
  				       struct buffer_head *bh));
  int do_journal_get_write_access(handle_t *handle,
  				struct buffer_head *bh);
@@ -34,11 +34,11 @@ index 90cd1e8..0fdd221 100644
  
  extern struct inode *ext4_iget(struct super_block *, unsigned long);
  extern int  ext4_write_inode(struct inode *, struct writeback_control *);
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index 21e4a81..a06bfea 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -744,6 +744,183 @@ ext4_journalled_write_inline_data(struct inode *inode,
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
+===================================================================
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inline.c	2012-06-20 00:09:11.287533532 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/inline.c	2012-06-20 00:09:13.975546859 +0800
+@@ -744,6 +744,183 @@
  	return iloc.bh;
  }
  
@@ -222,11 +222,11 @@ index 21e4a81..a06bfea 100644
  
  int ext4_destroy_inline_data(handle_t *handle, struct inode *inode)
  {
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index ccee9dc..44dffce 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -2698,7 +2698,19 @@ static int ext4_da_map_blocks(struct inode *inode, sector_t iblock,
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
+===================================================================
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inode.c	2012-06-20 00:09:11.291533558 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/inode.c	2012-06-20 00:09:13.979546881 +0800
+@@ -2704,7 +2704,19 @@
  	 * file system block.
  	 */
  	down_read((&EXT4_I(inode)->i_data_sem));
@@ -246,8 +246,8 @@ index ccee9dc..44dffce 100644
 +	} else if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS))
  		retval = ext4_ext_get_blocks(NULL, inode, map, bh, 0);
  	else
- 		retval = ext4_ind_get_blocks(NULL, inode, map->m_lblk, map->m_len, bh, 0);
-@@ -2745,8 +2757,8 @@ out_unlock:
+ 		retval = ext4_ind_get_blocks(NULL, inode, map, bh, 0);
+@@ -2751,8 +2763,8 @@
   * We also have b_blocknr = physicalblock mapping unwritten extent and b_bdev
   * initialized properly.
   */
@@ -258,7 +258,7 @@ index ccee9dc..44dffce 100644
  {
  	struct ext4_map_blocks map;
  	int ret = 0;
-@@ -3031,13 +3043,15 @@ static int ext4_da_writepages_trans_blocks(struct inode *inode)
+@@ -3037,13 +3049,15 @@
   *	Range cyclic is ignored.
   *	no_nrwrite_index_update is always presumed true
   */
@@ -275,7 +275,7 @@ index ccee9dc..44dffce 100644
  	struct pagevec pvec;
  	unsigned nr_pages;
  	pgoff_t index;
-@@ -3110,6 +3124,17 @@ continue_unlock:
+@@ -3116,6 +3130,17 @@
  
  			BUG_ON(PageWriteback(page));
  
@@ -293,7 +293,7 @@ index ccee9dc..44dffce 100644
  			ret = __mpage_da_writepage(page, wbc, mpd);
  			if (unlikely(ret)) {
  				if (ret == AOP_WRITEPAGE_ACTIVATE) {
-@@ -3286,7 +3311,8 @@ retry:
+@@ -3292,7 +3317,8 @@
  		mpd.io_done = 0;
  		mpd.pages_written = 0;
  		mpd.retval = 0;
@@ -303,7 +303,7 @@ index ccee9dc..44dffce 100644
  		/*
  		 * If we have a contigous extent of pages and we
  		 * haven't done the I/O yet, map the blocks and submit
-@@ -3355,7 +3381,6 @@ out_writepages:
+@@ -3361,7 +3387,6 @@
  	return ret;
  }
  
@@ -311,7 +311,7 @@ index ccee9dc..44dffce 100644
  static int ext4_nonda_switch(struct super_block *sb)
  {
  	s64 free_blocks, dirty_blocks;
-@@ -3412,6 +3437,19 @@ static int ext4_da_write_begin(struct file *file, struct address_space *mapping,
+@@ -3418,6 +3443,19 @@
  	}
  	*fsdata = (void *)0;
  	trace_ext4_da_write_begin(inode, pos, len, flags);
@@ -331,7 +331,7 @@ index ccee9dc..44dffce 100644
  retry:
  	/*
  	 * With delayed allocation, we don't log the i_disksize update
-@@ -3513,10 +3551,10 @@ static int ext4_da_write_end(struct file *file,
+@@ -3519,10 +3557,10 @@
  	 * changes.  So let's piggyback the i_disksize mark_inode_dirty
  	 * into that.
  	 */
@@ -344,7 +344,7 @@ index ccee9dc..44dffce 100644
  			down_write(&EXT4_I(inode)->i_data_sem);
  			if (new_i_size > EXT4_I(inode)->i_disksize) {
  				/*
-@@ -3537,7 +3575,14 @@ static int ext4_da_write_end(struct file *file,
+@@ -3543,7 +3581,14 @@
  			ext4_mark_inode_dirty(handle, inode);
  		}
  	}
@@ -360,11 +360,11 @@ index ccee9dc..44dffce 100644
  							page, fsdata);
  	copied = ret2;
  	if (ret2 < 0)
-diff --git a/fs/ext4/xattr.h b/fs/ext4/xattr.h
-index 8c02551..3f9591a 100644
---- a/fs/ext4/xattr.h
-+++ b/fs/ext4/xattr.h
-@@ -152,6 +152,15 @@ extern struct buffer_head *
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h
+===================================================================
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/xattr.h	2012-06-20 00:09:11.291533558 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h	2012-06-20 00:09:13.979546881 +0800
+@@ -152,6 +152,15 @@
  ext4_journalled_write_inline_data(struct inode *inode,
  				  unsigned len,
  				  struct page *page);
@@ -380,7 +380,7 @@ index 8c02551..3f9591a 100644
  # else  /* CONFIG_EXT4_FS_XATTR */
  
  static inline int
-@@ -297,6 +306,24 @@ ext4_journalled_write_inline_data(struct inode *inode,
+@@ -297,6 +306,24 @@
  {
  	return NULL;
  }

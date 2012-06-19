@@ -12,11 +12,11 @@ ext4_iget_extra_inode.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 674c26b..fa7b3e0 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -5159,6 +5159,16 @@ static blkcnt_t ext4_inode_blocks(struct ext4_inode *raw_inode,
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
+===================================================================
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inode.c	2012-06-20 00:08:15.631257549 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/inode.c	2012-06-20 00:08:21.719287735 +0800
+@@ -5165,6 +5165,16 @@
  	}
  }
  
@@ -33,7 +33,7 @@ index 674c26b..fa7b3e0 100644
  struct inode *ext4_iget(struct super_block *sb, unsigned long ino)
  {
  	struct ext4_iloc iloc;
-@@ -5269,13 +5279,8 @@ struct inode *ext4_iget(struct super_block *sb, unsigned long ino)
+@@ -5275,13 +5285,8 @@
  			/* The extra space is currently unused. Use it. */
  			ei->i_extra_isize = sizeof(struct ext4_inode) -
  					    EXT4_GOOD_OLD_INODE_SIZE;

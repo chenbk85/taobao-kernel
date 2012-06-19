@@ -9,10 +9,10 @@ Signed-off-by: Robin Dong <sanbai@taobao.com>
 Acked-by: 
 
 ---
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/inline.c
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inline.c	2012-02-15 16:00:25.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/inline.c	2012-02-15 17:09:48.000000000 +0800
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inline.c	2012-06-20 00:10:50.800026991 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/inline.c	2012-06-20 00:10:54.064043173 +0800
 @@ -97,8 +97,12 @@
  		return 0;
  
@@ -210,11 +210,11 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inline.c
 +
 +	ext4_journal_stop(handle);
 +}
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inode.c	2012-02-15 16:00:25.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/inode.c	2012-02-15 16:01:56.000000000 +0800
-@@ -4911,6 +4911,11 @@
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inode.c	2012-06-20 00:10:50.804027006 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/inode.c	2012-06-20 00:10:54.064043173 +0800
+@@ -4917,6 +4917,11 @@
  	if (inode->i_size == 0 && !test_opt(inode->i_sb, NO_AUTO_DA_ALLOC))
  		ext4_set_inode_state(inode, EXT4_STATE_DA_ALLOC_CLOSE);
  
@@ -226,10 +226,10 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
  	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)) {
  		ext4_ext_truncate(inode);
  		return;
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/xattr.c
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/xattr.c	2012-02-15 16:00:25.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/xattr.c	2012-02-15 16:01:52.000000000 +0800
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/xattr.c	2012-06-20 00:10:49.012018126 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c	2012-06-20 00:10:54.064043173 +0800
 @@ -891,6 +891,30 @@
  	return 0;
  }
@@ -293,10 +293,10 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/xattr.c
  		if (error)
  			return error;
  	}
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/xattr.h
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/xattr.h	2012-02-15 16:00:25.000000000 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/xattr.h	2012-02-15 16:01:56.000000000 +0800
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/xattr.h	2012-06-20 00:10:49.012018126 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h	2012-06-20 00:10:54.064043173 +0800
 @@ -117,6 +117,9 @@
  
  extern int ext4_xattr_ibody_find(struct inode *inode, struct ext4_xattr_info *i,
