@@ -9,10 +9,10 @@ want to read an inlined file.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.comc.
 ---
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/inline.c
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inline.c	2012-02-17 19:09:14.681351328 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/inline.c	2012-02-17 19:09:59.325572708 +0800
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inline.c	2012-06-20 00:08:29.975328682 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/inline.c	2012-06-20 00:08:33.827347783 +0800
 @@ -437,6 +437,58 @@
  	return error;
  }
@@ -72,11 +72,11 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inline.c
  int ext4_destroy_inline_data(handle_t *handle, struct inode *inode)
  {
  	int ret;
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/inode.c	2012-02-17 19:09:14.681351328 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/inode.c	2012-02-17 19:11:40.002071890 +0800
-@@ -1469,6 +1469,9 @@
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inode.c	2012-06-20 00:08:29.975328682 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/inode.c	2012-06-20 00:08:33.827347783 +0800
+@@ -1475,6 +1475,9 @@
  		started = 1;
  	}
  
@@ -86,7 +86,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
  	map.m_lblk = iblock;
  	map.m_len = max_blocks;
  	ret = ext4_get_blocks(handle, inode, &map, bh_result,
-@@ -3588,6 +3591,12 @@
+@@ -3594,6 +3597,12 @@
  	journal_t *journal;
  	int err;
  
@@ -99,7 +99,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
  	if (mapping_tagged(mapping, PAGECACHE_TAG_DIRTY) &&
  			test_opt(inode->i_sb, DELALLOC)) {
  		/*
-@@ -3633,6 +3642,11 @@
+@@ -3639,6 +3648,11 @@
  
  static int ext4_readpage(struct file *file, struct page *page)
  {
@@ -111,7 +111,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
  	return mpage_readpage(page, ext4_get_block);
  }
  
-@@ -3640,6 +3654,12 @@
+@@ -3646,6 +3660,12 @@
  ext4_readpages(struct file *file, struct address_space *mapping,
  		struct list_head *pages, unsigned nr_pages)
  {
@@ -124,7 +124,7 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
  	return mpage_readpages(mapping, pages, nr_pages, ext4_get_block);
  }
  
-@@ -4162,6 +4182,10 @@
+@@ -4168,6 +4188,10 @@
  	struct file *file = iocb->ki_filp;
  	struct inode *inode = file->f_mapping->host;
  
@@ -135,10 +135,10 @@ Index: linux-2.6.32-220.2.1.el5/fs/ext4/inode.c
  	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS))
  		return ext4_ext_direct_IO(rw, iocb, iov, offset, nr_segs);
  
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/xattr.h
+Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/xattr.h	2012-02-17 19:09:14.685351345 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/xattr.h	2012-02-17 19:09:59.317572663 +0800
+--- linux-2.6.32-220.23.1.el5.orig/fs/ext4/xattr.h	2012-06-20 00:08:29.975328682 +0800
++++ linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h	2012-06-20 00:08:33.827347783 +0800
 @@ -137,6 +137,8 @@
  extern int ext4_init_inline_data(handle_t *handle, struct inode *inode,
  				 unsigned int len);
