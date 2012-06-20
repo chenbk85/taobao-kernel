@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jun 20 18:52:46 CST 2012 - boyu.mt@taobao.com
+
+net:rt stat skip retransmitted connections.
+
+- patches.taobao/net-rt-stat-skip-retransmitted-connections.patch:
+
+-------------------------------------------------------------------
 Wed Jun 20 00:18:18 CST 2012 - bosong.ly@taobao.com
 
 - Upgrade to RHEL6.2 2.6.32-220.23.1 kernel,
