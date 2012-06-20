@@ -8,8 +8,8 @@ Skip these connections since they prolong measured latency wrongly.
 Acked-by: 
 Signed-off-by: Li Yu <bingtian.ly@taobao.com>
 
---- net/ipv4/rt_stat.c	2012-06-19 12:29:45.053273773 -0400
-+++ net/ipv4/rt_stat.c	2012-06-19 12:30:14.245273028 -0400
+--- a/net/ipv4/rt_stat.c	2012-06-19 12:29:45.053273773 -0400
++++ b/net/ipv4/rt_stat.c	2012-06-19 12:30:14.245273028 -0400
 @@ -376,7 +376,9 @@
  
  	preempt_disable();
