@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jul  6 02:48:47 CST 2012 - boyu.mt@taobao.com
+
+mm: forward port 2.6.18 memory management algorithm.
+
+- patches.taobao/mm_forward_port_18_memory_management_algorithm.patch:
+
+-------------------------------------------------------------------
 Wed Jun 20 19:04:25 CST 2012 - boyu.mt@taobao.com
 
 Fix a patch generation error.
