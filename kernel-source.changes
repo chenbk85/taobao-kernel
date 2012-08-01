@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Aug  1 19:30:02 CST 2012 - boyu.mt@taobao.com
+
+netoops: Add a sysctl fs.bio_netoops so that we can enable/disable
+io error netoops online.
+
+- patches.taobao/add-sysctl-to-control-netoops-in-bio-error.patch:
+
+-------------------------------------------------------------------
 Fri Jul  6 02:48:47 CST 2012 - boyu.mt@taobao.com
 
 mm: forward port 2.6.18 memory management algorithm.
