@@ -15,11 +15,11 @@ Acked-by: Tao Ma <boyu.mt@taobao.com>
  include/trace/events/ext4.h |   22 ++++++++++++++++++++++
  2 files changed, 23 insertions(+), 0 deletions(-)
 
-Index: linux-2.6.32-220.0.0.el5/fs/ext4/super.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/fs/ext4/super.c	2011-12-13 14:28:15.490900563 +0800
-+++ linux-2.6.32-220.0.0.el5/fs/ext4/super.c	2011-12-13 14:30:30.443569752 +0800
-@@ -234,6 +234,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/super.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/super.c
+@@ -234,6 +234,7 @@ handle_t *ext4_journal_start_sb(struct s
  {
  	journal_t *journal;
  
@@ -27,12 +27,12 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/super.c
  	if (sb->s_flags & MS_RDONLY)
  		return ERR_PTR(-EROFS);
  
-Index: linux-2.6.32-220.0.0.el5/include/trace/events/ext4.h
+Index: linux-2.6.32-279.2.1.el5/include/trace/events/ext4.h
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/include/trace/events/ext4.h	2011-12-13 13:40:03.704560967 +0800
-+++ linux-2.6.32-220.0.0.el5/include/trace/events/ext4.h	2011-12-13 14:30:30.443569752 +0800
-@@ -849,6 +849,28 @@
- 		  __entry->result_len, __entry->result_logical)
+--- linux-2.6.32-279.2.1.el5.orig/include/trace/events/ext4.h
++++ linux-2.6.32-279.2.1.el5/include/trace/events/ext4.h
+@@ -898,6 +898,28 @@ DEFINE_EVENT(ext4__trim, ext4_trim_all_f
+ 	TP_ARGS(sb, group, start, len)
  );
  
 +TRACE_EVENT(ext4_journal_start,

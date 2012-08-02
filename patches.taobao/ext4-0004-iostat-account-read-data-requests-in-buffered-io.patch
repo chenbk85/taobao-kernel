@@ -8,11 +8,11 @@ account the data request.
 Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inode.c	2012-06-20 00:13:28.704809995 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/inode.c	2012-06-20 00:13:38.764859893 +0800
-@@ -3739,8 +3739,11 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+@@ -3751,8 +3751,11 @@ static int ext4_readpage(struct file *fi
  	if (ext4_has_inline_data(inode))
  		ret = ext4_readpage_inline(inode, page);
  
@@ -25,7 +25,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  
  	return ret;
  }
-@@ -3755,6 +3758,8 @@
+@@ -3767,6 +3770,8 @@ ext4_readpages(struct file *file, struct
  	if (ext4_has_inline_data(inode))
  		return 0;
  

@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/Documentation/sysrq.txt
+Index: linux-2.6.32-279.2.1.el5/Documentation/sysrq.txt
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/Documentation/sysrq.txt	2011-12-21 22:40:51.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/Documentation/sysrq.txt	2011-12-21 22:41:46.000000000 +0800
-@@ -116,6 +116,10 @@
+--- linux-2.6.32-279.2.1.el5.orig/Documentation/sysrq.txt
++++ linux-2.6.32-279.2.1.el5/Documentation/sysrq.txt
+@@ -116,6 +116,10 @@ On all -  write a character to /proc/sys
  
  'x'	- Used by xmon interface on ppc/powerpc platforms.
  
@@ -21,10 +21,10 @@ Index: linux-2.6.32-220.0.0.el5/Documentation/sysrq.txt
  'z'	- Dump the ftrace buffer
  
  '0'-'9' - Sets the console log level, controlling which kernel messages
-Index: linux-2.6.32-220.0.0.el5/drivers/char/sysrq.c
+Index: linux-2.6.32-279.2.1.el5/drivers/char/sysrq.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/char/sysrq.c	2011-12-21 22:40:51.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/char/sysrq.c	2011-12-21 22:41:46.000000000 +0800
+--- linux-2.6.32-279.2.1.el5.orig/drivers/char/sysrq.c
++++ linux-2.6.32-279.2.1.el5/drivers/char/sysrq.c
 @@ -38,6 +38,7 @@
  #include <linux/workqueue.h>
  #include <linux/hrtimer.h>
@@ -33,7 +33,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/char/sysrq.c
  
  #include <asm/ptrace.h>
  #include <asm/irq_regs.h>
-@@ -391,6 +392,17 @@
+@@ -391,6 +392,17 @@ static struct sysrq_key_op sysrq_unrt_op
  	.enable_mask	= SYSRQ_ENABLE_RTNICE,
  };
  
@@ -51,7 +51,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/char/sysrq.c
  /* Key Operations table and lock */
  static DEFINE_SPINLOCK(sysrq_key_table_lock);
  
-@@ -447,7 +459,7 @@
+@@ -447,7 +459,7 @@ static struct sysrq_key_op *sysrq_key_ta
  	/* x: May be registered on ppc/powerpc for xmon */
  	NULL,				/* x */
  	/* y: May be registered on sparc64 for global register dump */

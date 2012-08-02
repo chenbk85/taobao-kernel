@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
+Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:45.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:45.000000000 +0800
-@@ -67,6 +67,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/netconsole.c
++++ linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
+@@ -67,6 +67,7 @@ __setup("netconsole=", option_setup);
  struct netpoll_targets {
  	struct list_head list;
  	spinlock_t lock;
@@ -18,7 +18,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  #ifdef	CONFIG_NETCONSOLE_DYNAMIC
  	struct configfs_subsystem configfs_subsys;
  #endif
-@@ -160,8 +161,8 @@
+@@ -160,8 +161,8 @@ static struct netpoll_target *alloc_para
  	nt->nts = nts;
  	nt->np.name = nts->subsys_name;
  	strlcpy(nt->np.dev_name, "eth0", IFNAMSIZ);
@@ -29,7 +29,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	memset(nt->np.remote_mac, 0xff, ETH_ALEN);
  	INIT_WORK(&nt->cleanup_work, deferred_netpoll_cleanup);
  
-@@ -634,8 +635,8 @@
+@@ -634,8 +635,8 @@ static struct config_item *make_netpoll_
  	nt->nts = nts;
  	nt->np.name = nts->subsys_name;
  	strlcpy(nt->np.dev_name, "eth0", IFNAMSIZ);
@@ -40,7 +40,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	memset(nt->np.remote_mac, 0xff, ETH_ALEN);
  	INIT_WORK(&nt->cleanup_work, deferred_netpoll_cleanup);
  
-@@ -944,6 +945,10 @@
+@@ -944,6 +945,10 @@ static void __exit unregister_netpoll_ta
  static int __init init_netconsole(void)
  {
  	int err;

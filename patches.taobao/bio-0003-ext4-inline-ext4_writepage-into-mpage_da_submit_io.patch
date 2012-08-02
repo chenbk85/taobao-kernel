@@ -18,11 +18,11 @@ minor CPU savings.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 24aa94f..06efd69 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -57,7 +57,10 @@ static inline int ext4_begin_ordered_truncate(struct inode *inode,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+@@ -57,7 +57,10 @@ static inline int ext4_begin_ordered_tru
  }
  
  static void ext4_invalidatepage(struct page *page, unsigned long offset);
@@ -34,7 +34,7 @@ index 24aa94f..06efd69 100644
  
  /*
   * Test whether an inode is a fast symlink.
-@@ -2084,12 +2087,15 @@ static void ext4_da_page_release_reservation(struct page *page,
+@@ -2088,12 +2091,15 @@ static void ext4_da_page_release_reserva
   */
  static int mpage_da_submit_io(struct mpage_da_data *mpd)
  {
@@ -51,7 +51,7 @@ index 24aa94f..06efd69 100644
  
  	BUG_ON(mpd->next_page <= mpd->first_page);
  	/*
-@@ -2107,28 +2113,64 @@ static int mpage_da_submit_io(struct mpage_da_data *mpd)
+@@ -2111,28 +2117,64 @@ static int mpage_da_submit_io(struct mpa
  		if (nr_pages == 0)
  			break;
  		for (i = 0; i < nr_pages; i++) {
@@ -122,7 +122,7 @@ index 24aa94f..06efd69 100644
  			 */
  			if (ret == 0)
  				ret = err;
-@@ -2738,7 +2780,6 @@ static int bput_one(handle_t *handle, struct buffer_head *bh)
+@@ -2744,7 +2786,6 @@ static int bput_one(handle_t *handle, st
  }
  
  static int __ext4_journalled_writepage(struct page *page,
@@ -130,7 +130,7 @@ index 24aa94f..06efd69 100644
  				       unsigned int len)
  {
  	struct address_space *mapping = page->mapping;
-@@ -2748,6 +2789,7 @@ static int __ext4_journalled_writepage(struct page *page,
+@@ -2754,6 +2795,7 @@ static int __ext4_journalled_writepage(s
  	int ret = 0;
  	int err;
  
@@ -138,7 +138,7 @@ index 24aa94f..06efd69 100644
  	page_bufs = page_buffers(page);
  	BUG_ON(!page_bufs);
  	walk_page_buffers(handle, page_bufs, 0, len, NULL, bget_one);
-@@ -2867,14 +2909,12 @@ static int ext4_writepage(struct page *page,
+@@ -2877,14 +2919,12 @@ static int ext4_writepage(struct page *p
  		/* now mark the buffer_heads as dirty and uptodate */
  		block_commit_write(page, 0, len);
  

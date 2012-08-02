@@ -10,11 +10,11 @@ we can finally enable it!
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 0619c3d..7d4ee97 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1353,7 +1353,8 @@ EXT4_INODE_BIT_FNS(state, state_flags)
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1355,7 +1355,8 @@ EXT4_INODE_BIT_FNS(state, state_flags)
  					 EXT4_FEATURE_RO_COMPAT_DIR_NLINK | \
  					 EXT4_FEATURE_RO_COMPAT_EXTRA_ISIZE | \
  					 EXT4_FEATURE_RO_COMPAT_BTREE_DIR |\

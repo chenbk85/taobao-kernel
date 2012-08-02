@@ -27,11 +27,11 @@ Patch-mainline: 2.6.37
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/fs/ext4/super.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/fs/ext4/super.c	2011-12-13 14:18:15.955927627 +0800
-+++ linux-2.6.32-220.0.0.el5/fs/ext4/super.c	2011-12-13 14:19:58.476436000 +0800
-@@ -3789,9 +3789,12 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/super.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/super.c
+@@ -3789,9 +3789,12 @@ static int ext4_commit_super(struct supe
  		cpu_to_le64(EXT4_SB(sb)->s_kbytes_written + 
  			    ((part_stat_read(sb->s_bdev->bd_part, sectors[1]) -
  			      EXT4_SB(sb)->s_sectors_written_start) >> 1));
@@ -46,11 +46,11 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/super.c
  					&EXT4_SB(sb)->s_freeinodes_counter));
  	sb->s_dirt = 0;
  	BUFFER_TRACE(sbh, "marking dirty");
-Index: linux-2.6.32-220.0.0.el5/include/linux/percpu_counter.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/percpu_counter.h
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/include/linux/percpu_counter.h	2011-12-13 13:40:04.108562969 +0800
-+++ linux-2.6.32-220.0.0.el5/include/linux/percpu_counter.h	2011-12-13 14:19:58.476436000 +0800
-@@ -78,6 +78,11 @@
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/percpu_counter.h
++++ linux-2.6.32-279.2.1.el5/include/linux/percpu_counter.h
+@@ -78,6 +78,11 @@ static inline s64 percpu_counter_read_po
  	return 1;
  }
  
@@ -62,7 +62,7 @@ Index: linux-2.6.32-220.0.0.el5/include/linux/percpu_counter.h
  #else
  
  struct percpu_counter {
-@@ -140,6 +145,11 @@
+@@ -140,6 +145,11 @@ static inline s64 percpu_counter_sum(str
  	return percpu_counter_read(fbc);
  }
  

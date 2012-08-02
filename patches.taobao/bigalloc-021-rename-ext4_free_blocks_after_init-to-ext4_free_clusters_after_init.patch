@@ -10,11 +10,11 @@ an uninitalized block bitmap has been initialized.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/balloc.c b/fs/ext4/balloc.c
-index 4cc484c..3618d8c 100644
---- a/fs/ext4/balloc.c
-+++ b/fs/ext4/balloc.c
-@@ -210,9 +210,9 @@ void ext4_init_block_bitmap(struct super_block *sb, struct buffer_head *bh,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/balloc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
+@@ -210,9 +210,9 @@ void ext4_init_block_bitmap(struct super
  /* Return the number of free blocks in a block group.  It is used when
   * the block bitmap is uninitialized, so we can't just count the bits
   * in the bitmap. */
@@ -27,11 +27,11 @@ index 4cc484c..3618d8c 100644
  {
  	return num_clusters_in_group(sb, block_group) -
  		ext4_num_overhead_clusters(sb, block_group, gdp);
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index ad51b21..b7c5ac6 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1637,9 +1637,9 @@ extern void ext4_init_block_bitmap(struct super_block *sb,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1643,9 +1643,9 @@ extern void ext4_init_block_bitmap(struc
  				   struct buffer_head *bh,
  				   ext4_group_t group,
  				   struct ext4_group_desc *desc);
@@ -44,10 +44,10 @@ index ad51b21..b7c5ac6 100644
  extern unsigned ext4_num_base_meta_clusters(struct super_block *sb,
  					    ext4_group_t block_group);
  extern unsigned ext4_num_overhead_clusters(struct super_block *sb,
-diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
-index 21570f3..41d8905 100644
---- a/fs/ext4/ialloc.c
-+++ b/fs/ext4/ialloc.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ialloc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ialloc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ialloc.c
 @@ -967,7 +967,7 @@ got:
  		if (gdp->bg_flags & cpu_to_le16(EXT4_BG_BLOCK_UNINIT)) {
  			gdp->bg_flags &= cpu_to_le16(~EXT4_BG_BLOCK_UNINIT);
@@ -57,11 +57,11 @@ index 21570f3..41d8905 100644
  			gdp->bg_checksum = ext4_group_desc_csum(sbi, group,
  								gdp);
  		}
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index 55489a4..9274459 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
-@@ -2247,7 +2247,7 @@ int ext4_mb_add_groupinfo(struct super_block *sb, ext4_group_t group,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/mballoc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
+@@ -2247,7 +2247,7 @@ int ext4_mb_add_groupinfo(struct super_b
  	 */
  	if (desc->bg_flags & cpu_to_le16(EXT4_BG_BLOCK_UNINIT)) {
  		meta_group_info[i]->bb_free =
@@ -70,7 +70,7 @@ index 55489a4..9274459 100644
  	} else {
  		meta_group_info[i]->bb_free =
  			ext4_free_group_clusters(sb, desc);
-@@ -2823,7 +2823,7 @@ ext4_mb_mark_diskspace_used(struct ext4_allocation_context *ac,
+@@ -2825,7 +2825,7 @@ ext4_mb_mark_diskspace_used(struct ext4_
  	if (gdp->bg_flags & cpu_to_le16(EXT4_BG_BLOCK_UNINIT)) {
  		gdp->bg_flags &= cpu_to_le16(~EXT4_BG_BLOCK_UNINIT);
  		ext4_free_group_clusters_set(sb, gdp,

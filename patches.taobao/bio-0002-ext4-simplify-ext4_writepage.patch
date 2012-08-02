@@ -11,11 +11,11 @@ equivalent.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 524c9d0..24aa94f 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -2822,7 +2822,7 @@ out:
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+@@ -2828,7 +2828,7 @@ out:
  static int ext4_writepage(struct page *page,
  			  struct writeback_control *wbc)
  {
@@ -24,7 +24,7 @@ index 524c9d0..24aa94f 100644
  	loff_t size;
  	unsigned int len;
  	struct buffer_head *page_bufs;
-@@ -2835,60 +2835,37 @@ static int ext4_writepage(struct page *page,
+@@ -2841,64 +2841,41 @@ static int ext4_writepage(struct page *p
  	else
  		len = PAGE_CACHE_SIZE;
  
@@ -39,27 +39,17 @@ index 524c9d0..24aa94f 100644
 -			 * via journal_submit_inode_data_buffers.
 -			 * If we don't have mapping block we just ignore
 -			 * them. We can also reach here via shrink_page_list
+-			 * but it should never be for direct reclaim so warn
+-			 * if that happens
 -			 */
-+	/*
-+	 * If the page does not have buffers (for whatever reason),
-+	 * try to create them using block_prepare_write.  If this
-+	 * fails, redirty the page and move on.
-+	 */
-+	if (!page_buffers(page)) {
-+		if (block_prepare_write(page, 0, len,
-+					noalloc_get_block_write)) {
-+		redirty_page:
- 			redirty_page_for_writepage(wbc, page);
- 			unlock_page(page);
- 			return 0;
- 		}
+-			WARN_ON_ONCE((current->flags & (PF_MEMALLOC|PF_KSWAPD)) ==
+-				PF_MEMALLOC);
+-			redirty_page_for_writepage(wbc, page);
+-			unlock_page(page);
+-			return 0;
+-		}
 -	} else {
-+		commit_write = 1;
-+	}
-+	page_bufs = page_buffers(page);
-+	if (walk_page_buffers(NULL, page_bufs, 0, len, NULL,
-+			      ext4_bh_delay_or_unwritten)) {
- 		/*
+-		/*
 -		 * The test for page_has_buffers() is subtle:
 -		 * We know the page is dirty but it lost buffers. That means
 -		 * that at some moment in time after write_begin()/write_end()
@@ -71,13 +61,7 @@ index 524c9d0..24aa94f 100644
 -		 * Try to initialize the buffer_heads and check whether
 -		 * all are mapped and non delay. We don't want to
 -		 * do block allocation here.
-+		 * We don't want to do block allocation So redirty the
-+		 * page and return We may reach here when we do a
-+		 * journal commit via
-+		 * journal_submit_inode_data_buffers.  If we don't
-+		 * have mapping block we just ignore them. We can also
-+		 * reach here via shrink_page_list
- 		 */
+-		 */
 -		ret = block_prepare_write(page, 0, len,
 -					  noalloc_get_block_write);
 -		if (!ret) {
@@ -95,10 +79,36 @@ index 524c9d0..24aa94f 100644
 -			 * so just redity the page and unlock
 -			 * and return
 -			 */
--			redirty_page_for_writepage(wbc, page);
--			unlock_page(page);
--			return 0;
--		}
++	/*
++	 * If the page does not have buffers (for whatever reason),
++	 * try to create them using block_prepare_write.  If this
++	 * fails, redirty the page and move on.
++	 */
++	if (!page_buffers(page)) {
++		if (block_prepare_write(page, 0, len,
++					noalloc_get_block_write)) {
++		redirty_page:
+ 			redirty_page_for_writepage(wbc, page);
+ 			unlock_page(page);
+ 			return 0;
+ 		}
++		commit_write = 1;
++	}
++	page_bufs = page_buffers(page);
++	if (walk_page_buffers(NULL, page_bufs, 0, len, NULL,
++			      ext4_bh_delay_or_unwritten)) {
++		/*
++		 * We don't want to do block allocation So redirty the
++		 * page and return We may reach here when we do a
++		 * journal commit via
++		 * journal_submit_inode_data_buffers.  If we don't
++		 * have mapping block we just ignore them. We can also
++		 * reach here via shrink_page_list
++		 * but it should never be for direct reclaim so warn
++		 * if that happens
++		 */
++		WARN_ON_ONCE((current->flags & (PF_MEMALLOC|PF_KSWAPD)) ==
++			PF_MEMALLOC);
 +		goto redirty_page;
 +	}
 +	if (commit_write)

@@ -18,10 +18,10 @@ patch.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index a14a82a..a5fb186 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/extents.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
 @@ -4109,6 +4109,8 @@ out:
  	if (allocated > map->m_len)
  		allocated = map->m_len;
@@ -31,11 +31,11 @@ index a14a82a..a5fb186 100644
  	set_buffer_mapped(bh_result);
  	bh_result->b_bdev = inode->i_sb->s_bdev;
  	bh_result->b_blocknr = newblock;
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 06efd69..517bcad 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -958,7 +958,7 @@
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+@@ -958,7 +958,7 @@ err_out:
   * blocks.
   */
  static int ext4_ind_get_blocks(handle_t *handle, struct inode *inode,
@@ -44,7 +44,7 @@ index 06efd69..517bcad 100644
  			       struct buffer_head *bh_result,
  			       int flags)
  {
-@@ -967,6 +967,8 @@
+@@ -967,6 +967,8 @@ static int ext4_ind_get_blocks(handle_t 
  	Indirect chain[4];
  	Indirect *partial;
  	ext4_fsblk_t goal;
@@ -53,7 +53,7 @@ index 06efd69..517bcad 100644
  	int indirect_blks;
  	int blocks_to_boundary = 0;
  	int depth;
-@@ -1048,12 +1050,18 @@
+@@ -1048,12 +1050,18 @@ static int ext4_ind_get_blocks(handle_t 
  		goto cleanup;
  
  	set_buffer_new(bh_result);
@@ -73,7 +73,7 @@ index 06efd69..517bcad 100644
  	err = count;
  	/* Clean up and exit */
  	partial = chain + depth - 1;	/* the whole chain */
-@@ -1295,8 +1303,7 @@
+@@ -1295,8 +1303,7 @@ int ext4_get_blocks(handle_t *handle, st
  	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)) {
  		retval =  ext4_ext_get_blocks(handle, inode, map, bh, 0);
  	} else {
@@ -83,7 +83,7 @@ index 06efd69..517bcad 100644
  	}
  	up_read((&EXT4_I(inode)->i_data_sem));
  
-@@ -1356,8 +1363,7 @@
+@@ -1356,8 +1363,7 @@ int ext4_get_blocks(handle_t *handle, st
  	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)) {
  		retval =  ext4_ext_get_blocks(handle, inode, map, bh, flags);
  	} else {
@@ -93,7 +93,7 @@ index 06efd69..517bcad 100644
  
  		if (retval > 0 && buffer_new(bh)) {
  			/*
-@@ -2085,7 +2085,8 @@ static void ext4_da_page_release_reservation(struct page *page,
+@@ -2089,7 +2095,8 @@ static void ext4_da_page_release_reserva
   *
   * As pages are already locked by write_cache_pages(), we can't use it
   */
@@ -103,7 +103,7 @@ index 06efd69..517bcad 100644
  {
  	struct pagevec pvec;
  	unsigned long index, end;
-@@ -2093,9 +2094,10 @@ static int mpage_da_submit_io(struct mpage_da_data *mpd)
+@@ -2097,9 +2104,10 @@ static int mpage_da_submit_io(struct mpa
  	struct inode *inode = mpd->inode;
  	struct address_space *mapping = inode->i_mapping;
  	loff_t size = i_size_read(inode);
@@ -116,7 +116,7 @@ index 06efd69..517bcad 100644
  
  	BUG_ON(mpd->next_page <= mpd->first_page);
  	/*
-@@ -2113,7 +2115,7 @@ static int mpage_da_submit_io(struct mpage_da_data *mpd)
+@@ -2117,7 +2125,7 @@ static int mpage_da_submit_io(struct mpa
  		if (nr_pages == 0)
  			break;
  		for (i = 0; i < nr_pages; i++) {
@@ -125,7 +125,7 @@ index 06efd69..517bcad 100644
  			struct page *page = pvec.pages[i];
  
  			index = page->index;
-@@ -2124,6 +2126,12 @@ static int mpage_da_submit_io(struct mpage_da_data *mpd)
+@@ -2128,6 +2136,12 @@ static int mpage_da_submit_io(struct mpa
  				len = size & ~PAGE_CACHE_MASK;
  			else
  				len = PAGE_CACHE_SIZE;
@@ -138,7 +138,7 @@ index 06efd69..517bcad 100644
  			index++;
  
  			BUG_ON(!PageLocked(page));
-@@ -2146,15 +2154,38 @@ static int mpage_da_submit_io(struct mpage_da_data *mpd)
+@@ -2150,15 +2164,38 @@ static int mpage_da_submit_io(struct mpa
  				}
  				commit_write = 1;
  			}
@@ -185,7 +185,7 @@ index 06efd69..517bcad 100644
  
  			if (commit_write)
  				/* mark the buffer_heads as dirty & uptodate */
-@@ -2181,95 +2212,6 @@ static int mpage_da_submit_io(struct mpage_da_data *mpd)
+@@ -2185,95 +2222,6 @@ static int mpage_da_submit_io(struct mpa
  }
  
  /*
@@ -281,7 +281,7 @@ index 06efd69..517bcad 100644
   * __unmap_underlying_blocks - just a helper function to unmap
   * set of blocks described by @bh
   */
-@@ -2350,7 +2292,7 @@ static void mpage_da_map_and_submit(struct mpage_da_data *mpd)
+@@ -2352,7 +2300,7 @@ static void mpage_da_map_and_submit(stru
  {
  	int err, blks, get_blocks_flags;
  	struct buffer_head new;
@@ -290,7 +290,7 @@ index 06efd69..517bcad 100644
  	sector_t next = mpd->b_blocknr;
  	unsigned max_blocks = mpd->b_size >> mpd->inode->i_blkbits;
  	loff_t disksize = EXT4_I(mpd->inode)->i_disksize;
-@@ -2438,19 +2380,12 @@ static void mpage_da_map_and_submit(struct mpage_da_data *mpd)
+@@ -2442,19 +2390,12 @@ static void mpage_da_map_and_submit(stru
  	}
  	BUG_ON(blks == 0);
  
@@ -310,8 +310,8 @@ index 06efd69..517bcad 100644
 -
  	if (ext4_should_order_data(mpd->inode)) {
  		err = ext4_jbd2_file_inode(handle, mpd->inode);
- 		if (err)
-@@ -2474,7 +2409,7 @@ static void mpage_da_map_and_submit(struct mpage_da_data *mpd)
+ 		if (err) {
+@@ -2480,7 +2421,7 @@ static void mpage_da_map_and_submit(stru
  	}
  
  submit_io:

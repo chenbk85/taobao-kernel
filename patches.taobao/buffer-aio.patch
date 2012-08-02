@@ -31,11 +31,11 @@ Hopefully the explanations are clear enough and don't muddy the water any worse.
 Signed-off-by: Zhu Yanhai <gaoyang.zyh@taobao.com>
 
 ---
-Index: linux-2.6.32-220.17.1.el5/fs/aio.c
+Index: linux-2.6.32-279.2.1.el5/fs/aio.c
 ===================================================================
---- linux-2.6.32-220.17.1.el5.orig/fs/aio.c	2012-05-17 02:19:55.400348284 +0800
-+++ linux-2.6.32-220.17.1.el5/fs/aio.c	2012-05-17 02:24:09.325607425 +0800
-@@ -56,6 +56,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/aio.c
++++ linux-2.6.32-279.2.1.el5/fs/aio.c
+@@ -56,6 +56,7 @@ unsigned long aio_max_nr = 0x10000; /* s
  
  static struct kmem_cache	*kiocb_cachep;
  static struct kmem_cache	*kioctx_cachep;
@@ -43,7 +43,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/aio.c
  
  static struct workqueue_struct *aio_wq;
  
-@@ -86,6 +87,7 @@
+@@ -86,6 +87,7 @@ static int __init aio_setup(void)
  	kiocb_cachep = KMEM_CACHE(kiocb, SLAB_HWCACHE_ALIGN|SLAB_PANIC);
  	kioctx_cachep = KMEM_CACHE(kioctx,SLAB_HWCACHE_ALIGN|SLAB_PANIC);
  
@@ -51,7 +51,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/aio.c
  	aio_wq = create_workqueue("aio");
  	abe_pool = mempool_create_kmalloc_pool(1, sizeof(struct aio_batch_entry));
  	BUG_ON(!abe_pool);
-@@ -1091,19 +1093,79 @@
+@@ -1102,19 +1104,79 @@ static inline void clear_timeout(struct 
  	del_singleshot_timer_sync(&to->timer);
  }
  
@@ -131,7 +131,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/aio.c
  
  	/* needed to zero any padding within an entry (there shouldn't be 
  	 * any, but C is fun!
-@@ -1118,7 +1180,21 @@
+@@ -1129,7 +1191,21 @@ retry:
  
  		dprintk("read event: %Lx %Lx %Lx %Lx\n",
  			ent.data, ent.obj, ent.res, ent.res2);
@@ -153,7 +153,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/aio.c
  		/* Could we split the check in two? */
  		ret = -EFAULT;
  		if (unlikely(copy_to_user(event, &ent, sizeof(ent)))) {
-@@ -1184,12 +1260,27 @@
+@@ -1195,12 +1271,27 @@ retry:
  			/*ret = aio_read_evt(ctx, &ent);*/
  		} while (1) ;
  
@@ -181,7 +181,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/aio.c
  		ret = -EFAULT;
  		if (unlikely(copy_to_user(event, &ent, sizeof(ent)))) {
  			dprintk("aio: lost an event due to EFAULT.\n");
-@@ -1301,6 +1392,40 @@
+@@ -1312,6 +1403,40 @@ SYSCALL_DEFINE1(io_destroy, aio_context_
  	return -EINVAL;
  }
  
@@ -222,7 +222,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/aio.c
  static void aio_advance_iovec(struct kiocb *iocb, ssize_t ret)
  {
  	struct iovec *iov = &iocb->ki_iovec[iocb->ki_cur_seg];
-@@ -1324,6 +1449,183 @@
+@@ -1335,6 +1460,183 @@ static void aio_advance_iovec(struct kio
  	BUG_ON(ret > 0 && iocb->ki_left == 0);
  }
  
@@ -406,7 +406,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/aio.c
  static ssize_t aio_rw_vect_retry(struct kiocb *iocb)
  {
  	struct file *file = iocb->ki_filp;
-@@ -1338,6 +1640,9 @@
+@@ -1349,6 +1651,9 @@ static ssize_t aio_rw_vect_retry(struct 
  		(iocb->ki_opcode == IOCB_CMD_PREAD)) {
  		rw_op = file->f_op->aio_read;
  		opcode = IOCB_CMD_PREADV;
@@ -416,7 +416,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/aio.c
  	} else {
  		rw_op = file->f_op->aio_write;
  		opcode = IOCB_CMD_PWRITEV;
-@@ -1446,6 +1751,7 @@
+@@ -1457,6 +1762,7 @@ static ssize_t aio_setup_iocb(struct kio
  	ssize_t ret = 0;
  
  	switch (kiocb->ki_opcode) {
@@ -424,7 +424,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/aio.c
  	case IOCB_CMD_PREAD:
  		ret = -EBADF;
  		if (unlikely(!(file->f_mode & FMODE_READ)))
-@@ -1874,6 +2180,7 @@
+@@ -1885,6 +2191,7 @@ SYSCALL_DEFINE5(io_getevents, aio_contex
  		put_ioctx(ioctx);
  	}
  
@@ -433,11 +433,11 @@ Index: linux-2.6.32-220.17.1.el5/fs/aio.c
 +		events, timeout);
  	return ret;
  }
-Index: linux-2.6.32-220.17.1.el5/fs/buffer.c
+Index: linux-2.6.32-279.2.1.el5/fs/buffer.c
 ===================================================================
---- linux-2.6.32-220.17.1.el5.orig/fs/buffer.c	2012-05-17 02:19:55.392348245 +0800
-+++ linux-2.6.32-220.17.1.el5/fs/buffer.c	2012-05-17 02:24:09.325607425 +0800
-@@ -51,6 +51,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/buffer.c
++++ linux-2.6.32-279.2.1.el5/fs/buffer.c
+@@ -51,6 +51,7 @@ init_buffer(struct buffer_head *bh, bh_e
  {
  	bh->b_end_io = handler;
  	bh->b_private = private;
@@ -445,7 +445,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/buffer.c
  }
  EXPORT_SYMBOL(init_buffer);
  
-@@ -312,7 +313,7 @@
+@@ -312,7 +313,7 @@ static void end_buffer_async_read(struct
  	struct buffer_head *tmp;
  	struct page *page;
  	int page_uptodate = 1;
@@ -454,7 +454,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/buffer.c
  	BUG_ON(!buffer_async_read(bh));
  
  	page = bh->b_page;
-@@ -354,6 +355,18 @@
+@@ -354,6 +355,18 @@ static void end_buffer_async_read(struct
  	 */
  	if (page_uptodate && !PageError(page))
  		SetPageUptodate(page);
@@ -473,7 +473,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/buffer.c
  	unlock_page(page);
  	return;
  
-@@ -2232,6 +2245,8 @@
+@@ -2232,6 +2245,8 @@ int block_read_full_page(struct page *pa
  		 */
  		if (!PageError(page))
  			SetPageUptodate(page);
@@ -482,7 +482,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/buffer.c
  		unlock_page(page);
  		return 0;
  	}
-@@ -3039,7 +3054,11 @@
+@@ -3040,7 +3055,11 @@ static void end_bio_bh_io_sync(struct bi
  	if (unlikely (test_bit(BIO_QUIET,&bio->bi_flags)))
  		set_bit(BH_Quiet, &bh->b_state);
  
@@ -494,7 +494,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/buffer.c
  	bio_put(bio);
  }
  
-@@ -3086,6 +3105,11 @@
+@@ -3087,6 +3106,11 @@ int submit_bh(int rw, struct buffer_head
  	bio->bi_end_io = end_bio_bh_io_sync;
  	bio->bi_private = bh;
  
@@ -506,11 +506,11 @@ Index: linux-2.6.32-220.17.1.el5/fs/buffer.c
  	bio_get(bio);
  	submit_bio(rw, bio);
  
-Index: linux-2.6.32-220.17.1.el5/fs/mpage.c
+Index: linux-2.6.32-279.2.1.el5/fs/mpage.c
 ===================================================================
---- linux-2.6.32-220.17.1.el5.orig/fs/mpage.c	2012-05-17 02:19:55.384348206 +0800
-+++ linux-2.6.32-220.17.1.el5/fs/mpage.c	2012-05-17 02:24:09.325607425 +0800
-@@ -56,6 +56,16 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/mpage.c
++++ linux-2.6.32-279.2.1.el5/fs/mpage.c
+@@ -56,6 +56,16 @@ static void mpage_end_io_read(struct bio
  			ClearPageUptodate(page);
  			SetPageError(page);
  		}
@@ -527,7 +527,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/mpage.c
  		unlock_page(page);
  	} while (bvec >= bio->bi_io_vec);
  	bio_put(bio);
-@@ -179,11 +189,12 @@
+@@ -179,11 +189,12 @@ do_mpage_readpage(struct bio *bio, struc
  	unsigned page_block;
  	unsigned first_hole = blocks_per_page;
  	struct block_device *bdev = NULL;
@@ -541,7 +541,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/mpage.c
  	if (page_has_buffers(page))
  		goto confused;
  
-@@ -277,6 +288,8 @@
+@@ -277,6 +288,8 @@ do_mpage_readpage(struct bio *bio, struc
  		zero_user_segment(page, first_hole << blkbits, PAGE_CACHE_SIZE);
  		if (first_hole == 0) {
  			SetPageUptodate(page);
@@ -550,7 +550,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/mpage.c
  			unlock_page(page);
  			goto out;
  		}
-@@ -300,7 +313,13 @@
+@@ -300,7 +313,13 @@ alloc_new:
  	}
  
  	length = first_hole << blkbits;
@@ -565,7 +565,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/mpage.c
  		bio = mpage_bio_submit(READ, bio);
  		goto alloc_new;
  	}
-@@ -320,8 +339,11 @@
+@@ -320,8 +339,11 @@ confused:
  		bio = mpage_bio_submit(READ, bio);
  	if (!PageUptodate(page))
  	        block_read_full_page(page, get_block);
@@ -578,7 +578,7 @@ Index: linux-2.6.32-220.17.1.el5/fs/mpage.c
  	goto out;
  }
  
-@@ -387,6 +409,8 @@
+@@ -387,6 +409,8 @@ mpage_readpages(struct address_space *ma
  		list_del(&page->lru);
  		if (!add_to_page_cache_lru(page, mapping,
  					page->index, GFP_KERNEL)) {
@@ -587,11 +587,11 @@ Index: linux-2.6.32-220.17.1.el5/fs/mpage.c
  			bio = do_mpage_readpage(bio, page,
  					nr_pages - page_idx,
  					&last_block_in_bio, &map_bh,
-Index: linux-2.6.32-220.17.1.el5/include/linux/aio_abi.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/aio_abi.h
 ===================================================================
---- linux-2.6.32-220.17.1.el5.orig/include/linux/aio_abi.h	2012-05-17 02:19:55.356348067 +0800
-+++ linux-2.6.32-220.17.1.el5/include/linux/aio_abi.h	2012-05-17 02:24:09.325607425 +0800
-@@ -44,6 +44,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/aio_abi.h
++++ linux-2.6.32-279.2.1.el5/include/linux/aio_abi.h
+@@ -44,6 +44,7 @@ enum {
  	IOCB_CMD_NOOP = 6,
  	IOCB_CMD_PREADV = 7,
  	IOCB_CMD_PWRITEV = 8,
@@ -599,11 +599,11 @@ Index: linux-2.6.32-220.17.1.el5/include/linux/aio_abi.h
  };
  
  /*
-Index: linux-2.6.32-220.17.1.el5/include/linux/aio.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/aio.h
 ===================================================================
---- linux-2.6.32-220.17.1.el5.orig/include/linux/aio.h	2012-05-17 02:19:55.336347966 +0800
-+++ linux-2.6.32-220.17.1.el5/include/linux/aio.h	2012-05-17 02:24:09.325607425 +0800
-@@ -204,6 +204,13 @@
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/aio.h
++++ linux-2.6.32-279.2.1.el5/include/linux/aio.h
+@@ -204,6 +204,13 @@ struct kioctx {
  	struct rcu_head		rcu_head;
  };
  
@@ -617,7 +617,7 @@ Index: linux-2.6.32-220.17.1.el5/include/linux/aio.h
  /* prototypes */
  extern unsigned aio_max_size;
  
-@@ -216,6 +223,8 @@
+@@ -216,6 +223,8 @@ struct mm_struct;
  extern void exit_aio(struct mm_struct *mm);
  extern long do_io_submit(aio_context_t ctx_id, long nr,
  			 struct iocb __user *__user *iocbpp, bool compat);
@@ -626,7 +626,7 @@ Index: linux-2.6.32-220.17.1.el5/include/linux/aio.h
  #else
  static inline ssize_t wait_on_sync_kiocb(struct kiocb *iocb) { return 0; }
  static inline int aio_put_req(struct kiocb *iocb) { return 0; }
-@@ -226,6 +235,8 @@
+@@ -226,6 +235,8 @@ static inline void exit_aio(struct mm_st
  static inline long do_io_submit(aio_context_t ctx_id, long nr,
  				struct iocb __user * __user *iocbpp,
  				bool compat) { return 0; }
@@ -635,11 +635,11 @@ Index: linux-2.6.32-220.17.1.el5/include/linux/aio.h
  #endif /* CONFIG_AIO */
  
  #define io_wait_to_kiocb(wait) container_of(wait, struct kiocb, ki_wait)
-Index: linux-2.6.32-220.17.1.el5/include/linux/bio.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/bio.h
 ===================================================================
---- linux-2.6.32-220.17.1.el5.orig/include/linux/bio.h	2012-05-17 02:19:55.344348005 +0800
-+++ linux-2.6.32-220.17.1.el5/include/linux/bio.h	2012-05-17 02:24:09.325607425 +0800
-@@ -99,6 +99,8 @@
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/bio.h
++++ linux-2.6.32-279.2.1.el5/include/linux/bio.h
+@@ -99,6 +99,8 @@ struct bio {
  	bio_end_io_t		*bi_end_io;
  
  	void			*bi_private;
@@ -648,10 +648,10 @@ Index: linux-2.6.32-220.17.1.el5/include/linux/bio.h
  #if defined(CONFIG_BLK_DEV_INTEGRITY)
  	struct bio_integrity_payload *bi_integrity;  /* data integrity */
  #endif
-Index: linux-2.6.32-220.17.1.el5/include/linux/blk_types.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/blk_types.h
 ===================================================================
---- linux-2.6.32-220.17.1.el5.orig/include/linux/blk_types.h	2012-05-17 02:19:55.380348182 +0800
-+++ linux-2.6.32-220.17.1.el5/include/linux/blk_types.h	2012-05-17 02:24:09.325607425 +0800
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/blk_types.h
++++ linux-2.6.32-279.2.1.el5/include/linux/blk_types.h
 @@ -25,6 +25,7 @@
  #define BIO_FS_INTEGRITY 10	/* fs owns integrity data, not block layer */
  #define BIO_QUIET	11	/* Make BIO Quiet */
@@ -660,11 +660,11 @@ Index: linux-2.6.32-220.17.1.el5/include/linux/blk_types.h
  #define bio_flagged(bio, flag)	((bio)->bi_flags & (1 << (flag)))
  
  /*
-Index: linux-2.6.32-220.17.1.el5/include/linux/buffer_head.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/buffer_head.h
 ===================================================================
---- linux-2.6.32-220.17.1.el5.orig/include/linux/buffer_head.h	2012-05-17 02:19:55.364348102 +0800
-+++ linux-2.6.32-220.17.1.el5/include/linux/buffer_head.h	2012-05-17 02:24:09.325607425 +0800
-@@ -37,6 +37,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/buffer_head.h
++++ linux-2.6.32-279.2.1.el5/include/linux/buffer_head.h
+@@ -37,6 +37,7 @@ enum bh_state_bits {
  	BH_Unwritten,	/* Buffer is allocated on disk but not written */
  	BH_Quiet,	/* Buffer Error Prinks to be quiet */
  
@@ -672,7 +672,7 @@ Index: linux-2.6.32-220.17.1.el5/include/linux/buffer_head.h
  	BH_PrivateStart,/* not a state bit, but the first bit available
  			 * for private allocation by other entities
  			 */
-@@ -74,6 +75,7 @@
+@@ -74,6 +75,7 @@ struct buffer_head {
  	struct address_space *b_assoc_map;	/* mapping this buffer is
  						   associated with */
  	atomic_t b_count;		/* users using this buffer_head */
@@ -680,7 +680,7 @@ Index: linux-2.6.32-220.17.1.el5/include/linux/buffer_head.h
  };
  
  /*
-@@ -128,6 +130,7 @@
+@@ -128,6 +130,7 @@ BUFFER_FNS(Write_EIO, write_io_error)
  BUFFER_FNS(Ordered, ordered)
  BUFFER_FNS(Eopnotsupp, eopnotsupp)
  BUFFER_FNS(Unwritten, unwritten)
@@ -688,11 +688,11 @@ Index: linux-2.6.32-220.17.1.el5/include/linux/buffer_head.h
  
  #define bh_offset(bh)		((unsigned long)(bh)->b_data & ~PAGE_MASK)
  #define touch_buffer(bh)	mark_page_accessed(bh->b_page)
-Index: linux-2.6.32-220.17.1.el5/include/linux/page-flags.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/page-flags.h
 ===================================================================
---- linux-2.6.32-220.17.1.el5.orig/include/linux/page-flags.h	2012-05-17 02:19:55.348348020 +0800
-+++ linux-2.6.32-220.17.1.el5/include/linux/page-flags.h	2012-05-17 02:24:09.325607425 +0800
-@@ -111,6 +111,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/page-flags.h
++++ linux-2.6.32-279.2.1.el5/include/linux/page-flags.h
+@@ -111,6 +111,7 @@ enum pageflags {
  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
  	PG_compound_lock,
  #endif
@@ -700,7 +700,7 @@ Index: linux-2.6.32-220.17.1.el5/include/linux/page-flags.h
  	__NR_PAGEFLAGS,
  
  	/* Filesystems */
-@@ -216,6 +217,7 @@
+@@ -216,6 +217,7 @@ PAGEFLAG(Reserved, reserved) __CLEARPAGE
  PAGEFLAG(SwapBacked, swapbacked) __CLEARPAGEFLAG(SwapBacked, swapbacked)
  
  __PAGEFLAG(SlobFree, slob_free)
@@ -708,13 +708,13 @@ Index: linux-2.6.32-220.17.1.el5/include/linux/page-flags.h
  
  __PAGEFLAG(SlubFrozen, slub_frozen)
  __PAGEFLAG(SlubDebug, slub_debug)
-Index: linux-2.6.32-220.17.1.el5/include/linux/sched.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/sched.h
 ===================================================================
---- linux-2.6.32-220.17.1.el5.orig/include/linux/sched.h	2012-05-17 02:24:08.349602595 +0800
-+++ linux-2.6.32-220.17.1.el5/include/linux/sched.h	2012-05-17 02:24:09.329607447 +0800
-@@ -1639,6 +1639,7 @@
- #ifndef __GENKSYMS__
- 	struct perf_event_context *perf_event_ctxp[perf_nr_task_contexts];
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/sched.h
++++ linux-2.6.32-279.2.1.el5/include/linux/sched.h
+@@ -1647,6 +1647,7 @@ struct task_struct {
+ 	} memcg_batch;
+ #endif
  #endif
 +	struct ba_iocb *current_baiocb;
  };

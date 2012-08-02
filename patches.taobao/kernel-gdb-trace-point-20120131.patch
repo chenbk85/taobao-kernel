@@ -57,10 +57,10 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  scripts/getmod.py                      |  132 
  10 files changed, 11545 insertions(+), 2 deletions(-)
 
-Index: linux-2.6.32-220.2.1.el5/Documentation/trace/gtp.txt
+Index: linux-2.6.32-279.2.1.el5/Documentation/trace/gtp.txt
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/Documentation/trace/gtp.txt	2012-02-01 19:57:27.817902052 +0800
+--- /dev/null
++++ linux-2.6.32-279.2.1.el5/Documentation/trace/gtp.txt
 @@ -0,0 +1,1517 @@
 +		Linux Kernel GDB tracepoint module (KGTP)
 +		=========================================
@@ -1579,10 +1579,10 @@ Index: linux-2.6.32-220.2.1.el5/Documentation/trace/gtp.txt
 +----------------------------------------------------
 +This way is better to work with python to parse Kernel.
 +I will introduce them in example.
-Index: linux-2.6.32-220.2.1.el5/Documentation/trace/gtp_quickstart.txt
+Index: linux-2.6.32-279.2.1.el5/Documentation/trace/gtp_quickstart.txt
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/Documentation/trace/gtp_quickstart.txt	2012-02-01 19:57:27.817902052 +0800
+--- /dev/null
++++ linux-2.6.32-279.2.1.el5/Documentation/trace/gtp_quickstart.txt
 @@ -0,0 +1,250 @@
 +		Linux Kernel GDB tracepoint module (KGTP) quick start
 +		=====================================================
@@ -1834,11 +1834,11 @@ Index: linux-2.6.32-220.2.1.el5/Documentation/trace/gtp_quickstart.txt
 +
 +Now, you can begin to rock and roll your Linux kernel with KGTP and GDB.
 +Please go to HOWTO to get more message about howto use KGTP.
-Index: linux-2.6.32-220.2.1.el5/include/linux/perf_event.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/perf_event.h
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/include/linux/perf_event.h	2012-02-01 19:57:25.621891178 +0800
-+++ linux-2.6.32-220.2.1.el5/include/linux/perf_event.h	2012-02-01 19:57:27.817902052 +0800
-@@ -1164,9 +1164,12 @@
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/perf_event.h
++++ linux-2.6.32-279.2.1.el5/include/linux/perf_event.h
+@@ -1163,9 +1163,12 @@ extern void perf_output_copy(struct perf
  			     const void *buf, unsigned int len);
  extern int perf_swevent_get_recursion_context(void);
  extern void perf_swevent_put_recursion_context(int rctx);
@@ -1851,10 +1851,10 @@ Index: linux-2.6.32-220.2.1.el5/include/linux/perf_event.h
  #else
  static inline void
  perf_event_task_sched_in(struct task_struct *task)			{ }
-Index: linux-2.6.32-220.2.1.el5/kernel/events/core.c
+Index: linux-2.6.32-279.2.1.el5/kernel/events/core.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/kernel/events/core.c	2012-02-01 19:57:25.653891331 +0800
-+++ linux-2.6.32-220.2.1.el5/kernel/events/core.c	2012-02-01 19:57:27.821902068 +0800
+--- linux-2.6.32-279.2.1.el5.orig/kernel/events/core.c
++++ linux-2.6.32-279.2.1.el5/kernel/events/core.c
 @@ -37,6 +37,12 @@
  
  #include <asm/irq_regs.h>
@@ -1868,7 +1868,7 @@ Index: linux-2.6.32-220.2.1.el5/kernel/events/core.c
  struct remote_function_call {
  	struct task_struct	*p;
  	int			(*func)(void *info);
-@@ -1187,7 +1193,7 @@
+@@ -1187,7 +1193,7 @@ retry:
  /*
   * Cross CPU call to disable a performance event
   */
@@ -1877,7 +1877,7 @@ Index: linux-2.6.32-220.2.1.el5/kernel/events/core.c
  {
  	struct perf_event *event = info;
  	struct perf_event_context *ctx = event->ctx;
-@@ -1224,6 +1230,7 @@
+@@ -1224,6 +1230,7 @@ static int __perf_event_disable(void *in
  
  	return 0;
  }
@@ -1885,7 +1885,7 @@ Index: linux-2.6.32-220.2.1.el5/kernel/events/core.c
  
  /*
   * Disable a event.
-@@ -1314,6 +1321,9 @@
+@@ -1314,6 +1321,9 @@ static void perf_set_shadow_time(struct 
  	else
  		event->shadow_ctx_time = tstamp - ctx->timestamp;
  }
@@ -1895,7 +1895,7 @@ Index: linux-2.6.32-220.2.1.el5/kernel/events/core.c
  
  #define MAX_INTERRUPTS (~0ULL)
  
-@@ -1630,7 +1640,7 @@
+@@ -1630,7 +1640,7 @@ static void __perf_event_mark_enabled(st
  /*
   * Cross CPU call to enable a performance event
   */
@@ -1904,7 +1904,7 @@ Index: linux-2.6.32-220.2.1.el5/kernel/events/core.c
  {
  	struct perf_event *event = info;
  	struct perf_event_context *ctx = event->ctx;
-@@ -1694,6 +1704,7 @@
+@@ -1694,6 +1704,7 @@ unlock:
  
  	return 0;
  }
@@ -1912,7 +1912,7 @@ Index: linux-2.6.32-220.2.1.el5/kernel/events/core.c
  
  /*
   * Enable a event.
-@@ -1802,6 +1813,9 @@
+@@ -1802,6 +1813,9 @@ static void ctx_sched_out(struct perf_ev
  	}
  	perf_pmu_enable(ctx->pmu);
  }
@@ -1922,7 +1922,7 @@ Index: linux-2.6.32-220.2.1.el5/kernel/events/core.c
  
  /*
   * Test whether two contexts are equivalent, i.e. whether they
-@@ -3187,6 +3201,14 @@
+@@ -3186,6 +3200,14 @@ static void perf_event_reset(struct perf
  	perf_event_update_userpage(event);
  }
  
@@ -1937,13 +1937,13 @@ Index: linux-2.6.32-220.2.1.el5/kernel/events/core.c
  /*
   * Holding the top-level event's child_mutex means that any
   * descendant process that has inherited this event will block
-Index: linux-2.6.32-220.2.1.el5/lib/Kconfig.debug
+Index: linux-2.6.32-279.2.1.el5/lib/Kconfig.debug
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/lib/Kconfig.debug	2012-02-01 19:57:25.633891230 +0800
-+++ linux-2.6.32-220.2.1.el5/lib/Kconfig.debug	2012-02-01 19:57:27.821902068 +0800
-@@ -1132,6 +1132,16 @@
- 	  This option causes a performance degredation.  Use only if you want
- 	  to debug device drivers. If unsure, say N.
+--- linux-2.6.32-279.2.1.el5.orig/lib/Kconfig.debug
++++ linux-2.6.32-279.2.1.el5/lib/Kconfig.debug
+@@ -1144,6 +1144,16 @@ config ASYNC_RAID6_TEST
+ 
+ 	  If unsure, say N.
  
 +config GTP
 +	tristate "GDB tracepoint support"
@@ -1958,23 +1958,23 @@ Index: linux-2.6.32-220.2.1.el5/lib/Kconfig.debug
  source "samples/Kconfig"
  
  source "lib/Kconfig.kgdb"
-Index: linux-2.6.32-220.2.1.el5/lib/Makefile
+Index: linux-2.6.32-279.2.1.el5/lib/Makefile
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/lib/Makefile	2012-02-01 19:57:25.629891229 +0800
-+++ linux-2.6.32-220.2.1.el5/lib/Makefile	2012-02-01 19:57:27.821902068 +0800
-@@ -99,6 +99,8 @@
+--- linux-2.6.32-279.2.1.el5.orig/lib/Makefile
++++ linux-2.6.32-279.2.1.el5/lib/Makefile
+@@ -101,6 +101,8 @@ obj-$(CONFIG_GENERIC_ATOMIC64) += atomic
  
- obj-$(CONFIG_GENERIC_ATOMIC64) += atomic64.o
+ obj-$(CONFIG_AVERAGE) += average.o
  
 +obj-$(CONFIG_GTP) += gtp.o
 +
  hostprogs-y	:= gen_crc32table
  clean-files	:= crc32table.h
  
-Index: linux-2.6.32-220.2.1.el5/lib/gtp.c
+Index: linux-2.6.32-279.2.1.el5/lib/gtp.c
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/lib/gtp.c	2012-02-01 19:57:27.825902085 +0800
+--- /dev/null
++++ linux-2.6.32-279.2.1.el5/lib/gtp.c
 @@ -0,0 +1,9031 @@
 +/*
 + * Kernel GDB tracepoint module.
@@ -11007,10 +11007,10 @@ Index: linux-2.6.32-220.2.1.el5/lib/gtp.c
 +
 +MODULE_AUTHOR("Hui Zhu <teawater@gmail.com>");
 +MODULE_LICENSE("GPL");
-Index: linux-2.6.32-220.2.1.el5/lib/gtp_rb.c
+Index: linux-2.6.32-279.2.1.el5/lib/gtp_rb.c
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/lib/gtp_rb.c	2012-02-01 19:57:27.825902085 +0800
+--- /dev/null
++++ linux-2.6.32-279.2.1.el5/lib/gtp_rb.c
 @@ -0,0 +1,474 @@
 +#define ADDR_SIZE		sizeof(size_t)
 +#define GTP_RB_HEAD(addr)	((void *)((size_t)(addr) & PAGE_MASK))
@@ -11486,10 +11486,10 @@ Index: linux-2.6.32-220.2.1.el5/lib/gtp_rb.c
 +
 +	GTP_RB_UNLOCK_IRQ(rb, flags);
 +}
-Index: linux-2.6.32-220.2.1.el5/scripts/getgtprsp.pl
+Index: linux-2.6.32-279.2.1.el5/scripts/getgtprsp.pl
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/scripts/getgtprsp.pl	2012-02-01 19:57:27.825902085 +0800
+--- /dev/null
++++ linux-2.6.32-279.2.1.el5/scripts/getgtprsp.pl
 @@ -0,0 +1,102 @@
 +#!/usr/bin/perl
 +
@@ -11593,10 +11593,10 @@ Index: linux-2.6.32-220.2.1.el5/scripts/getgtprsp.pl
 +		}
 +	}
 +}
-Index: linux-2.6.32-220.2.1.el5/scripts/getmod.py
+Index: linux-2.6.32-279.2.1.el5/scripts/getmod.py
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.2.1.el5/scripts/getmod.py	2012-02-01 19:57:27.825902085 +0800
+--- /dev/null
++++ linux-2.6.32-279.2.1.el5/scripts/getmod.py
 @@ -0,0 +1,132 @@
 +#!/usr/bin/python
 +

@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Thu Aug  2 15:02:04 CST 2012 - boyu.mt@taobao.com
+
+Upgrade to to RHEL6U3 2.6.32-279.2.1.
+
+- Update config files.
+- patches.driver/bnx2-disable-msi-when-no-per-vector-masking.patch:
+  Refresh.
+- patches.taobao/0001-ext4-Move-extra-inode-read-to-a-new-function.patch:
+  Refresh.
+- patches.taobao/0002-ext4-export-inline-xattr-functions.patch:
+  Refresh.
+- patches.taobao/0003-ext4-Add-the-basic-function-for-inline-data-support.patch:
+  Refresh.
+- patches.taobao/0004-ext4-Add-read-support-for-inline-data.patch:
+  Refresh.
+
+-------------------------------------------------------------------
 Wed Aug  1 19:30:02 CST 2012 - boyu.mt@taobao.com
 
 netoops: Add a sysctl fs.bio_netoops so that we can enable/disable

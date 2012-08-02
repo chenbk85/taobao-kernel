@@ -11,13 +11,13 @@ just contains some coding style fixes, e.g. rename poor variable name.
 Signed-off-by: Bing Tian <bingtian.ly@taobao.com>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-diff --git a/arch/Kconfig b/arch/Kconfig
-index cdea504..02f0301 100644
---- a/arch/Kconfig
-+++ b/arch/Kconfig
-@@ -140,4 +140,11 @@ config HAVE_PERF_EVENTS_NMI
- 	  subsystem.  Also has support for calculating CPU cycle events
- 	  to determine how many clock cycles in a given period.
+Index: linux-2.6.32-279.2.1.el5/arch/Kconfig
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/arch/Kconfig
++++ linux-2.6.32-279.2.1.el5/arch/Kconfig
+@@ -143,4 +143,11 @@ config HAVE_PERF_EVENTS_NMI
+ config HAVE_ARCH_MUTEX_CPU_RELAX
+ 	bool
  
 +config HOOKERS
 +	tristate "Hooker service"
@@ -27,11 +27,10 @@ index cdea504..02f0301 100644
 +	  See include/linux/hookers.h for details.
 +
  source "kernel/gcov/Kconfig"
-diff --git a/include/linux/hookers.h b/include/linux/hookers.h
-new file mode 100644
-index 0000000..570e2ab
+Index: linux-2.6.32-279.2.1.el5/include/linux/hookers.h
+===================================================================
 --- /dev/null
-+++ b/include/linux/hookers.h
++++ linux-2.6.32-279.2.1.el5/include/linux/hookers.h
 @@ -0,0 +1,152 @@
 +/*
 + *      This program is free software; you can redistribute it and/or
@@ -185,11 +184,11 @@ index 0000000..570e2ab
 +extern void hooker_uninstall(struct hooker *hooker);
 +
 +#endif
-diff --git a/kernel/Makefile b/kernel/Makefile
-index 9e1cc09..abda993 100644
---- a/kernel/Makefile
-+++ b/kernel/Makefile
-@@ -105,6 +105,7 @@ obj-$(CONFIG_SLOW_WORK) += slow-work.o
+Index: linux-2.6.32-279.2.1.el5/kernel/Makefile
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/kernel/Makefile
++++ linux-2.6.32-279.2.1.el5/kernel/Makefile
+@@ -107,6 +107,7 @@ obj-$(CONFIG_SLOW_WORK) += slow-work.o
  obj-$(CONFIG_SLOW_WORK_DEBUG) += slow-work-debugfs.o
  obj-$(CONFIG_PERF_EVENTS) += events/
  obj-$(CONFIG_USER_RETURN_NOTIFIER) += user-return-notifier.o
@@ -197,11 +196,10 @@ index 9e1cc09..abda993 100644
  
  ifneq ($(CONFIG_SCHED_OMIT_FRAME_POINTER),y)
  # According to Alan Modra <alan@linuxcare.com.au>, the -fno-omit-frame-pointer is
-diff --git a/kernel/hookers.c b/kernel/hookers.c
-new file mode 100644
-index 0000000..80a15d9
+Index: linux-2.6.32-279.2.1.el5/kernel/hookers.c
+===================================================================
 --- /dev/null
-+++ b/kernel/hookers.c
++++ linux-2.6.32-279.2.1.el5/kernel/hookers.c
 @@ -0,0 +1,286 @@
 +#include <linux/kernel.h>
 +#include <linux/spinlock.h>

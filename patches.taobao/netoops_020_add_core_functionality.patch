@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/drivers/net/Kconfig
+Index: linux-2.6.32-279.2.1.el5/drivers/net/Kconfig
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/Kconfig	2011-12-21 22:41:45.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/Kconfig	2011-12-21 22:41:47.000000000 +0800
-@@ -3295,6 +3295,16 @@
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/Kconfig
++++ linux-2.6.32-279.2.1.el5/drivers/net/Kconfig
+@@ -3316,6 +3316,16 @@ config NETCONSOLE_DYNAMIC
  	  at runtime through a userspace interface exported using configfs.
  	  See <file:Documentation/networking/netconsole.txt> for details.
  
@@ -27,11 +27,11 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/Kconfig
  config NETPOLL
  	def_bool false
  
-Index: linux-2.6.32-220.0.0.el5/drivers/net/Makefile
+Index: linux-2.6.32-279.2.1.el5/drivers/net/Makefile
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/Makefile	2011-12-21 22:40:50.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/Makefile	2011-12-21 22:41:47.000000000 +0800
-@@ -280,6 +280,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/Makefile
++++ linux-2.6.32-279.2.1.el5/drivers/net/Makefile
+@@ -280,6 +280,7 @@ obj-$(CONFIG_ETRAX_ETHERNET) += cris/
  obj-$(CONFIG_ENP2611_MSF_NET) += ixp2000/
  
  obj-$(CONFIG_NETCONSOLE) += netconsole.o
@@ -39,10 +39,10 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/Makefile
  
  obj-$(CONFIG_FS_ENET) += fs_enet/
  
-Index: linux-2.6.32-220.0.0.el5/drivers/net/netoops.c
+Index: linux-2.6.32-279.2.1.el5/drivers/net/netoops.c
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.0.0.el5/drivers/net/netoops.c	2011-12-21 22:41:47.000000000 +0800
+--- /dev/null
++++ linux-2.6.32-279.2.1.el5/drivers/net/netoops.c
 @@ -0,0 +1,244 @@
 +/*
 + * drivers/net/netoops.c

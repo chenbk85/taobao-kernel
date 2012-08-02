@@ -24,11 +24,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  mm/compaction.c |   29 ++++++++++++++++++++++++-----
  1 files changed, 24 insertions(+), 5 deletions(-)
 
-Index: linux-2.6.32-220.13.1.el5/mm/compaction.c
+Index: linux-2.6.32-279.2.1.el5/mm/compaction.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/mm/compaction.c	2012-04-19 17:26:57.799091854 +0800
-+++ linux-2.6.32-220.13.1.el5/mm/compaction.c	2012-04-19 17:27:11.247158326 +0800
-@@ -248,11 +248,18 @@
+--- linux-2.6.32-279.2.1.el5.orig/mm/compaction.c
++++ linux-2.6.32-279.2.1.el5/mm/compaction.c
+@@ -248,11 +248,18 @@ static bool too_many_isolated(struct zon
  	return isolated > (inactive + active) / 2;
  }
  
@@ -48,7 +48,7 @@ Index: linux-2.6.32-220.13.1.el5/mm/compaction.c
  					struct compact_control *cc)
  {
  	unsigned long low_pfn, end_pfn;
-@@ -268,7 +275,7 @@
+@@ -268,7 +275,7 @@ static unsigned long isolate_migratepage
  	/* Do not cross the free scanner or scan within a memory hole */
  	if (end_pfn > cc->free_pfn || !pfn_valid(low_pfn)) {
  		cc->migrate_pfn = end_pfn;
@@ -57,7 +57,7 @@ Index: linux-2.6.32-220.13.1.el5/mm/compaction.c
  	}
  
  	/*
-@@ -277,10 +284,14 @@
+@@ -277,10 +284,14 @@ static unsigned long isolate_migratepage
  	 * delay for some time until fewer pages are isolated
  	 */
  	while (unlikely(too_many_isolated(zone))) {
@@ -73,7 +73,7 @@ Index: linux-2.6.32-220.13.1.el5/mm/compaction.c
  	}
  
  	/* Time to isolate some pages for migration */
-@@ -384,7 +395,7 @@
+@@ -384,7 +395,7 @@ static unsigned long isolate_migratepage
  	spin_unlock_irq(&zone->lru_lock);
  	cc->migrate_pfn = low_pfn;
  
@@ -82,7 +82,7 @@ Index: linux-2.6.32-220.13.1.el5/mm/compaction.c
  }
  
  /*
-@@ -484,8 +495,15 @@
+@@ -484,8 +495,15 @@ static int compact_zone(struct zone *zon
  	while ((ret = compact_finished(zone, cc)) == COMPACT_CONTINUE) {
  		unsigned long nr_migrate, nr_remaining;
  
@@ -99,7 +99,7 @@ Index: linux-2.6.32-220.13.1.el5/mm/compaction.c
  
  		nr_migrate = cc->nr_migratepages;
  		migrate_pages(&cc->migratepages, compaction_alloc,
-@@ -507,6 +525,7 @@
+@@ -507,6 +525,7 @@ static int compact_zone(struct zone *zon
  
  	}
  

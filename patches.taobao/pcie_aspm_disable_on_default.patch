@@ -16,11 +16,11 @@ workaround for greencomputing server NIC offline issue.
 
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: linux-2.6.32-220.2.1.el5/drivers/pci/pcie/aspm.c
+Index: linux-2.6.32-279.2.1.el5/drivers/pci/pcie/aspm.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/drivers/pci/pcie/aspm.c	2012-01-20 10:45:23.011398291 +0800
-+++ linux-2.6.32-220.2.1.el5/drivers/pci/pcie/aspm.c	2012-01-20 18:01:16.589087013 +0800
-@@ -76,7 +76,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/drivers/pci/pcie/aspm.c
++++ linux-2.6.32-279.2.1.el5/drivers/pci/pcie/aspm.c
+@@ -76,7 +76,7 @@ static LIST_HEAD(link_list);
  #define POLICY_DEFAULT 0	/* BIOS default setting */
  #define POLICY_PERFORMANCE 1	/* high performance */
  #define POLICY_POWERSAVE 2	/* high power saving */

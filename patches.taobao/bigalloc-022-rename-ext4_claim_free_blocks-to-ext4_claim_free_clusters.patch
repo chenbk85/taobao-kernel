@@ -10,11 +10,11 @@ rename it so it's clearer what's going on.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/balloc.c b/fs/ext4/balloc.c
-index 3618d8c..8d96825 100644
---- a/fs/ext4/balloc.c
-+++ b/fs/ext4/balloc.c
-@@ -494,11 +494,11 @@ int ext4_has_free_blocks(struct ext4_sb_info *sbi, s64 nblocks)
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/balloc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
+@@ -494,11 +494,11 @@ int ext4_has_free_blocks(struct ext4_sb_
  	return 0;
  }
  
@@ -30,11 +30,11 @@ index 3618d8c..8d96825 100644
  		return 0;
  	} else
  		return -ENOSPC;
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index b7c5ac6..a8f8115 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1621,7 +1621,7 @@ extern unsigned long ext4_bg_num_gdb(struct super_block *sb,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1627,7 +1627,7 @@ extern unsigned long ext4_bg_num_gdb(str
  			ext4_group_t group);
  extern ext4_fsblk_t ext4_new_meta_blocks(handle_t *handle, struct inode *inode,
  			ext4_fsblk_t goal, unsigned long *count, int *errp);
@@ -43,11 +43,11 @@ index b7c5ac6..a8f8115 100644
  extern int ext4_has_free_blocks(struct ext4_sb_info *sbi, s64 nblocks);
  extern void ext4_free_blocks(handle_t *handle, struct inode *inode,
  			ext4_fsblk_t block, unsigned long count, int metadata);
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 07d71ef..0aeb61a 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -1965,7 +1965,7 @@ repeat:
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+@@ -1970,7 +1970,7 @@ repeat:
  	 * We do still charge estimated metadata to the sb though;
  	 * we cannot afford to run out of free blocks.
  	 */

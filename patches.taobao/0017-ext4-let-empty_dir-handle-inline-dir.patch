@@ -9,10 +9,10 @@ inline dir properly.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index fec484e..ba90b17 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inline.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
 @@ -1420,6 +1420,75 @@ out:
  	return err;
  }
@@ -89,11 +89,11 @@ index fec484e..ba90b17 100644
  int ext4_destroy_inline_data(handle_t *handle, struct inode *inode)
  {
  	int ret;
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index dfa6a71..4bc6726 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -2008,6 +2008,14 @@ static int empty_dir(struct inode *inode)
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/namei.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+@@ -2020,6 +2020,14 @@ static int empty_dir(struct inode *inode
  	struct super_block *sb;
  	int err = 0;
  
@@ -108,11 +108,11 @@ index dfa6a71..4bc6726 100644
  	sb = inode->i_sb;
  	if (inode->i_size < EXT4_DIR_REC_LEN(1) + EXT4_DIR_REC_LEN(2) ||
  	    !(bh = ext4_bread(NULL, inode, 0, 0, &err))) {
-diff --git a/fs/ext4/xattr.h b/fs/ext4/xattr.h
-index 917512b..17ba4b8 100644
---- a/fs/ext4/xattr.h
-+++ b/fs/ext4/xattr.h
-@@ -176,6 +176,7 @@ extern int ext4_delete_inline_entry(handle_t *handle,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/xattr.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+@@ -176,6 +176,7 @@ extern int ext4_delete_inline_entry(hand
  				    struct inode *dir,
  				    struct ext4_dir_entry_2 *de_del,
  				    struct buffer_head *bh);
@@ -120,7 +120,7 @@ index 917512b..17ba4b8 100644
  # else  /* CONFIG_EXT4_FS_XATTR */
  
  static inline int
-@@ -373,6 +374,11 @@ static inline int ext4_delete_inline_entry(handle_t *handle,
+@@ -373,6 +374,11 @@ static inline int ext4_delete_inline_ent
  {
  	return 0;
  }

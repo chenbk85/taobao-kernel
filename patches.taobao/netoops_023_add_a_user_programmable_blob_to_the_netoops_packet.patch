@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/drivers/net/netoops.c
+Index: linux-2.6.32-279.2.1.el5/drivers/net/netoops.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/netoops.c	2011-12-21 22:41:47.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/netoops.c	2011-12-21 22:41:47.000000000 +0800
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/netoops.c
++++ linux-2.6.32-279.2.1.el5/drivers/net/netoops.c
 @@ -29,6 +29,7 @@
  #define NETOOPS_VERSION 0x0003
  #define NETOOPS_PORT 2004
@@ -18,7 +18,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netoops.c
  
  static DEFINE_NETPOLL_TARGETS(targets);
  
-@@ -97,6 +98,11 @@
+@@ -97,6 +98,11 @@ struct netoops_msg {
  		 * termination not required.
  		 */
  		char kernel_version[64];
@@ -30,7 +30,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netoops.c
  	} __attribute__ ((packed)) header;
  	struct netoops_arch_data arch_data;
  	char data[NETOOPS_DATA_BYTES];
-@@ -104,6 +110,8 @@
+@@ -104,6 +110,8 @@ struct netoops_msg {
  
  static struct netoops_msg msg;
  
@@ -39,7 +39,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netoops.c
  static u32 netoops_boot_id;
  
  static void setup_packet_header(int packet_count, struct pt_regs *regs,
-@@ -120,6 +128,7 @@
+@@ -120,6 +128,7 @@ static void setup_packet_header(int pack
  					  NETOOPS_TYPE_PRINTK_BUFFER);
  	h->packet_count = cpu_to_le32(packet_count);
  	h->boot_id = cpu_to_le32(netoops_boot_id);
@@ -47,7 +47,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netoops.c
  	strncpy(h->kernel_version, utsname()->release,
  		min(sizeof(msg.header.kernel_version),
  		    sizeof(utsname()->release)));
-@@ -224,10 +233,15 @@
+@@ -224,10 +233,15 @@ static void netoops(struct kmsg_dumper *
  static ssize_t netoops_show(struct kobject *kobj,
  			    struct kobj_attribute *attr,
  			    char *buf) {
@@ -66,7 +66,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netoops.c
  }
  
  static ssize_t netoops_store(struct kobject *kobj,
-@@ -237,7 +251,10 @@
+@@ -237,7 +251,10 @@ static ssize_t netoops_store(struct kobj
  	if (!count)
  		return count;
  
@@ -78,7 +78,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netoops.c
  		unsigned long tmp;
  		if (strict_strtoul(buf, 0, &tmp))
  			return -EINVAL;
-@@ -250,10 +267,13 @@
+@@ -250,10 +267,13 @@ static ssize_t netoops_store(struct kobj
  	return count;
  }
  

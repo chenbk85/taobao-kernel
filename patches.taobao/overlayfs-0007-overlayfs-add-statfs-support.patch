@@ -20,11 +20,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  fs/overlayfs/super.c |   20 ++++++++++++++++++++
  1 files changed, 20 insertions(+), 0 deletions(-)
 
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index 71cd541..bb0cf23 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -404,9 +404,29 @@ static int ovl_remount_fs(struct super_block *sb, int *flagsp, char *data)
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/super.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/overlayfs/super.c
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/super.c
+@@ -404,9 +404,29 @@ static int ovl_remount_fs(struct super_b
  		return mnt_want_write(ufs->upper_mnt);
  }
  
@@ -54,6 +54,3 @@ index 71cd541..bb0cf23 100644
  };
  
  struct ovl_config {
--- 
-1.7.3.2
-

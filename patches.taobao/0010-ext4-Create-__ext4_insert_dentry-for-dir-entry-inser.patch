@@ -11,11 +11,11 @@ that do the real work and let add_dirent_to_buf call them.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index ecb8335..6ff0310 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1663,6 +1663,21 @@ extern int ext4_htree_store_dirent(struct file *dir_file, __u32 hash,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1669,6 +1669,21 @@ extern int ext4_htree_store_dirent(struc
  				    __u32 minor_hash,
  				    struct ext4_dir_entry_2 *dirent);
  extern void ext4_htree_free_dir_info(struct dir_private_info *p);
@@ -37,11 +37,11 @@ index ecb8335..6ff0310 100644
  
  /* fsync.c */
  extern int ext4_sync_file(struct file *, struct dentry *, int);
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 756fb8a..516bdc3 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -774,13 +774,6 @@ static void dx_insert_block(struct dx_frame *frame, u32 hash, ext4_lblk_t block)
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/namei.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+@@ -774,13 +774,6 @@ static void dx_insert_block(struct dx_fr
  	dx_set_count(entries, count + 1);
  }
  
@@ -122,7 +122,7 @@ index 756fb8a..516bdc3 100644
  /*
   * Add a new entry into a directory (leaf) block.  If de is non-NULL,
   * it points to a directory entry which is guaranteed to be large
-@@ -1273,32 +1326,17 @@ static int add_dirent_to_buf(handle_t *handle, struct dentry *dentry,
+@@ -1273,32 +1326,17 @@ static int add_dirent_to_buf(handle_t *h
  	struct inode	*dir = dentry->d_parent->d_inode;
  	const char	*name = dentry->d_name.name;
  	int		namelen = dentry->d_name.len;
@@ -161,7 +161,7 @@ index 756fb8a..516bdc3 100644
  	}
  	BUFFER_TRACE(bh, "get_write_access");
  	err = ext4_journal_get_write_access(handle, bh);
-@@ -1308,22 +1346,8 @@ static int add_dirent_to_buf(handle_t *handle, struct dentry *dentry,
+@@ -1308,22 +1346,8 @@ static int add_dirent_to_buf(handle_t *h
  	}
  
  	/* By now the buffer is marked for journaling */

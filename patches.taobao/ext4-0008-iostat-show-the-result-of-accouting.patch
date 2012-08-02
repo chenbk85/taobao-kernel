@@ -11,11 +11,11 @@ We create three files to control io type accouting and show the result.
 Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 
-Index: linux-2.6.32-220.4.2.el5/fs/ext4/ext4.h
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-220.4.2.el5.orig/fs/ext4/ext4.h
-+++ linux-2.6.32-220.4.2.el5/fs/ext4/ext4.h
-@@ -1070,6 +1070,8 @@ struct ext4_super_block {
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1069,6 +1069,8 @@ struct ext4_super_block {
  #define EXT4_MF_MNTDIR_SAMPLED	0x0001
  #define EXT4_MF_FS_ABORTED	0x0002	/* Fatal error detected */
  
@@ -24,7 +24,7 @@ Index: linux-2.6.32-220.4.2.el5/fs/ext4/ext4.h
  /*
   * ext4 io types
   */
-@@ -1229,6 +1231,7 @@ struct ext4_sb_info {
+@@ -1231,6 +1233,7 @@ struct ext4_sb_info {
  	struct eio_handler s_eio_handler;
  
  	/* for io type accouting */
@@ -32,10 +32,10 @@ Index: linux-2.6.32-220.4.2.el5/fs/ext4/ext4.h
  	struct percpu_counter s_ios_counters[EXT4_IOS_TYPE_END][2];
  };
  
-Index: linux-2.6.32-220.4.2.el5/fs/ext4/super.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-220.4.2.el5.orig/fs/ext4/super.c
-+++ linux-2.6.32-220.4.2.el5/fs/ext4/super.c
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/super.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/super.c
 @@ -2341,6 +2341,100 @@ static ssize_t inode_readahead_blks_stor
  	return count;
  }

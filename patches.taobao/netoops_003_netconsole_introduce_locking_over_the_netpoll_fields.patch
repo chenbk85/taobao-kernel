@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
+Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:43.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
-@@ -326,6 +326,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/netconsole.c
++++ linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
+@@ -326,6 +326,7 @@ static ssize_t store_enabled(struct netc
  			     const char *buf,
  			     size_t count)
  {
@@ -18,7 +18,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	int err;
  	long enabled;
  
-@@ -334,6 +335,10 @@
+@@ -334,6 +335,10 @@ static ssize_t store_enabled(struct netc
  		return enabled;
  
  	if (enabled) {	/* 1 */
@@ -29,7 +29,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  		/*
  		 * Skip netpoll_parse_options() -- all the attributes are
-@@ -342,18 +347,28 @@
+@@ -342,18 +347,28 @@ static ssize_t store_enabled(struct netc
  		netpoll_print_options(&nt->np);
  
  		err = netpoll_setup(&nt->np);
@@ -61,7 +61,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  }
  
  static ssize_t store_dev_name(struct netconsole_target *nt,
-@@ -362,13 +377,6 @@
+@@ -362,13 +377,6 @@ static ssize_t store_dev_name(struct net
  {
  	size_t len;
  
@@ -75,7 +75,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	strlcpy(nt->np.dev_name, buf, IFNAMSIZ);
  
  	/* Get rid of possible trailing newline from echo(1) */
-@@ -386,13 +394,6 @@
+@@ -386,13 +394,6 @@ static ssize_t store_local_port(struct n
  	long local_port;
  #define __U16_MAX	((__u16) ~0U)
  
@@ -89,7 +89,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	local_port = strtol10_check_range(buf, 0, __U16_MAX);
  	if (local_port < 0)
  		return local_port;
-@@ -409,13 +410,6 @@
+@@ -409,13 +410,6 @@ static ssize_t store_remote_port(struct 
  	long remote_port;
  #define __U16_MAX	((__u16) ~0U)
  
@@ -103,7 +103,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	remote_port = strtol10_check_range(buf, 0, __U16_MAX);
  	if (remote_port < 0)
  		return remote_port;
-@@ -429,13 +423,6 @@
+@@ -429,13 +423,6 @@ static ssize_t store_local_ip(struct net
  			      const char *buf,
  			      size_t count)
  {
@@ -117,7 +117,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	nt->np.local_ip = in_aton(buf);
  
  	return strnlen(buf, count);
-@@ -445,13 +432,6 @@
+@@ -445,13 +432,6 @@ static ssize_t store_remote_ip(struct ne
  			       const char *buf,
  			       size_t count)
  {
@@ -131,7 +131,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	nt->np.remote_ip = in_aton(buf);
  
  	return strnlen(buf, count);
-@@ -465,13 +445,6 @@
+@@ -465,13 +445,6 @@ static ssize_t store_remote_mac(struct n
  	char *p = (char *) buf;
  	int i;
  
@@ -145,7 +145,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	for (i = 0; i < ETH_ALEN - 1; i++) {
  		remote_mac[i] = simple_strtoul(p, &p, 16);
  		if (*p != ':')
-@@ -495,15 +468,56 @@
+@@ -495,15 +468,56 @@ invalid:
   * Attribute definitions for netconsole_target.
   */
  

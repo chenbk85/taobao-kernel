@@ -42,11 +42,11 @@ Signed-off-by: Ingo Molnar <mingo@elte.hu>
 Signed-off-by: Mu Ming <muming.wq@taobao.com>
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 
-Index: linux-2.6.32-220.23.1.el5/include/linux/sched.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/sched.h
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/include/linux/sched.h	2012-06-20 00:13:17.680755330 +0800
-+++ linux-2.6.32-220.23.1.el5/include/linux/sched.h	2012-06-20 00:14:51.765221859 +0800
-@@ -146,7 +146,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/sched.h
++++ linux-2.6.32-279.2.1.el5/include/linux/sched.h
+@@ -146,7 +146,7 @@ extern unsigned long nr_iowait_cpu(int c
  extern unsigned long this_cpu_load(void);
  
  
@@ -55,11 +55,11 @@ Index: linux-2.6.32-220.23.1.el5/include/linux/sched.h
  
  extern unsigned long get_parent_ip(unsigned long addr);
  
-Index: linux-2.6.32-220.23.1.el5/kernel/sched.c
+Index: linux-2.6.32-279.2.1.el5/kernel/sched.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/kernel/sched.c	2012-06-20 00:14:42.641176629 +0800
-+++ linux-2.6.32-220.23.1.el5/kernel/sched.c	2012-06-20 00:14:51.769221875 +0800
-@@ -3153,6 +3153,15 @@
+--- linux-2.6.32-279.2.1.el5.orig/kernel/sched.c
++++ linux-2.6.32-279.2.1.el5/kernel/sched.c
+@@ -3173,6 +3173,15 @@ static long calc_load_fold_active(struct
  	return delta;
  }
  
@@ -75,7 +75,7 @@ Index: linux-2.6.32-220.23.1.el5/kernel/sched.c
  #ifdef CONFIG_NO_HZ
  /*
   * For NO_HZ we delay the active fold to the next LOAD_FREQ update.
-@@ -3182,6 +3191,127 @@
+@@ -3202,6 +3211,127 @@ static long calc_load_fold_idle(void)
  
  	return delta;
  }
@@ -203,7 +203,7 @@ Index: linux-2.6.32-220.23.1.el5/kernel/sched.c
  #else
  static void calc_load_account_idle(struct rq *this_rq)
  {
-@@ -3191,6 +3321,10 @@
+@@ -3211,6 +3341,10 @@ static inline long calc_load_fold_idle(v
  {
  	return 0;
  }
@@ -214,7 +214,7 @@ Index: linux-2.6.32-220.23.1.el5/kernel/sched.c
  #endif
  
  /**
-@@ -3208,24 +3342,17 @@
+@@ -3228,24 +3362,17 @@ void get_avenrun(unsigned long *loads, u
  	loads[2] = (avenrun[2] + offset) << shift;
  }
  
@@ -243,11 +243,11 @@ Index: linux-2.6.32-220.23.1.el5/kernel/sched.c
  		return;
  
  	active = atomic_long_read(&calc_load_tasks);
-Index: linux-2.6.32-220.23.1.el5/kernel/timer.c
+Index: linux-2.6.32-279.2.1.el5/kernel/timer.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/kernel/timer.c	2012-06-20 00:04:49.426235035 +0800
-+++ linux-2.6.32-220.23.1.el5/kernel/timer.c	2012-06-20 00:14:51.769221875 +0800
-@@ -1253,7 +1253,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/kernel/timer.c
++++ linux-2.6.32-279.2.1.el5/kernel/timer.c
+@@ -1255,7 +1255,7 @@ void do_timer(unsigned long ticks)
  {
  	jiffies_64 += ticks;
  	update_wall_time();

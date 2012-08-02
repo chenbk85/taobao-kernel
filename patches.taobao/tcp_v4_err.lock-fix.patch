@@ -27,8 +27,10 @@ CC: Damian Lukowski <damian@tvk.rwth-aachen.de>
 Acked-by: Eric Dumazet <eric.dumazet@gmail.com>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
---- linux-2.6.32-131.21.1.el5.x86_64/net/ipv4/tcp_ipv4.c.orig	2011-11-25 01:43:29.000000000 +0800
-+++ linux-2.6.32-131.21.1.el5.x86_64/net/ipv4/tcp_ipv4.c	2011-11-29 01:02:09.000000000 +0800
+Index: linux-2.6.32-279.2.1.el5/net/ipv4/tcp_ipv4.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/net/ipv4/tcp_ipv4.c
++++ linux-2.6.32-279.2.1.el5/net/ipv4/tcp_ipv4.c
 @@ -406,6 +406,9 @@ void tcp_v4_err(struct sk_buff *icmp_skb
  		    !icsk->icsk_backoff)
  			break;
@@ -37,8 +39,8 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
 +			break;
 +
  		icsk->icsk_backoff--;
- 		inet_csk(sk)->icsk_rto = __tcp_set_rto(tp) <<
- 					 icsk->icsk_backoff;
+ 		inet_csk(sk)->icsk_rto = (tp->srtt ? __tcp_set_rto(tp) :
+ 			TCP_TIMEOUT_INIT) << icsk->icsk_backoff;
 @@ -420,11 +423,6 @@ void tcp_v4_err(struct sk_buff *icmp_skb
  		if (remaining) {
  			inet_csk_reset_xmit_timer(sk, ICSK_TIME_RETRANS,
@@ -51,4 +53,3 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  		} else {
  			/* RTO revert clocked out retransmission.
  			 * Will retransmit now */
-

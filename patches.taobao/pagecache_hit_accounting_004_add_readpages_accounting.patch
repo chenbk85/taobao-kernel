@@ -20,11 +20,11 @@ Acked-by:
  mm/readahead.c |    2 ++
  2 files changed, 3 insertions(+), 0 deletions(-)
 
-Index: linux-2.6.32-220.7.1.el5/mm/filemap.c
+Index: linux-2.6.32-279.2.1.el5/mm/filemap.c
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/mm/filemap.c	2012-03-09 12:12:57.682540191 +0800
-+++ linux-2.6.32-220.7.1.el5/mm/filemap.c	2012-03-09 12:13:02.430563690 +0800
-@@ -1166,6 +1166,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/mm/filemap.c
++++ linux-2.6.32-279.2.1.el5/mm/filemap.c
+@@ -1189,6 +1189,7 @@ readpage:
  		 */
  		ClearPageError(page);
  		/* Start the actual read. The read will unlock the page. */
@@ -32,10 +32,10 @@ Index: linux-2.6.32-220.7.1.el5/mm/filemap.c
  		error = mapping->a_ops->readpage(filp, page);
  
  		if (unlikely(error)) {
-Index: linux-2.6.32-220.7.1.el5/mm/readahead.c
+Index: linux-2.6.32-279.2.1.el5/mm/readahead.c
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/mm/readahead.c	2012-03-09 12:12:18.410345430 +0800
-+++ linux-2.6.32-220.7.1.el5/mm/readahead.c	2012-03-09 12:13:02.434563723 +0800
+--- linux-2.6.32-279.2.1.el5.orig/mm/readahead.c
++++ linux-2.6.32-279.2.1.el5/mm/readahead.c
 @@ -16,6 +16,7 @@
  #include <linux/task_io_accounting_ops.h>
  #include <linux/pagevec.h>
@@ -44,7 +44,7 @@ Index: linux-2.6.32-220.7.1.el5/mm/readahead.c
  
  /*
   * Initialise a struct file's readahead state.  Assumes that the caller has
-@@ -111,6 +112,8 @@
+@@ -111,6 +112,8 @@ static int read_pages(struct address_spa
  	unsigned page_idx;
  	int ret;
  

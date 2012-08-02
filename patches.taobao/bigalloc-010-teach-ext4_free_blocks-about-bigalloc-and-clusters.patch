@@ -17,11 +17,11 @@ used by ext4_free_blocks().
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index b28a40c..28adf6d 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -484,6 +484,16 @@ struct ext4_new_group_data {
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -483,6 +483,16 @@ struct ext4_new_group_data {
  					 EXT4_GET_BLOCKS_DIO_CREATE_EXT)
  
  /*
@@ -38,11 +38,11 @@ index b28a40c..28adf6d 100644
   * ioctl commands
   */
  #define	EXT4_IOC_GETFLAGS		FS_IOC_GETFLAGS
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index 6b5bb10..3b6eeb6 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
-@@ -2577,11 +2577,13 @@ int ext4_mb_release(struct super_block *sb)
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/mballoc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
+@@ -2577,11 +2577,13 @@ int ext4_mb_release(struct super_block *
  }
  
  static inline int ext4_issue_discard(struct super_block *sb,
@@ -58,25 +58,25 @@ index 6b5bb10..3b6eeb6 100644
  	trace_ext4_discard_blocks(sb,
  			(unsigned long long) discard_block, count);
  	return sb_issue_discard(sb, discard_block, count, GFP_NOFS, 0);
-@@ -2609,7 +2611,7 @@ static void release_blocks_on_commit(journal_t *journal, transaction_t *txn)
- 		if (test_opt(sb, DISCARD)) {
- 			int ret;
- 			ret = ext4_issue_discard(sb, entry->group,
--					entry->start_blk, entry->count);
-+					entry->start_cluster, entry->count);
- 			if (unlikely(ret == -EOPNOTSUPP)) {
- 				ext4_warning(sb, "discard not supported, "
- 						 "disabling");
-@@ -2628,7 +2630,7 @@ static void release_blocks_on_commit(journal_t *journal, transaction_t *txn)
+@@ -2608,7 +2610,7 @@ static void release_blocks_on_commit(jou
+ 
+ 		if (test_opt(sb, DISCARD))
+ 			ext4_issue_discard(sb, entry->group,
+-					   entry->start_blk, entry->count);
++					   entry->start_cluster, entry->count);
+ 
+ 		err = ext4_mb_load_buddy(sb, entry->group, &e4b);
+ 		/* we expect to find existing buddy because it's pinned */
+@@ -2621,7 +2623,7 @@ static void release_blocks_on_commit(jou
  		ext4_lock_group(sb, entry->group);
  		/* Take it out of per group rb tree */
  		rb_erase(&entry->node, &(db->bb_free_root));
 -		mb_free_blocks(NULL, &e4b, entry->start_blk, entry->count);
 +		mb_free_blocks(NULL, &e4b, entry->start_cluster, entry->count);
  
- 		if (!db->bb_free_root.rb_node) {
- 			/* No more items in the per group rb tree
-@@ -3285,7 +3287,7 @@ static void ext4_mb_generate_from_freelist(struct super_block *sb, void *bitmap,
+ 		/*
+ 		 * Clear the trimmed flag for the group so that the next
+@@ -3287,7 +3289,7 @@ static void ext4_mb_generate_from_freeli
  
  	while (n) {
  		entry = rb_entry(n, struct ext4_free_data, node);
@@ -85,7 +85,7 @@ index 6b5bb10..3b6eeb6 100644
  		n = rb_next(n);
  	}
  	return;
-@@ -4416,7 +4418,7 @@ static int can_merge(struct ext4_free_data *entry1,
+@@ -4418,7 +4420,7 @@ static int can_merge(struct ext4_free_da
  {
  	if ((entry1->t_tid == entry2->t_tid) &&
  	    (entry1->group == entry2->group) &&
@@ -94,7 +94,7 @@ index 6b5bb10..3b6eeb6 100644
  		return 1;
  	return 0;
  }
-@@ -4425,7 +4427,7 @@ static noinline_for_stack int
+@@ -4427,7 +4429,7 @@ static noinline_for_stack int
  ext4_mb_free_metadata(handle_t *handle, struct ext4_buddy *e4b,
  		      struct ext4_free_data *new_entry)
  {
@@ -103,7 +103,7 @@ index 6b5bb10..3b6eeb6 100644
  	struct ext4_free_data *entry;
  	struct ext4_group_info *db = e4b->bd_info;
  	struct super_block *sb = e4b->bd_sb;
-@@ -4438,7 +4440,7 @@ ext4_mb_free_metadata(handle_t *handle, struct ext4_buddy *e4b,
+@@ -4440,7 +4442,7 @@ ext4_mb_free_metadata(handle_t *handle, 
  	BUG_ON(e4b->bd_buddy_page == NULL);
  
  	new_node = &new_entry->node;
@@ -112,7 +112,7 @@ index 6b5bb10..3b6eeb6 100644
  
  	if (!*n) {
  		/* first free block exent. We need to
-@@ -4452,14 +4454,15 @@ ext4_mb_free_metadata(handle_t *handle, struct ext4_buddy *e4b,
+@@ -4454,14 +4456,15 @@ ext4_mb_free_metadata(handle_t *handle, 
  	while (*n) {
  		parent = *n;
  		entry = rb_entry(parent, struct ext4_free_data, node);
@@ -131,7 +131,7 @@ index 6b5bb10..3b6eeb6 100644
  			return 0;
  		}
  	}
-@@ -4472,7 +4475,7 @@ ext4_mb_free_metadata(handle_t *handle, struct ext4_buddy *e4b,
+@@ -4474,7 +4477,7 @@ ext4_mb_free_metadata(handle_t *handle, 
  	if (node) {
  		entry = rb_entry(node, struct ext4_free_data, node);
  		if (can_merge(entry, new_entry)) {
@@ -140,7 +140,7 @@ index 6b5bb10..3b6eeb6 100644
  			new_entry->count += entry->count;
  			rb_erase(node, &(db->bb_free_root));
  			spin_lock(&sbi->s_md_lock);
-@@ -4519,6 +4522,7 @@ void ext4_mb_free_blocks(handle_t *handle, struct inode *inode,
+@@ -4521,6 +4524,7 @@ void ext4_mb_free_blocks(handle_t *handl
  	ext4_group_t block_group;
  	struct ext4_sb_info *sbi;
  	struct ext4_buddy e4b;
@@ -148,7 +148,7 @@ index 6b5bb10..3b6eeb6 100644
  	int err = 0;
  	int ret;
  
-@@ -4537,6 +4541,38 @@ void ext4_mb_free_blocks(handle_t *handle, struct inode *inode,
+@@ -4539,6 +4543,38 @@ void ext4_mb_free_blocks(handle_t *handl
  	ext4_debug("freeing block %llu\n", block);
  	trace_ext4_free_blocks(inode, block, count, metadata);
  
@@ -187,7 +187,7 @@ index 6b5bb10..3b6eeb6 100644
  	ac = kmem_cache_alloc(ext4_ac_cachep, GFP_NOFS);
  	if (ac) {
  		ac->ac_inode = inode;
-@@ -4551,10 +4587,12 @@ do_more:
+@@ -4553,10 +4589,12 @@ do_more:
  	 * Check to see if we are freeing blocks across a group
  	 * boundary.
  	 */
@@ -202,7 +202,7 @@ index 6b5bb10..3b6eeb6 100644
  	bitmap_bh = ext4_read_block_bitmap(sb, block_group);
  	if (!bitmap_bh) {
  		err = -EIO;
-@@ -4569,9 +4607,9 @@ do_more:
+@@ -4571,9 +4609,9 @@ do_more:
  	if (in_range(ext4_block_bitmap(sb, gdp), block, count) ||
  	    in_range(ext4_inode_bitmap(sb, gdp), block, count) ||
  	    in_range(block, ext4_inode_table(sb, gdp),
@@ -214,7 +214,7 @@ index 6b5bb10..3b6eeb6 100644
  
  		ext4_error(sb, "Freeing blocks in system zone - "
  			   "Block = %llu, count = %lu", block, count);
-@@ -4596,14 +4634,14 @@ do_more:
+@@ -4598,14 +4636,14 @@ do_more:
  #ifdef AGGRESSIVE_CHECK
  	{
  		int i;
@@ -231,7 +231,7 @@ index 6b5bb10..3b6eeb6 100644
  		trace_ext4_mballoc_free(ac);
  	}
  
-@@ -4617,13 +4655,13 @@ do_more:
+@@ -4619,13 +4657,13 @@ do_more:
  		 * be used until this transaction is committed
  		 */
  		new_entry  = kmem_cache_alloc(ext4_free_ext_cachep, GFP_NOFS);
@@ -248,7 +248,7 @@ index 6b5bb10..3b6eeb6 100644
  		ext4_mb_free_metadata(handle, &e4b, new_entry);
  	} else {
  		/* need to update group_info->bb_free and bitmap
-@@ -4631,11 +4669,11 @@ do_more:
+@@ -4633,11 +4671,11 @@ do_more:
  		 * them with group lock_held
  		 */
  		ext4_lock_group(sb, block_group);
@@ -263,10 +263,10 @@ index 6b5bb10..3b6eeb6 100644
  	ext4_free_blks_set(sb, gdp, ret);
  	gdp->bg_checksum = ext4_group_desc_csum(sbi, block_group, gdp);
  	ext4_unlock_group(sb, block_group);
-diff --git a/fs/ext4/mballoc.h b/fs/ext4/mballoc.h
-index d10ad92..027e058 100644
---- a/fs/ext4/mballoc.h
-+++ b/fs/ext4/mballoc.h
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/mballoc.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.h
 @@ -107,7 +107,7 @@ struct ext4_free_data {
  	ext4_group_t group;
  

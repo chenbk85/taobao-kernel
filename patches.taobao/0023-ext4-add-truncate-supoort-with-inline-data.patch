@@ -9,11 +9,11 @@ Signed-off-by: Robin Dong <sanbai@taobao.com>
 Acked-by: 
 
 ---
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inline.c	2012-06-20 00:10:50.800026991 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/inline.c	2012-06-20 00:10:54.064043173 +0800
-@@ -97,8 +97,12 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inline.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
+@@ -97,8 +97,12 @@ int ext4_get_max_inline_size(struct inod
  		return 0;
  
  	error = ext4_get_inode_loc(inode, &iloc);
@@ -28,7 +28,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  
  	max_inline_size = get_max_inline_xattr_value_size(inode, &iloc);
  
-@@ -112,7 +116,8 @@
+@@ -112,7 +116,8 @@ int ext4_get_max_inline_size(struct inod
  
  int ext4_has_inline_data(struct inode *inode)
  {
@@ -38,7 +38,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  }
  
  int ext4_find_inline_data(struct inode *inode)
-@@ -178,6 +183,9 @@
+@@ -178,6 +183,9 @@ static int ext4_read_inline_data(struct 
  	entry = (struct ext4_xattr_entry *)((void *)raw_inode +
  					    EXT4_I(inode)->i_inline_off);
  
@@ -48,7 +48,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  	memcpy(buffer,
  	       (void *)IFIRST(header) + le16_to_cpu(entry->e_value_offs), len);
  	cp_len += len;
-@@ -189,7 +197,7 @@
+@@ -189,7 +197,7 @@ out:
  /*
   * write the buffer to the inline inode.
   * If 'create' is set, we don't need to do the extra copy in the xattr
@@ -57,7 +57,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
   * us one memcpy.
   */
  void ext4_write_inline_data(struct inode *inode, struct ext4_iloc *iloc,
-@@ -267,7 +275,7 @@
+@@ -267,7 +275,7 @@ static int ext4_create_inline_data(handl
  
  	BUG_ON(!is.s.not_found);
  
@@ -66,7 +66,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  	if (error) {
  		if (error == -ENOSPC)
  			ext4_clear_inode_state(inode,
-@@ -336,7 +344,7 @@
+@@ -336,7 +344,7 @@ static int ext4_update_inline_data(handl
  	i.value = value;
  	i.value_len = len;
  
@@ -75,7 +75,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  	if (error)
  		goto out;
  
-@@ -408,7 +416,7 @@
+@@ -408,7 +416,7 @@ static int ext4_destroy_inline_data_nolo
  	if (error)
  		goto out;
  
@@ -84,7 +84,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  	if (error)
  		goto out;
  
-@@ -442,6 +450,7 @@
+@@ -442,6 +450,7 @@ static int ext4_read_inline_page(struct 
  {
  	void *kaddr;
  	int ret = 0;
@@ -92,7 +92,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  	struct ext4_iloc iloc;
  
  	BUG_ON(!PageLocked(page));
-@@ -458,10 +467,12 @@
+@@ -458,10 +467,12 @@ static int ext4_read_inline_page(struct 
  	if (ret)
  		goto out;
  
@@ -106,7 +106,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  	SetPageUptodate(page);
  	brelse(iloc.bh);
  
-@@ -485,8 +496,10 @@
+@@ -485,8 +496,10 @@ int ext4_readpage_inline(struct inode *i
  	 */
  	if (!page->index)
  		ret = ext4_read_inline_page(inode, page);
@@ -118,7 +118,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  
  	up_read(&EXT4_I(inode)->xattr_sem);
  
-@@ -549,12 +562,7 @@
+@@ -549,12 +562,7 @@ retry:
  	from = 0;
  	to = ext4_get_inline_size(inode);
  	if (!PageUptodate(page)) {
@@ -132,7 +132,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  		if (ret < 0)
  			goto out;
  	}
-@@ -1639,3 +1647,77 @@
+@@ -1639,3 +1647,77 @@ out:
  	brelse(iloc.bh);
  	return error;
  }
@@ -210,11 +210,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
 +
 +	ext4_journal_stop(handle);
 +}
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inode.c	2012-06-20 00:10:50.804027006 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/inode.c	2012-06-20 00:10:54.064043173 +0800
-@@ -4917,6 +4917,11 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+@@ -4936,6 +4936,11 @@ void ext4_truncate(struct inode *inode)
  	if (inode->i_size == 0 && !test_opt(inode->i_sb, NO_AUTO_DA_ALLOC))
  		ext4_set_inode_state(inode, EXT4_STATE_DA_ALLOC_CLOSE);
  
@@ -226,11 +226,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)) {
  		ext4_ext_truncate(inode);
  		return;
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/xattr.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/xattr.c	2012-06-20 00:10:49.012018126 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c	2012-06-20 00:10:54.064043173 +0800
-@@ -891,6 +891,30 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/xattr.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/xattr.c
+@@ -897,6 +897,30 @@ int ext4_xattr_ibody_find(struct inode *
  	return 0;
  }
  
@@ -261,7 +261,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c
  int ext4_xattr_ibody_set(handle_t *handle, struct inode *inode,
  			 struct ext4_xattr_info *i,
  			 struct ext4_xattr_ibody_find *is)
-@@ -902,18 +926,19 @@
+@@ -908,18 +932,19 @@ int ext4_xattr_ibody_set(handle_t *handl
  	if (EXT4_I(inode)->i_extra_isize == 0)
  		return -ENOSPC;
  	error = ext4_xattr_set_entry(i, s);
@@ -293,11 +293,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c
  		if (error)
  			return error;
  	}
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/xattr.h	2012-06-20 00:10:49.012018126 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h	2012-06-20 00:10:54.064043173 +0800
-@@ -117,6 +117,9 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/xattr.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+@@ -117,6 +117,9 @@ extern struct xattr_handler *ext4_xattr_
  
  extern int ext4_xattr_ibody_find(struct inode *inode, struct ext4_xattr_info *i,
  				 struct ext4_xattr_ibody_find *is);
@@ -307,7 +307,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h
  extern int ext4_xattr_ibody_set(handle_t *handle, struct inode *inode,
  				struct ext4_xattr_info *i,
  				struct ext4_xattr_ibody_find *is);
-@@ -187,6 +190,8 @@
+@@ -187,6 +190,8 @@ extern int ext4_inline_data_fiemap(struc
  extern int ext4_try_to_evict_inline_data(handle_t *handle,
  					 struct inode *inode,
  					 int needed);
@@ -316,7 +316,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h
  # else  /* CONFIG_EXT4_FS_XATTR */
  
  static inline int
-@@ -404,6 +409,12 @@
+@@ -404,6 +409,12 @@ static inline int ext4_inline_data_fiema
  {
  	return 0;
  }

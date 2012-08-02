@@ -11,10 +11,10 @@ So this patch does the work.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index 93e0dd5..ce2d2ab 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inline.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
 @@ -1549,3 +1549,89 @@ out:
  	up_read(&EXT4_I(inode)->xattr_sem);
  	return (error < 0 ? error : 0);
@@ -105,11 +105,11 @@ index 93e0dd5..ce2d2ab 100644
 +	brelse(iloc.bh);
 +	return error;
 +}
-diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
-index 5e4351f..491429c 100644
---- a/fs/ext4/xattr.c
-+++ b/fs/ext4/xattr.c
-@@ -902,8 +902,21 @@ int ext4_xattr_ibody_set(handle_t *handle, struct inode *inode,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/xattr.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/xattr.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/xattr.c
+@@ -908,8 +908,21 @@ int ext4_xattr_ibody_set(handle_t *handl
  	if (EXT4_I(inode)->i_extra_isize == 0)
  		return -ENOSPC;
  	error = ext4_xattr_set_entry(i, s);
@@ -132,7 +132,7 @@ index 5e4351f..491429c 100644
  	header = IHDR(inode, ext4_raw_inode(&is->iloc));
  	if (!IS_LAST_ENTRY(s->first)) {
  		header->h_magic = cpu_to_le32(EXT4_XATTR_MAGIC);
-@@ -1053,9 +1066,17 @@ ext4_xattr_set(struct inode *inode, int name_index, const char *name,
+@@ -1059,9 +1072,17 @@ ext4_xattr_set(struct inode *inode, int 
  {
  	handle_t *handle;
  	int error, retries = 0;
@@ -151,11 +151,11 @@ index 5e4351f..491429c 100644
  	if (IS_ERR(handle)) {
  		error = PTR_ERR(handle);
  	} else {
-diff --git a/fs/ext4/xattr.h b/fs/ext4/xattr.h
-index fab8580..283a1d2 100644
---- a/fs/ext4/xattr.h
-+++ b/fs/ext4/xattr.h
-@@ -184,6 +184,9 @@ extern struct buffer_head *ext4_get_first_inline_block(struct inode *inode,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/xattr.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+@@ -184,6 +184,9 @@ extern struct buffer_head *ext4_get_firs
  extern int ext4_inline_data_fiemap(struct inode *inode,
  				   struct fiemap_extent_info *fieinfo,
  				   int *has_inline);

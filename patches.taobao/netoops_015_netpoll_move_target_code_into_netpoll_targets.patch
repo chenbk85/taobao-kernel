@@ -6,10 +6,10 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
+Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:45.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:46.000000000 +0800
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/netconsole.c
++++ linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
 @@ -39,10 +39,9 @@
  #include <linux/module.h>
  #include <linux/console.h>
@@ -22,7 +22,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  MODULE_AUTHOR("Maintainer: Matt Mackall <mpm@selenic.com>");
  MODULE_DESCRIPTION("Console driver for network interfaces");
-@@ -64,765 +63,8 @@
+@@ -64,765 +63,8 @@ static int __init option_setup(char *opt
  __setup("netconsole=", option_setup);
  #endif	/* MODULE */
  
@@ -788,7 +788,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  static void write_msg(struct console *con, const char *msg, unsigned int len)
  {
  	int frag, left;
-@@ -862,86 +104,6 @@
+@@ -862,86 +104,6 @@ static struct console netconsole = {
  	.write	= write_msg,
  };
  
@@ -875,7 +875,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  static int __init init_netconsole(void)
  {
  	int err;
-@@ -949,6 +111,7 @@
+@@ -949,6 +111,7 @@ static int __init init_netconsole(void)
  	targets.default_local_port = 6665;
  	targets.default_remote_port = 6666;
  
@@ -883,10 +883,10 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	err = register_netpoll_targets("netconsole", &targets, config);
  	if (err)
  		return err;
-Index: linux-2.6.32-220.0.0.el5/include/linux/netpoll_targets.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/netpoll_targets.h
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.0.0.el5/include/linux/netpoll_targets.h	2011-12-21 22:41:46.000000000 +0800
+--- /dev/null
++++ linux-2.6.32-279.2.1.el5/include/linux/netpoll_targets.h
 @@ -0,0 +1,76 @@
 +#ifndef _LINUX_NETPOLL_TARGETS_H
 +#define _LINUX_NETPOLL_TARGETS_H
@@ -964,11 +964,11 @@ Index: linux-2.6.32-220.0.0.el5/include/linux/netpoll_targets.h
 +void unregister_netpoll_targets(struct netpoll_targets *nts);
 +
 +#endif /* _LINUX_NETPOLL_TARGETS_H */
-Index: linux-2.6.32-220.0.0.el5/net/core/Makefile
+Index: linux-2.6.32-279.2.1.el5/net/core/Makefile
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/net/core/Makefile	2011-12-21 22:40:49.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/net/core/Makefile	2011-12-21 22:41:46.000000000 +0800
-@@ -14,6 +14,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/net/core/Makefile
++++ linux-2.6.32-279.2.1.el5/net/core/Makefile
+@@ -14,6 +14,7 @@ obj-$(CONFIG_XFRM) += flow.o
  obj-y += net-sysfs.o
  obj-$(CONFIG_NET_PKTGEN) += pktgen.o
  obj-$(CONFIG_NETPOLL) += netpoll.o
@@ -976,10 +976,10 @@ Index: linux-2.6.32-220.0.0.el5/net/core/Makefile
  obj-$(CONFIG_NET_DMA) += user_dma.o
  obj-$(CONFIG_FIB_RULES) += fib_rules.o
  obj-$(CONFIG_TRACEPOINTS) += net-traces.o
-Index: linux-2.6.32-220.0.0.el5/net/core/netpoll_targets.c
+Index: linux-2.6.32-279.2.1.el5/net/core/netpoll_targets.c
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ linux-2.6.32-220.0.0.el5/net/core/netpoll_targets.c	2011-12-21 22:41:46.000000000 +0800
+--- /dev/null
++++ linux-2.6.32-279.2.1.el5/net/core/netpoll_targets.c
 @@ -0,0 +1,749 @@
 +#include <linux/netpoll_targets.h>
 +

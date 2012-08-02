@@ -12,11 +12,11 @@ that case.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-Index: linux-2.6.32-220.2.1.el5/fs/ext4/super.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/ext4/super.c	2012-02-24 11:57:24.502053771 +0800
-+++ linux-2.6.32-220.2.1.el5/fs/ext4/super.c	2012-02-24 11:57:57.738218589 +0800
-@@ -1794,7 +1794,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/super.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/super.c
+@@ -1794,7 +1794,7 @@ static int ext4_setup_super(struct super
  		ext4_msg(sb, KERN_WARNING,
  			 "warning: mounting fs with errors, "
  			 "running e2fsck is recommended");

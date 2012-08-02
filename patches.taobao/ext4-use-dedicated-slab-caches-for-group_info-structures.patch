@@ -46,11 +46,11 @@ Acked-by: Tao Ma <boyu.mt@taobao.com>
  fs/ext4/mballoc.c |   98 +++++++++++++++++++++++++++++++++++++++++-----------
  2 files changed, 78 insertions(+), 21 deletions(-)
 
-Index: linux-2.6.32-220.0.0.el5/fs/ext4/ext4.h
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/fs/ext4/ext4.h	2011-12-13 14:22:55.737314977 +0800
-+++ linux-2.6.32-220.0.0.el5/fs/ext4/ext4.h	2011-12-13 14:26:06.642261629 +0800
-@@ -179,6 +179,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -179,6 +179,7 @@ typedef struct ext4_io_end {
  #define EXT4_MIN_BLOCK_SIZE		1024
  #define	EXT4_MAX_BLOCK_SIZE		65536
  #define EXT4_MIN_BLOCK_LOG_SIZE		10
@@ -58,10 +58,10 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/ext4.h
  #ifdef __KERNEL__
  # define EXT4_BLOCK_SIZE(s)		((s)->s_blocksize)
  #else
-Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/fs/ext4/mballoc.c	2011-12-13 14:25:05.401957966 +0800
-+++ linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c	2011-12-13 14:26:06.642261629 +0800
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/mballoc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
 @@ -337,6 +337,19 @@
  static struct kmem_cache *ext4_pspace_cachep;
  static struct kmem_cache *ext4_ac_cachep;
@@ -82,7 +82,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  static void ext4_mb_generate_from_pa(struct super_block *sb, void *bitmap,
  					ext4_group_t group);
  static void ext4_mb_generate_from_freelist(struct super_block *sb, void *bitmap,
-@@ -2177,15 +2190,24 @@
+@@ -2177,15 +2190,24 @@ static const struct file_operations ext4
  	.release	= seq_release,
  };
  
@@ -108,7 +108,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  
  	/*
  	 * First check if this group is the first of a reserved block.
-@@ -2205,22 +2227,16 @@
+@@ -2205,22 +2227,16 @@ int ext4_mb_add_groupinfo(struct super_b
  			meta_group_info;
  	}
  
@@ -133,7 +133,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  	set_bit(EXT4_GROUP_INFO_NEED_INIT_BIT,
  		&(meta_group_info[i]->bb_state));
  
-@@ -2275,6 +2291,7 @@
+@@ -2275,6 +2291,7 @@ static int ext4_mb_init_backend(struct s
  	int num_meta_group_infos_max;
  	int array_size;
  	struct ext4_group_desc *desc;
@@ -141,7 +141,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  
  	/* This is the number of blocks used by GDT */
  	num_meta_group_infos = (ngroups + EXT4_DESC_PER_BLOCK(sb) -
-@@ -2332,8 +2349,9 @@
+@@ -2332,8 +2349,9 @@ static int ext4_mb_init_backend(struct s
  	return 0;
  
  err_freebuddy:
@@ -152,7 +152,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  	i = num_meta_group_infos;
  	while (i-- > 0)
  		kfree(sbi->s_group_info[i]);
-@@ -2343,6 +2361,55 @@
+@@ -2343,6 +2361,55 @@ err_freesgi:
  	return -ENOMEM;
  }
  
@@ -208,7 +208,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  int ext4_mb_init(struct super_block *sb, int needs_recovery)
  {
  	struct ext4_sb_info *sbi = EXT4_SB(sb);
-@@ -2355,16 +2422,21 @@
+@@ -2355,16 +2422,21 @@ int ext4_mb_init(struct super_block *sb,
  
  	sbi->s_mb_offsets = kmalloc(i, GFP_KERNEL);
  	if (sbi->s_mb_offsets == NULL) {
@@ -233,7 +233,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  	/* order 0 is regular bitmap */
  	sbi->s_mb_maxs[0] = sb->s_blocksize << 3;
  	sbi->s_mb_offsets[0] = 0;
-@@ -2383,9 +2455,7 @@
+@@ -2383,9 +2455,7 @@ int ext4_mb_init(struct super_block *sb,
  	/* init file for buddy data */
  	ret = ext4_mb_init_backend(sb);
  	if (ret != 0) {
@@ -244,7 +244,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  	}
  
  	spin_lock_init(&sbi->s_md_lock);
-@@ -2400,9 +2470,8 @@
+@@ -2400,9 +2470,8 @@ int ext4_mb_init(struct super_block *sb,
  
  	sbi->s_locality_groups = alloc_percpu(struct ext4_locality_group);
  	if (sbi->s_locality_groups == NULL) {
@@ -256,7 +256,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  	}
  	for_each_possible_cpu(i) {
  		struct ext4_locality_group *lg;
-@@ -2419,7 +2488,12 @@
+@@ -2419,7 +2488,12 @@ int ext4_mb_init(struct super_block *sb,
  
  	if (sbi->s_journal)
  		sbi->s_journal->j_commit_callback = release_blocks_on_commit;
@@ -270,7 +270,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  }
  
  /* need to called with the ext4 group lock held */
-@@ -2447,6 +2521,7 @@
+@@ -2447,6 +2521,7 @@ int ext4_mb_release(struct super_block *
  	int num_meta_group_infos;
  	struct ext4_group_info *grinfo;
  	struct ext4_sb_info *sbi = EXT4_SB(sb);
@@ -278,7 +278,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  
  	if (sbi->s_group_info) {
  		for (i = 0; i < ngroups; i++) {
-@@ -2457,7 +2532,7 @@
+@@ -2457,7 +2532,7 @@ int ext4_mb_release(struct super_block *
  			ext4_lock_group(sb, i);
  			ext4_mb_cleanup_pa(grinfo);
  			ext4_unlock_group(sb, i);
@@ -287,7 +287,7 @@ Index: linux-2.6.32-220.0.0.el5/fs/ext4/mballoc.c
  		}
  		num_meta_group_infos = (ngroups +
  				EXT4_DESC_PER_BLOCK(sb) - 1) >>
-@@ -2645,6 +2720,7 @@
+@@ -2647,6 +2722,7 @@ void exit_ext4_mballoc(void)
  	kmem_cache_destroy(ext4_pspace_cachep);
  	kmem_cache_destroy(ext4_ac_cachep);
  	kmem_cache_destroy(ext4_free_ext_cachep);

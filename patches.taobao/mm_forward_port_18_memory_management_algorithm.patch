@@ -47,8 +47,10 @@ Acked-by:
  mm/vmscan.c            |   58 ++++++++++++++++++++++++++++++++++++++++++++++++-
  3 files changed, 70 insertions(+), 1 deletion(-)
 
---- a/include/linux/sysctl.h
-+++ b/include/linux/sysctl.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/sysctl.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/sysctl.h
++++ linux-2.6.32-279.2.1.el5/include/linux/sysctl.h
 @@ -206,6 +206,7 @@ enum
  	VM_MIN_SLAB=35,		 /* Percent pages ignored by zone reclaim */
  	VM_ENABLE_CONTEXT_READAHEAD=36, /* Decide whether to do context readahead or not */
@@ -57,8 +59,10 @@ Acked-by:
  };
  
  
---- a/kernel/sysctl.c
-+++ b/kernel/sysctl.c
+Index: linux-2.6.32-279.2.1.el5/kernel/sysctl.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/kernel/sysctl.c
++++ linux-2.6.32-279.2.1.el5/kernel/sysctl.c
 @@ -98,6 +98,7 @@ extern int sysctl_nr_trim_pages;
  extern int kexec_load_disabled;
  extern int sysctl_enable_cnx_ra;
@@ -85,8 +89,10 @@ Acked-by:
  /*
   * NOTE: do not add new entries to this table unless you have read
   * Documentation/sysctl/ctl_unnumbered.txt
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
+Index: linux-2.6.32-279.2.1.el5/mm/vmscan.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/mm/vmscan.c
++++ linux-2.6.32-279.2.1.el5/mm/vmscan.c
 @@ -131,6 +131,8 @@ struct scan_control {
  int vm_swappiness = 60;
  long vm_total_pages;	/* The total number of pages which the VM controls */
@@ -96,7 +102,7 @@ Acked-by:
  static LIST_HEAD(shrinker_list);
  static DECLARE_RWSEM(shrinker_rwsem);
  
-@@ -1331,6 +1333,18 @@ static inline void note_zone_scanning_pr
+@@ -1380,6 +1382,18 @@ static inline void note_zone_scanning_pr
  		zone->prev_priority = priority;
  }
  
@@ -115,7 +121,7 @@ Acked-by:
  /*
   * This moves pages from the active list to the inactive list.
   *
-@@ -1394,6 +1408,28 @@ static void shrink_active_list(unsigned 
+@@ -1443,6 +1457,28 @@ static void shrink_active_list(unsigned 
  	struct page *page;
  	struct zone_reclaim_stat *reclaim_stat = get_reclaim_stat(zone, sc);
  	unsigned long nr_rotated = 0;
@@ -144,7 +150,7 @@ Acked-by:
  
  	lru_add_drain();
  	spin_lock_irq(&zone->lru_lock);
-@@ -1427,7 +1463,27 @@ static void shrink_active_list(unsigned 
+@@ -1476,7 +1512,27 @@ static void shrink_active_list(unsigned 
  			continue;
  		}
  

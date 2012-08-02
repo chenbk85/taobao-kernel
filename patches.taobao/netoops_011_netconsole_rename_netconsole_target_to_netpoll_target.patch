@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
+Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:45.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:45.000000000 +0800
-@@ -83,7 +83,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/netconsole.c
++++ linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
+@@ -83,7 +83,7 @@ static DEFINE_NETPOLL_TARGETS(targets);
  #define NETPOLL_CLEANING	3
  
  /**
@@ -19,7 +19,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
   * @list:	Links this target into the netpoll_targets.list.
   * @item:	Links us into the configfs subsystem hierarchy.
   * @np_state:	Enabled / Disabled / SettingUp / Cleaning
-@@ -105,7 +105,7 @@
+@@ -105,7 +105,7 @@ static DEFINE_NETPOLL_TARGETS(targets);
   *		local_mac	(read-only)
   *		remote_mac	(read-write)
   */
@@ -28,7 +28,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	struct netpoll_targets *nts;
  	struct list_head	list;
  #ifdef	CONFIG_NETCONSOLE_DYNAMIC
-@@ -116,16 +116,16 @@
+@@ -116,16 +116,16 @@ struct netconsole_target {
  	struct work_struct	cleanup_work;
  };
  
@@ -49,7 +49,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	nts = nt->nts;
  
  	netpoll_cleanup(&nt->np);
-@@ -135,15 +135,15 @@
+@@ -135,15 +135,15 @@ static void deferred_netpoll_cleanup(str
  	nt->np_state = NETPOLL_DISABLED;
  	spin_unlock_irqrestore(&nts->lock, flags);
  
@@ -69,7 +69,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  	/*
  	 * Allocate and initialize with defaults.
-@@ -182,7 +182,7 @@
+@@ -182,7 +182,7 @@ fail:
  }
  
  /* Cleanup netpoll for given target (from boot/module param) and free it */
@@ -78,7 +78,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  {
  	cancel_work_sync(&nt->cleanup_work);
  	if (nt->np_state == NETPOLL_CLEANING || nt->np_state == NETPOLL_ENABLED)
-@@ -210,19 +210,19 @@
+@@ -210,19 +210,19 @@ static void free_param_target(struct net
   *				<target>/...
   */
  
@@ -103,7 +103,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		NULL;
  }
  
-@@ -255,41 +255,41 @@
+@@ -255,41 +255,41 @@ static long strtol10_check_range(const c
  }
  
  /*
@@ -153,7 +153,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  {
  	struct net_device *dev = nt->np.dev;
  	static const u8 bcast[ETH_ALEN] = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };
-@@ -297,7 +297,7 @@
+@@ -297,7 +297,7 @@ static ssize_t show_local_mac(struct net
  	return snprintf(buf, PAGE_SIZE, "%pM\n", dev ? dev->dev_addr : bcast);
  }
  
@@ -162,7 +162,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  {
  	return snprintf(buf, PAGE_SIZE, "%pM\n", nt->np.remote_mac);
  }
-@@ -309,7 +309,7 @@
+@@ -309,7 +309,7 @@ static ssize_t show_remote_mac(struct ne
   * would enable him to dynamically add new netpoll targets for new
   * network interfaces as and when they come up).
   */
@@ -171,7 +171,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  			     const char *buf,
  			     size_t count)
  {
-@@ -376,7 +376,7 @@
+@@ -376,7 +376,7 @@ busy:
  	return -EBUSY;
  }
  
@@ -180,7 +180,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  			      const char *buf,
  			      size_t count)
  {
-@@ -392,7 +392,7 @@
+@@ -392,7 +392,7 @@ static ssize_t store_dev_name(struct net
  	return strnlen(buf, count);
  }
  
@@ -189,7 +189,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  				const char *buf,
  				size_t count)
  {
-@@ -408,7 +408,7 @@
+@@ -408,7 +408,7 @@ static ssize_t store_local_port(struct n
  	return strnlen(buf, count);
  }
  
@@ -198,7 +198,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  				 const char *buf,
  				 size_t count)
  {
-@@ -424,7 +424,7 @@
+@@ -424,7 +424,7 @@ static ssize_t store_remote_port(struct 
  	return strnlen(buf, count);
  }
  
@@ -207,7 +207,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  			      const char *buf,
  			      size_t count)
  {
-@@ -433,7 +433,7 @@
+@@ -433,7 +433,7 @@ static ssize_t store_local_ip(struct net
  	return strnlen(buf, count);
  }
  
@@ -216,7 +216,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  			       const char *buf,
  			       size_t count)
  {
-@@ -442,7 +442,7 @@
+@@ -442,7 +442,7 @@ static ssize_t store_remote_ip(struct ne
  	return strnlen(buf, count);
  }
  
@@ -225,7 +225,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  				const char *buf,
  				size_t count)
  {
-@@ -470,20 +470,20 @@
+@@ -470,20 +470,20 @@ invalid:
  }
  
  /*
@@ -253,7 +253,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  				    const char *buf,			\
  				    size_t count)			\
  {									\
-@@ -503,8 +503,8 @@
+@@ -503,8 +503,8 @@ static ssize_t store_locked_##_name(stru
  	return ret;							\
  }
  
@@ -264,7 +264,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  {									\
  	struct netpoll_targets *nts = nt->nts;				\
  	unsigned long flags;						\
-@@ -515,53 +515,53 @@
+@@ -515,53 +515,53 @@ static ssize_t show_locked_##_name(struc
  	return ret;							\
  }
  
@@ -353,7 +353,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  	if (na->show)
  		ret = na->show(nt, buf);
-@@ -569,15 +569,15 @@
+@@ -569,15 +569,15 @@ static ssize_t netconsole_target_attr_sh
  	return ret;
  }
  
@@ -376,7 +376,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  	if (na->store)
  		ret = na->store(nt, buf, count);
-@@ -585,15 +585,15 @@
+@@ -585,15 +585,15 @@ static ssize_t netconsole_target_attr_st
  	return ret;
  }
  
@@ -399,7 +399,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	.ct_owner		= THIS_MODULE,
  };
  
-@@ -605,14 +605,14 @@
+@@ -605,14 +605,14 @@ static struct netpoll_targets *group_to_
  }
  
  /*
@@ -418,7 +418,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	unsigned long flags;
  
  	/*
-@@ -634,7 +634,7 @@
+@@ -634,7 +634,7 @@ static struct config_item *make_netconso
  	INIT_WORK(&nt->cleanup_work, deferred_netpoll_cleanup);
  
  	/* Initialize the config_item member */
@@ -427,7 +427,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  	/* Adding, but it is disabled */
  	spin_lock_irqsave(&nts->lock, flags);
-@@ -644,11 +644,11 @@
+@@ -644,11 +644,11 @@ static struct config_item *make_netconso
  	return &nt->item;
  }
  
@@ -442,7 +442,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	unsigned long flags;
  
  	spin_lock_irqsave(&nts->lock, flags);
-@@ -668,16 +668,16 @@
+@@ -668,16 +668,16 @@ static void drop_netconsole_target(struc
  	if (nt->np_state == NETPOLL_ENABLED || nt->np_state == NETPOLL_CLEANING)
  		netpoll_cleanup(&nt->np);
  
@@ -465,7 +465,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	.ct_owner	= THIS_MODULE,
  };
  
-@@ -690,7 +690,7 @@
+@@ -690,7 +690,7 @@ static int __init dynamic_netpoll_target
  	mutex_init(&subsys->su_mutex);
  	strncpy((char *)&subsys->su_group.cg_item.ci_namebuf, subsys_name,
  		CONFIGFS_ITEM_NAME_LEN);
@@ -474,7 +474,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	return configfs_register_subsystem(subsys);
  }
  
-@@ -704,13 +704,13 @@
+@@ -704,13 +704,13 @@ static void __exit dynamic_netpoll_targe
   * do not exist in the configfs hierarchy (and have NULL names) and will
   * never go away, so make these a no-op for them.
   */
@@ -490,7 +490,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  {
  	if (config_item_name(&nt->item))
  		config_item_put(&nt->item);
-@@ -732,11 +732,11 @@
+@@ -732,11 +732,11 @@ static void __exit dynamic_netpoll_targe
   * No danger of targets going away from under us when dynamic
   * reconfigurability is off.
   */
@@ -504,7 +504,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  {
  }
  
-@@ -746,24 +746,24 @@
+@@ -746,24 +746,24 @@ static void netconsole_target_put(struct
   * Call netpoll_cleanup on this target asynchronously.
   * nts->lock is required.
   */
@@ -535,7 +535,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	struct net_device *dev = ptr;
  	bool stopped = false;
  
-@@ -820,7 +820,7 @@
+@@ -820,7 +820,7 @@ static void write_msg(struct console *co
  {
  	int frag, left;
  	unsigned long flags;
@@ -544,7 +544,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	const char *tmp;
  
  	/* Avoid taking lock and disabling interrupts unnecessarily */
-@@ -860,7 +860,7 @@
+@@ -860,7 +860,7 @@ static int __init register_netpoll_targe
  					   char *static_targets)
  {
  	int err;
@@ -553,7 +553,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	char *target_config;
  	char *input = static_targets;
  	unsigned long flags;
-@@ -879,7 +879,7 @@
+@@ -879,7 +879,7 @@ static int __init register_netpoll_targe
  		}
  	}
  
@@ -562,7 +562,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	err = register_netdevice_notifier(&nts->netdev_notifier);
  	if (err)
  		goto fail;
-@@ -908,7 +908,7 @@
+@@ -908,7 +908,7 @@ fail:
  
  static void __exit unregister_netpoll_targets(struct netpoll_targets *nts)
  {

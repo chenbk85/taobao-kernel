@@ -14,11 +14,10 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  2 files changed, 206 insertions(+), 0 deletions(-)
  create mode 100644 Documentation/filesystems/overlayfs.txt
 
-diff --git a/Documentation/filesystems/overlayfs.txt b/Documentation/filesystems/overlayfs.txt
-new file mode 100644
-index 0000000..7161dc3
+Index: linux-2.6.32-279.2.1.el5/Documentation/filesystems/overlayfs.txt
+===================================================================
 --- /dev/null
-+++ b/Documentation/filesystems/overlayfs.txt
++++ linux-2.6.32-279.2.1.el5/Documentation/filesystems/overlayfs.txt
 @@ -0,0 +1,199 @@
 +Written by: Neil Brown <neilb@suse.de>
 +
@@ -219,10 +218,10 @@ index 0000000..7161dc3
 +filesystem are not allowed.  If the underlying filesystem is changed,
 +the behavior of the overlay is undefined, though it will not result in
 +a crash or deadlock.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c1c27c9..726fbc9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
+Index: linux-2.6.32-279.2.1.el5/MAINTAINERS
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/MAINTAINERS
++++ linux-2.6.32-279.2.1.el5/MAINTAINERS
 @@ -4011,6 +4011,13 @@ F:	drivers/scsi/osd/
  F:	include/scsi/osd_*
  F:	fs/exofs/
@@ -237,6 +236,3 @@ index c1c27c9..726fbc9 100644
  P54 WIRELESS DRIVER
  M:	Michael Wu <flamingice@sourmilk.net>
  L:	linux-wireless@vger.kernel.org
--- 
-1.7.3.2
-

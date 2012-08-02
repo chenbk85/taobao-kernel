@@ -11,10 +11,10 @@ Signed-off-by: Tao Ma <boyu.mt@taobao.com>
  arch/x86/Kconfig.debug |    9 +++++++++
  1 files changed, 9 insertions(+), 0 deletions(-)
 
-diff --git a/arch/x86/Kconfig.debug b/arch/x86/Kconfig.debug
-index c6f543f..6d12d5c 100644
---- a/arch/x86/Kconfig.debug
-+++ b/arch/x86/Kconfig.debug
+Index: linux-2.6.32-279.2.1.el5/arch/x86/Kconfig.debug
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/arch/x86/Kconfig.debug
++++ linux-2.6.32-279.2.1.el5/arch/x86/Kconfig.debug
 @@ -287,4 +287,13 @@ config OPTIMIZE_INLINING
  
  	  If unsure, say N.
@@ -29,6 +29,3 @@ index c6f543f..6d12d5c 100644
 +
 +	  If unsure, say N.
  endmenu
--- 
-1.7.4.2.g597a6
-

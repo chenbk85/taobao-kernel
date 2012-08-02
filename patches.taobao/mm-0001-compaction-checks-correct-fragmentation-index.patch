@@ -24,11 +24,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  mm/compaction.c |    6 ++++--
  1 files changed, 4 insertions(+), 2 deletions(-)
 
-Index: linux-2.6.32-220.13.1.el5/mm/compaction.c
+Index: linux-2.6.32-279.2.1.el5/mm/compaction.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/mm/compaction.c	2012-04-19 17:24:48.906452700 +0800
-+++ linux-2.6.32-220.13.1.el5/mm/compaction.c	2012-04-19 17:26:57.799091854 +0800
-@@ -586,8 +586,8 @@
+--- linux-2.6.32-279.2.1.el5.orig/mm/compaction.c
++++ linux-2.6.32-279.2.1.el5/mm/compaction.c
+@@ -586,8 +586,8 @@ unsigned long try_to_compact_pages(struc
  		 * fragmentation index determines if allocation failures are
  		 * due to low memory or external fragmentation
  		 *
@@ -39,7 +39,7 @@ Index: linux-2.6.32-220.13.1.el5/mm/compaction.c
  		 * index towards 0 implies failure is due to lack of memory
  		 * index towards 1000 implies failure is due to fragmentation
  		 *
-@@ -597,7 +597,8 @@
+@@ -597,7 +597,8 @@ unsigned long try_to_compact_pages(struc
  		if (fragindex >= 0 && fragindex <= sysctl_extfrag_threshold)
  			continue;
  

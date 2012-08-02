@@ -6,10 +6,10 @@ Tune the locks of connection hash table from 16 to 256, so that collision will b
 
 Signed-off-by: Wensong Zhang <zhengming@taobao.com>
 ---
-diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-index 5a99f81..53d2316 100644
---- a/net/netfilter/ipvs/ip_vs_conn.c
-+++ b/net/netfilter/ipvs/ip_vs_conn.c
+Index: linux-2.6.32-279.2.1.el5/net/netfilter/ipvs/ip_vs_conn.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/net/netfilter/ipvs/ip_vs_conn.c
++++ linux-2.6.32-279.2.1.el5/net/netfilter/ipvs/ip_vs_conn.c
 @@ -60,7 +60,7 @@ static unsigned int ip_vs_conn_rnd;
  /*
   *  Fine locking granularity for big connection hash table

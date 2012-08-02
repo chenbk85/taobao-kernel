@@ -11,11 +11,11 @@ Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 Acked-by: 
 
 ---
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inline.c	2012-06-20 00:10:49.012018126 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/inline.c	2012-06-20 00:10:50.800026991 +0800
-@@ -441,21 +441,12 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inline.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
+@@ -441,21 +441,12 @@ out:
  static int ext4_read_inline_page(struct inode *inode, struct page *page)
  {
  	void *kaddr;
@@ -38,7 +38,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  
  	if (!EXT4_I(inode)->i_inline_off) {
  		ext4_warning(inode->i_sb, "inode %lu doesn't have inline data.",
-@@ -468,7 +459,7 @@
+@@ -468,7 +459,7 @@ static int ext4_read_inline_page(struct 
  		goto out;
  
  	kaddr = kmap_atomic(page, KM_USER0);
@@ -47,7 +47,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  	flush_dcache_page(page);
  	kunmap_atomic(kaddr, KM_USER0);
  	SetPageUptodate(page);
-@@ -480,10 +471,23 @@
+@@ -480,10 +471,23 @@ out:
  
  int ext4_readpage_inline(struct inode *inode, struct page *page)
  {
@@ -73,11 +73,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  	up_read(&EXT4_I(inode)->xattr_sem);
  
  	unlock_page(page);
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inode.c	2012-06-20 00:09:13.979546881 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/inode.c	2012-06-20 00:10:50.804027006 +0800
-@@ -3733,12 +3733,16 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+@@ -3745,12 +3745,16 @@ static sector_t ext4_bmap(struct address
  
  static int ext4_readpage(struct file *file, struct page *page)
  {

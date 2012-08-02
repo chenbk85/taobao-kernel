@@ -7,11 +7,11 @@ We replace all the call to the buffer layer with wrapper functions we defined
 Signed-off-by: Wang Shaoyan <wangshaoyan.pt@taobao.com>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/balloc.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/balloc.c	2012-06-20 00:07:27.723019982 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/balloc.c	2012-06-20 00:13:28.700809979 +0800
-@@ -383,7 +383,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/balloc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
+@@ -383,7 +383,7 @@ ext4_read_block_bitmap(struct super_bloc
  	 * get set with buffer lock held.
  	 */
  	set_bitmap_uptodate(bh);
@@ -20,11 +20,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/balloc.c
  		put_bh(bh);
  		ext4_error(sb, "Cannot read block bitmap - "
  			    "block_group = %u, block_bitmap = %llu",
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/extents.c	2012-06-20 00:10:48.252014353 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/extents.c	2012-06-20 00:13:28.704809995 +0800
-@@ -692,7 +692,8 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/extents.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
+@@ -692,7 +692,8 @@ ext4_ext_find_extent(struct inode *inode
  		if (unlikely(!bh))
  			goto err;
  		if (!bh_uptodate_or_lock(bh)) {
@@ -34,7 +34,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  				put_bh(bh);
  				goto err;
  			}
-@@ -1377,7 +1378,8 @@
+@@ -1377,7 +1378,8 @@ got_index:
  	ix++;
  	block = idx_pblock(ix);
  	while (++depth < path->p_depth) {
@@ -44,7 +44,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  		if (bh == NULL)
  			return -EIO;
  		eh = ext_block_hdr(bh);
-@@ -1391,7 +1393,7 @@
+@@ -1391,7 +1393,7 @@ got_index:
  		put_bh(bh);
  	}
  
@@ -53,7 +53,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  	if (bh == NULL)
  		return -EIO;
  	eh = ext_block_hdr(bh);
-@@ -2515,7 +2517,8 @@
+@@ -2515,7 +2517,8 @@ again:
  			ext_debug("move to level %d (block %llu)\n",
  				  i + 1, idx_pblock(path[i].p_idx));
  			memset(path + i + 1, 0, sizeof(*path));
@@ -63,11 +63,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  			if (!bh) {
  				/* should we reset i_size? */
  				err = -EIO;
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/ialloc.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ialloc.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/ialloc.c	2012-06-20 00:10:49.812022092 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/ialloc.c	2012-06-20 00:13:28.704809995 +0800
-@@ -152,7 +152,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ialloc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ialloc.c
+@@ -152,7 +152,7 @@ ext4_read_inode_bitmap(struct super_bloc
  	 * get set with buffer lock held.
  	 */
  	set_bitmap_uptodate(bh);
@@ -76,11 +76,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/ialloc.c
  		put_bh(bh);
  		ext4_error(sb, "Cannot read inode bitmap - "
  			    "block_group = %u, inode_bitmap = %llu",
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inode.c	2012-06-20 00:10:54.064043173 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/inode.c	2012-06-20 00:13:28.704809995 +0800
-@@ -465,7 +465,8 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+@@ -465,7 +465,8 @@ static Indirect *ext4_get_branch(struct 
  			goto failure;
  
  		if (!bh_uptodate_or_lock(bh)) {
@@ -90,7 +90,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  				put_bh(bh);
  				goto failure;
  			}
-@@ -1616,11 +1617,10 @@
+@@ -1616,11 +1617,10 @@ struct buffer_head *ext4_bread(handle_t 
  	bh = ext4_getblk(handle, inode, block, create, err);
  	if (!bh)
  		return bh;
@@ -105,7 +105,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  		return bh;
  	put_bh(bh);
  	*err = -EIO;
-@@ -4762,7 +4762,8 @@
+@@ -4781,7 +4781,8 @@ static void ext4_free_branches(handle_t 
  				continue;		/* A hole */
  
  			/* Go read the buffer for the next level down */
@@ -115,7 +115,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  
  			/*
  			 * A read failure? Report error and clear slot
-@@ -5187,7 +5188,8 @@
+@@ -5206,7 +5207,8 @@ make_io:
  			if (end > table)
  				end = table;
  			while (b <= end)
@@ -125,7 +125,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  		}
  
  		/*
-@@ -5195,11 +5197,8 @@
+@@ -5214,11 +5216,8 @@ make_io:
  		 * has in-inode xattrs, or we don't have this inode in memory.
  		 * Read the block from disk.
  		 */
@@ -139,11 +139,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  			ext4_error(sb, "unable to read inode block - inode=%lu,"
  				   " block=%llu", inode->i_ino, block);
  			brelse(bh);
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/mballoc.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/mballoc.c	2012-06-20 00:07:27.727020009 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/mballoc.c	2012-06-20 00:13:28.708810018 +0800
-@@ -865,7 +865,6 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/mballoc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
+@@ -865,7 +865,6 @@ static int ext4_mb_init_cache(struct pag
  			unlock_buffer(bh[i]);
  			continue;
  		}
@@ -151,7 +151,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/mballoc.c
  		/*
  		 * submit the buffer_head for read. We can
  		 * safely mark the bitmap as uptodate now.
-@@ -873,8 +872,8 @@
+@@ -873,8 +872,8 @@ static int ext4_mb_init_cache(struct pag
  		 * get set with buffer lock held.
  		 */
  		set_bitmap_uptodate(bh[i]);
@@ -162,11 +162,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/mballoc.c
  		mb_debug(1, "read bitmap for group %u\n", first_group + i);
  	}
  
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/move_extent.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/move_extent.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/move_extent.c	2012-06-20 00:07:27.747020101 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/move_extent.c	2012-06-20 00:13:28.708810018 +0800
-@@ -98,7 +98,8 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/move_extent.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/move_extent.c
+@@ -98,7 +98,8 @@ mext_next_extent(struct inode *inode, st
  			if (path[ppos+1].p_bh)
  				brelse(path[ppos+1].p_bh);
  			path[ppos+1].p_bh =
@@ -176,7 +176,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/move_extent.c
  			if (!path[ppos+1].p_bh)
  				return -EIO;
  			path[ppos+1].p_hdr =
-@@ -112,8 +113,9 @@
+@@ -112,8 +113,9 @@ mext_next_extent(struct inode *inode, st
  					idx_pblock(path[cur_ppos].p_idx);
  				if (path[cur_ppos+1].p_bh)
  					brelse(path[cur_ppos+1].p_bh);
@@ -188,11 +188,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/move_extent.c
  				if (!path[cur_ppos+1].p_bh)
  					return -EIO;
  				path[cur_ppos+1].p_hdr =
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/namei.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/namei.c	2012-06-20 00:10:46.644006383 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/namei.c	2012-06-20 00:13:28.708810018 +0800
-@@ -925,8 +925,9 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/namei.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+@@ -925,8 +925,9 @@ restart:
  				num++;
  				bh = ext4_getblk(NULL, dir, b++, 0, &err);
  				bh_use[ra_max] = bh;
@@ -204,11 +204,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/namei.c
  			}
  		}
  		if ((bh = bh_use[ra_ptr++]) == NULL)
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/super.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/super.c	2012-06-20 00:13:27.868805847 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/super.c	2012-06-20 00:13:28.708810018 +0800
-@@ -2963,7 +2963,8 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/super.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/super.c
+@@ -2963,7 +2963,8 @@ static int ext4_fill_super(struct super_
  		logical_sb_block = sb_block;
  	}
  
@@ -218,7 +218,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/super.c
  		ext4_msg(sb, KERN_ERR, "unable to read superblock");
  		goto out_fail;
  	}
-@@ -3084,7 +3085,8 @@
+@@ -3084,7 +3085,8 @@ static int ext4_fill_super(struct super_
  		brelse(bh);
  		logical_sb_block = sb_block * EXT4_MIN_BLOCK_SIZE;
  		offset = do_div(logical_sb_block, blocksize);
@@ -228,7 +228,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/super.c
  		if (!bh) {
  			ext4_msg(sb, KERN_ERR,
  			       "Can't read superblock on 2nd try");
-@@ -3295,7 +3297,8 @@
+@@ -3295,7 +3297,8 @@ static int ext4_fill_super(struct super_
  
  	for (i = 0; i < db_count; i++) {
  		block = descriptor_loc(sb, logical_sb_block, i);
@@ -238,11 +238,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/super.c
  		if (!sbi->s_group_desc[i]) {
  			ext4_msg(sb, KERN_ERR,
  			       "can't read group descriptor %d", i);
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/xattr.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/xattr.c	2012-06-20 00:10:54.064043173 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c	2012-06-20 00:13:28.712810034 +0800
-@@ -216,7 +216,8 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/xattr.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/xattr.c
+@@ -216,7 +216,8 @@ ext4_xattr_block_get(struct inode *inode
  	if (!EXT4_I(inode)->i_file_acl)
  		goto cleanup;
  	ea_idebug(inode, "reading block %u", EXT4_I(inode)->i_file_acl);
@@ -252,7 +252,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c
  	if (!bh)
  		goto cleanup;
  	ea_bdebug(bh, "b_count=%d, refcount=%d",
-@@ -358,7 +359,8 @@
+@@ -358,7 +359,8 @@ ext4_xattr_block_list(struct inode *inod
  	if (!EXT4_I(inode)->i_file_acl)
  		goto cleanup;
  	ea_idebug(inode, "reading block %u", EXT4_I(inode)->i_file_acl);
@@ -262,7 +262,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c
  	error = -EIO;
  	if (!bh)
  		goto cleanup;
-@@ -634,7 +636,8 @@
+@@ -634,7 +636,8 @@ ext4_xattr_block_find(struct inode *inod
  
  	if (EXT4_I(inode)->i_file_acl) {
  		/* The inode already has an extended attribute block. */
@@ -272,7 +272,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c
  		error = -EIO;
  		if (!bs->bh)
  			goto cleanup;
-@@ -1203,7 +1206,8 @@
+@@ -1209,7 +1212,8 @@ retry:
  	 * EA block can hold new_extra_isize bytes.
  	 */
  	if (EXT4_I(inode)->i_file_acl) {
@@ -282,7 +282,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c
  		error = -EIO;
  		if (!bh)
  			goto cleanup;
-@@ -1382,7 +1386,8 @@
+@@ -1388,7 +1392,8 @@ ext4_xattr_delete_inode(handle_t *handle
  
  	if (!EXT4_I(inode)->i_file_acl)
  		goto cleanup;
@@ -292,7 +292,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.c
  	if (!bh) {
  		ext4_error(inode->i_sb, "inode %lu: block %llu read error",
  			   inode->i_ino, EXT4_I(inode)->i_file_acl);
-@@ -1514,7 +1519,8 @@
+@@ -1520,7 +1525,8 @@ again:
  				goto again;
  			break;
  		}

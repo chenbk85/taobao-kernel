@@ -27,10 +27,10 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  create mode 100644 net/toa/toa.c
  create mode 100644 net/toa/toa.h
 
-diff --git a/net/Kconfig b/net/Kconfig
-index 041c35e..62db052 100644
---- a/net/Kconfig
-+++ b/net/Kconfig
+Index: linux-2.6.32-279.2.1.el5/net/Kconfig
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/net/Kconfig
++++ linux-2.6.32-279.2.1.el5/net/Kconfig
 @@ -49,6 +49,7 @@ source "net/packet/Kconfig"
  source "net/unix/Kconfig"
  source "net/xfrm/Kconfig"
@@ -39,20 +39,19 @@ index 041c35e..62db052 100644
  
  config INET
  	bool "TCP/IP networking"
-diff --git a/net/Makefile b/net/Makefile
-index 1542e72..4ef7f1e 100644
---- a/net/Makefile
-+++ b/net/Makefile
+Index: linux-2.6.32-279.2.1.el5/net/Makefile
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/net/Makefile
++++ linux-2.6.32-279.2.1.el5/net/Makefile
 @@ -65,3 +65,4 @@ ifeq ($(CONFIG_NET),y)
  obj-$(CONFIG_SYSCTL)		+= sysctl_net.o
  endif
  obj-$(CONFIG_WIMAX)		+= wimax/
 +obj-$(CONFIG_TOA)		+= toa/
-diff --git a/net/toa/Kconfig b/net/toa/Kconfig
-new file mode 100644
-index 0000000..c3d58f9
+Index: linux-2.6.32-279.2.1.el5/net/toa/Kconfig
+===================================================================
 --- /dev/null
-+++ b/net/toa/Kconfig
++++ linux-2.6.32-279.2.1.el5/net/toa/Kconfig
 @@ -0,0 +1,10 @@
 +config	TOA
 +	tristate "The private TCP option for support Taobao LVS full-NAT feature"
@@ -64,21 +63,19 @@ index 0000000..c3d58f9
 +	  IPv6 mapped IPv4.
 +
 +	  Say m if unsure.
-diff --git a/net/toa/Makefile b/net/toa/Makefile
-new file mode 100644
-index 0000000..a0e3620
+Index: linux-2.6.32-279.2.1.el5/net/toa/Makefile
+===================================================================
 --- /dev/null
-+++ b/net/toa/Makefile
++++ linux-2.6.32-279.2.1.el5/net/toa/Makefile
 @@ -0,0 +1,4 @@
 +#
 +# Makefile for TOA module.
 +#
 +obj-$(CONFIG_TOA) += toa.o
-diff --git a/net/toa/toa.c b/net/toa/toa.c
-new file mode 100644
-index 0000000..1e84c60
+Index: linux-2.6.32-279.2.1.el5/net/toa/toa.c
+===================================================================
 --- /dev/null
-+++ b/net/toa/toa.c
++++ linux-2.6.32-279.2.1.el5/net/toa/toa.c
 @@ -0,0 +1,390 @@
 +#include "toa.h"
 +
@@ -470,11 +467,10 @@ index 0000000..1e84c60
 +module_init(toa_init);
 +module_exit(toa_exit);
 +MODULE_LICENSE("GPL");
-diff --git a/net/toa/toa.h b/net/toa/toa.h
-new file mode 100644
-index 0000000..c91361e
+Index: linux-2.6.32-279.2.1.el5/net/toa/toa.h
+===================================================================
 --- /dev/null
-+++ b/net/toa/toa.h
++++ linux-2.6.32-279.2.1.el5/net/toa/toa.h
 @@ -0,0 +1,91 @@
 +#ifndef __NET__TOA_H__
 +#define __NET__TOA_H__
@@ -567,6 +563,3 @@ index 0000000..c91361e
 +	(per_cpu_ptr(mib, smp_processor_id())->mibs[field]++)
 +
 +#endif
--- 
-1.5.5.6
-

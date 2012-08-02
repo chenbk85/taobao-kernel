@@ -11,11 +11,11 @@ and a buf_size so that it can be used for inline data.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 025793f..b3ad80d 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1805,6 +1805,12 @@ extern int search_dir(struct buffer_head *bh,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1811,6 +1811,12 @@ extern int search_dir(struct buffer_head
  		      const struct qstr *d_name,
  		      unsigned int offset,
  		      struct ext4_dir_entry_2 **res_dir);
@@ -28,11 +28,11 @@ index 025793f..b3ad80d 100644
  
  /* resize.c */
  extern int ext4_group_add(struct super_block *sb,
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index ea68a19..7987a7c 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -1694,13 +1694,15 @@ cleanup:
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/namei.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+@@ -1706,13 +1706,15 @@ cleanup:
  }
  
  /*
@@ -55,7 +55,7 @@ index ea68a19..7987a7c 100644
  {
  	struct ext4_dir_entry_2 *de, *pde;
  	unsigned int blocksize = dir->i_sb->s_blocksize;
-@@ -1708,14 +1710,12 @@ static int ext4_delete_entry(handle_t *handle,
+@@ -1720,14 +1722,12 @@ static int ext4_delete_entry(handle_t *h
  
  	i = 0;
  	pde = NULL;
@@ -72,7 +72,7 @@ index ea68a19..7987a7c 100644
  			if (pde)
  				pde->rec_len = ext4_rec_len_to_disk(
  					ext4_rec_len_from_disk(pde->rec_len,
-@@ -1726,8 +1726,6 @@ static int ext4_delete_entry(handle_t *handle,
+@@ -1738,8 +1738,6 @@ static int ext4_delete_entry(handle_t *h
  			else
  				de->inode = 0;
  			dir->i_version++;
@@ -81,7 +81,7 @@ index ea68a19..7987a7c 100644
  			return 0;
  		}
  		i += ext4_rec_len_from_disk(de->rec_len, blocksize);
-@@ -1737,6 +1735,36 @@ static int ext4_delete_entry(handle_t *handle,
+@@ -1749,6 +1747,36 @@ static int ext4_delete_entry(handle_t *h
  	return -ENOENT;
  }
  

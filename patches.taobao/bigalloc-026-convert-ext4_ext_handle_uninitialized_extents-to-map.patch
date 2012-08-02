@@ -6,11 +6,11 @@ This patch changes "block" and "max_blocks" to struct ext4_map_blocks for ext4_e
 
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index d43b7c5..34ef3a0 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -3476,7 +3476,7 @@ get_reserved_cluster_alloc(struct inode *inode, ext4_lblk_t lblk_start,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/extents.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
+@@ -3476,7 +3476,7 @@ get_reserved_cluster_alloc(struct inode 
  
  static int
  ext4_ext_handle_uninitialized_extents(handle_t *handle, struct inode *inode,
@@ -19,7 +19,7 @@ index d43b7c5..34ef3a0 100644
  			struct ext4_ext_path *path, int flags,
  			unsigned int allocated, struct buffer_head *bh_result,
  			ext4_fsblk_t newblock)
-@@ -3486,19 +3486,19 @@ ext4_ext_handle_uninitialized_extents(handle_t *handle, struct inode *inode,
+@@ -3486,19 +3486,19 @@ ext4_ext_handle_uninitialized_extents(ha
  	ext4_io_end_t *io = EXT4_I(inode)->cur_aio_dio;
  
  	ext_debug("ext4_ext_handle_uninitialized_extents: inode %lu, logical"
@@ -44,7 +44,7 @@ index d43b7c5..34ef3a0 100644
  		/*
  		 * Flag the inode(non aio case) or end_io struct (aio case)
  		 * that this IO needs to convertion to written when IO is
-@@ -3517,8 +3517,8 @@ ext4_ext_handle_uninitialized_extents(handle_t *handle, struct inode *inode,
+@@ -3517,8 +3517,8 @@ ext4_ext_handle_uninitialized_extents(ha
  							path);
  		if (ret >= 0) {
  			ext4_update_inode_fsync_trans(handle, inode, 1);
@@ -55,7 +55,7 @@ index d43b7c5..34ef3a0 100644
  		} else
  			err = ret;
  		goto out2;
-@@ -3541,16 +3541,17 @@ ext4_ext_handle_uninitialized_extents(handle_t *handle, struct inode *inode,
+@@ -3541,16 +3541,17 @@ ext4_ext_handle_uninitialized_extents(ha
  		 * a read from the block returns 0s.
  		 */
  		set_buffer_unwritten(bh_result);
@@ -127,7 +127,7 @@ index d43b7c5..34ef3a0 100644
  out2:
  	if (path) {
  		ext4_ext_drop_refs(path);
-@@ -3838,7 +3843,7 @@ int ext4_ext_get_blocks(handle_t *handle, struct inode *inode,
+@@ -3838,7 +3843,7 @@ int ext4_ext_get_blocks(handle_t *handle
  				goto out;
  			}
  			ret = ext4_ext_handle_uninitialized_extents(handle,

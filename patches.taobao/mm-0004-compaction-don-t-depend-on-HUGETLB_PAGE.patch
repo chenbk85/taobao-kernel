@@ -34,10 +34,10 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  mm/Kconfig |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: linux-2.6.32-131.4.1.el6/mm/Kconfig
+Index: linux-2.6.32-279.2.1.el5/mm/Kconfig
 ===================================================================
---- linux-2.6.32-131.4.1.el6.orig/mm/Kconfig
-+++ linux-2.6.32-131.4.1.el6/mm/Kconfig
+--- linux-2.6.32-279.2.1.el5.orig/mm/Kconfig
++++ linux-2.6.32-279.2.1.el5/mm/Kconfig
 @@ -173,7 +173,7 @@ config COMPACTION
  	bool "Allow for memory compaction"
  	def_bool y

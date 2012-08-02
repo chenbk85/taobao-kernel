@@ -10,9 +10,10 @@ source tree).
 
 Signed-off-by: Coly Li <bosong.ly>
 ---
-diff -ruN a/crypto/signature/key.h b/crypto/signature/key.h
---- a/crypto/signature/key.h	1970-01-01 08:00:00.000000000 +0800
-+++ b/crypto/signature/key.h	2011-08-31 15:15:29.212923473 +0800
+Index: linux-2.6.32-279.2.1.el5/crypto/signature/key.h
+===================================================================
+--- /dev/null
++++ linux-2.6.32-279.2.1.el5/crypto/signature/key.h
 @@ -0,0 +1,76 @@
 +const char ksign_def_public_key[] __initdata=
 +	"\x99\x01\xa2\x04\x4d\xff\x83\x88\x11\x04\x00\xda\xc3\xb6\x9e\xe1"

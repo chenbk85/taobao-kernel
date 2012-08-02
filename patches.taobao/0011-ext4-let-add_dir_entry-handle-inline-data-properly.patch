@@ -11,11 +11,11 @@ a dir block will be created and the dir entry will be moved to it.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 6ff0310..6f0e996 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -2046,6 +2046,8 @@ static inline void ext4_unlock_group(struct super_block *sb,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -2060,6 +2060,8 @@ static inline void ext4_unlock_group(str
  
  /* dir.c */
  extern const struct file_operations ext4_dir_operations;
@@ -24,11 +24,11 @@ index 6ff0310..6f0e996 100644
  
  /* file.c */
  extern const struct inode_operations ext4_file_inode_operations;
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index a06bfea..beebad2 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -922,6 +922,282 @@ int ext4_da_write_inline_data_end(struct inode *inode, loff_t pos,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inline.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
+@@ -922,6 +922,282 @@ int ext4_da_write_inline_data_end(struct
  	return copied;
  }
  
@@ -311,11 +311,11 @@ index a06bfea..beebad2 100644
  int ext4_destroy_inline_data(handle_t *handle, struct inode *inode)
  {
  	int ret;
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 516bdc3..f1e721b 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -1491,6 +1491,17 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/namei.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+@@ -1503,6 +1503,17 @@ static int ext4_add_entry(handle_t *hand
  	blocksize = sb->s_blocksize;
  	if (!dentry->d_name.len)
  		return -EINVAL;
@@ -333,7 +333,7 @@ index 516bdc3..f1e721b 100644
  	if (is_dx(dir)) {
  		retval = ext4_dx_add_entry(handle, dentry, inode);
  		if (!retval || (retval != ERR_BAD_DX_DIR))
-@@ -1852,6 +1863,14 @@ static int ext4_init_new_dir(handle_t *handle, struct inode *parent,
+@@ -1864,6 +1875,14 @@ static int ext4_init_new_dir(handle_t *h
  	int err;
  	int blocksize = inode->i_sb->s_blocksize;
  
@@ -348,11 +348,11 @@ index 516bdc3..f1e721b 100644
  	inode->i_size = EXT4_I(inode)->i_disksize = blocksize;
  	dir_block = ext4_bread(handle, inode, 0, 1, &err);
  	if (!dir_block)
-diff --git a/fs/ext4/xattr.h b/fs/ext4/xattr.h
-index 3f9591a..e7c540f 100644
---- a/fs/ext4/xattr.h
-+++ b/fs/ext4/xattr.h
-@@ -161,6 +161,11 @@ extern int ext4_da_write_inline_data_begin(struct address_space *mapping,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/xattr.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+@@ -161,6 +161,11 @@ extern int ext4_da_write_inline_data_beg
  extern int ext4_da_write_inline_data_end(struct inode *inode, loff_t pos,
  					 unsigned len, unsigned copied,
  					 struct page *page);
@@ -364,7 +364,7 @@ index 3f9591a..e7c540f 100644
  # else  /* CONFIG_EXT4_FS_XATTR */
  
  static inline int
-@@ -324,6 +329,20 @@ static inline int ext4_da_write_inline_data_end(struct inode *inode, loff_t pos,
+@@ -324,6 +329,20 @@ static inline int ext4_da_write_inline_d
  {
  	return 0;
  }

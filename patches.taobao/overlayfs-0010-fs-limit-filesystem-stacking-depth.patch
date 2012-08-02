@@ -23,11 +23,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  include/linux/fs.h   |   11 +++++++++++
  3 files changed, 28 insertions(+), 0 deletions(-)
 
-Index: linux-2.6.32-220.13.1.el5/fs/ecryptfs/main.c
+Index: linux-2.6.32-279.2.1.el5/fs/ecryptfs/main.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/fs/ecryptfs/main.c	2012-05-07 17:13:51.084413138 +0800
-+++ linux-2.6.32-220.13.1.el5/fs/ecryptfs/main.c	2012-05-07 17:15:16.792838139 +0800
-@@ -578,6 +578,14 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ecryptfs/main.c
++++ linux-2.6.32-279.2.1.el5/fs/ecryptfs/main.c
+@@ -578,6 +578,14 @@ static int ecryptfs_read_super(struct su
  	ecryptfs_set_superblock_lower(sb, path.dentry->d_sb);
  	sb->s_maxbytes = path.dentry->d_sb->s_maxbytes;
  	sb->s_blocksize = path.dentry->d_sb->s_blocksize;
@@ -42,11 +42,11 @@ Index: linux-2.6.32-220.13.1.el5/fs/ecryptfs/main.c
  	ecryptfs_set_dentry_lower(sb->s_root, path.dentry);
  	ecryptfs_set_dentry_lower_mnt(sb->s_root, path.mnt);
  	rc = ecryptfs_interpose(path.dentry, sb->s_root, sb, 0);
-Index: linux-2.6.32-220.13.1.el5/fs/overlayfs/super.c
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/super.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/fs/overlayfs/super.c	2012-05-07 17:15:15.104829820 +0800
-+++ linux-2.6.32-220.13.1.el5/fs/overlayfs/super.c	2012-05-07 17:15:16.792838139 +0800
-@@ -553,6 +553,15 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/overlayfs/super.c
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/super.c
+@@ -553,6 +553,15 @@ static int ovl_fill_super(struct super_b
  	    !S_ISDIR(lowerpath.dentry->d_inode->i_mode))
  		goto out_put_lowerpath;
  
@@ -62,11 +62,11 @@ Index: linux-2.6.32-220.13.1.el5/fs/overlayfs/super.c
  	ufs->upper_mnt = clone_private_mount(&upperpath);
  	err = PTR_ERR(ufs->upper_mnt);
  	if (IS_ERR(ufs->upper_mnt)) {
-Index: linux-2.6.32-220.13.1.el5/include/linux/fs.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/fs.h
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/include/linux/fs.h	2012-05-07 17:15:02.996769724 +0800
-+++ linux-2.6.32-220.13.1.el5/include/linux/fs.h	2012-05-07 17:15:16.792838139 +0800
-@@ -494,6 +494,12 @@
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/fs.h
++++ linux-2.6.32-279.2.1.el5/include/linux/fs.h
+@@ -499,6 +499,12 @@ struct iattr {
   */
  #include <linux/quota.h>
  
@@ -79,7 +79,7 @@ Index: linux-2.6.32-220.13.1.el5/include/linux/fs.h
  /** 
   * enum positive_aop_returns - aop return codes with specific semantics
   *
-@@ -1447,6 +1453,11 @@
+@@ -1452,6 +1458,11 @@ struct super_block {
  	 * generic_show_options()
  	 */
  	char *s_options;

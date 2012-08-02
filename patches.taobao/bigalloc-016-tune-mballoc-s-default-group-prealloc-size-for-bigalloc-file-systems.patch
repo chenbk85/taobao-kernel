@@ -12,10 +12,10 @@ that it is 2 megabytes or 32 clusters, whichever is larger.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index a1ab980..d5553c2 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/mballoc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
 @@ -125,7 +125,8 @@
   * list. In case of inode preallocation we follow a list of heuristics
   * based on file size. This can be found in ext4_mb_normalize_request. If
@@ -26,7 +26,7 @@ index a1ab980..d5553c2 100644
   * 512 blocks. This can be tuned via
   * /sys/fs/ext4/<partition/mb_group_prealloc. The value is represented in
   * terms of number of blocks. If we have mounted the file system with -O
-@@ -2466,7 +2467,20 @@ int ext4_mb_init(struct super_block *sb, int needs_recovery)
+@@ -2466,7 +2467,20 @@ int ext4_mb_init(struct super_block *sb,
  	sbi->s_mb_stats = MB_DEFAULT_STATS;
  	sbi->s_mb_stream_request = MB_DEFAULT_STREAM_THRESHOLD;
  	sbi->s_mb_order2_reqs = MB_DEFAULT_ORDER2_REQS;

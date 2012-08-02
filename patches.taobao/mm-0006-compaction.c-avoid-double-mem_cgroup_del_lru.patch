@@ -22,11 +22,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  mm/compaction.c |    1 -
  1 files changed, 0 insertions(+), 1 deletions(-)
 
-Index: linux-2.6.32-220.13.1.el5/mm/compaction.c
+Index: linux-2.6.32-279.2.1.el5/mm/compaction.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/mm/compaction.c	2012-04-19 17:27:22.339213533 +0800
-+++ linux-2.6.32-220.13.1.el5/mm/compaction.c	2012-04-19 17:27:29.011246623 +0800
-@@ -382,7 +382,6 @@
+--- linux-2.6.32-279.2.1.el5.orig/mm/compaction.c
++++ linux-2.6.32-279.2.1.el5/mm/compaction.c
+@@ -382,7 +382,6 @@ static isolate_migrate_t isolate_migrate
  		/* Successfully isolated */
  		del_page_from_lru_list(zone, page, page_lru(page));
  		list_add(&page->lru, migratelist);

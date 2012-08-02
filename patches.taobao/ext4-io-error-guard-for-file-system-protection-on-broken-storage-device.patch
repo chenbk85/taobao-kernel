@@ -61,11 +61,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  include/linux/fs.h |   16 +++++++++++++
  6 files changed, 169 insertions(+)
 
-Index: linux-2.6.32-220.13.1.el5/block/genhd.c
+Index: linux-2.6.32-279.2.1.el5/block/genhd.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/block/genhd.c	2012-04-19 17:24:49.286454584 +0800
-+++ linux-2.6.32-220.13.1.el5/block/genhd.c	2012-04-19 17:26:39.138999308 +0800
-@@ -903,6 +903,13 @@
+--- linux-2.6.32-279.2.1.el5.orig/block/genhd.c
++++ linux-2.6.32-279.2.1.el5/block/genhd.c
+@@ -909,6 +909,13 @@ static ssize_t disk_discard_alignment_sh
  	return sprintf(buf, "%d\n", queue_discard_alignment(disk->queue));
  }
  
@@ -79,7 +79,7 @@ Index: linux-2.6.32-220.13.1.el5/block/genhd.c
  static DEVICE_ATTR(range, S_IRUGO, disk_range_show, NULL);
  static DEVICE_ATTR(ext_range, S_IRUGO, disk_ext_range_show, NULL);
  static DEVICE_ATTR(removable, S_IRUGO, disk_removable_show, NULL);
-@@ -923,6 +930,10 @@
+@@ -929,6 +936,10 @@ static struct device_attribute dev_attr_
  	__ATTR(io-timeout-fail,  S_IRUGO|S_IWUSR, part_timeout_show,
  		part_timeout_store);
  #endif
@@ -90,7 +90,7 @@ Index: linux-2.6.32-220.13.1.el5/block/genhd.c
  
  static struct attribute *disk_attrs[] = {
  	&dev_attr_range.attr,
-@@ -944,15 +955,66 @@
+@@ -950,15 +961,66 @@ static struct attribute *disk_attrs[] = 
  	NULL
  };
  
@@ -157,10 +157,10 @@ Index: linux-2.6.32-220.13.1.el5/block/genhd.c
  static void disk_free_ptbl_rcu_cb(struct rcu_head *head)
  {
  	struct disk_part_tbl *ptbl =
-Index: linux-2.6.32-220.13.1.el5/fs/bio.c
+Index: linux-2.6.32-279.2.1.el5/fs/bio.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/fs/bio.c	2012-04-19 17:24:49.314454732 +0800
-+++ linux-2.6.32-220.13.1.el5/fs/bio.c	2012-04-19 17:26:39.138999308 +0800
+--- linux-2.6.32-279.2.1.el5.orig/fs/bio.c
++++ linux-2.6.32-279.2.1.el5/fs/bio.c
 @@ -26,7 +26,6 @@
  #include <linux/mempool.h>
  #include <linux/workqueue.h>
@@ -169,7 +169,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/bio.c
  #include <trace/events/block.h>
  
  /*
-@@ -1408,6 +1407,55 @@
+@@ -1408,6 +1407,55 @@ void bio_check_pages_dirty(struct bio *b
  	}
  }
  
@@ -225,7 +225,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/bio.c
  /**
   * bio_endio - end I/O on a bio
   * @bio:	bio
-@@ -1429,6 +1477,11 @@
+@@ -1429,6 +1477,11 @@ void bio_endio(struct bio *bio, int erro
  	else if (!test_bit(BIO_UPTODATE, &bio->bi_flags))
  		error = -EIO;
  
@@ -237,10 +237,10 @@ Index: linux-2.6.32-220.13.1.el5/fs/bio.c
  	if (bio->bi_end_io)
  		bio->bi_end_io(bio, error);
  }
-Index: linux-2.6.32-220.13.1.el5/fs/block_dev.c
+Index: linux-2.6.32-279.2.1.el5/fs/block_dev.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/fs/block_dev.c	2012-04-19 17:24:49.318454746 +0800
-+++ linux-2.6.32-220.13.1.el5/fs/block_dev.c	2012-04-19 17:26:39.138999308 +0800
+--- linux-2.6.32-279.2.1.el5.orig/fs/block_dev.c
++++ linux-2.6.32-279.2.1.el5/fs/block_dev.c
 @@ -29,6 +29,9 @@
  #include <asm/uaccess.h>
  #include "internal.h"
@@ -251,7 +251,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/block_dev.c
  struct bdev_inode {
  	struct block_device bdev;
  	struct inode vfs_inode;
-@@ -453,6 +456,7 @@
+@@ -455,6 +458,7 @@ static void init_once(void *foo)
  {
  	struct bdev_inode *ei = (struct bdev_inode *) foo;
  	struct block_device *bdev = &ei->bdev;
@@ -259,7 +259,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/block_dev.c
  
  	memset(bdev, 0, sizeof(*bdev));
  	mutex_init(&bdev->bd_mutex);
-@@ -461,6 +465,8 @@
+@@ -463,6 +467,8 @@ static void init_once(void *foo)
  #ifdef CONFIG_SYSFS
  	INIT_LIST_HEAD(&bdev->bd_holder_list);
  #endif
@@ -268,7 +268,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/block_dev.c
  	inode_init_once(&ei->vfs_inode);
  	/* Initialize mutex for freeze. */
  	mutex_init(&bdev->bd_fsfreeze_mutex);
-@@ -557,6 +563,7 @@
+@@ -559,6 +565,7 @@ struct block_device *bdget(dev_t dev)
  {
  	struct block_device *bdev;
  	struct inode *inode;
@@ -276,7 +276,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/block_dev.c
  
  	inode = iget5_locked(blockdev_superblock, hash(dev),
  			bdev_test, bdev_set, &dev);
-@@ -565,6 +572,7 @@
+@@ -567,6 +574,7 @@ struct block_device *bdget(dev_t dev)
  		return NULL;
  
  	bdev = &BDEV_I(inode)->bdev;
@@ -284,7 +284,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/block_dev.c
  
  	if (inode->i_state & I_NEW) {
  		bdev->bd_contains = NULL;
-@@ -581,6 +589,9 @@
+@@ -583,6 +591,9 @@ struct block_device *bdget(dev_t dev)
  		spin_lock(&bdev_lock);
  		list_add(&bdev->bd_list, &all_bdevs);
  		spin_unlock(&bdev_lock);
@@ -294,7 +294,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/block_dev.c
  		unlock_new_inode(inode);
  	}
  	return bdev;
-@@ -1380,6 +1391,11 @@
+@@ -1384,6 +1395,11 @@ static int __blkdev_put(struct block_dev
  	}
  	if (!bdev->bd_openers) {
  		struct module *owner = disk->fops->owner;
@@ -304,27 +304,27 @@ Index: linux-2.6.32-220.13.1.el5/fs/block_dev.c
 +				WARN_ON(!list_empty(&eio->head));
 +		}
  
- 		put_disk(disk);
- 		module_put(owner);
-Index: linux-2.6.32-220.13.1.el5/fs/ext4/ext4.h
+ 		disk_put_part(bdev->bd_part);
+ 		bdev->bd_part = NULL;
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/fs/ext4/ext4.h	2012-04-19 17:26:24.754927991 +0800
-+++ linux-2.6.32-220.13.1.el5/fs/ext4/ext4.h	2012-04-19 17:26:39.138999308 +0800
-@@ -1141,6 +1141,9 @@
- 	struct ext4_li_request *s_li_request;
- 	/* Wait multiplier for lazy initialization thread */
- 	unsigned int s_li_wait_mult;
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1143,6 +1143,9 @@ struct ext4_sb_info {
+ 
+ 	/* record the last minlen when FITRIM is called. */
+ 	atomic_t s_last_trim_minblks;
 +
 +	/* IO error handler when counter reach threshold */
 +	struct eio_handler s_eio_handler;
  };
  
  static inline struct ext4_sb_info *EXT4_SB(struct super_block *sb)
-Index: linux-2.6.32-220.13.1.el5/fs/ext4/super.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/fs/ext4/super.c	2012-04-19 17:26:37.482991123 +0800
-+++ linux-2.6.32-220.13.1.el5/fs/ext4/super.c	2012-04-19 17:26:39.142999343 +0800
-@@ -344,6 +344,26 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/super.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/super.c
+@@ -344,6 +344,26 @@ static void ext4_handle_error(struct sup
  			sb->s_id);
  }
  
@@ -351,7 +351,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/ext4/super.c
  void __ext4_error(struct super_block *sb, const char *function,
  		const char *fmt, ...)
  {
-@@ -636,6 +656,18 @@
+@@ -636,6 +656,18 @@ static void dump_orphan_list(struct supe
  	}
  }
  
@@ -370,7 +370,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/ext4/super.c
  static void ext4_put_super(struct super_block *sb)
  {
  	struct ext4_sb_info *sbi = EXT4_SB(sb);
-@@ -652,6 +684,9 @@
+@@ -652,6 +684,9 @@ static void ext4_put_super(struct super_
  	if (sb->s_dirt)
  		ext4_commit_super(sb, 1);
  
@@ -380,7 +380,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/ext4/super.c
  	if (sbi->s_journal) {
  		err = jbd2_journal_destroy(sbi->s_journal);
  		sbi->s_journal = NULL;
-@@ -2807,6 +2842,34 @@
+@@ -2807,6 +2842,34 @@ static void ext4_destroy_lazyinit_thread
  	kthread_stop(ext4_lazyinit_task);
  }
  
@@ -415,7 +415,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/ext4/super.c
  static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  				__releases(kernel_lock)
  				__acquires(kernel_lock)
-@@ -3444,6 +3507,17 @@
+@@ -3444,6 +3507,17 @@ no_journal:
  		 "Opts: %s%s", descr, sbi->s_es->s_mount_opts,
  		 *sbi->s_es->s_mount_opts ? "; " : "");
  
@@ -433,11 +433,11 @@ Index: linux-2.6.32-220.13.1.el5/fs/ext4/super.c
  	lock_kernel();
  	return 0;
  
-Index: linux-2.6.32-220.13.1.el5/include/linux/fs.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/fs.h
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/include/linux/fs.h	2012-04-19 17:24:49.274454525 +0800
-+++ linux-2.6.32-220.13.1.el5/include/linux/fs.h	2012-04-19 17:26:39.142999343 +0800
-@@ -681,6 +681,21 @@
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/fs.h
++++ linux-2.6.32-279.2.1.el5/include/linux/fs.h
+@@ -686,6 +686,21 @@ struct address_space {
  	 * of struct page's "mapping" pointer be used for PAGE_MAPPING_ANON.
  	 */
  
@@ -459,7 +459,7 @@ Index: linux-2.6.32-220.13.1.el5/include/linux/fs.h
  struct block_device {
  	dev_t			bd_dev;  /* not a kdev_t - it's a search key */
  	struct inode *		bd_inode;	/* will die */
-@@ -712,6 +727,8 @@
+@@ -717,6 +732,8 @@ struct block_device {
  	int			bd_fsfreeze_count;
  	/* Mutex for freeze */
  	struct mutex		bd_fsfreeze_mutex;

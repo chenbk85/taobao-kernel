@@ -11,11 +11,11 @@ ext4_init_dot_dotdot which only accepts a 'de'.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 0fdd221..2cd014c 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -2040,6 +2040,8 @@ extern loff_t ext4_llseek(struct file *file, loff_t offset, int origin);
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -2054,6 +2054,8 @@ extern loff_t ext4_llseek(struct file *f
  extern const struct inode_operations ext4_dir_inode_operations;
  extern const struct inode_operations ext4_special_inode_operations;
  extern struct dentry *ext4_get_parent(struct dentry *child);
@@ -24,11 +24,11 @@ index 0fdd221..2cd014c 100644
  
  /* symlink.c */
  extern const struct inode_operations ext4_symlink_inode_operations;
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 9235252..4856746 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -1796,13 +1796,54 @@ retry:
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/namei.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+@@ -1808,13 +1808,54 @@ retry:
  	return err;
  }
  
@@ -86,7 +86,7 @@ index 9235252..4856746 100644
  	int err, retries = 0;
  
  	if (EXT4_DIR_LINK_MAX(dir))
-@@ -1826,30 +1867,9 @@ retry:
+@@ -1838,30 +1879,9 @@ retry:
  
  	inode->i_op = &ext4_dir_inode_operations;
  	inode->i_fop = &ext4_dir_operations;
@@ -114,7 +114,7 @@ index 9235252..4856746 100644
 -	ext4_set_de_type(dir->i_sb, de, S_IFDIR);
 -	inode->i_nlink = 2;
 -	BUFFER_TRACE(dir_block, "call ext4_handle_dirty_metadata");
--	ext4_handle_dirty_metadata(handle, dir, dir_block);
+-	ext4_handle_dirty_metadata(handle, inode, dir_block);
 -	brelse(dir_block);
  	ext4_mark_inode_dirty(handle, inode);
  	err = ext4_add_entry(handle, dentry, inode);

@@ -76,10 +76,10 @@ Signed-off-by: Miklos Szeredi <mszeredi@suse.cz>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-diff --git a/fs/Kconfig b/fs/Kconfig
-index c6c90b4..cd55bd5 100644
---- a/fs/Kconfig
-+++ b/fs/Kconfig
+Index: linux-2.6.32-279.2.1.el5/fs/Kconfig
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/Kconfig
++++ linux-2.6.32-279.2.1.el5/fs/Kconfig
 @@ -62,6 +62,7 @@ source "fs/quota/Kconfig"
  source "fs/autofs/Kconfig"
  source "fs/autofs4/Kconfig"
@@ -88,10 +88,10 @@ index c6c90b4..cd55bd5 100644
  
  config CUSE
  	tristate "Character device in Userpace support"
-diff --git a/fs/Makefile b/fs/Makefile
-index 87f21fa..a73c4cf 100644
---- a/fs/Makefile
-+++ b/fs/Makefile
+Index: linux-2.6.32-279.2.1.el5/fs/Makefile
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/Makefile
++++ linux-2.6.32-279.2.1.el5/fs/Makefile
 @@ -104,6 +104,7 @@ obj-$(CONFIG_AUTOFS_FS)		+= autofs/
  obj-$(CONFIG_AUTOFS4_FS)	+= autofs4/
  obj-$(CONFIG_ADFS_FS)		+= adfs/
@@ -100,22 +100,20 @@ index 87f21fa..a73c4cf 100644
  obj-$(CONFIG_UDF_FS)		+= udf/
  obj-$(CONFIG_SUN_OPENPROMFS)	+= openpromfs/
  obj-$(CONFIG_OMFS_FS)		+= omfs/
-diff --git a/fs/overlayfs/Kconfig b/fs/overlayfs/Kconfig
-new file mode 100644
-index 0000000..6e5bc08
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/Kconfig
+===================================================================
 --- /dev/null
-+++ b/fs/overlayfs/Kconfig
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/Kconfig
 @@ -0,0 +1,5 @@
 +config OVERLAYFS_FS
 +	tristate "Overlay filesystem support"
 +	default m
 +	help
 +	  Add support for overlay filesystem.
-diff --git a/fs/overlayfs/Makefile b/fs/overlayfs/Makefile
-new file mode 100644
-index 0000000..8f91889
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/Makefile
+===================================================================
 --- /dev/null
-+++ b/fs/overlayfs/Makefile
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/Makefile
 @@ -0,0 +1,7 @@
 +#
 +# Makefile for the overlay filesystem.
@@ -124,11 +122,10 @@ index 0000000..8f91889
 +obj-$(CONFIG_OVERLAYFS_FS) += overlayfs.o
 +
 +overlayfs-objs := super.o inode.o dir.o readdir.o copy_up.o
-diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-new file mode 100644
-index 0000000..398fa1c
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/copy_up.c
+===================================================================
 --- /dev/null
-+++ b/fs/overlayfs/copy_up.c
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/copy_up.c
 @@ -0,0 +1,384 @@
 +/*
 + *
@@ -514,11 +511,10 @@ index 0000000..398fa1c
 +	dput(parent);
 +	return err;
 +}
-diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-new file mode 100644
-index 0000000..8434d4e
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/dir.c
+===================================================================
 --- /dev/null
-+++ b/fs/overlayfs/dir.c
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/dir.c
 @@ -0,0 +1,596 @@
 +/*
 + *
@@ -1116,11 +1112,10 @@ index 0000000..8434d4e
 +	.listxattr	= ovl_listxattr,
 +	.removexattr	= ovl_removexattr,
 +};
-diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
-new file mode 100644
-index 0000000..8ffdcab
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/inode.c
+===================================================================
 --- /dev/null
-+++ b/fs/overlayfs/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/inode.c
 @@ -0,0 +1,380 @@
 +/*
 + *
@@ -1502,11 +1497,10 @@ index 0000000..8ffdcab
 +	return inode;
 +
 +}
-diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-new file mode 100644
-index 0000000..1dd05f7
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/overlayfs.h
+===================================================================
 --- /dev/null
-+++ b/fs/overlayfs/overlayfs.h
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/overlayfs.h
 @@ -0,0 +1,64 @@
 +/*
 + *
@@ -1572,11 +1566,10 @@ index 0000000..1dd05f7
 +/* copy_up.c */
 +int ovl_copy_up(struct dentry *dentry);
 +int ovl_copy_up_truncate(struct dentry *dentry, loff_t size);
-diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-new file mode 100644
-index 0000000..8c1259c
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/readdir.c
+===================================================================
 --- /dev/null
-+++ b/fs/overlayfs/readdir.c
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/readdir.c
 @@ -0,0 +1,564 @@
 +/*
 + *
@@ -2142,11 +2135,10 @@ index 0000000..8c1259c
 +
 +	return err;
 +}
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-new file mode 100644
-index 0000000..71cd541
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/super.c
+===================================================================
 --- /dev/null
-+++ b/fs/overlayfs/super.c
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/super.c
 @@ -0,0 +1,612 @@
 +/*
 + *

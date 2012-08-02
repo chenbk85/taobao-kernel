@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
+Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
-@@ -105,6 +105,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/netconsole.c
++++ linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
+@@ -105,6 +105,7 @@ struct netconsole_target {
  #endif
  	int			np_state;
  	struct netpoll		np;
@@ -18,7 +18,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  };
  
  #ifdef	CONFIG_NETCONSOLE_DYNAMIC
-@@ -165,6 +166,22 @@
+@@ -165,6 +166,22 @@ static void netconsole_target_put(struct
  
  #endif	/* CONFIG_NETCONSOLE_DYNAMIC */
  
@@ -41,7 +41,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  /* Allocate new target (from boot/module param) and setup netpoll for it */
  static struct netconsole_target *alloc_param_target(char *target_config)
  {
-@@ -186,6 +203,7 @@
+@@ -186,6 +203,7 @@ static struct netconsole_target *alloc_p
  	nt->np.local_port = 6665;
  	nt->np.remote_port = 6666;
  	memset(nt->np.remote_mac, 0xff, ETH_ALEN);
@@ -49,7 +49,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  	/* Parse parameters and setup netpoll */
  	err = netpoll_parse_options(&nt->np, target_config);
-@@ -208,7 +226,9 @@
+@@ -208,7 +226,9 @@ fail:
  /* Cleanup netpoll for given target (from boot/module param) and free it */
  static void free_param_target(struct netconsole_target *nt)
  {
@@ -60,7 +60,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	kfree(nt);
  }
  
-@@ -349,6 +369,13 @@
+@@ -349,6 +369,13 @@ static ssize_t store_enabled(struct netc
  			goto busy;
  		else {
  			nt->np_state = NETPOLL_SETTINGUP;
@@ -74,7 +74,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  			spin_unlock_irqrestore(&target_list_lock, flags);
  		}
  
-@@ -634,6 +661,7 @@
+@@ -634,6 +661,7 @@ static struct config_item *make_netconso
  	nt->np.local_port = 6665;
  	nt->np.remote_port = 6666;
  	memset(nt->np.remote_mac, 0xff, ETH_ALEN);
@@ -82,7 +82,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  	/* Initialize the config_item member */
  	config_item_init_type_name(&nt->item, name, &netconsole_target_type);
-@@ -657,10 +685,16 @@
+@@ -657,10 +685,16 @@ static void drop_netconsole_target(struc
  	spin_unlock_irqrestore(&target_list_lock, flags);
  
  	/*
@@ -102,7 +102,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		netpoll_cleanup(&nt->np);
  
  	config_item_put(&nt->item);
-@@ -688,6 +722,19 @@
+@@ -688,6 +722,19 @@ static struct configfs_subsystem netcons
  
  #endif	/* CONFIG_NETCONSOLE_DYNAMIC */
  
@@ -122,7 +122,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  /* Handle network interface device notifications */
  static int netconsole_netdev_event(struct notifier_block *this,
  				   unsigned long event,
-@@ -714,7 +761,11 @@
+@@ -714,7 +761,11 @@ static int netconsole_netdev_event(struc
  			case NETDEV_RELEASE:
  			case NETDEV_JOIN:
  			case NETDEV_UNREGISTER:

@@ -9,10 +9,10 @@ unwritten extent.
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 Acked-by: 
 
-Index: linux-2.6.32-220.13.1.el5/fs/open.c
+Index: linux-2.6.32-279.2.1.el5/fs/open.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/fs/open.c
-+++ linux-2.6.32-220.13.1.el5/fs/open.c
+--- linux-2.6.32-279.2.1.el5.orig/fs/open.c
++++ linux-2.6.32-279.2.1.el5/fs/open.c
 @@ -227,7 +227,8 @@ int do_fallocate(struct file *file, int 
  		return -EINVAL;
  
@@ -23,10 +23,10 @@ Index: linux-2.6.32-220.13.1.el5/fs/open.c
  		return -EOPNOTSUPP;
  
  	if (!(file->f_mode & FMODE_WRITE))
-Index: linux-2.6.32-220.13.1.el5/include/linux/falloc.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/falloc.h
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/include/linux/falloc.h
-+++ linux-2.6.32-220.13.1.el5/include/linux/falloc.h
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/falloc.h
++++ linux-2.6.32-279.2.1.el5/include/linux/falloc.h
 @@ -3,6 +3,11 @@
  
  #define FALLOC_FL_KEEP_SIZE	0x01 /* default is extend size */

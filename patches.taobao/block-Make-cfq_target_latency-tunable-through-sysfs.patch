@@ -26,11 +26,11 @@ Acked-by:
  block/cfq-iosched.c |   10 ++++++++--
  1 files changed, 8 insertions(+), 2 deletions(-)
 
-Index: linux-2.6.32-220.13.1.el5/block/cfq-iosched.c
+Index: linux-2.6.32-279.2.1.el5/block/cfq-iosched.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/block/cfq-iosched.c	2012-04-19 17:30:18.052084867 +0800
-+++ linux-2.6.32-220.13.1.el5/block/cfq-iosched.c	2012-04-19 17:30:18.944089270 +0800
-@@ -287,6 +287,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/block/cfq-iosched.c
++++ linux-2.6.32-279.2.1.el5/block/cfq-iosched.c
+@@ -287,6 +287,7 @@ struct cfq_data {
  	unsigned int cfq_group_idle;
  	unsigned int cfq_latency;
  	unsigned int cfq_group_isolation;
@@ -38,7 +38,7 @@ Index: linux-2.6.32-220.13.1.el5/block/cfq-iosched.c
  
  	struct list_head cic_list;
  
-@@ -584,7 +585,7 @@
+@@ -584,7 +585,7 @@ cfq_group_slice(struct cfq_data *cfqd, s
  {
  	struct cfq_rb_root *st = &cfqd->grp_service_tree;
  
@@ -47,7 +47,7 @@ Index: linux-2.6.32-220.13.1.el5/block/cfq-iosched.c
  }
  
  static inline void
-@@ -2298,7 +2299,8 @@
+@@ -2298,7 +2299,8 @@ static void choose_service_tree(struct c
  		 * to have higher weight. A more accurate thing would be to
  		 * calculate system wide asnc/sync ratio.
  		 */
@@ -57,7 +57,7 @@ Index: linux-2.6.32-220.13.1.el5/block/cfq-iosched.c
  		tmp = tmp/cfqd->busy_queues;
  		slice = min_t(unsigned, slice, tmp);
  
-@@ -4090,6 +4092,7 @@
+@@ -4090,6 +4092,7 @@ static void *cfq_init_queue(struct reque
  	cfqd->cfq_back_penalty = cfq_back_penalty;
  	cfqd->cfq_slice[0] = cfq_slice_async;
  	cfqd->cfq_slice[1] = cfq_slice_sync;
@@ -65,7 +65,7 @@ Index: linux-2.6.32-220.13.1.el5/block/cfq-iosched.c
  	cfqd->cfq_slice_async_rq = cfq_slice_async_rq;
  	cfqd->cfq_slice_idle = cfq_slice_idle;
  	cfqd->cfq_group_idle = cfq_group_idle;
-@@ -4173,6 +4176,7 @@
+@@ -4173,6 +4176,7 @@ SHOW_FUNCTION(cfq_slice_async_show, cfqd
  SHOW_FUNCTION(cfq_slice_async_rq_show, cfqd->cfq_slice_async_rq, 0);
  SHOW_FUNCTION(cfq_low_latency_show, cfqd->cfq_latency, 0);
  SHOW_FUNCTION(cfq_group_isolation_show, cfqd->cfq_group_isolation, 0);
@@ -73,7 +73,7 @@ Index: linux-2.6.32-220.13.1.el5/block/cfq-iosched.c
  #undef SHOW_FUNCTION
  
  #define STORE_FUNCTION(__FUNC, __PTR, MIN, MAX, __CONV)			\
-@@ -4209,6 +4213,7 @@
+@@ -4209,6 +4213,7 @@ STORE_FUNCTION(cfq_slice_async_rq_store,
  		UINT_MAX, 0);
  STORE_FUNCTION(cfq_low_latency_store, &cfqd->cfq_latency, 0, 1, 0);
  STORE_FUNCTION(cfq_group_isolation_store, &cfqd->cfq_group_isolation, 0, 1, 0);
@@ -81,7 +81,7 @@ Index: linux-2.6.32-220.13.1.el5/block/cfq-iosched.c
  #undef STORE_FUNCTION
  
  #define CFQ_ATTR(name) \
-@@ -4229,6 +4234,7 @@
+@@ -4229,6 +4234,7 @@ static struct elv_fs_entry cfq_attrs[] =
  	CFQ_ATTR(group_idle),
  	CFQ_ATTR(low_latency),
  	CFQ_ATTR(group_isolation),

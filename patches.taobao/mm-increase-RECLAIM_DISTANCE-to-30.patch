@@ -77,10 +77,10 @@ Signed-off-by: Zhu Yanhai <gaoyang.zyh@taobao.com>
  include/linux/topology.h |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: linux-2.6.32-131.12.1.el5/include/linux/topology.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/topology.h
 ===================================================================
---- linux-2.6.32-131.12.1.el5.orig/include/linux/topology.h
-+++ linux-2.6.32-131.12.1.el5/include/linux/topology.h
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/topology.h
++++ linux-2.6.32-279.2.1.el5/include/linux/topology.h
 @@ -59,7 +59,7 @@ int arch_update_cpu_topology(void);
   * (in whatever arch specific measurement units returned by node_distance())
   * then switch on zone reclaim on boot.

@@ -12,11 +12,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  fs/splice.c |    1 +
  1 files changed, 1 insertions(+), 0 deletions(-)
 
-Index: linux-2.6.32-220.13.1.el5/fs/splice.c
+Index: linux-2.6.32-279.2.1.el5/fs/splice.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/fs/splice.c	2012-05-07 17:14:05.772485975 +0800
-+++ linux-2.6.32-220.13.1.el5/fs/splice.c	2012-05-07 17:15:06.708786797 +0800
-@@ -1275,6 +1275,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/splice.c
++++ linux-2.6.32-279.2.1.el5/fs/splice.c
+@@ -1275,6 +1275,7 @@ long do_splice_direct(struct file *in, l
  
  	return ret;
  }

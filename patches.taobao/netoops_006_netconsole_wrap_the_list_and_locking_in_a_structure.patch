@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
+Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
-@@ -64,11 +64,14 @@
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/netconsole.c
++++ linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
+@@ -64,11 +64,14 @@ static int __init option_setup(char *opt
  __setup("netconsole=", option_setup);
  #endif	/* MODULE */
  
@@ -30,7 +30,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  #define NETPOLL_DISABLED	0
  #define NETPOLL_SETTINGUP	1
-@@ -77,7 +80,7 @@
+@@ -77,7 +80,7 @@ static DEFINE_SPINLOCK(target_list_lock)
  
  /**
   * struct netconsole_target - Represents a configured netconsole target.
@@ -39,7 +39,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
   * @item:	Links us into the configfs subsystem hierarchy.
   * @np_state:	Enabled / Disabled / SettingUp / Cleaning
   *		Visible from userspace (read-write) as "enabled".
-@@ -174,10 +177,10 @@
+@@ -174,10 +177,10 @@ static void deferred_netpoll_cleanup(str
  	nt = container_of(work, struct netconsole_target, cleanup_work);
  	netpoll_cleanup(&nt->np);
  
@@ -52,7 +52,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  	netconsole_target_put(nt);
  }
-@@ -364,7 +367,7 @@
+@@ -364,7 +367,7 @@ static ssize_t store_enabled(struct netc
  		return enabled;
  
  	if (enabled) {	/* 1 */
@@ -61,7 +61,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		if (nt->np_state != NETPOLL_DISABLED)
  			goto busy;
  		else {
-@@ -376,7 +379,7 @@
+@@ -376,7 +379,7 @@ static ssize_t store_enabled(struct netc
  			 * because there is a reference implicitly held by the
  			 * caller of the store operation.
  			 */
@@ -70,7 +70,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		}
  
  		/*
-@@ -386,34 +389,34 @@
+@@ -386,34 +389,34 @@ static ssize_t store_enabled(struct netc
  		netpoll_print_options(&nt->np);
  
  		err = netpoll_setup(&nt->np);
@@ -112,7 +112,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	return -EBUSY;
  }
  
-@@ -530,16 +533,16 @@
+@@ -530,16 +533,16 @@ static ssize_t store_locked_##_name(stru
  {									\
  	unsigned long flags;						\
  	ssize_t ret;							\
@@ -132,7 +132,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	return ret;							\
  }
  
-@@ -548,9 +551,9 @@
+@@ -548,9 +551,9 @@ static ssize_t show_locked_##_name(struc
  {									\
  	unsigned long flags;						\
  	ssize_t ret;							\
@@ -144,7 +144,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	return ret;							\
  }
  
-@@ -667,9 +670,9 @@
+@@ -667,9 +670,9 @@ static struct config_item *make_netconso
  	config_item_init_type_name(&nt->item, name, &netconsole_target_type);
  
  	/* Adding, but it is disabled */
@@ -157,7 +157,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  	return &nt->item;
  }
-@@ -680,9 +683,9 @@
+@@ -680,9 +683,9 @@ static void drop_netconsole_target(struc
  	unsigned long flags;
  	struct netconsole_target *nt = to_target(item);
  
@@ -169,7 +169,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  	/*
  	 * The target may have never been disabled, or was disabled due
-@@ -697,7 +700,7 @@
+@@ -697,7 +700,7 @@ static void drop_netconsole_target(struc
  	if (nt->np_state == NETPOLL_ENABLED || nt->np_state == NETPOLL_CLEANING)
  		netpoll_cleanup(&nt->np);
  
@@ -178,7 +178,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  }
  
  static struct configfs_group_operations netconsole_subsys_group_ops = {
-@@ -724,7 +727,7 @@
+@@ -724,7 +727,7 @@ static struct configfs_subsystem netcons
  
  /*
   * Call netpoll_cleanup on this target asynchronously.
@@ -187,7 +187,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
   */
  static void defer_netpoll_cleanup(struct netconsole_target *nt)
  {
-@@ -750,8 +753,8 @@
+@@ -750,8 +753,8 @@ static int netconsole_netdev_event(struc
  	      event == NETDEV_BONDING_DESLAVE))
  		goto done;
  
@@ -198,7 +198,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		if (nt->np.dev == dev && nt->np_state == NETPOLL_ENABLED) {
  			switch (event) {
  			case NETDEV_CHANGENAME:
-@@ -773,7 +776,7 @@
+@@ -773,7 +776,7 @@ static int netconsole_netdev_event(struc
  			}
  		}
  	}
@@ -207,7 +207,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	if (stopped) {
  		printk(KERN_INFO "netconsole: network logging stopped on "
  		       "interface %s as it ", dev->name);
-@@ -806,11 +809,11 @@
+@@ -806,11 +809,11 @@ static void write_msg(struct console *co
  	const char *tmp;
  
  	/* Avoid taking lock and disabling interrupts unnecessarily */
@@ -222,7 +222,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		if (nt->np_state == NETPOLL_ENABLED
  		    && netif_running(nt->np.dev)) {
  			/*
-@@ -828,7 +831,7 @@
+@@ -828,7 +831,7 @@ static void write_msg(struct console *co
  			}
  		}
  	}
@@ -231,7 +231,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  }
  
  static struct console netconsole = {
-@@ -855,9 +858,9 @@
+@@ -855,9 +858,9 @@ static int __init init_netconsole(void)
  			/* Dump existing printks when we register */
  			netconsole.flags |= CON_PRINTBUFFER;
  
@@ -244,7 +244,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		}
  	}
  
-@@ -885,7 +888,7 @@
+@@ -885,7 +888,7 @@ fail:
  	 * from the boot/module option exist here). Skipping the list
  	 * lock is safe here, and netpoll_cleanup() will sleep.
  	 */
@@ -253,7 +253,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		list_del(&nt->list);
  		free_param_target(nt);
  	}
-@@ -909,7 +912,7 @@
+@@ -909,7 +912,7 @@ static void __exit cleanup_netconsole(vo
  	 * destroy them. Skipping the list lock is safe here, and
  	 * netpoll_cleanup() will sleep.
  	 */

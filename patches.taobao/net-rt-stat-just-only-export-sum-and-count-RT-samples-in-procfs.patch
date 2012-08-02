@@ -9,13 +9,10 @@ exported average RT is too unstable to be useful in actual environment.
 Therefore we do not compute move average RT in kernel anymore, but just export
 the sum and count of RT samples in procfs, leave userland to get it now.
 
-diff --git a/net/ipv4/rt_stat.c b/net/ipv4/rt_stat.c
-index 85ea0bb..9c09110 100644
-
-Signed-off-by: Li Yu <bingtian.ly@taobao.com>
-
---- a/net/ipv4/rt_stat.c
-+++ b/net/ipv4/rt_stat.c
+Index: linux-2.6.32-279.2.1.el5/net/ipv4/rt_stat.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/net/ipv4/rt_stat.c
++++ linux-2.6.32-279.2.1.el5/net/ipv4/rt_stat.c
 @@ -55,10 +55,15 @@ struct rt_stat {
  	struct hlist_head ip_table[RT_HASH_TABLE_SIZE];
  };
@@ -33,7 +30,7 @@ Signed-off-by: Li Yu <bingtian.ly@taobao.com>
  
  static struct sock *tcp_v4_syn_recv_sock_rt_stat(struct sock *sk,
  				struct sk_buff *skb, struct request_sock *req,
-@@ -84,25 +89,26 @@ static struct hooker tcp_v6_mapped_hooker = {
+@@ -84,25 +89,26 @@ static struct hooker tcp_v6_mapped_hooke
  
  static int rt_table_setup(int cpu)
  {
@@ -67,7 +64,7 @@ Signed-off-by: Li Yu <bingtian.ly@taobao.com>
  
  	rt_stat = per_cpu_ptr(rt_stat_array, cpu);
  	for (i = 0; i < RT_TABLE_SIZE; i++) {
-@@ -332,9 +338,21 @@ static void rt_table_update(int cpu, unsigned long now, u32 ip, int interval)
+@@ -332,9 +338,21 @@ static void rt_table_update(int cpu, uns
  	replace_rt(rt_stat, now, ip, interval, bucket);
  }
  
@@ -90,7 +87,7 @@ Signed-off-by: Li Yu <bingtian.ly@taobao.com>
  	s64 interval;
  	u64 now;
  
-@@ -342,12 +360,8 @@ static void tcp_rt_stat(unsigned int cpu, struct request_sock *req)
+@@ -342,12 +360,8 @@ static void tcp_rt_stat(unsigned int cpu
  	interval = (s64)now - (s64)req->ts_incoming;
  	if (unlikely(interval < 0))
  		return;
@@ -135,7 +132,7 @@ Signed-off-by: Li Yu <bingtian.ly@taobao.com>
  
  	local_bh_enable();
  
-@@ -442,7 +459,9 @@ static struct rt_stat_snapshot_t *rt_stat_snapshot_create(void)
+@@ -442,7 +459,9 @@ static struct rt_stat_snapshot_t *rt_sta
  		this_s = per_cpu_ptr(s, cpu);
  		memset(&this_s->entries, 0, sizeof(struct rt)*RT_TABLE_SIZE);
  		init_completion(&this_s->done);
@@ -157,7 +154,7 @@ Signed-off-by: Li Yu <bingtian.ly@taobao.com>
  	struct rt_stat_snapshot_t *s;
  	void *v;
  
-@@ -536,21 +555,18 @@ static void *rt_stat_seq_start(struct seq_file *seq, loff_t *pos)
+@@ -536,21 +555,18 @@ static void *rt_stat_seq_start(struct se
  		return NULL;
  
  	s = seq->private;
@@ -186,7 +183,7 @@ Signed-off-by: Li Yu <bingtian.ly@taobao.com>
  	return v;
  }
  
-@@ -630,8 +646,8 @@ static const struct file_operations tcp_ipv4_rt_stat_seq_fops = {
+@@ -630,8 +646,8 @@ static const struct file_operations tcp_
  
  static void percpu_data_clearup(void)
  {

@@ -18,11 +18,11 @@ want always display segfault info, please configure /proc/sys/debug/exception-tr
 
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: linux-2.6.32-220.13.1.el5/arch/x86/mm/fault.c
+Index: linux-2.6.32-279.2.1.el5/arch/x86/mm/fault.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/arch/x86/mm/fault.c	2012-05-08 17:03:45.844511369 +0800
-+++ linux-2.6.32-220.13.1.el5/arch/x86/mm/fault.c	2012-05-08 17:28:53.527987547 +0800
-@@ -706,12 +706,21 @@
+--- linux-2.6.32-279.2.1.el5.orig/arch/x86/mm/fault.c
++++ linux-2.6.32-279.2.1.el5/arch/x86/mm/fault.c
+@@ -706,12 +706,21 @@ static inline void
  show_signal_msg(struct pt_regs *regs, unsigned long error_code,
  		unsigned long address, struct task_struct *tsk)
  {

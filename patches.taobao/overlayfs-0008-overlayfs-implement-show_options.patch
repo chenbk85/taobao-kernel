@@ -15,10 +15,10 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  fs/overlayfs/super.c |   63 ++++++++++++++++++++++++++++++++++----------------
  1 files changed, 43 insertions(+), 20 deletions(-)
 
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index bb0cf23..5949672 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/super.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/overlayfs/super.c
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/super.c
 @@ -15,17 +15,27 @@
  #include <linux/slab.h>
  #include <linux/parser.h>
@@ -47,7 +47,7 @@ index bb0cf23..5949672 100644
  struct ovl_entry {
  	/*
  	 * Keep "double reference" on upper dentries, so that
-@@ -382,6 +392,8 @@ static void ovl_put_super(struct super_block *sb)
+@@ -382,6 +392,8 @@ static void ovl_put_super(struct super_b
  	mntput(ufs->upper_mnt);
  	mntput(ufs->lower_mnt);
  
@@ -56,7 +56,7 @@ index bb0cf23..5949672 100644
  	kfree(ufs);
  }
  
-@@ -423,15 +435,27 @@ static int ovl_statfs(struct dentry *dentry, struct kstatfs *buf)
+@@ -423,15 +435,27 @@ static int ovl_statfs(struct dentry *den
  	return path.dentry->d_sb->s_op->statfs(path.dentry, buf);
  }
  
@@ -89,7 +89,7 @@ index bb0cf23..5949672 100644
  };
  
  enum {
-@@ -491,37 +515,36 @@ static int ovl_fill_super(struct super_block *sb, void *data, int silent)
+@@ -491,37 +515,36 @@ static int ovl_fill_super(struct super_b
  	struct dentry *root_dentry;
  	struct ovl_entry *oe;
  	struct ovl_fs *ufs;
@@ -153,6 +153,3 @@ index bb0cf23..5949672 100644
  out:
  	return err;
  }
--- 
-1.7.3.2
-

@@ -21,10 +21,10 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  redhat-kernel-source/linux-2.6.32/mm/huge_memory.c |   14 ++++++--------
  1 files changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 6ac2216..cecbefb 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
+Index: linux-2.6.32-279.2.1.el5/mm/huge_memory.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/mm/huge_memory.c
++++ linux-2.6.32-279.2.1.el5/mm/huge_memory.c
 @@ -21,16 +21,14 @@
  #include "internal.h"
  

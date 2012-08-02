@@ -12,11 +12,11 @@ currently throttled.
 Acked-by: Zheng Liu <wenqing.lz@taobao.com>
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 
-Index: linux-2.6.32-220.13.1.el6/block/blk-cgroup.c
+Index: linux-2.6.32-279.2.1.el5/block/blk-cgroup.c
 ===================================================================
---- linux-2.6.32-220.13.1.el6.orig/block/blk-cgroup.c	2012-05-24 00:08:00.000000000 +0800
-+++ linux-2.6.32-220.13.1.el6/block/blk-cgroup.c	2012-05-24 00:08:11.000000000 +0800
-@@ -325,6 +325,31 @@
+--- linux-2.6.32-279.2.1.el5.orig/block/blk-cgroup.c
++++ linux-2.6.32-279.2.1.el5/block/blk-cgroup.c
+@@ -325,6 +325,31 @@ static inline void blkio_set_start_group
  static inline void blkio_end_empty_time(struct blkio_group_stats *stats) {}
  #endif
  
@@ -48,7 +48,7 @@ Index: linux-2.6.32-220.13.1.el6/block/blk-cgroup.c
  void blkiocg_update_io_add_stats(struct blkio_group *blkg,
  			struct blkio_group *curr_blkg, bool direction,
  			bool sync)
-@@ -539,6 +564,7 @@
+@@ -539,6 +564,7 @@ blkiocg_reset_stats(struct cgroup *cgrou
  	struct blkio_group_stats *stats;
  	struct hlist_node *n;
  	uint64_t queued[BLKIO_STAT_TOTAL];
@@ -56,7 +56,7 @@ Index: linux-2.6.32-220.13.1.el6/block/blk-cgroup.c
  	int i;
  #ifdef CONFIG_DEBUG_BLK_CGROUP
  	bool idling, waiting, empty;
-@@ -557,9 +583,13 @@
+@@ -557,9 +583,13 @@ blkiocg_reset_stats(struct cgroup *cgrou
  #endif
  		for (i = 0; i < BLKIO_STAT_TOTAL; i++)
  			queued[i] = stats->stat_arr[BLKIO_STAT_QUEUED][i];
@@ -70,7 +70,7 @@ Index: linux-2.6.32-220.13.1.el6/block/blk-cgroup.c
  #ifdef CONFIG_DEBUG_BLK_CGROUP
  		if (idling) {
  			blkio_mark_blkg_idling(stats);
-@@ -1244,6 +1274,9 @@
+@@ -1233,6 +1263,9 @@ static int blkiocg_file_read_map(struct 
  		case BLKIO_THROTL_io_serviced:
  			return blkio_read_blkg_stats(blkcg, cft, cb,
  						BLKIO_STAT_CPU_SERVICED, 1, 1);
@@ -80,7 +80,7 @@ Index: linux-2.6.32-220.13.1.el6/block/blk-cgroup.c
  		default:
  			BUG();
  		}
-@@ -1440,6 +1473,12 @@
+@@ -1429,6 +1462,12 @@ struct cftype blkio_files[] = {
  				BLKIO_THROTL_io_serviced),
  		.read_map = blkiocg_file_read_map,
  	},
@@ -93,11 +93,11 @@ Index: linux-2.6.32-220.13.1.el6/block/blk-cgroup.c
  #endif /* CONFIG_BLK_DEV_THROTTLING */
  
  #ifdef CONFIG_DEBUG_BLK_CGROUP
-Index: linux-2.6.32-220.13.1.el6/block/blk-cgroup.h
+Index: linux-2.6.32-279.2.1.el5/block/blk-cgroup.h
 ===================================================================
---- linux-2.6.32-220.13.1.el6.orig/block/blk-cgroup.h	2012-05-24 00:08:00.000000000 +0800
-+++ linux-2.6.32-220.13.1.el6/block/blk-cgroup.h	2012-05-24 00:08:11.000000000 +0800
-@@ -35,6 +35,8 @@
+--- linux-2.6.32-279.2.1.el5.orig/block/blk-cgroup.h
++++ linux-2.6.32-279.2.1.el5/block/blk-cgroup.h
+@@ -35,6 +35,8 @@ enum stat_type {
  	BLKIO_STAT_WAIT_TIME,
  	/* Number of IOs merged */
  	BLKIO_STAT_MERGED,
@@ -106,7 +106,7 @@ Index: linux-2.6.32-220.13.1.el6/block/blk-cgroup.h
  	/* Number of IOs queued up */
  	BLKIO_STAT_QUEUED,
  	/* All the single valued stats go below this */
-@@ -100,6 +102,7 @@
+@@ -100,6 +102,7 @@ enum blkcg_file_name_throtl {
  	BLKIO_THROTL_write_iops_device,
  	BLKIO_THROTL_io_service_bytes,
  	BLKIO_THROTL_io_serviced,
@@ -114,7 +114,7 @@ Index: linux-2.6.32-220.13.1.el6/block/blk-cgroup.h
  };
  
  struct blkio_cgroup {
-@@ -314,6 +317,11 @@
+@@ -314,6 +317,11 @@ void blkiocg_update_io_add_stats(struct 
  		struct blkio_group *curr_blkg, bool direction, bool sync);
  void blkiocg_update_io_remove_stats(struct blkio_group *blkg,
  					bool direction, bool sync);
@@ -126,7 +126,7 @@ Index: linux-2.6.32-220.13.1.el6/block/blk-cgroup.h
  #else
  struct cgroup;
  static inline struct blkio_cgroup *
-@@ -345,5 +353,10 @@
+@@ -345,5 +353,10 @@ static inline void blkiocg_update_io_add
  		struct blkio_group *curr_blkg, bool direction, bool sync) {}
  static inline void blkiocg_update_io_remove_stats(struct blkio_group *blkg,
  						bool direction, bool sync) {}
@@ -137,11 +137,11 @@ Index: linux-2.6.32-220.13.1.el6/block/blk-cgroup.h
 +		struct blkio_group *curr_blkg, bool direction, bool sync) {}
  #endif
  #endif /* _BLK_CGROUP_H */
-Index: linux-2.6.32-220.13.1.el6/block/blk-throttle.c
+Index: linux-2.6.32-279.2.1.el5/block/blk-throttle.c
 ===================================================================
---- linux-2.6.32-220.13.1.el6.orig/block/blk-throttle.c	2012-05-24 00:08:00.000000000 +0800
-+++ linux-2.6.32-220.13.1.el6/block/blk-throttle.c	2012-05-24 00:08:11.000000000 +0800
-@@ -759,12 +759,14 @@
+--- linux-2.6.32-279.2.1.el5.orig/block/blk-throttle.c
++++ linux-2.6.32-279.2.1.el5/block/blk-throttle.c
+@@ -750,12 +750,14 @@ static void throtl_add_bio_tg(struct thr
  			struct bio *bio)
  {
  	bool rw = bio_data_dir(bio);
@@ -156,7 +156,7 @@ Index: linux-2.6.32-220.13.1.el6/block/blk-throttle.c
  	throtl_enqueue_tg(td, tg);
  }
  
-@@ -792,9 +794,12 @@
+@@ -783,9 +785,12 @@ static void tg_dispatch_one_bio(struct t
  				bool rw, struct bio_list *bl)
  {
  	struct bio *bio;

@@ -37,11 +37,11 @@ Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 
-Index: linux-2.6.32-220.7.1.el5/mm/vmscan.c
+Index: linux-2.6.32-279.2.1.el5/mm/vmscan.c
 ===================================================================
---- linux-2.6.32-220.7.1.el5.orig/mm/vmscan.c
-+++ linux-2.6.32-220.7.1.el5/mm/vmscan.c
-@@ -627,6 +627,12 @@ static enum page_references page_check_r
+--- linux-2.6.32-279.2.1.el5.orig/mm/vmscan.c
++++ linux-2.6.32-279.2.1.el5/mm/vmscan.c
+@@ -619,6 +619,12 @@ static enum page_references page_check_r
  		if (referenced_page)
  			return PAGEREF_ACTIVATE;
  

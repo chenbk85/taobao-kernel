@@ -12,11 +12,11 @@ ksmd to KSM_RUN_STOP by default for better RT.
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 Signed-off-by: Liu Yuan <tailai.ly@taobao.com>
 ---
-Index: linux-2.6.32-220.4.2.el5/mm/ksm.c
+Index: linux-2.6.32-279.2.1.el5/mm/ksm.c
 ===================================================================
---- linux-2.6.32-220.4.2.el5.orig/mm/ksm.c	2012-03-01 11:15:36.148283052 +0800
-+++ linux-2.6.32-220.4.2.el5/mm/ksm.c	2012-03-01 11:27:02.571686841 +0800
-@@ -2031,7 +2031,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/mm/ksm.c
++++ linux-2.6.32-279.2.1.el5/mm/ksm.c
+@@ -2031,7 +2031,7 @@ static int __init ksm_init(void)
  		goto out_free2;
  	}
  #else

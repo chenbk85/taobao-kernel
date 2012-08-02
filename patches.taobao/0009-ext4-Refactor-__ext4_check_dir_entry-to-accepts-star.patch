@@ -11,11 +11,11 @@ to check the overflow more precisely.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
-index 27c4b59..d4bbbf9 100644
---- a/fs/ext4/dir.c
-+++ b/fs/ext4/dir.c
-@@ -63,7 +63,7 @@ static unsigned char get_dtype(struct super_block *sb, int filetype)
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/dir.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/dir.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/dir.c
+@@ -66,7 +66,7 @@ static int is_dx_dir(struct inode *inode
  
  int ext4_check_dir_entry(const char *function, struct inode *dir,
  			 struct ext4_dir_entry_2 *de,
@@ -24,7 +24,7 @@ index 27c4b59..d4bbbf9 100644
  			 unsigned int offset)
  {
  	const char *error_msg = NULL;
-@@ -76,23 +76,23 @@ int ext4_check_dir_entry(const char *function, struct inode *dir,
+@@ -79,23 +79,23 @@ int ext4_check_dir_entry(const char *fun
  		error_msg = "rec_len % 4 != 0";
  	else if (unlikely(rlen < EXT4_DIR_REC_LEN(de->name_len)))
  		error_msg = "rec_len is too small for name_len";
@@ -53,7 +53,7 @@ index 27c4b59..d4bbbf9 100644
  }
  
  static int ext4_readdir(struct file *filp,
-@@ -200,8 +200,9 @@ revalidate:
+@@ -198,8 +198,9 @@ revalidate:
  		while (!error && filp->f_pos < inode->i_size
  		       && offset < sb->s_blocksize) {
  			de = (struct ext4_dir_entry_2 *) (bh->b_data + offset);
@@ -65,11 +65,11 @@ index 27c4b59..d4bbbf9 100644
  				/*
  				 * On error, skip the f_pos to the next block
  				 */
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 2cd014c..ecb8335 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1657,7 +1657,8 @@ extern unsigned ext4_num_overhead_clusters(struct super_block *sb,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1663,7 +1663,8 @@ extern unsigned ext4_num_overhead_cluste
  /* dir.c */
  extern int ext4_check_dir_entry(const char *, struct inode *,
  				struct ext4_dir_entry_2 *,
@@ -79,11 +79,11 @@ index 2cd014c..ecb8335 100644
  extern int ext4_htree_store_dirent(struct file *dir_file, __u32 hash,
  				    __u32 minor_hash,
  				    struct ext4_dir_entry_2 *dirent);
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 4856746..756fb8a 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -581,7 +581,8 @@ static int htree_dirblock_to_tree(struct file *dir_file,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/namei.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+@@ -581,7 +581,8 @@ static int htree_dirblock_to_tree(struct
  					   dir->i_sb->s_blocksize -
  					   EXT4_DIR_REC_LEN(0));
  	for (; de < top; de = ext4_next_entry(de, dir->i_sb->s_blocksize)) {
@@ -93,7 +93,7 @@ index 4856746..756fb8a 100644
  					(block<<EXT4_BLOCK_SIZE_BITS(dir->i_sb))
  						+((char *)de - bh->b_data))) {
  			/* On error, skip the f_pos to the next block. */
-@@ -820,8 +821,9 @@ static inline int search_dirblock(struct buffer_head *bh,
+@@ -820,8 +821,9 @@ static inline int search_dirblock(struct
  		if ((char *) de + namelen <= dlimit &&
  		    ext4_match (namelen, name, de)) {
  			/* found a match - just to be sure, do a full check */
@@ -105,7 +105,7 @@ index 4856746..756fb8a 100644
  				return -1;
  			*res_dir = de;
  			return 1;
-@@ -995,7 +997,8 @@ static struct buffer_head * ext4_dx_find_entry(struct inode *dir, const struct q
+@@ -995,7 +997,8 @@ static struct buffer_head * ext4_dx_find
  			int off = (block << EXT4_BLOCK_SIZE_BITS(sb))
  				  + ((char *) de - bh->b_data);
  
@@ -115,7 +115,7 @@ index 4856746..756fb8a 100644
  				brelse(bh);
  				*err = ERR_BAD_DX_DIR;
  				goto errout;
-@@ -1281,8 +1284,9 @@ static int add_dirent_to_buf(handle_t *handle, struct dentry *dentry,
+@@ -1281,8 +1284,9 @@ static int add_dirent_to_buf(handle_t *h
  		de = (struct ext4_dir_entry_2 *)bh->b_data;
  		top = bh->b_data + blocksize - reclen;
  		while ((char *) de <= top) {
@@ -127,7 +127,7 @@ index 4856746..756fb8a 100644
  				return -EIO;
  			if (ext4_match(namelen, name, de))
  				return -EEXIST;
-@@ -1651,7 +1655,8 @@ static int ext4_delete_entry(handle_t *handle,
+@@ -1663,7 +1667,8 @@ static int ext4_delete_entry(handle_t *h
  	pde = NULL;
  	de = (struct ext4_dir_entry_2 *) bh->b_data;
  	while (i < bh->b_size) {
@@ -137,7 +137,7 @@ index 4856746..756fb8a 100644
  			return -EIO;
  		if (de == de_del)  {
  			BUFFER_TRACE(bh, "get_write_access");
-@@ -1949,7 +1954,8 @@ static int empty_dir(struct inode *inode)
+@@ -1961,7 +1966,8 @@ static int empty_dir(struct inode *inode
  			}
  			de = (struct ext4_dir_entry_2 *) bh->b_data;
  		}

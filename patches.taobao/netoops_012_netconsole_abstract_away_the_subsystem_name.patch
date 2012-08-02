@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
+Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:45.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:45.000000000 +0800
-@@ -71,6 +71,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/netconsole.c
++++ linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
+@@ -71,6 +71,7 @@ struct netpoll_targets {
  	struct configfs_subsystem configfs_subsys;
  #endif
  	struct notifier_block netdev_notifier;
@@ -18,7 +18,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  };
  #define DEFINE_NETPOLL_TARGETS(x) struct netpoll_targets x = \
  	{ .list = LIST_HEAD_INIT(x.list), \
-@@ -151,12 +152,13 @@
+@@ -151,12 +152,13 @@ static struct netpoll_target *alloc_para
  	 */
  	nt = kzalloc(sizeof(*nt), GFP_KERNEL);
  	if (!nt) {
@@ -34,7 +34,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	strlcpy(nt->np.dev_name, "eth0", IFNAMSIZ);
  	nt->np.local_port = 6665;
  	nt->np.remote_port = 6666;
-@@ -195,7 +197,7 @@
+@@ -195,7 +197,7 @@ static void free_param_target(struct net
  /*
   * Our subsystem hierarchy is:
   *
@@ -43,7 +43,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
   *				|
   *				<target>/
   *				|	enabled
-@@ -231,7 +233,8 @@
+@@ -231,7 +233,8 @@ static struct netpoll_target *to_target(
   * We return (signed) long only because we may want to return errors.
   * Do not use this to convert numbers that are allowed to be negative.
   */
@@ -53,7 +53,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  {
  	long ret;
  	char *p = (char *) cp;
-@@ -242,12 +245,12 @@
+@@ -242,12 +245,12 @@ static long strtol10_check_range(const c
  	ret = simple_strtol(p, &p, 10);
  
  	if (*p && (*p != '\n')) {
@@ -69,7 +69,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		return -EINVAL;
  	}
  
-@@ -318,7 +321,7 @@
+@@ -318,7 +321,7 @@ static ssize_t store_enabled(struct netp
  	int err;
  	long enabled;
  
@@ -78,7 +78,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	if (enabled < 0)
  		return enabled;
  
-@@ -354,7 +357,8 @@
+@@ -354,7 +357,8 @@ static ssize_t store_enabled(struct netp
  		if (err)
  			return err;
  
@@ -88,7 +88,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	} else {	/* 0 */
  		spin_lock_irqsave(&nts->lock, flags);
  		if (nt->np_state == NETPOLL_ENABLED)
-@@ -399,7 +403,7 @@
+@@ -399,7 +403,7 @@ static ssize_t store_local_port(struct n
  	long local_port;
  #define __U16_MAX	((__u16) ~0U)
  
@@ -97,7 +97,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	if (local_port < 0)
  		return local_port;
  
-@@ -415,7 +419,7 @@
+@@ -415,7 +419,7 @@ static ssize_t store_remote_port(struct 
  	long remote_port;
  #define __U16_MAX	((__u16) ~0U)
  
@@ -106,7 +106,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	if (remote_port < 0)
  		return remote_port;
  
-@@ -465,7 +469,7 @@
+@@ -465,7 +469,7 @@ static ssize_t store_remote_mac(struct n
  	return strnlen(buf, count);
  
  invalid:
@@ -115,7 +115,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	return -EINVAL;
  }
  
-@@ -492,8 +496,9 @@
+@@ -492,8 +496,9 @@ static ssize_t store_locked_##_name(stru
  	ssize_t ret;							\
  	spin_lock_irqsave(&nts->lock, flags);				\
  	if (nt->np_state != NETPOLL_DISABLED) {				\
@@ -126,7 +126,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  				config_item_name(&nt->item));		\
  		spin_unlock_irqrestore(&nts->lock, flags);		\
  		return -EBUSY;						\
-@@ -621,12 +626,13 @@
+@@ -621,12 +626,13 @@ static struct config_item *make_netpoll_
  	 */
  	nt = kzalloc(sizeof(*nt), GFP_KERNEL);
  	if (!nt) {
@@ -142,7 +142,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	strlcpy(nt->np.dev_name, "eth0", IFNAMSIZ);
  	nt->np.local_port = 6665;
  	nt->np.remote_port = 6666;
-@@ -797,8 +803,8 @@
+@@ -797,8 +803,8 @@ static int netpoll_targets_netdev_event(
  	}
  	spin_unlock_irqrestore(&nts->lock, flags);
  	if (stopped) {
@@ -153,7 +153,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		switch (event) {
  		case NETDEV_UNREGISTER:
  			printk(KERN_CONT "unregistered\n");
-@@ -884,12 +890,19 @@
+@@ -884,12 +890,19 @@ static int __init register_netpoll_targe
  	if (err)
  		goto fail;
  
@@ -174,7 +174,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  undonotifier:
  	unregister_netdevice_notifier(&nts->netdev_notifier);
  fail:
-@@ -925,6 +938,7 @@
+@@ -925,6 +938,7 @@ static void __exit unregister_netpoll_ta
  		list_del(&nt->list);
  		free_param_target(nt);
  	}

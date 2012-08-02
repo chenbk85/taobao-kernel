@@ -11,10 +11,10 @@ the next commit.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/balloc.c b/fs/ext4/balloc.c
-index ca1f325..9d20c5e 100644
---- a/fs/ext4/balloc.c
-+++ b/fs/ext4/balloc.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/balloc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
 @@ -25,6 +25,9 @@
   * balloc.c contains the blocks allocation and deallocation routines
   */
@@ -25,7 +25,7 @@ index ca1f325..9d20c5e 100644
  /*
   * Calculate the block group number and offset, given a block number
   */
-@@ -81,14 +84,30 @@ static int ext4_group_used_meta_blocks(struct super_block *sb,
+@@ -81,14 +84,30 @@ static int ext4_group_used_meta_blocks(s
  	return used_blocks;
  }
  
@@ -58,7 +58,7 @@ index ca1f325..9d20c5e 100644
  	struct ext4_sb_info *sbi = EXT4_SB(sb);
  
  	if (bh) {
-@@ -108,36 +127,6 @@ unsigned ext4_init_block_bitmap(struct super_block *sb, struct buffer_head *bh,
+@@ -108,36 +127,6 @@ unsigned ext4_init_block_bitmap(struct s
  		memset(bh->b_data, 0, sb->s_blocksize);
  	}
  
@@ -95,7 +95,7 @@ index ca1f325..9d20c5e 100644
  	if (bh) {
  		ext4_fsblk_t start, tmp;
  		int flex_bg = 0;
-@@ -174,7 +163,8 @@ unsigned ext4_init_block_bitmap(struct super_block *sb, struct buffer_head *bh,
+@@ -174,7 +163,8 @@ unsigned ext4_init_block_bitmap(struct s
  		 */
  		mark_bitmap_end(group_blocks, sb->s_blocksize * 8, bh->b_data);
  	}
@@ -105,7 +105,7 @@ index ca1f325..9d20c5e 100644
  }
  
  
-@@ -515,6 +505,31 @@ ext4_fsblk_t ext4_new_meta_blocks(handle_t *handle, struct inode *inode,
+@@ -515,6 +505,31 @@ ext4_fsblk_t ext4_new_meta_blocks(handle
  	return ret;
  }
  

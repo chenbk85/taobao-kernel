@@ -6,20 +6,20 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/include/linux/kmsg_dump.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/kmsg_dump.h
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/include/linux/kmsg_dump.h	2011-12-21 22:40:51.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/include/linux/kmsg_dump.h	2011-12-21 22:41:46.000000000 +0800
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/kmsg_dump.h
++++ linux-2.6.32-279.2.1.el5/include/linux/kmsg_dump.h
 @@ -14,6 +14,8 @@
  
  #include <linux/list.h>
  
 +struct pt_regs;
 +
- enum kmsg_dump_reason {
- 	KMSG_DUMP_OOPS,
- 	KMSG_DUMP_PANIC,
-@@ -30,6 +32,7 @@
+ /*
+  * Keep this list arranged in rough order of priority. Anything listed after
+  * KMSG_DUMP_OOPS will not be logged by default unless printk.always_kmsg_dump
+@@ -39,6 +41,7 @@ enum kmsg_dump_reason {
   */
  struct kmsg_dumper {
  	void (*dump)(struct kmsg_dumper *dumper, enum kmsg_dump_reason reason,
@@ -27,7 +27,7 @@ Index: linux-2.6.32-220.0.0.el5/include/linux/kmsg_dump.h
  			const char *s1, unsigned long l1,
  			const char *s2, unsigned long l2);
  	struct list_head list;
-@@ -37,13 +40,13 @@
+@@ -46,13 +49,13 @@ struct kmsg_dumper {
  };
  
  #ifdef CONFIG_PRINTK
@@ -43,11 +43,11 @@ Index: linux-2.6.32-220.0.0.el5/include/linux/kmsg_dump.h
  {
  }
  
-Index: linux-2.6.32-220.0.0.el5/kernel/kexec.c
+Index: linux-2.6.32-279.2.1.el5/kernel/kexec.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/kernel/kexec.c	2011-12-21 22:40:49.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/kernel/kexec.c	2011-12-21 22:41:46.000000000 +0800
-@@ -1081,10 +1081,11 @@
+--- linux-2.6.32-279.2.1.el5.orig/kernel/kexec.c
++++ linux-2.6.32-279.2.1.el5/kernel/kexec.c
+@@ -1096,10 +1096,11 @@ void crash_kexec(struct pt_regs *regs)
  		if (kexec_crash_image) {
  			struct pt_regs fixed_regs;
  
@@ -61,11 +61,11 @@ Index: linux-2.6.32-220.0.0.el5/kernel/kexec.c
  			machine_crash_shutdown(&fixed_regs);
  			machine_kexec(kexec_crash_image);
  		}
-Index: linux-2.6.32-220.0.0.el5/kernel/panic.c
+Index: linux-2.6.32-279.2.1.el5/kernel/panic.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/kernel/panic.c	2011-12-21 22:41:46.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/kernel/panic.c	2011-12-21 22:41:46.000000000 +0800
-@@ -83,7 +83,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/kernel/panic.c
++++ linux-2.6.32-279.2.1.el5/kernel/panic.c
+@@ -100,7 +100,7 @@ NORET_TYPE void panic(const char * fmt, 
  	 */
  	crash_kexec(NULL);
  
@@ -74,7 +74,7 @@ Index: linux-2.6.32-220.0.0.el5/kernel/panic.c
  
  	/*
  	 * Note smp_send_stop is the usual smp shutdown function, which
-@@ -369,7 +369,7 @@
+@@ -386,7 +386,7 @@ void oops_exit(struct pt_regs *regs)
  {
  	do_oops_enter_exit();
  	print_oops_end_marker();
@@ -83,11 +83,11 @@ Index: linux-2.6.32-220.0.0.el5/kernel/panic.c
  }
  
  #ifdef WANT_WARN_ON_SLOWPATH
-Index: linux-2.6.32-220.0.0.el5/kernel/printk.c
+Index: linux-2.6.32-279.2.1.el5/kernel/printk.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/kernel/printk.c	2011-12-21 22:40:49.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/kernel/printk.c	2011-12-21 22:41:46.000000000 +0800
-@@ -1520,7 +1520,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/kernel/printk.c
++++ linux-2.6.32-279.2.1.el5/kernel/printk.c
+@@ -1534,7 +1534,7 @@ static const char *kmsg_to_str(enum kmsg
   * Iterate through each of the dump devices and call the oops/panic
   * callbacks with the log buffer.
   */
@@ -96,7 +96,7 @@ Index: linux-2.6.32-220.0.0.el5/kernel/printk.c
  {
  	unsigned long end;
  	unsigned chars;
-@@ -1557,7 +1557,7 @@
+@@ -1574,7 +1574,7 @@ void kmsg_dump(enum kmsg_dump_reason rea
  		return;
  	}
  	list_for_each_entry(dumper, &dump_list, list)
@@ -105,11 +105,11 @@ Index: linux-2.6.32-220.0.0.el5/kernel/printk.c
  	spin_unlock_irqrestore(&dump_list_lock, flags);
  }
  #endif
-Index: linux-2.6.32-220.2.1.el5/fs/pstore/platform.c
+Index: linux-2.6.32-279.2.1.el5/fs/pstore/platform.c
 ===================================================================
---- linux-2.6.32-220.2.1.el5.orig/fs/pstore/platform.c
-+++ linux-2.6.32-220.2.1.el5/fs/pstore/platform.c
-@@ -59,7 +59,7 @@ static char *reason_str[] = {
+--- linux-2.6.32-279.2.1.el5.orig/fs/pstore/platform.c
++++ linux-2.6.32-279.2.1.el5/fs/pstore/platform.c
+@@ -95,7 +95,7 @@ static const char *get_reason_str(enum k
   * as we can from the end of the buffer.
   */
  static void pstore_dump(struct kmsg_dumper *dumper,
@@ -118,3 +118,43 @@ Index: linux-2.6.32-220.2.1.el5/fs/pstore/platform.c
  	    const char *s1, unsigned long l1,
  	    const char *s2, unsigned long l2)
  {
+Index: linux-2.6.32-279.2.1.el5/kernel/sys.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/kernel/sys.c
++++ linux-2.6.32-279.2.1.el5/kernel/sys.c
+@@ -282,7 +282,7 @@ out_unlock:
+  */
+ void emergency_restart(void)
+ {
+-	kmsg_dump(KMSG_DUMP_EMERG);
++	kmsg_dump(KMSG_DUMP_EMERG, NULL);
+ 	machine_emergency_restart();
+ }
+ EXPORT_SYMBOL_GPL(emergency_restart);
+@@ -310,7 +310,7 @@ void kernel_restart(char *cmd)
+ 		printk(KERN_EMERG "Restarting system.\n");
+ 	else
+ 		printk(KERN_EMERG "Restarting system with command '%s'.\n", cmd);
+-	kmsg_dump(KMSG_DUMP_RESTART);
++	kmsg_dump(KMSG_DUMP_RESTART, NULL);
+ 	machine_restart(cmd);
+ }
+ EXPORT_SYMBOL_GPL(kernel_restart);
+@@ -332,7 +332,7 @@ void kernel_halt(void)
+ 	kernel_shutdown_prepare(SYSTEM_HALT);
+ 	sysdev_shutdown();
+ 	printk(KERN_EMERG "System halted.\n");
+-	kmsg_dump(KMSG_DUMP_HALT);
++	kmsg_dump(KMSG_DUMP_HALT, NULL);
+ 	machine_halt();
+ }
+ 
+@@ -351,7 +351,7 @@ void kernel_power_off(void)
+ 	disable_nonboot_cpus();
+ 	sysdev_shutdown();
+ 	printk(KERN_EMERG "Power down.\n");
+-	kmsg_dump(KMSG_DUMP_POWEROFF);
++	kmsg_dump(KMSG_DUMP_POWEROFF, NULL);
+ 	machine_power_off();
+ }
+ EXPORT_SYMBOL_GPL(kernel_power_off);

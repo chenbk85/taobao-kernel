@@ -52,11 +52,11 @@ Acked-by:
  kernel/trace/blktrace.c |    7 +++++++
  1 files changed, 7 insertions(+), 0 deletions(-)
 
-diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
-index 153562d..d95721f 100644
---- a/kernel/trace/blktrace.c
-+++ b/kernel/trace/blktrace.c
-@@ -138,6 +138,13 @@ void __trace_note_message(struct blk_trace *bt, const char *fmt, ...)
+Index: linux-2.6.32-279.2.1.el5/kernel/trace/blktrace.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/kernel/trace/blktrace.c
++++ linux-2.6.32-279.2.1.el5/kernel/trace/blktrace.c
+@@ -138,6 +138,13 @@ void __trace_note_message(struct blk_tra
  		     !blk_tracer_enabled))
  		return;
  
@@ -70,6 +70,3 @@ index 153562d..d95721f 100644
  	local_irq_save(flags);
  	buf = per_cpu_ptr(bt->msg_data, smp_processor_id());
  	va_start(args, fmt);
--- 
-1.7.1
-

@@ -14,11 +14,11 @@ of free blocks in the new block group.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/balloc.c b/fs/ext4/balloc.c
-index 9d20c5e..9339ce1 100644
---- a/fs/ext4/balloc.c
-+++ b/fs/ext4/balloc.c
-@@ -100,74 +100,74 @@ static unsigned int num_blocks_in_group(struct super_block *sb,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/balloc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
+@@ -100,74 +100,74 @@ static unsigned int num_blocks_in_group(
  		return EXT4_BLOCKS_PER_GROUP(sb);
  }
  
@@ -38,9 +38,46 @@ index 9d20c5e..9339ce1 100644
  	struct ext4_sb_info *sbi = EXT4_SB(sb);
 +	ext4_fsblk_t start, tmp;
 +	int flex_bg = 0;
-+
+ 
+-	if (bh) {
+-		J_ASSERT_BH(bh, buffer_locked(bh));
+-
+-		/* If checksum is bad mark all blocks used to prevent allocation
+-		 * essentially implementing a per-group read-only flag. */
+-		if (!ext4_group_desc_csum_verify(sbi, block_group, gdp)) {
+-			ext4_error(sb, "Checksum bad for group %u",
+-					block_group);
+-			ext4_free_blks_set(sb, gdp, 0);
+-			ext4_free_inodes_set(sb, gdp, 0);
+-			ext4_itable_unused_set(sb, gdp, 0);
+-			memset(bh->b_data, 0xff, sb->s_blocksize);
+-			return 0;
+-		}
+-		memset(bh->b_data, 0, sb->s_blocksize);
+-	}
+-
+-	if (bh) {
+-		ext4_fsblk_t start, tmp;
+-		int flex_bg = 0;
+-
+-		for (bit = 0; bit < bit_max; bit++)
+-			ext4_set_bit(bit, bh->b_data);
+-
+-		start = ext4_group_first_block_no(sb, block_group);
+-
+-		if (EXT4_HAS_INCOMPAT_FEATURE(sb,
+-					      EXT4_FEATURE_INCOMPAT_FLEX_BG))
+-			flex_bg = 1;
+-
+-		/* Set bits for block and inode bitmaps, and inode table */
+-		tmp = ext4_block_bitmap(sb, gdp);
+-		if (!flex_bg || ext4_block_in_group(sb, tmp, block_group))
+-			ext4_set_bit(tmp - start, bh->b_data);
 +	J_ASSERT_BH(bh, buffer_locked(bh));
-+
+ 
+-		tmp = ext4_inode_bitmap(sb, gdp);
+-		if (!flex_bg || ext4_block_in_group(sb, tmp, block_group))
+-			ext4_set_bit(tmp - start, bh->b_data);
 +	/* If checksum is bad mark all blocks used to prevent allocation
 +	 * essentially implementing a per-group read-only flag. */
 +	if (!ext4_group_desc_csum_verify(sbi, block_group, gdp)) {
@@ -85,45 +122,6 @@ index 9d20c5e..9339ce1 100644
 +			     sb->s_blocksize * 8, bh->b_data);
 +}
  
--	if (bh) {
--		J_ASSERT_BH(bh, buffer_locked(bh));
--
--		/* If checksum is bad mark all blocks used to prevent allocation
--		 * essentially implementing a per-group read-only flag. */
--		if (!ext4_group_desc_csum_verify(sbi, block_group, gdp)) {
--			ext4_error(sb, "Checksum bad for group %u",
--					block_group);
--			ext4_free_blks_set(sb, gdp, 0);
--			ext4_free_inodes_set(sb, gdp, 0);
--			ext4_itable_unused_set(sb, gdp, 0);
--			memset(bh->b_data, 0xff, sb->s_blocksize);
--			return 0;
--		}
--		memset(bh->b_data, 0, sb->s_blocksize);
--	}
--
--	if (bh) {
--		ext4_fsblk_t start, tmp;
--		int flex_bg = 0;
--
--		for (bit = 0; bit < bit_max; bit++)
--			ext4_set_bit(bit, bh->b_data);
--
--		start = ext4_group_first_block_no(sb, block_group);
--
--		if (EXT4_HAS_INCOMPAT_FEATURE(sb,
--					      EXT4_FEATURE_INCOMPAT_FLEX_BG))
--			flex_bg = 1;
--
--		/* Set bits for block and inode bitmaps, and inode table */
--		tmp = ext4_block_bitmap(sb, gdp);
--		if (!flex_bg || ext4_block_in_group(sb, tmp, block_group))
--			ext4_set_bit(tmp - start, bh->b_data);
--
--		tmp = ext4_inode_bitmap(sb, gdp);
--		if (!flex_bg || ext4_block_in_group(sb, tmp, block_group))
--			ext4_set_bit(tmp - start, bh->b_data);
--
 -		tmp = ext4_inode_table(sb, gdp);
 -		for (; tmp < ext4_inode_table(sb, gdp) +
 -				sbi->s_itb_per_group; tmp++) {
@@ -155,11 +153,11 @@ index 9d20c5e..9339ce1 100644
  /*
   * The free blocks are managed by bitmaps.  A file system contains several
   * blocks groups.  Each group contains 1 bitmap block for blocks, 1 bitmap
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 272e7aa..c9a774d 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1589,12 +1589,13 @@ extern struct ext4_group_desc * ext4_get_group_desc(struct super_block * sb,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1595,12 +1595,13 @@ extern struct ext4_group_desc * ext4_get
  extern int ext4_should_retry_alloc(struct super_block *sb, int *retries);
  struct buffer_head *ext4_read_block_bitmap(struct super_block *sb,
  				      ext4_group_t block_group);
@@ -179,11 +177,11 @@ index 272e7aa..c9a774d 100644
  
  /* dir.c */
  extern int ext4_check_dir_entry(const char *, struct inode *,
-diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
-index 9e5f73e..b8dc92f 100644
---- a/fs/ext4/ialloc.c
-+++ b/fs/ext4/ialloc.c
-@@ -822,7 +822,6 @@ struct inode *ext4_new_inode(handle_t *handle, struct inode *dir, int mode,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ialloc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ialloc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ialloc.c
+@@ -822,7 +822,6 @@ struct inode *ext4_new_inode(handle_t *h
  	int ret2, err = 0;
  	struct inode *ret;
  	ext4_group_t i;

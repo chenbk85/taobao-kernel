@@ -35,11 +35,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  fs/overlayfs/inode.c |    9 +++++++--
  1 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
-index 8ffdcab..f81932a 100644
---- a/fs/overlayfs/inode.c
-+++ b/fs/overlayfs/inode.c
-@@ -66,8 +66,13 @@ int ovl_permission(struct inode *inode, int mask)
+Index: linux-2.6.32-279.2.1.el5/fs/overlayfs/inode.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/overlayfs/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/overlayfs/inode.c
+@@ -66,8 +66,13 @@ int ovl_permission(struct inode *inode, 
  			spin_unlock(&inode->i_lock);
  			return -ENOENT;
  		}
@@ -55,6 +55,3 @@ index 8ffdcab..f81932a 100644
  		dget(alias);
  		spin_unlock(&inode->i_lock);
  		oe = alias->d_fsdata;
--- 
-1.7.3.2
-

@@ -18,11 +18,11 @@ hits mainline.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-diff --git a/fs/ext4/balloc.c b/fs/ext4/balloc.c
-index c97e2ee..4a2b2fd 100644
---- a/fs/ext4/balloc.c
-+++ b/fs/ext4/balloc.c
-@@ -408,7 +408,7 @@ ext4_read_block_bitmap(struct super_block *sb, ext4_group_t block_group)
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/balloc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/balloc.c
+@@ -408,7 +408,7 @@ ext4_read_block_bitmap(struct super_bloc
   */
  void ext4_free_blocks(handle_t *handle, struct inode *inode,
  			ext4_fsblk_t block, unsigned long count,
@@ -31,7 +31,7 @@ index c97e2ee..4a2b2fd 100644
  {
  	struct super_block *sb;
  	unsigned long dquot_freed_blocks;
-@@ -416,7 +416,21 @@ void ext4_free_blocks(handle_t *handle, struct inode *inode,
+@@ -416,7 +416,21 @@ void ext4_free_blocks(handle_t *handle, 
  	/* this isn't the right place to decide whether block is metadata
  	 * inode.c/extents.c knows better, but for safety ... */
  	if (S_ISDIR(inode->i_mode) || S_ISLNK(inode->i_mode))
@@ -54,7 +54,7 @@ index c97e2ee..4a2b2fd 100644
  
  	/* We need to make sure we don't reuse
  	 * block released untill the transaction commit.
-@@ -424,13 +438,14 @@ void ext4_free_blocks(handle_t *handle, struct inode *inode,
+@@ -424,13 +438,14 @@ void ext4_free_blocks(handle_t *handle, 
  	 * don't force data as metadata when freeing block
  	 * for writeback mode.
  	 */
@@ -72,10 +72,10 @@ index c97e2ee..4a2b2fd 100644
  	if (dquot_freed_blocks)
  		vfs_dq_free_block(inode, dquot_freed_blocks);
  	return;
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 031d1c0..8477d6a 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/extents.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
 @@ -1061,7 +1061,7 @@ cleanup:
  		for (i = 0; i < depth; i++) {
  			if (!ablocks[i])
@@ -85,7 +85,7 @@ index 031d1c0..8477d6a 100644
  		}
  	}
  	kfree(ablocks);
-@@ -2095,7 +2095,7 @@ static int ext4_ext_rm_idx(handle_t *handle, struct inode *inode,
+@@ -2095,7 +2095,7 @@ static int ext4_ext_rm_idx(handle_t *han
  	ext_debug("index is empty, remove it, free block %llu\n", leaf);
  	bh = sb_find_get_block(inode->i_sb, leaf);
  	ext4_forget(handle, 1, inode, bh, leaf);
@@ -94,7 +94,7 @@ index 031d1c0..8477d6a 100644
  	return err;
  }
  
-@@ -2160,14 +2160,38 @@ int ext4_ext_index_trans_blocks(struct inode *inode, int nrblocks, int chunk)
+@@ -2160,14 +2160,38 @@ int ext4_ext_index_trans_blocks(struct i
  
  static int ext4_remove_blocks(handle_t *handle, struct inode *inode,
  				struct ext4_extent *ex,
@@ -136,7 +136,7 @@ index 031d1c0..8477d6a 100644
  #ifdef EXTENTS_STATS
  	{
  		struct ext4_sb_info *sbi = EXT4_SB(inode->i_sb);
-@@ -2187,20 +2211,36 @@ static int ext4_remove_blocks(handle_t *handle, struct inode *inode,
+@@ -2187,20 +2211,36 @@ static int ext4_remove_blocks(handle_t *
  	    && to == le32_to_cpu(ex->ee_block) + ee_len - 1) {
  		/* tail removal */
  		ext4_lblk_t num;
@@ -183,7 +183,7 @@ index 031d1c0..8477d6a 100644
  	} else {
  		printk(KERN_INFO "strange request: removal(2) "
  				"%u-%u from %u:%u\n",
-@@ -2211,8 +2251,10 @@ static int ext4_remove_blocks(handle_t *handle, struct inode *inode,
+@@ -2211,8 +2251,10 @@ static int ext4_remove_blocks(handle_t *
  
  static int
  ext4_ext_rm_leaf(handle_t *handle, struct inode *inode,
@@ -195,7 +195,7 @@ index 031d1c0..8477d6a 100644
  	int err = 0, correct_index = 0;
  	int depth = ext_depth(inode), credits;
  	struct ext4_extent_header *eh;
-@@ -2299,7 +2341,8 @@ ext4_ext_rm_leaf(handle_t *handle, struct inode *inode,
+@@ -2299,7 +2341,8 @@ ext4_ext_rm_leaf(handle_t *handle, struc
  		if (err)
  			goto out;
  
@@ -205,7 +205,7 @@ index 031d1c0..8477d6a 100644
  		if (err)
  			goto out;
  
-@@ -2307,7 +2350,8 @@ ext4_ext_rm_leaf(handle_t *handle, struct inode *inode,
+@@ -2307,7 +2350,8 @@ ext4_ext_rm_leaf(handle_t *handle, struc
  			/* this extent is removed; mark slot entirely unused */
  			ext4_ext_store_pblock(ex, 0);
  			le16_add_cpu(&eh->eh_entries, -1);
@@ -215,7 +215,7 @@ index 031d1c0..8477d6a 100644
  
  		ex->ee_block = cpu_to_le32(block);
  		ex->ee_len = cpu_to_le16(num);
-@@ -2332,6 +2376,25 @@ ext4_ext_rm_leaf(handle_t *handle, struct inode *inode,
+@@ -2332,6 +2376,25 @@ ext4_ext_rm_leaf(handle_t *handle, struc
  	if (correct_index && eh->eh_entries)
  		err = ext4_ext_correct_indexes(handle, inode, path);
  
@@ -241,7 +241,7 @@ index 031d1c0..8477d6a 100644
  	/* if this leaf is free, then we should
  	 * remove it from index block above */
  	if (err == 0 && eh->eh_entries == 0 && path[depth].p_bh != NULL)
-@@ -2367,6 +2430,7 @@ static int ext4_ext_remove_space(struct inode *inode, ext4_lblk_t start)
+@@ -2367,6 +2430,7 @@ static int ext4_ext_remove_space(struct 
  	struct super_block *sb = inode->i_sb;
  	int depth = ext_depth(inode);
  	struct ext4_ext_path *path;
@@ -259,11 +259,11 @@ index 031d1c0..8477d6a 100644
  			/* root level has p_bh == NULL, brelse() eats this */
  			brelse(path[i].p_bh);
  			path[i].p_bh = NULL;
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index 3b6eeb6..061f7fe 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
-@@ -4509,7 +4509,7 @@ ext4_mb_free_metadata(handle_t *handle, struct ext4_buddy *e4b,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/mballoc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/mballoc.c
+@@ -4511,7 +4511,7 @@ ext4_mb_free_metadata(handle_t *handle, 
   */
  void ext4_mb_free_blocks(handle_t *handle, struct inode *inode,
  			ext4_fsblk_t block, unsigned long count,
@@ -272,7 +272,7 @@ index 3b6eeb6..061f7fe 100644
  {
  	struct buffer_head *bitmap_bh = NULL;
  	struct super_block *sb = inode->i_sb;
-@@ -4539,7 +4539,7 @@ void ext4_mb_free_blocks(handle_t *handle, struct inode *inode,
+@@ -4541,7 +4541,7 @@ void ext4_mb_free_blocks(handle_t *handl
  	}
  
  	ext4_debug("freeing block %llu\n", block);
@@ -281,7 +281,7 @@ index 3b6eeb6..061f7fe 100644
  
  	/*
  	 * If the extent to be freed does not begin on a cluster
-@@ -4550,7 +4550,7 @@ void ext4_mb_free_blocks(handle_t *handle, struct inode *inode,
+@@ -4552,7 +4552,7 @@ void ext4_mb_free_blocks(handle_t *handl
  	 */
  	overflow = block & (sbi->s_cluster_ratio - 1);
  	if (overflow) {
@@ -290,7 +290,7 @@ index 3b6eeb6..061f7fe 100644
  			overflow = sbi->s_cluster_ratio - overflow;
  			block += overflow;
  			if (count > overflow)
-@@ -4564,7 +4564,7 @@ void ext4_mb_free_blocks(handle_t *handle, struct inode *inode,
+@@ -4566,7 +4566,7 @@ void ext4_mb_free_blocks(handle_t *handl
  	}
  	overflow = count & (sbi->s_cluster_ratio - 1);
  	if (overflow) {
@@ -299,7 +299,7 @@ index 3b6eeb6..061f7fe 100644
  			if (count > overflow)
  				count -= overflow;
  			else
-@@ -4648,7 +4648,8 @@ do_more:
+@@ -4650,7 +4650,8 @@ do_more:
  	err = ext4_mb_load_buddy(sb, block_group, &e4b);
  	if (err)
  		goto error_return;

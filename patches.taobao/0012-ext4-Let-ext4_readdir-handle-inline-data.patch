@@ -8,11 +8,11 @@ This patch lets ext4_readdir handle inline data.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
-index d4bbbf9..3421037 100644
---- a/fs/ext4/dir.c
-+++ b/fs/ext4/dir.c
-@@ -27,10 +27,7 @@
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/dir.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/dir.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/dir.c
+@@ -27,23 +27,11 @@
  #include <linux/slab.h>
  #include <linux/rbtree.h>
  #include "ext4.h"
@@ -22,11 +22,8 @@ index d4bbbf9..3421037 100644
 -};
 +#include "xattr.h"
  
- static int ext4_readdir(struct file *, void *, filldir_t);
  static int ext4_dx_readdir(struct file *filp,
-@@ -51,16 +48,14 @@ const struct file_operations ext4_dir_operations = {
- };
- 
+ 			   void *dirent, filldir_t filldir);
  
 -static unsigned char get_dtype(struct super_block *sb, int filetype)
 -{
@@ -37,21 +34,12 @@ index d4bbbf9..3421037 100644
 -	return (ext4_filetype_table[filetype]);
 -}
 -
--
-+/*
-+ * Return 0 if the directory entry is OK, and 1 if there is a problem
-+ *
-+ * Note: this is the opposite of what ext2 and ext3 historically returned...
-+ *
-+ * bh passed here can be an inode block or a dir data block, depending
-+ * on the inode inline data flag.
-+ */
- int ext4_check_dir_entry(const char *function, struct inode *dir,
- 			 struct ext4_dir_entry_2 *de,
- 			 struct buffer_head *bh, char *buf, int size,
-@@ -110,6 +105,12 @@ static int ext4_readdir(struct file *filp,
- 
- 	sb = inode->i_sb;
+ /**
+  * Check if the given dir-inode refers to an htree-indexed directory
+  * (or a directory which chould potentially get coverted to use htree
+@@ -111,6 +99,12 @@ static int ext4_readdir(struct file *fil
+ 	int ret = 0;
+ 	int dir_has_error = 0;
  
 +	if (ext4_has_inline_data(inode)) {
 +		ret = ext4_read_inline_dir(filp, dirent, filldir);
@@ -59,14 +47,14 @@ index d4bbbf9..3421037 100644
 +			return ret;
 +	}
 +
- 	if (EXT4_HAS_COMPAT_FEATURE(inode->i_sb,
- 				    EXT4_FEATURE_COMPAT_DIR_INDEX) &&
- 	    ((ext4_test_inode_flag(inode, EXT4_INODE_INDEX)) ||
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 6f0e996..9fec25f 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1678,6 +1678,18 @@ static inline void ext4_update_dx_flag(struct inode *inode)
+ 	if (is_dx_dir(inode)) {
+ 		err = ext4_dx_readdir(filp, dirent, filldir);
+ 		if (err != ERR_BAD_DX_DIR) {
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1684,6 +1684,18 @@ static inline void ext4_update_dx_flag(s
  				     EXT4_FEATURE_COMPAT_DIR_INDEX))
  		ext4_clear_inode_flag(inode, EXT4_INODE_INDEX);
  }
@@ -85,10 +73,10 @@ index 6f0e996..9fec25f 100644
  
  /* fsync.c */
  extern int ext4_sync_file(struct file *, struct dentry *, int);
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index beebad2..3860af8 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inline.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
 @@ -1171,6 +1171,130 @@ out:
  }
  
@@ -220,11 +208,11 @@ index beebad2..3860af8 100644
   * Try to create the inline data for the new dir.
   * If it succeeds, return 0, otherwise return the error.
   * In case of ENOSPC, the caller should create the normal disk layout dir.
-diff --git a/fs/ext4/xattr.h b/fs/ext4/xattr.h
-index e7c540f..e2324d3 100644
---- a/fs/ext4/xattr.h
-+++ b/fs/ext4/xattr.h
-@@ -166,6 +166,8 @@ extern int ext4_try_add_inline_entry(handle_t *handle, struct dentry *dentry,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/xattr.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+@@ -166,6 +166,8 @@ extern int ext4_try_add_inline_entry(han
  extern int ext4_try_create_inline_dir(handle_t *handle,
  				      struct inode *parent,
  				      struct inode *inode);
@@ -233,7 +221,7 @@ index e7c540f..e2324d3 100644
  # else  /* CONFIG_EXT4_FS_XATTR */
  
  static inline int
-@@ -343,6 +345,11 @@ static inline int ext4_try_create_inline_dir(handle_t *handle,
+@@ -343,6 +345,11 @@ static inline int ext4_try_create_inline
  {
  	return 0;
  }

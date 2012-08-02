@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
+Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
-@@ -67,6 +67,9 @@
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/netconsole.c
++++ linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
+@@ -67,6 +67,9 @@ __setup("netconsole=", option_setup);
  struct netpoll_targets {
  	struct list_head list;
  	spinlock_t lock;
@@ -20,7 +20,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  };
  #define DEFINE_NETPOLL_TARGETS(x) struct netpoll_targets x = \
  	{ .list = LIST_HEAD_INIT(x.list), \
-@@ -111,63 +114,8 @@
+@@ -111,63 +114,8 @@ struct netconsole_target {
  	struct work_struct	cleanup_work;
  };
  
@@ -86,7 +86,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  static void deferred_netpoll_cleanup(struct work_struct *work)
  {
-@@ -713,15 +661,63 @@
+@@ -713,15 +661,63 @@ static struct config_item_type netconsol
  	.ct_owner	= THIS_MODULE,
  };
  
@@ -159,7 +159,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  #endif	/* CONFIG_NETCONSOLE_DYNAMIC */
  
-@@ -868,7 +864,7 @@
+@@ -868,7 +864,7 @@ static int __init init_netconsole(void)
  	if (err)
  		goto fail;
  
@@ -168,7 +168,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	if (err)
  		goto undonotifier;
  
-@@ -901,7 +897,7 @@
+@@ -901,7 +897,7 @@ static void __exit cleanup_netconsole(vo
  	struct netconsole_target *nt, *tmp;
  
  	unregister_console(&netconsole);

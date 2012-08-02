@@ -21,11 +21,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  fs/open.c  |    6 +++---
  2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/fs/namei.c b/fs/namei.c
-index 11579f0..80e0784 100644
---- a/fs/namei.c
-+++ b/fs/namei.c
-@@ -1966,6 +1966,7 @@ do_last:
+Index: linux-2.6.32-279.2.1.el5/fs/namei.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/namei.c
++++ linux-2.6.32-279.2.1.el5/fs/namei.c
+@@ -1959,6 +1959,7 @@ do_last:
  		}
  		filp = nameidata_to_filp(&nd);
  		mnt_drop_write(nd.path.mnt);
@@ -33,7 +33,7 @@ index 11579f0..80e0784 100644
  		if (nd.root.mnt)
  			path_put(&nd.root);
  		if (!IS_ERR(filp)) {
-@@ -2055,6 +2056,7 @@ ok:
+@@ -2048,6 +2049,7 @@ ok:
  		mnt_drop_write(nd.path.mnt);
  	if (nd.root.mnt)
  		path_put(&nd.root);
@@ -41,11 +41,11 @@ index 11579f0..80e0784 100644
  	return filp;
  
  exit_mutex_unlock:
-diff --git a/fs/open.c b/fs/open.c
-index 87503b4..523ae5d 100644
---- a/fs/open.c
-+++ b/fs/open.c
-@@ -777,11 +777,11 @@ struct file *nameidata_to_filp(struct nameidata *nd)
+Index: linux-2.6.32-279.2.1.el5/fs/open.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/open.c
++++ linux-2.6.32-279.2.1.el5/fs/open.c
+@@ -777,11 +777,11 @@ struct file *nameidata_to_filp(struct na
  	/* Pick up the filp from the open intent */
  	filp = nd->intent.open.file;
  	/* Has the filesystem initialised the file for us? */
@@ -60,6 +60,3 @@ index 87503b4..523ae5d 100644
  	return filp;
  }
  
--- 
-1.7.3.2
-

@@ -21,11 +21,11 @@ LKML-Reference: <tip-*@git.kernel.org>
 Cc: <stable@kernel.org>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-diff --git a/arch/x86/vdso/Makefile b/arch/x86/vdso/Makefile
-index 4a2afa1..b6552b1 100644
---- a/arch/x86/vdso/Makefile
-+++ b/arch/x86/vdso/Makefile
-@@ -25,7 +25,7 @@ targets += vdso.so vdso.so.dbg vdso.lds $(vobjs-y)
+Index: linux-2.6.32-279.2.1.el5/arch/x86/vdso/Makefile
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/arch/x86/vdso/Makefile
++++ linux-2.6.32-279.2.1.el5/arch/x86/vdso/Makefile
+@@ -25,7 +25,7 @@ targets += vdso.so vdso.so.dbg vdso.lds 
  
  export CPPFLAGS_vdso.lds += -P -C
  

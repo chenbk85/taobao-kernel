@@ -46,11 +46,11 @@ Signed-off-by: Aditya Kali <adityakali@google.com>
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/ext4.h
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/ext4.h	2012-06-20 00:07:33.511048683 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/ext4.h	2012-06-20 00:07:39.347077621 +0800
-@@ -1734,7 +1734,6 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1740,7 +1740,6 @@ extern qsize_t *ext4_get_reserved_space(
  extern int flush_aio_dio_completed_IO(struct inode *inode);
  extern void ext4_da_update_reserve_space(struct inode *inode,
  					int used, int quota_claim);
@@ -58,7 +58,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/ext4.h
  /* ioctl.c */
  extern long ext4_ioctl(struct file *, unsigned int, unsigned long);
  extern long ext4_compat_ioctl(struct file *, unsigned int, unsigned long);
-@@ -2072,6 +2071,7 @@
+@@ -2086,6 +2085,7 @@ enum ext4_state_bits {
  
  BUFFER_FNS(Uninit, uninit)
  TAS_BUFFER_FNS(Uninit, uninit)
@@ -66,11 +66,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/ext4.h
  
  /*
   * Add new method to test wether block and inode bitmaps are properly
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/extents.c	2012-06-20 00:07:38.411072979 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/extents.c	2012-06-20 00:07:39.347077621 +0800
-@@ -3325,28 +3325,9 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/extents.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
+@@ -3325,28 +3325,9 @@ static int ext4_find_delalloc_range(stru
  
  	while ((i >= lblk_start) && (i <= lblk_end)) {
  		page = find_get_page(mapping, index);
@@ -100,7 +100,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  		if (!page_has_buffers(page))
  			goto nextpage;
  
-@@ -3369,7 +3350,11 @@
+@@ -3369,7 +3350,11 @@ static int ext4_find_delalloc_range(stru
  				continue;
  			}
  
@@ -113,7 +113,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  				page_cache_release(page);
  				trace_ext4_find_delalloc_range(inode,
  						lblk_start, lblk_end,
-@@ -4015,6 +4000,7 @@
+@@ -4015,6 +4000,7 @@ got_allocated_blocks:
  	if (allocated > map->m_len)
  		allocated = map->m_len;
  	set_buffer_new(bh_result);
@@ -121,7 +121,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  
  	/*
  	 * Update reserved blocks/metadata blocks after successful
-@@ -4044,6 +4030,7 @@
+@@ -4044,6 +4030,7 @@ got_allocated_blocks:
  			ext4_da_update_reserve_space(inode, allocated_clusters,
  							1);
  			if (reserved_clusters < allocated_clusters) {
@@ -129,7 +129,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  				int reservation = allocated_clusters -
  						  reserved_clusters;
  				/*
-@@ -4086,11 +4073,11 @@
+@@ -4086,11 +4073,11 @@ got_allocated_blocks:
  				 *   remaining blocks finally gets written, we
  				 *   could claim them.
  				 */
@@ -146,7 +146,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  			}
  		}
  	}
-@@ -4112,6 +4099,7 @@
+@@ -4112,6 +4099,7 @@ out:
  	map->m_pblk = newblock;
  	map->m_len = allocated;
  	set_buffer_mapped(bh_result);
@@ -154,11 +154,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  	bh_result->b_bdev = inode->i_sb->s_bdev;
  	bh_result->b_blocknr = newblock;
  out2:
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inode.c	2012-06-20 00:07:38.411072979 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/inode.c	2012-06-20 00:07:39.351077644 +0800
-@@ -1261,6 +1261,49 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+@@ -1261,6 +1261,49 @@ static pgoff_t ext4_num_dirty_pages(stru
  	return num;
  }
  
@@ -208,7 +208,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  /*
   * The ext4_get_blocks() function tries to look up the requested blocks,
   * and returns if the blocks are already mapped.
-@@ -1339,6 +1382,7 @@
+@@ -1339,6 +1382,7 @@ int ext4_get_blocks(handle_t *handle, st
  	 * set on the buffer_head.
  	 */
  	clear_buffer_unwritten(bh);
@@ -216,7 +216,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  
  	/*
  	 * New blocks allocate and/or writing to uninitialized extent
-@@ -1384,8 +1428,16 @@
+@@ -1384,8 +1428,16 @@ int ext4_get_blocks(handle_t *handle, st
  			(flags & EXT4_GET_BLOCKS_DELALLOC_RESERVE))
  			ext4_da_update_reserve_space(inode, retval, 1);
  	}
@@ -234,7 +234,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  
  	up_write((&EXT4_I(inode)->i_data_sem));
  	if (retval > 0 && buffer_mapped(bh)) {
-@@ -2055,6 +2107,7 @@
+@@ -2059,6 +2111,7 @@ static void ext4_da_page_release_reserva
  		if ((offset <= curr_off) && (buffer_delay(bh))) {
  			to_release++;
  			clear_buffer_delay(bh);
@@ -242,7 +242,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  		}
  		curr_off = next_off;
  	} while ((bh = bh->b_this_page) != head);
-@@ -2173,6 +2226,8 @@
+@@ -2177,6 +2230,8 @@ static int mpage_da_submit_io(struct mpa
  						clear_buffer_delay(bh);
  						bh->b_blocknr = pblock;
  					}
@@ -251,7 +251,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  					if (buffer_unwritten(bh) ||
  					    buffer_mapped(bh))
  						BUG_ON(bh->b_blocknr != pblock);
-@@ -2197,6 +2252,7 @@
+@@ -2201,6 +2256,7 @@ static int mpage_da_submit_io(struct mpa
  				/* mark the buffer_heads as dirty & uptodate */
  				block_commit_write(page, 0, len);
  
@@ -259,7 +259,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  			if (journal_data && PageChecked(page))
  				err = __ext4_journalled_writepage(page, len);
  			else
-@@ -2599,6 +2655,66 @@
+@@ -2605,6 +2661,66 @@ static int __mpage_da_writepage(struct p
  }
  
  /*
@@ -326,7 +326,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
   * This is a special get_blocks_t callback which is used by
   * ext4_da_write_begin().  It will either return mapped block or
   * reserve space for a single block.
-@@ -2611,17 +2727,13 @@
+@@ -2617,17 +2733,13 @@ static int __mpage_da_writepage(struct p
   * initialized properly.
   */
  static int ext4_da_get_block_prep(struct inode *inode, sector_t iblock,
@@ -346,7 +346,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  
  	map.m_lblk = iblock;
  	map.m_len = 1;
-@@ -2631,42 +2743,24 @@
+@@ -2637,42 +2749,24 @@ static int ext4_da_get_block_prep(struct
  	 * preallocated blocks are unmapped but should treated
  	 * the same as allocated blocks.
  	 */
@@ -356,20 +356,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
 -		/*
 -		 * XXX: __block_prepare_write() unmaps passed block,
 -		 * is it OK?
-+	ret = ext4_da_map_blocks(inode, iblock, &map, bh);
-+	if (ret <= 0)
-+		return ret;
-+
-+	map_bh(bh, inode->i_sb, map.m_pblk);
-+	bh->b_state = (bh->b_state & ~EXT4_MAP_FLAGS) | map.m_flags;
-+
-+	if (buffer_unwritten(bh)) {
-+		/* A delayed write to unwritten bh should be marked
-+		 * new and mapped.  Mapped ensures that we don't do
-+		 * get_block multiple times when we write to the same
-+		 * offset and new ensures that we do proper zero out
-+		 * for partial write.
- 		 */
+-		 */
 -		/* If the block was allocated from previously allocated cluster,
 -		 * then we dont need to reserve it again. */
 -		if (!(map.m_flags & EXT4_MAP_FROM_CLUSTER)) {
@@ -378,7 +365,10 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
 -				/* not enough space to reserve */
 -				return ret;
 -		}
--
++	ret = ext4_da_map_blocks(inode, iblock, &map, bh);
++	if (ret <= 0)
++		return ret;
+ 
 -		map_bh(bh_result, inode->i_sb, invalid_block);
 -		set_buffer_new(bh_result);
 -		set_buffer_delay(bh_result);
@@ -396,16 +386,26 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
 -			set_buffer_mapped(bh_result);
 -		}
 -		ret = 0;
+-	}
++	map_bh(bh, inode->i_sb, map.m_pblk);
++	bh->b_state = (bh->b_state & ~EXT4_MAP_FLAGS) | map.m_flags;
+ 
+-	return ret;
++	if (buffer_unwritten(bh)) {
++		/* A delayed write to unwritten bh should be marked
++		 * new and mapped.  Mapped ensures that we don't do
++		 * get_block multiple times when we write to the same
++		 * offset and new ensures that we do proper zero out
++		 * for partial write.
++		 */
 +		set_buffer_new(bh);
 +		set_buffer_mapped(bh);
- 	}
--
--	return ret;
++	}
 +	return 0;
  }
  
  /*
-@@ -2978,8 +3072,6 @@
+@@ -2988,8 +3082,6 @@ continue_unlock:
  			}
  
  			BUG_ON(PageWriteback(page));

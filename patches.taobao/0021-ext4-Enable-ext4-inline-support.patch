@@ -8,11 +8,11 @@ This patch enables ext4 inline support.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index b3ad80d..4239a1c 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1347,6 +1347,9 @@ EXT4_INODE_BIT_FNS(state, state_flags)
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1349,6 +1349,9 @@ EXT4_INODE_BIT_FNS(state, state_flags)
  #define EXT4_FEATURE_INCOMPAT_64BIT		0x0080
  #define EXT4_FEATURE_INCOMPAT_MMP               0x0100
  #define EXT4_FEATURE_INCOMPAT_FLEX_BG		0x0200
@@ -22,7 +22,7 @@ index b3ad80d..4239a1c 100644
  
  #define EXT4_FEATURE_COMPAT_SUPP	EXT2_FEATURE_COMPAT_EXT_ATTR
  #define EXT4_FEATURE_INCOMPAT_SUPP	(EXT4_FEATURE_INCOMPAT_FILETYPE| \
-@@ -1354,7 +1357,9 @@ EXT4_INODE_BIT_FNS(state, state_flags)
+@@ -1356,7 +1359,9 @@ EXT4_INODE_BIT_FNS(state, state_flags)
  					 EXT4_FEATURE_INCOMPAT_META_BG| \
  					 EXT4_FEATURE_INCOMPAT_EXTENTS| \
  					 EXT4_FEATURE_INCOMPAT_64BIT| \
@@ -33,10 +33,10 @@ index b3ad80d..4239a1c 100644
  #define EXT4_FEATURE_RO_COMPAT_SUPP	(EXT4_FEATURE_RO_COMPAT_SPARSE_SUPER| \
  					 EXT4_FEATURE_RO_COMPAT_LARGE_FILE| \
  					 EXT4_FEATURE_RO_COMPAT_GDT_CSUM| \
-diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
-index 41d8905..766dead 100644
---- a/fs/ext4/ialloc.c
-+++ b/fs/ext4/ialloc.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ialloc.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ialloc.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ialloc.c
 @@ -1040,6 +1040,10 @@ got:
  
  	ei->i_extra_isize = EXT4_SB(sb)->s_want_extra_isize;

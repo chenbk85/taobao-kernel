@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
+Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-220.0.0.el5.orig/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
-+++ linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c	2011-12-21 22:41:44.000000000 +0800
-@@ -70,16 +70,24 @@
+--- linux-2.6.32-279.2.1.el5.orig/drivers/net/netconsole.c
++++ linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
+@@ -70,16 +70,24 @@ static LIST_HEAD(target_list);
  /* This needs to be a spinlock because write_msg() cannot sleep */
  static DEFINE_SPINLOCK(target_list_lock);
  
@@ -40,7 +40,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
   * @np:		The netpoll structure for this target.
   *		Contains the other userspace visible parameters:
   *		dev_name	(read-write)
-@@ -95,7 +103,7 @@
+@@ -95,7 +103,7 @@ struct netconsole_target {
  #ifdef	CONFIG_NETCONSOLE_DYNAMIC
  	struct config_item	item;
  #endif
@@ -49,7 +49,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	struct netpoll		np;
  };
  
-@@ -188,7 +196,7 @@
+@@ -188,7 +196,7 @@ static struct netconsole_target *alloc_p
  	if (err)
  		goto fail;
  
@@ -58,7 +58,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  	return nt;
  
-@@ -274,7 +282,8 @@
+@@ -274,7 +282,8 @@ static long strtol10_check_range(const c
  
  static ssize_t show_enabled(struct netconsole_target *nt, char *buf)
  {
@@ -68,7 +68,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  }
  
  static ssize_t show_dev_name(struct netconsole_target *nt, char *buf)
-@@ -336,9 +345,12 @@
+@@ -336,9 +345,12 @@ static ssize_t store_enabled(struct netc
  
  	if (enabled) {	/* 1 */
  		spin_lock_irqsave(&target_list_lock, flags);
@@ -83,7 +83,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  
  		/*
  		 * Skip netpoll_parse_options() -- all the attributes are
-@@ -349,9 +361,9 @@
+@@ -349,9 +361,9 @@ static ssize_t store_enabled(struct netc
  		err = netpoll_setup(&nt->np);
  		spin_lock_irqsave(&target_list_lock, flags);
  		if (err)
@@ -95,7 +95,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		spin_unlock_irqrestore(&target_list_lock, flags);
  		if (err)
  			return err;
-@@ -359,10 +371,17 @@
+@@ -359,10 +371,17 @@ static ssize_t store_enabled(struct netc
  		printk(KERN_INFO "netconsole: network logging started\n");
  	} else {	/* 0 */
  		spin_lock_irqsave(&target_list_lock, flags);
@@ -114,7 +114,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  	}
  
  	return strnlen(buf, count);
-@@ -485,7 +504,7 @@
+@@ -485,7 +504,7 @@ static ssize_t store_locked_##_name(stru
  	unsigned long flags;						\
  	ssize_t ret;							\
  	spin_lock_irqsave(&target_list_lock, flags);			\
@@ -123,7 +123,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		printk(KERN_ERR "netconsole: target (%s) is enabled, "	\
  				"disable to update parameters\n",	\
  				config_item_name(&nt->item));		\
-@@ -641,7 +660,7 @@
+@@ -641,7 +660,7 @@ static void drop_netconsole_target(struc
  	 * The target may have never been enabled, or was manually disabled
  	 * before being removed so netpoll may have already been cleaned up.
  	 */
@@ -132,7 +132,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  		netpoll_cleanup(&nt->np);
  
  	config_item_put(&nt->item);
-@@ -680,16 +699,18 @@
+@@ -680,16 +699,18 @@ static int netconsole_netdev_event(struc
  	bool stopped = false;
  
  	if (!(event == NETDEV_CHANGENAME || event == NETDEV_UNREGISTER ||
@@ -153,7 +153,7 @@ Index: linux-2.6.32-220.0.0.el5/drivers/net/netconsole.c
  			case NETDEV_RELEASE:
  			case NETDEV_JOIN:
  			case NETDEV_UNREGISTER:
-@@ -739,7 +760,8 @@
+@@ -739,7 +760,8 @@ static void write_msg(struct console *co
  
  	spin_lock_irqsave(&target_list_lock, flags);
  	list_for_each_entry(nt, &target_list, list) {

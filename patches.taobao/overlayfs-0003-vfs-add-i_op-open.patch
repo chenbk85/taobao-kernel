@@ -17,11 +17,11 @@ Signed-off-by: Coly Li <bosong.ly@taobao.com>
  include/linux/fs.h                |    3 +++
  4 files changed, 40 insertions(+), 2 deletions(-)
 
-Index: linux-2.6.32-220.13.1.el5/Documentation/filesystems/Locking
+Index: linux-2.6.32-279.2.1.el5/Documentation/filesystems/Locking
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/Documentation/filesystems/Locking	2012-05-07 17:13:51.468415045 +0800
-+++ linux-2.6.32-220.13.1.el5/Documentation/filesystems/Locking	2012-05-07 17:15:02.996769724 +0800
-@@ -55,6 +55,9 @@
+--- linux-2.6.32-279.2.1.el5.orig/Documentation/filesystems/Locking
++++ linux-2.6.32-279.2.1.el5/Documentation/filesystems/Locking
+@@ -55,6 +55,9 @@ ata *);
  	ssize_t (*getxattr) (struct dentry *, const char *, void *, size_t);
  	ssize_t (*listxattr) (struct dentry *, char *, size_t);
  	int (*removexattr) (struct dentry *, const char *);
@@ -31,7 +31,7 @@ Index: linux-2.6.32-220.13.1.el5/Documentation/filesystems/Locking
  
  locking rules:
  	all may block, none have BKL
-@@ -78,6 +81,9 @@
+@@ -78,6 +81,9 @@ setxattr:	yes
  getxattr:	no
  listxattr:	no
  removexattr:	yes
@@ -41,11 +41,11 @@ Index: linux-2.6.32-220.13.1.el5/Documentation/filesystems/Locking
  	Additionally, ->rmdir(), ->unlink() and ->rename() have ->i_mutex on
  victim.
  	cross-directory ->rename() has (per-superblock) ->s_vfs_rename_sem.
-Index: linux-2.6.32-220.13.1.el5/Documentation/filesystems/vfs.txt
+Index: linux-2.6.32-279.2.1.el5/Documentation/filesystems/vfs.txt
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/Documentation/filesystems/vfs.txt	2012-05-07 17:13:51.480415103 +0800
-+++ linux-2.6.32-220.13.1.el5/Documentation/filesystems/vfs.txt	2012-05-07 17:15:02.996769724 +0800
-@@ -333,6 +333,8 @@
+--- linux-2.6.32-279.2.1.el5.orig/Documentation/filesystems/vfs.txt
++++ linux-2.6.32-279.2.1.el5/Documentation/filesystems/vfs.txt
+@@ -333,6 +333,8 @@ struct inode_operations {
  	ssize_t (*listxattr) (struct dentry *, char *, size_t);
  	int (*removexattr) (struct dentry *, const char *);
  	void (*truncate_range)(struct inode *, loff_t, loff_t);
@@ -54,7 +54,7 @@ Index: linux-2.6.32-220.13.1.el5/Documentation/filesystems/vfs.txt
  };
  
  Again, all methods are called without any locks being held, unless
-@@ -437,6 +439,12 @@
+@@ -437,6 +439,12 @@ otherwise noted.
    truncate_range: a method provided by the underlying filesystem to truncate a
    	range of blocks , i.e. punch a hole somewhere in a file.
  
@@ -67,11 +67,11 @@ Index: linux-2.6.32-220.13.1.el5/Documentation/filesystems/vfs.txt
  
  The Address Space Object
  ========================
-Index: linux-2.6.32-220.13.1.el5/fs/open.c
+Index: linux-2.6.32-279.2.1.el5/fs/open.c
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/fs/open.c	2012-05-07 17:15:00.816758898 +0800
-+++ linux-2.6.32-220.13.1.el5/fs/open.c	2012-05-07 17:15:02.996769724 +0800
-@@ -776,7 +776,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/open.c
++++ linux-2.6.32-279.2.1.el5/fs/open.c
+@@ -776,7 +776,7 @@ struct file *nameidata_to_filp(struct na
  	filp = nd->intent.open.file;
  	/* Has the filesystem initialised the file for us? */
  	if (filp->f_path.dentry == NULL)
@@ -80,7 +80,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/open.c
  
  	return filp;
  }
-@@ -810,7 +810,7 @@
+@@ -810,7 +810,7 @@ struct file *dentry_open(struct dentry *
  	f = get_empty_filp();
  	if (f != NULL) {
  		f->f_flags = flags;
@@ -89,7 +89,7 @@ Index: linux-2.6.32-220.13.1.el5/fs/open.c
  	}
  	path_put(&path);
  
-@@ -818,6 +818,27 @@
+@@ -818,6 +818,27 @@ struct file *dentry_open(struct dentry *
  }
  EXPORT_SYMBOL(dentry_open);
  
@@ -117,11 +117,11 @@ Index: linux-2.6.32-220.13.1.el5/fs/open.c
  static void __put_unused_fd(struct files_struct *files, unsigned int fd)
  {
  	struct fdtable *fdt = files_fdtable(files);
-Index: linux-2.6.32-220.13.1.el5/include/linux/fs.h
+Index: linux-2.6.32-279.2.1.el5/include/linux/fs.h
 ===================================================================
---- linux-2.6.32-220.13.1.el5.orig/include/linux/fs.h	2012-05-07 17:14:07.420494145 +0800
-+++ linux-2.6.32-220.13.1.el5/include/linux/fs.h	2012-05-07 17:15:02.996769724 +0800
-@@ -1603,6 +1603,8 @@
+--- linux-2.6.32-279.2.1.el5.orig/include/linux/fs.h
++++ linux-2.6.32-279.2.1.el5/include/linux/fs.h
+@@ -1608,6 +1608,8 @@ struct inode_operations {
  			  loff_t len);
  	int (*fiemap)(struct inode *, struct fiemap_extent_info *, u64 start,
  		      u64 len);
@@ -130,7 +130,7 @@ Index: linux-2.6.32-220.13.1.el5/include/linux/fs.h
  };
  
  struct seq_file;
-@@ -1985,6 +1987,7 @@
+@@ -1991,6 +1993,7 @@ extern int do_fallocate(struct file *fil
  extern long do_sys_open(int dfd, const char __user *filename, int flags,
  			int mode);
  extern struct file *filp_open(const char *, int, int);

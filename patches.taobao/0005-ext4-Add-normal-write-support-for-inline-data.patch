@@ -10,11 +10,11 @@ based file when the write is larger than the max inline size.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/ext4.h
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/ext4.h	2012-06-20 00:08:29.975328682 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/ext4.h	2012-06-20 00:09:08.279518617 +0800
-@@ -1712,8 +1712,20 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4.h
+@@ -1718,8 +1718,20 @@ struct buffer_head *ext4_getblk(handle_t
  						ext4_lblk_t, int, int *);
  struct buffer_head *ext4_bread(handle_t *, struct inode *,
  						ext4_lblk_t, int, int *);
@@ -35,10 +35,10 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/ext4.h
  
  extern struct inode *ext4_iget(struct super_block *, unsigned long);
  extern int  ext4_write_inode(struct inode *, struct writeback_control *);
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/extents.c	2012-06-20 00:08:20.547281930 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/extents.c	2012-06-20 00:09:08.279518617 +0800
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/extents.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
 @@ -42,6 +42,7 @@
  #include <asm/uaccess.h>
  #include <linux/fiemap.h>
@@ -47,7 +47,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  
  #include <trace/events/ext4.h>
  
-@@ -2150,7 +2151,13 @@
+@@ -2150,7 +2151,13 @@ int ext4_ext_calc_credits_for_single_ext
  int ext4_ext_index_trans_blocks(struct inode *inode, int nrblocks, int chunk)
  {
  	int index;
@@ -62,11 +62,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/extents.c
  
  	if (chunk)
  		index = depth * 2;
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inline.c	2012-06-20 00:08:33.827347783 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/inline.c	2012-06-20 00:09:08.279518617 +0800
-@@ -489,6 +489,238 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inline.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
+@@ -489,6 +489,238 @@ int ext4_readpage_inline(struct inode *i
  	return ret >= 0 ? 0 : ret;
  }
  
@@ -305,11 +305,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inline.c
  int ext4_destroy_inline_data(handle_t *handle, struct inode *inode)
  {
  	int ret;
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/inode.c	2012-06-20 00:08:33.827347783 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/inode.c	2012-06-20 00:09:08.279518617 +0800
-@@ -1627,7 +1627,7 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inode.c
+@@ -1627,7 +1627,7 @@ struct buffer_head *ext4_bread(handle_t 
  	return NULL;
  }
  
@@ -318,7 +318,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  			     struct buffer_head *head,
  			     unsigned from,
  			     unsigned to,
-@@ -1683,8 +1683,8 @@
+@@ -1683,8 +1683,8 @@ static int walk_page_buffers(handle_t *h
   * is elevated.  We'll still have enough credits for the tiny quotafile
   * write.
   */
@@ -329,7 +329,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  {
  	if (!buffer_mapped(bh) || buffer_freed(bh))
  		return 0;
-@@ -1695,7 +1695,7 @@
+@@ -1695,7 +1695,7 @@ static int do_journal_get_write_access(h
   * Truncate blocks that were not used by write. We have to truncate the
   * pagecache as well so that corresponding buffers get properly unmapped.
   */
@@ -338,7 +338,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  {
  	truncate_inode_pages(inode->i_mapping, inode->i_size);
  	ext4_truncate(inode);
-@@ -1723,6 +1723,17 @@
+@@ -1723,6 +1723,17 @@ static int ext4_write_begin(struct file 
  	from = pos & (PAGE_CACHE_SIZE - 1);
  	to = from + len;
  
@@ -356,7 +356,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  retry:
  	handle = ext4_journal_start(inode, needed_blocks);
  	if (IS_ERR(handle)) {
-@@ -1740,6 +1751,7 @@
+@@ -1740,6 +1751,7 @@ retry:
  		ret = -ENOMEM;
  		goto out;
  	}
@@ -364,7 +364,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  	*pagep = page;
  
  	if (!ext4_should_journal_data(inode))
-@@ -1805,7 +1817,12 @@
+@@ -1805,7 +1817,12 @@ static int ext4_generic_write_end(struct
  	struct inode *inode = mapping->host;
  	handle_t *handle = ext4_journal_current_handle();
  
@@ -378,7 +378,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  
  	/*
  	 * No need to use i_size_read() here, the i_size
-@@ -5198,7 +5215,8 @@
+@@ -5217,7 +5234,8 @@ static inline void ext4_iget_extra_inode
  	if (*magic == cpu_to_le32(EXT4_XATTR_MAGIC)) {
  		ext4_set_inode_state(inode, EXT4_STATE_XATTR);
  		ext4_find_inline_data(inode);
@@ -388,7 +388,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  }
  
  struct inode *ext4_iget(struct super_block *sb, unsigned long ino)
-@@ -5336,17 +5354,19 @@
+@@ -5355,17 +5373,19 @@ struct inode *ext4_iget(struct super_blo
  			   ei->i_file_acl, inode->i_ino);
  		ret = -EIO;
  		goto bad_inode;
@@ -419,7 +419,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  	}
  	if (ret)
  		goto bad_inode;
-@@ -5530,9 +5550,10 @@
+@@ -5549,9 +5569,10 @@ static int ext4_do_update_inode(handle_t
  				cpu_to_le32(new_encode_dev(inode->i_rdev));
  			raw_inode->i_block[2] = 0;
  		}
@@ -431,11 +431,11 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/inode.c
  
  	raw_inode->i_disk_version = cpu_to_le32(inode->i_version);
  	if (ei->i_extra_isize) {
-Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
 ===================================================================
---- linux-2.6.32-220.23.1.el5.orig/fs/ext4/xattr.h	2012-06-20 00:08:33.827347783 +0800
-+++ linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h	2012-06-20 00:09:08.283518637 +0800
-@@ -139,6 +139,15 @@
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/xattr.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+@@ -139,6 +139,15 @@ extern int ext4_init_inline_data(handle_
  extern int ext4_destroy_inline_data(handle_t *handle, struct inode *inode);
  
  extern int ext4_readpage_inline(struct inode *inode, struct page *page);
@@ -451,7 +451,7 @@ Index: linux-2.6.32-220.23.1.el5/fs/ext4/xattr.h
  # else  /* CONFIG_EXT4_FS_XATTR */
  
  static inline int
-@@ -259,6 +268,23 @@
+@@ -259,6 +268,23 @@ static inline int ext4_readpage_inline(s
  {
  	return 0;
  }

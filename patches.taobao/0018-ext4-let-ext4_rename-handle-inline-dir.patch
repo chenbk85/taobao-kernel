@@ -12,10 +12,10 @@ ext4_rename can handle it properly.
 
 Signed-off-by: Tao Ma <boyu.mt@taobao.com>
 ---
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index ba90b17..1194b38 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/inline.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/inline.c
 @@ -1322,6 +1322,21 @@ out:
  	return ret;
  }
@@ -38,11 +38,11 @@ index ba90b17..1194b38 100644
  struct buffer_head *ext4_find_inline_entry(struct inode *dir,
  					const struct qstr *d_name,
  					struct ext4_dir_entry_2 **res_dir,
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 4bc6726..bf8f123 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -2459,6 +2459,31 @@ retry:
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/namei.c
++++ linux-2.6.32-279.2.1.el5/fs/ext4/namei.c
+@@ -2471,6 +2471,31 @@ retry:
  	(ext4_next_entry((struct ext4_dir_entry_2 *)(buffer), size)->inode)
  
  /*
@@ -74,7 +74,7 @@ index 4bc6726..bf8f123 100644
   * Anybody can rename anything with this: the permission checks are left to the
   * higher-level routines.
   */
-@@ -2469,7 +2494,8 @@ static int ext4_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -2481,7 +2506,8 @@ static int ext4_rename(struct inode *old
  	struct inode *old_inode, *new_inode;
  	struct buffer_head *old_bh, *new_bh, *dir_bh;
  	struct ext4_dir_entry_2 *old_de, *new_de;
@@ -84,7 +84,7 @@ index 4bc6726..bf8f123 100644
  
  	old_bh = new_bh = dir_bh = NULL;
  
-@@ -2513,11 +2539,12 @@ static int ext4_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -2525,11 +2551,12 @@ static int ext4_rename(struct inode *old
  				goto end_rename;
  		}
  		retval = -EIO;
@@ -100,7 +100,7 @@ index 4bc6726..bf8f123 100644
  			goto end_rename;
  		retval = -EMLINK;
  		if (!new_inode && new_dir != old_dir &&
-@@ -2589,8 +2616,7 @@ static int ext4_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -2601,8 +2628,7 @@ static int ext4_rename(struct inode *old
  	if (dir_bh) {
  		BUFFER_TRACE(dir_bh, "get_write_access");
  		ext4_journal_get_write_access(handle, dir_bh);
@@ -110,11 +110,11 @@ index 4bc6726..bf8f123 100644
  		BUFFER_TRACE(dir_bh, "call ext4_handle_dirty_metadata");
  		ext4_handle_dirty_metadata(handle, old_dir, dir_bh);
  		ext4_dec_count(handle, old_dir);
-diff --git a/fs/ext4/xattr.h b/fs/ext4/xattr.h
-index 17ba4b8..180c8a4 100644
---- a/fs/ext4/xattr.h
-+++ b/fs/ext4/xattr.h
-@@ -177,6 +177,10 @@ extern int ext4_delete_inline_entry(handle_t *handle,
+Index: linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+===================================================================
+--- linux-2.6.32-279.2.1.el5.orig/fs/ext4/xattr.h
++++ linux-2.6.32-279.2.1.el5/fs/ext4/xattr.h
+@@ -177,6 +177,10 @@ extern int ext4_delete_inline_entry(hand
  				    struct ext4_dir_entry_2 *de_del,
  				    struct buffer_head *bh);
  extern int empty_inline_dir(struct inode *dir, int *has_inline_data);
@@ -125,7 +125,7 @@ index 17ba4b8..180c8a4 100644
  # else  /* CONFIG_EXT4_FS_XATTR */
  
  static inline int
-@@ -379,6 +383,14 @@ static inline int empty_inline_dir(struct inode *dir, int *has_inline_data)
+@@ -379,6 +383,14 @@ static inline int empty_inline_dir(struc
  {
  	return 0;
  }
