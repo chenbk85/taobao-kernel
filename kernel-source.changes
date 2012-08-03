@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Aug  3 13:35:50 CST 2012 - boyu.mt@taobao.com
+
+Fix a build error after rebasing to 2.6.32-279.2.1
+
+- patches.taobao/perf-builtin-test-compile-warning.patch:
+
+-------------------------------------------------------------------
 Thu Aug  2 15:02:04 CST 2012 - boyu.mt@taobao.com
 
 Upgrade to to RHEL6U3 2.6.32-279.2.1.
