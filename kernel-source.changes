@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Aug  9 00:45:38 CST 2012 - boyu.mt@taobao.com
+
+Get the new kgtp and rebase it to 2.6.32-279.2.1
+
+- patches.taobao/kernel-gdb-trace-point.patch:
+- patches.taobao/kernel-gdb-trace-point-20120131.patch: Delete.
+
+-------------------------------------------------------------------
 Fri Aug  3 13:35:50 CST 2012 - boyu.mt@taobao.com
 
 Fix a build error after rebasing to 2.6.32-279.2.1
