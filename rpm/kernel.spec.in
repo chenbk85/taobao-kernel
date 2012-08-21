@@ -2,6 +2,8 @@
 
 Summary: The Linux kernel
 
+Epoch: 20
+
 # For a stable, released kernel, released_kernel should be 1. For rawhide
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
