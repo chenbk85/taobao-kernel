@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Tue Aug 21 15:52:38 CST 2012 - boyu.mt@taobao.com
+
+Add a Epoch  in kernel spec.
+
+Add a Epoch in kernel spec so that taobao's kernel can have a precedence
+than redhat's kernel.
+
+- rpm/kernel.spec.in:
+
+-------------------------------------------------------------------
 Tue Aug 14 23:58:59 CST 2012 - boyu.mt@taobao.com
 
 Fix a bug reported by hadoop.
