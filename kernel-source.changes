@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Aug 24 01:59:11 CST 2012 - boyu.mt@taobao.com
+
+Add a new loadavg fix from Peter.
+
+- Add it back in series.conf. 
+
+-------------------------------------------------------------------
 Fri Aug 24 00:39:05 CST 2012 - boyu.mt@taobao.com
 
 Build a version for PE team, so remove the loadavg patch first.
