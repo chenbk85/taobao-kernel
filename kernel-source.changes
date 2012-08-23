@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Aug 24 00:09:48 CST 2012 - boyu.mt@taobao.com
+
+Add a new loadavg fix from Peter.
+
+- patches.taobao/loadavg-bug-fix-004.patch:
+
+-------------------------------------------------------------------
 Tue Aug 21 15:52:38 CST 2012 - boyu.mt@taobao.com
 
 Add a Epoch  in kernel spec.
