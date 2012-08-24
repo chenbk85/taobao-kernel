@@ -1,0 +1,43 @@
+From b7adc1f363e72e9131a582cc2cb00eaf83f51a39 Mon Sep 17 00:00:00 2001
+From: Jiaying Zhang <jiayingz@google.com>
+Date: Tue, 2 Mar 2010 13:26:36 -0500
+Subject: [PATCH 3/8] ext4: Use direct_IO_no_locking in ext4 dio read
+Patch-mainline: v2.6.33-rc8-26-gb7adc1f
+Reference: b7adc1f363e72e9131a582cc2cb00eaf83f51a39
+
+[Note from Zheng Liu]
+If a read operation is called and dioread_nolock is enabled, we won't try to
+acquire i_mutex locking in __blockdev_direct_IO.  Otherwise, we walk old path.
+
+Signed-off-by: Jiaying Zhang <jiayingz@google.com>
+Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
+Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
+---
+ fs/ext4/inode.c |   16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -3911,10 +3911,18 @@
+ 	}
+ 
+ retry:
+-	ret = __blockdev_direct_IO(rw, iocb, inode, inode->i_sb->s_bdev,
+-				   iov, offset, nr_segs,
+-				   ext4_get_block, NULL, ext4_ios_submit_io,
+-				   DIO_LOCKING | DIO_SKIP_HOLES);
++	if (rw == READ && ext4_should_dioread_nolock(inode))
++		ret = __blockdev_direct_IO(rw, iocb, inode, inode->i_sb->s_bdev,
++					iov, offset, nr_segs,
++					ext4_get_block, NULL,
++					ext4_ios_submit_io,
++					0);
++	else
++		ret = __blockdev_direct_IO(rw, iocb, inode, inode->i_sb->s_bdev,
++					iov, offset, nr_segs,
++					ext4_get_block, NULL,
++					ext4_ios_submit_io,
++					DIO_LOCKING | DIO_SKIP_HOLES);
+ 	if (ret == -ENOSPC && ext4_should_retry_alloc(inode->i_sb, &retries))
+ 		goto retry;
+ 

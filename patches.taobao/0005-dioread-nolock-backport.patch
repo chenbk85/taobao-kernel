@@ -1,0 +1,60 @@
+From 9ea7df534ed2a18157434a496a12cf073ca00c52 Mon Sep 17 00:00:00 2001
+From: Jan Kara <jack@suse.cz>
+Date: Fri, 24 Jun 2011 14:29:41 -0400
+Subject: [PATCH 5/8] ext4: Rewrite ext4_page_mkwrite() to use generic helpers
+Patch-mainline: v3.0-rc7-232-g9ea7df5
+Reference: 9ea7df534ed2a18157434a496a12cf073ca00c52
+
+Rewrite ext4_page_mkwrite() to use __block_page_mkwrite() helper. This
+removes the need of using i_alloc_sem to avoid races with truncate which
+seems to be the wrong locking order according to lock ordering documented in
+mm/rmap.c. Also calling ext4_da_write_begin() as used by the old code seems to
+be problematic because we can decide to flush delay-allocated blocks which
+will acquire s_umount semaphore - again creating unpleasant lock dependency
+if not directly a deadlock.
+
+Also add a check for frozen filesystem so that we don't busyloop in page fault
+when the filesystem is frozen.
+
+Signed-off-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
+---
+ fs/ext4/inode.c |    8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -6469,6 +6469,7 @@
+ 	struct inode *inode = file->f_path.dentry->d_inode;
+ 	struct address_space *mapping = inode->i_mapping;
+ 	handle_t *handle;
++	get_block_t *get_block;
+ 	int retries = 0;
+ 
+ 	/*
+@@ -6516,18 +6517,23 @@
+ 	}
+ 	unlock_page(page);
+ 	/* OK, we need to fill the hole... */
++	if (ext4_should_dioread_nolock(inode))
++		get_block = ext4_get_block_dio_write;
++	else
++		get_block = ext4_get_block;
+ retry_alloc:
+ 	handle = ext4_journal_start(inode, ext4_writepage_trans_blocks(inode));
+ 	if (IS_ERR(handle)) {
+ 		ret = VM_FAULT_SIGBUS;
+ 		goto out;
+ 	}
+-	ret = __block_page_mkwrite(vma, vmf, ext4_get_block);
++	ret = __block_page_mkwrite(vma, vmf, get_block);
+ 	if (!ret && ext4_should_journal_data(inode)) {
+ 		if (walk_page_buffers(handle, page_buffers(page), 0,
+ 			  PAGE_CACHE_SIZE, NULL, do_journal_get_write_access)) {
+ 			unlock_page(page);
+ 			ret = VM_FAULT_SIGBUS;
++			ext4_journal_stop(handle);
+ 			goto out;
+ 		}
+ 		ext4_set_inode_state(inode, EXT4_STATE_JDATA);

@@ -1,0 +1,127 @@
+From: Zheng Liu <wenqing.lz@taobao.com>
+Subject: [PATCH 2/3] ext4: add a new flag for ext4_get_blocks
+Patch-mainline: v3.5-rc5-10-g729f52c
+Reference: 729f52c6be51013c9268e5fc85acbc1091286fdb
+
+EXT4_GET_BLOCKS_NO_LOCK flag is added to indicate that we don't need to acquire
+i_data_sem lock in ext4_get_blocks.  Meanwhile, it lets ext4_get_block do not
+start a new journal because when we do a overwrite dio, there is no any
+metadata that needs to be modified.
+
+We define a new function called ext4_get_block_write_nolock, which is used in
+dio overwrite nolock.  In this function, it doesn't try to acquire i_data_sem
+lock and doesn't start a new journal as it does a lookup.
+
+Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
+---
+ fs/ext4/ext4.h  |    2 ++
+ fs/ext4/inode.c |   54 ++++++++++++++++++++++++++++++++++++++++++++++--------
+ 2 files changed, 48 insertions(+), 8 deletions(-)
+
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -507,6 +507,8 @@
+ 	/* Convert extent to initialized after direct IO complete */
+ #define EXT4_GET_BLOCKS_DIO_CONVERT_EXT		(EXT4_GET_BLOCKS_CONVERT|\
+ 					 EXT4_GET_BLOCKS_CREATE_UNINIT_EXT)
++	/* Do not acquire i_data_sem locking in get_block */
++#define EXT4_GET_BLOCKS_NO_LOCK			0x0100
+ 
+ /*
+  * Flags used by ext4_free_blocks
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -1351,13 +1351,15 @@
+ 	 * Try to see if we can get the block without requesting a new
+ 	 * file system block.
+ 	 */
+-	down_read((&EXT4_I(inode)->i_data_sem));
++	if (!(flags & EXT4_GET_BLOCKS_NO_LOCK))
++		down_read((&EXT4_I(inode)->i_data_sem));
+ 	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)) {
+ 		retval =  ext4_ext_get_blocks(handle, inode, map, bh, 0);
+ 	} else {
+ 		retval = ext4_ind_get_blocks(handle, inode, map, bh, 0);
+ 	}
+-	up_read((&EXT4_I(inode)->i_data_sem));
++	if (!(flags & EXT4_GET_BLOCKS_NO_LOCK))
++		up_read((&EXT4_I(inode)->i_data_sem));
+ 
+ 	if (retval > 0 && buffer_mapped(bh)) {
+ 		int ret = check_block_validity(inode, "file system corruption",
+@@ -4034,6 +4036,31 @@
+ 	return ret;
+ }
+ 
++static int ext4_get_block_dio_write_nolock(struct inode *inode, sector_t iblock,
++				struct buffer_head *bh_result, int create)
++{
++	struct ext4_map_blocks map;
++	handle_t *handle = ext4_journal_current_handle();
++	int ret = 0;
++
++	ext4_debug("ext4_get_block_dio_write_nolock: "
++		   "inode %lu, create flags %d\n",
++		   inode->i_ino, create);
++	create = EXT4_GET_BLOCKS_NO_LOCK;
++	map.m_lblk = iblock;
++	map.m_len = bh_result->b_size >> inode->i_blkbits;
++	ret = ext4_get_blocks(handle, inode, &map, bh_result, create);
++	if (ret > 0) {
++		bh_result->b_size = (ret << inode->i_blkbits);
++		bh_result->b_state = (bh_result->b_state & ~EXT4_MAP_FLAGS) |
++					map.m_flags;
++		bh_result->b_size = inode->i_sb->s_blocksize * map.m_len;
++		ret = 0;
++	}
++
++	return ret;
++}
++
+ static void dump_aio_dio_list(struct inode * inode)
+ {
+ #ifdef	EXT4_DEBUG
+@@ -4353,6 +4380,8 @@
+ 
+ 	loff_t final_size = offset + count;
+ 	if (rw == WRITE && final_size <= inode->i_size) {
++		int overwrite = 0;
++
+ 		/*
+  		 * We could direct write to holes and fallocate.
+ 		 *
+@@ -4389,11 +4418,20 @@
+ 			EXT4_I(inode)->cur_aio_dio = iocb->private;
+ 		}
+ 
+-		ret = __blockdev_direct_IO(rw, iocb, inode, inode->i_sb->s_bdev,
+-					   iov, offset, nr_segs,
+-					   ext4_get_block_dio_write,
+-					   ext4_end_io_dio, ext4_ios_submit_io,
+-					   DIO_LOCKING | DIO_SKIP_HOLES);
++		if (overwrite)
++			ret = __blockdev_direct_IO(rw, iocb, inode,
++					inode->i_sb->s_bdev,
++					iov, offset, nr_segs,
++					ext4_get_block_dio_write_nolock,
++					ext4_end_io_dio, ext4_ios_submit_io,
++					0);
++		else
++			ret = __blockdev_direct_IO(rw, iocb, inode,
++					inode->i_sb->s_bdev,
++					iov, offset, nr_segs,
++					ext4_get_block_dio_write,
++					ext4_end_io_dio, ext4_ios_submit_io,
++					DIO_LOCKING | DIO_SKIP_HOLES);
+ 		if (iocb->private)
+ 			EXT4_I(inode)->cur_aio_dio = NULL;
+ 		/*
+@@ -4413,7 +4451,7 @@
+ 		if (ret != -EIOCBQUEUED && ret <= 0 && iocb->private) {
+ 			ext4_free_io_end(iocb->private);
+ 			iocb->private = NULL;
+-		} else if (ret > 0 && ext4_test_inode_state(inode,
++		} else if (ret > 0 && !overwrite && ext4_test_inode_state(inode,
+ 						EXT4_STATE_DIO_UNWRITTEN)) {
+ 			int err;
+ 			/*

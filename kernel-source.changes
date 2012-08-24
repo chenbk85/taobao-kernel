@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Fri Aug 24 23:29:22 CST 2012 - boyu.mt@taobao.com
+
+Add the feature dio overwrite and network accounting.
+
+- patches.taobao/0001-accouting-L7-networking-traffic-for-TCP-UDP-Raw-IP.patch:
+- patches.taobao/0001-dio-overwrite-nolock-backport.patch:
+- patches.taobao/0001-dioread-nolock-backport.patch:
+- patches.taobao/0002-Feed-net-accounting-data-into-TASKSTATS-interface-t.patch:
+- patches.taobao/0002-dio-overwrite-nolock-backport.patch:
+- patches.taobao/0002-dioread-nolock-backport.patch:
+- patches.taobao/0003-dio-overwrite-nolock-backport.patch:
+- patches.taobao/0003-dioread-nolock-backport.patch:
+- patches.taobao/0004-dioread-nolock-backport.patch:
+- patches.taobao/0005-dioread-nolock-backport.patch:
+- patches.taobao/0006-dioread-nolock-backport.patch:
+- patches.taobao/0007-dioread-nolock-backport.patch:
+- patches.taobao/0008-dioread-nolock-backport.patch:
+
+-------------------------------------------------------------------
 Thu Aug  9 00:45:38 CST 2012 - boyu.mt@taobao.com
 
 Get the new kgtp and rebase it to 2.6.32-279.2.1

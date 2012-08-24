@@ -1,0 +1,69 @@
+From d73d5046a72467d4510825b99e2269e09ad80e15 Mon Sep 17 00:00:00 2001
+From: Tao Ma <boyu.mt@taobao.com>
+Date: Sun, 30 Oct 2011 18:26:08 -0400
+Subject: [PATCH 8/8] ext4: Use correct locking for ext4_end_io_nolock()
+Patch-mainline: v3.1-rc3-85-gd73d504
+Reference: d73d5046a72467d4510825b99e2269e09ad80e15
+
+We must hold i_completed_io_lock when manipulating anything on the
+i_completed_io_list linked list.  This includes io->lock, which we
+were checking in ext4_end_io_nolock().
+
+So move this check to ext4_end_io_work().  This also has the bonus of
+avoiding extra work if it is already done without needing to take the
+mutex.
+
+Signed-off-by: Tao Ma <boyu.mt@taobao.com>
+Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
+Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
+---
+ fs/ext4/inode.c |   16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
+
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -4078,9 +4078,6 @@
+ 		   "list->prev 0x%p\n",
+ 	           io, inode->i_ino, io->list.next, io->list.prev);
+ 
+-	if (list_empty(&io->list))
+-		return ret;
+-
+ 	if (io->flag != DIO_AIO_UNWRITTEN)
+ 		return ret;
+ 
+@@ -4118,6 +4115,13 @@
+ 	int ret = 0;
+ 	unsigned long flags;
+ 
++	spin_lock_irqsave(&ei->i_completed_io_lock, flags);
++	if (list_empty(&io->list)) {
++		spin_unlock_irqrestore(&ei->i_completed_io_lock, flags);
++		goto free;
++	}
++	spin_unlock_irqrestore(&ei->i_completed_io_lock, flags);
++
+ 	mutex_lock(&inode->i_mutex);
+ 	ret = ext4_end_aio_dio_nolock(io);
+ 	if (ret < 0){
+@@ -4128,8 +4132,9 @@
+ 	if (!list_empty(&io->list))
+ 		list_del_init(&io->list);
+ 	spin_unlock_irqrestore(&ei->i_completed_io_lock, flags);
+-	ext4_free_io_end(io);
+ 	mutex_unlock(&inode->i_mutex);
++free:
++	ext4_free_io_end(io);
+ }
+ /*
+  * This function is called from ext4_sync_file().
+@@ -4150,9 +4155,6 @@
+ 	unsigned long flags;
+ 	struct ext4_inode_info *ei = EXT4_I(inode);
+ 
+-	if (list_empty(&EXT4_I(inode)->i_aio_dio_complete_list))
+-		return ret;
+-
+ 	dump_aio_dio_list(inode);
+ 	spin_lock_irqsave(&ei->i_completed_io_lock, flags);
+ 	while (!list_empty(&EXT4_I(inode)->i_aio_dio_complete_list)){
