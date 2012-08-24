@@ -6275,7 +6275,7 @@ Index: linux-2.6.32-279.2.1.el5/lib/gtp.c
 +}
 +
 +static long
-+gtp_task_handler_read(void *dst, const void *src, size_t size)
++gtp_task_handler_read(void *dst, void *src, size_t size)
 +{
 +	if (gtp_task_read(0, get_current(),
 +			  (unsigned long)src, dst, size, 1) != size)
@@ -6387,7 +6387,7 @@ Index: linux-2.6.32-279.2.1.el5/lib/gtp.c
 +	struct gtp_entry		*tpe;
 +	struct pt_regs			*regs;
 +	long				(*read_memory)(void *dst,
-+						       const void *src,
++						       void *src,
 +						       size_t size);
 +#ifdef GTP_FRAME_SIMPLE
 +	/* Next part set it to prev part.  */
