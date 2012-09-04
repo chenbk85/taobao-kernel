@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Sep  4 23:00:22 CST 2012 - boyu.mt@taobao.com
+
+Enable TOA for ipv6.
+
+- patches.taobao/toa.patch:
+
+-------------------------------------------------------------------
 Tue Sep  4 11:17:58 CST 2012 - gaoyang.zyh@taobao.com
 
 add a rpmbuild wrapper
