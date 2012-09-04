@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue Sep  4 11:08:35 CST 2012 - gaoyang.zyh@taobao.com
+
+add rpmbuild wrapper.
+
+- rpm/README: for most useful options
+- rpm/fullbuild.sh: a full build script
+- scripts/package.py:
+
+-------------------------------------------------------------------
 Fri Aug 24 01:59:11 CST 2012 - boyu.mt@taobao.com
 
 Add a new loadavg fix from Peter.
