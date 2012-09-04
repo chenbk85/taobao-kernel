@@ -38,7 +38,7 @@ mkspec_args = []
 RELEASE_STRING = None
 TSFILE = "source-timestamp"
 misc_files_to_copy = ["series.conf", "scripts/merge.pl", \
-                      "rpm/Makefile.common","scripts/perf","scripts/kabitool","scripts/check-kabi", \
+                      "rpm/fullbuild.sh", "rpm/Makefile.common","scripts/perf","scripts/kabitool","scripts/check-kabi", \
                       "scripts/genkey", "scripts/perf-archive", "scripts/find-provides", "scripts/extrakeys.pub", \
                       "rpm/Makefile.config", "scripts/getarch.py", "scripts/apply-patches.sh", "scripts/guard.py"]
 # End of default configs

@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue Sep  4 11:17:58 CST 2012 - gaoyang.zyh@taobao.com
+
+add a rpmbuild wrapper
+
+- rpm/README:
+- rpm/fullbuild.sh:
+- scripts/package.py:
+
+-------------------------------------------------------------------
 Sat Aug 25 00:40:02 CST 2012 - boyu.mt@taobao.com
 
 Fix a build error in kgtp.
