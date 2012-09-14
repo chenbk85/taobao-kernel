@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Sep 14 21:32:13 CST 2012 - boyu.mt@taobao.com
+
+Fix a wrong oom when we CoW a huge page.
+
+- patches.taobao/thp-memcg-split-hugepage-for-memcg-oom-on-cow.patch:
+
+-------------------------------------------------------------------
 Fri Sep 14 01:58:05 CST 2012 - boyu.mt@taobao.com
 
 Update the perf build fix with the new patch.
