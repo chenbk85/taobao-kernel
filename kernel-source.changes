@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Sep 26 21:55:47 CST 2012 - boyu.mt@taobao.com
+
+add drbd back to taobao kernel since aliyun use it.
+
+- Update config files.
+
+-------------------------------------------------------------------
 Fri Sep 14 21:32:13 CST 2012 - boyu.mt@taobao.com
 
 Fix a wrong oom when we CoW a huge page.
