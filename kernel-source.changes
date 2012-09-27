@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Sep 27 23:50:14 CST 2012 - boyu.mt@taobao.com
+
+update kgtp to v20120920.
+
+- patches.taobao/kernel-gdb-trace-point.patch:
+
+-------------------------------------------------------------------
 Wed Sep 26 21:55:47 CST 2012 - boyu.mt@taobao.com
 
 add drbd back to taobao kernel since aliyun use it.
