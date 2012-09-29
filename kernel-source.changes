@@ -1,4 +1,113 @@
 -------------------------------------------------------------------
+Sat Sep 29 11:28:38 CST 2012 - boyu.mt@taobao.com
+
+Upgrade to to RHEL6U3 2.6.32-279.9.1.
+
+- patches.driver/drbd-8.3.10.patch:
+- patches.taobao/0001-accouting-L7-networking-traffic-for-TCP-UDP-Raw-IP.patch:
+- patches.taobao/0001-dioread-nolock-backport.patch:
+- patches.taobao/0002-dioread-nolock-backport.patch:
+- patches.taobao/0004-dioread-nolock-backport.patch:
+- patches.taobao/0019-ext4-Let-fiemap-work-with-inline-data.patch:
+- patches.taobao/bigalloc-001-change-block-and-max_blocks-to-map.patch:
+- patches.taobao/bigalloc-011-teach-ext4_ext_map_blocks-about-the-bigalloc-feature.patch:
+- patches.taobao/bigalloc-017-Fix-bigalloc-quota-accounting-and-i_blocks-value.patch:
+- patches.taobao/bigalloc-024-add-some-tracepoints-in-ext4-extents-c.patch:
+- patches.taobao/bigalloc-025-attempt-to-fix-race-in-bigalloc-code-path.patch:
+- patches.taobao/bigalloc-026-convert-ext4_ext_handle_uninitialized_extents-to-map.patch:
+- patches.taobao/context_switch_per_cpu_stat.patch:
+- patches.taobao/export-necessary-kernel-symbols-for-kernel-modules.patch:
+- patches.taobao/ext4-free-allocated-and-pre-allocated-blocks-when-ch.patch:
+- patches.taobao/fallocate-expose-stale-data-0002-add-in-ext4.patch:
+- patches.taobao/fallocate-expose-stale-data-0003-add-sysfs.patch:
+- patches.taobao/net-SyncAck-rt_stat-per-IP-address.patch:
+- patches.taobao/netoops_002_netconsole_remove_unneeded_reference_counter.patch:
+- patches.taobao/netoops_005_netconsole_call_netpoll_cleanup_in_process_context.patch:
+- patches.taobao/pagecache_hit_accounting_004_add_readpages_accounting.patch:
+- redhat-kernel-changelog:
+- redhat-kernel-source/config-generic-rhel:
+- redhat-kernel-source/kernel.spec:
+- redhat-kernel-source/linux-2.6.32/arch/powerpc/include/asm/cputime.h:
+- redhat-kernel-source/linux-2.6.32/arch/powerpc/kernel/time.c:
+- redhat-kernel-source/linux-2.6.32/arch/s390/include/asm/cputime.h:
+- redhat-kernel-source/linux-2.6.32/arch/x86/include/asm/hw_irq.h:
+- redhat-kernel-source/linux-2.6.32/arch/x86/kernel/amd_iommu.c:
+- redhat-kernel-source/linux-2.6.32/arch/x86/kernel/apic/io_apic.c:
+- redhat-kernel-source/linux-2.6.32/arch/x86/kernel/crash.c:
+- redhat-kernel-source/linux-2.6.32/arch/x86/kernel/machine_kexec_32.c:
+- redhat-kernel-source/linux-2.6.32/arch/x86/kernel/machine_kexec_64.c:
+- redhat-kernel-source/linux-2.6.32/arch/x86/kernel/reboot.c:
+- redhat-kernel-source/linux-2.6.32/arch/x86/kvm/vmx.c:
+- redhat-kernel-source/linux-2.6.32/drivers/ata/libata-core.c:
+- redhat-kernel-source/linux-2.6.32/drivers/gpu/drm/i915/i915_gem_execbuffer.c:
+- redhat-kernel-source/linux-2.6.32/drivers/md/dm-raid1.c:
+- redhat-kernel-source/linux-2.6.32/drivers/md/dm-region-hash.c:
+- redhat-kernel-source/linux-2.6.32/drivers/md/raid1.c:
+- redhat-kernel-source/linux-2.6.32/drivers/md/raid10.c:
+- redhat-kernel-source/linux-2.6.32/drivers/md/raid5.c:
+- redhat-kernel-source/linux-2.6.32/drivers/md/raid5.h:
+- redhat-kernel-source/linux-2.6.32/drivers/net/benet/be_main.c:
+- redhat-kernel-source/linux-2.6.32/drivers/net/bonding/bond_alb.c:
+- redhat-kernel-source/linux-2.6.32/drivers/net/dl2k.c:
+- redhat-kernel-source/linux-2.6.32/drivers/net/dl2k.h:
+- redhat-kernel-source/linux-2.6.32/drivers/net/e1000e/e1000.h:
+- redhat-kernel-source/linux-2.6.32/drivers/net/e1000e/netdev.c:
+- redhat-kernel-source/linux-2.6.32/drivers/net/ixgbe/ixgbe.h:
+- redhat-kernel-source/linux-2.6.32/drivers/net/ixgbe/ixgbe_dcb_nl.c:
+- redhat-kernel-source/linux-2.6.32/drivers/net/ixgbe/ixgbe_main.c:
+- redhat-kernel-source/linux-2.6.32/drivers/net/netconsole.c:
+- redhat-kernel-source/linux-2.6.32/drivers/net/tun.c:
+- redhat-kernel-source/linux-2.6.32/drivers/net/wireless/ipw2x00/Kconfig:
+- redhat-kernel-source/linux-2.6.32/drivers/usb/core/devio.c:
+- redhat-kernel-source/linux-2.6.32/fs/dlm/config.c:
+- redhat-kernel-source/linux-2.6.32/fs/dlm/config.h:
+- redhat-kernel-source/linux-2.6.32/fs/dlm/lowcomms.c:
+- redhat-kernel-source/linux-2.6.32/fs/dlm/lowcomms.h:
+- redhat-kernel-source/linux-2.6.32/fs/dlm/main.c:
+- redhat-kernel-source/linux-2.6.32/fs/ext4/extents.c:
+- redhat-kernel-source/linux-2.6.32/fs/fs-writeback.c:
+- redhat-kernel-source/linux-2.6.32/fs/gfs2/aops.c:
+- redhat-kernel-source/linux-2.6.32/fs/nfs/internal.h:
+- redhat-kernel-source/linux-2.6.32/fs/proc/stat.c:
+- redhat-kernel-source/linux-2.6.32/include/asm-generic/cputime.h:
+- redhat-kernel-source/linux-2.6.32/include/linux/hrtimer.h:
+- redhat-kernel-source/linux-2.6.32/include/linux/jiffies.h:
+- redhat-kernel-source/linux-2.6.32/include/net/inet_sock.h:
+- redhat-kernel-source/linux-2.6.32/include/net/tc_act/tc_mirred.h:
+- redhat-kernel-source/linux-2.6.32/include/net/tcp.h:
+- redhat-kernel-source/linux-2.6.32/kernel/hrtimer.c:
+- redhat-kernel-source/linux-2.6.32/kernel/sched_fair.c:
+- redhat-kernel-source/linux-2.6.32/kernel/time.c:
+- redhat-kernel-source/linux-2.6.32/kernel/time/ntp.c:
+- redhat-kernel-source/linux-2.6.32/kernel/time/timekeeping.c:
+- redhat-kernel-source/linux-2.6.32/mm/hugetlb.c:
+- redhat-kernel-source/linux-2.6.32/net/8021q/vlan.c:
+- redhat-kernel-source/linux-2.6.32/net/bluetooth/sco.c:
+- redhat-kernel-source/linux-2.6.32/net/bridge/br_multicast.c:
+- redhat-kernel-source/linux-2.6.32/net/dccp/ipv4.c:
+- redhat-kernel-source/linux-2.6.32/net/ipv4/af_inet.c:
+- redhat-kernel-source/linux-2.6.32/net/ipv4/cipso_ipv4.c:
+- redhat-kernel-source/linux-2.6.32/net/ipv4/ip_options.c:
+- redhat-kernel-source/linux-2.6.32/net/ipv4/ip_output.c:
+- redhat-kernel-source/linux-2.6.32/net/ipv4/ip_sockglue.c:
+- redhat-kernel-source/linux-2.6.32/net/ipv4/raw.c:
+- redhat-kernel-source/linux-2.6.32/net/ipv4/syncookies.c:
+- redhat-kernel-source/linux-2.6.32/net/ipv4/tcp_ipv4.c:
+- redhat-kernel-source/linux-2.6.32/net/ipv4/udp.c:
+- redhat-kernel-source/linux-2.6.32/net/rds/recv.c:
+- redhat-kernel-source/linux-2.6.32/net/sched/act_api.c:
+- redhat-kernel-source/linux-2.6.32/net/sched/act_gact.c:
+- redhat-kernel-source/linux-2.6.32/net/sched/act_ipt.c:
+- redhat-kernel-source/linux-2.6.32/net/sched/act_mirred.c:
+- redhat-kernel-source/linux-2.6.32/net/sched/act_pedit.c:
+- redhat-kernel-source/linux-2.6.32/net/sched/act_simple.c:
+- redhat-kernel-source/linux-2.6.32/net/sched/cls_u32.c:
+- redhat-kernel-source/linux-2.6.32/net/sched/ematch.c:
+- redhat-kernel-source/linux-2.6.32/net/wireless/nl80211.c:
+- redhat-kernel-source/linux-2.6.32/virt/kvm/kvm_main.c:
+- redhat-kernel-version:
+
+-------------------------------------------------------------------
 Thu Sep 27 23:50:14 CST 2012 - boyu.mt@taobao.com
 
 update kgtp to v20120920.

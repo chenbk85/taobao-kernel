@@ -6,11 +6,11 @@ Patch-mainline: linux-2.6.32-71.18.1.el6
 Signed-off-by: Mike Waychison <mikew@google.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
+Index: linux-2.6.32-279.9.1.el5/drivers/net/netconsole.c
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/drivers/net/netconsole.c
-+++ linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
-@@ -671,7 +671,6 @@ static int netconsole_netdev_event(struc
+--- linux-2.6.32-279.9.1.el5.orig/drivers/net/netconsole.c	2012-09-29 10:19:51.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/drivers/net/netconsole.c	2012-09-29 10:19:54.000000000 +0800
+@@ -671,7 +671,6 @@
  
  	spin_lock_irqsave(&target_list_lock, flags);
  	list_for_each_entry(nt, &target_list, list) {
@@ -18,7 +18,7 @@ Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
  		if (nt->np.dev == dev) {
  			switch (event) {
  			case NETDEV_CHANGENAME:
-@@ -687,7 +686,6 @@ static int netconsole_netdev_event(struc
+@@ -694,7 +693,6 @@
  				break;
  			}
  		}
@@ -26,7 +26,7 @@ Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
  	}
  	spin_unlock_irqrestore(&target_list_lock, flags);
  	if (stopped) {
-@@ -727,7 +725,6 @@ static void write_msg(struct console *co
+@@ -734,7 +732,6 @@
  
  	spin_lock_irqsave(&target_list_lock, flags);
  	list_for_each_entry(nt, &target_list, list) {
@@ -34,7 +34,7 @@ Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
  		if (nt->enabled && netif_running(nt->np.dev)) {
  			/*
  			 * We nest this inside the for-each-target loop above
-@@ -743,7 +740,6 @@ static void write_msg(struct console *co
+@@ -750,7 +747,6 @@
  				left -= frag;
  			}
  		}
@@ -42,11 +42,11 @@ Index: linux-2.6.32-279.2.1.el5/drivers/net/netconsole.c
  	}
  	spin_unlock_irqrestore(&target_list_lock, flags);
  }
-Index: linux-2.6.32-279.2.1.el5/include/linux/notifier.h
+Index: linux-2.6.32-279.9.1.el5/include/linux/notifier.h
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/include/linux/notifier.h
-+++ linux-2.6.32-279.2.1.el5/include/linux/notifier.h
-@@ -205,6 +205,7 @@ static inline int notifier_to_errno(int 
+--- linux-2.6.32-279.9.1.el5.orig/include/linux/notifier.h	2012-09-29 10:19:51.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/include/linux/notifier.h	2012-09-29 10:19:54.000000000 +0800
+@@ -205,6 +205,7 @@
  #define NETDEV_BONDING_OLDTYPE  0x000E
  #define NETDEV_BONDING_NEWTYPE  0x000F
  #define NETDEV_RELEASE		0x0010

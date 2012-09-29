@@ -9,11 +9,11 @@ directly.
 Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 Acked-by: 
 
-Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
+Index: linux-2.6.32-279.9.1.el5/fs/ext4/extents.c
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/fs/ext4/extents.c
-+++ linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
-@@ -4242,6 +4242,7 @@ long ext4_fallocate(struct inode *inode,
+--- linux-2.6.32-279.9.1.el5.orig/fs/ext4/extents.c	2012-09-29 10:25:49.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/fs/ext4/extents.c	2012-09-29 10:25:52.000000000 +0800
+@@ -4244,6 +4244,7 @@
  	int ret = 0;
  	int ret2 = 0;
  	int retries = 0;
@@ -21,7 +21,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	struct buffer_head map_bh;
  	unsigned int credits, blkbits = inode->i_blkbits;
  
-@@ -4252,6 +4253,10 @@ long ext4_fallocate(struct inode *inode,
+@@ -4254,6 +4255,10 @@
  	if (!(ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)))
  		return -EOPNOTSUPP;
  
@@ -32,7 +32,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	/* preallocation to directories is currently not supported */
  	if (S_ISDIR(inode->i_mode))
  		return -ENODEV;
-@@ -4273,6 +4278,10 @@ long ext4_fallocate(struct inode *inode,
+@@ -4275,6 +4280,10 @@
  		mutex_unlock(&inode->i_mutex);
  		return ret;
  	}
@@ -43,7 +43,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  retry:
  	while (ret >= 0 && ret < max_blocks) {
  		block = block + ret;
-@@ -4287,7 +4296,7 @@ retry:
+@@ -4289,7 +4298,7 @@
  		map.m_len = max_blocks;
  		ret = ext4_get_blocks(handle, inode, &map,
  				      &map_bh,

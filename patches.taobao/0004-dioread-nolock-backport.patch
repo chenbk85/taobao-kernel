@@ -57,9 +57,11 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  fs/ext4/extents.c |    6 ++++++
  1 file changed, 6 insertions(+)
 
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -4148,6 +4148,12 @@ void ext4_ext_truncate(struct inode *ino
+Index: linux-2.6.32-279.9.1.el5/fs/ext4/extents.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/fs/ext4/extents.c	2012-09-29 10:26:16.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/fs/ext4/extents.c	2012-09-29 10:26:26.000000000 +0800
+@@ -4150,6 +4150,12 @@
  	int err = 0;
  
  	/*

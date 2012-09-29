@@ -9,11 +9,11 @@ RT and IP addresses in each line.
 Signed-off-by: Bing Tian <bingtian.ly@taobao.com>
 Signed-off-by: Coly Li <bosong.ly@taobao.com>
 ---
-Index: linux-2.6.32-279.2.1.el5/include/net/request_sock.h
+Index: linux-2.6.32-279.9.1.el5/include/net/request_sock.h
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/include/net/request_sock.h
-+++ linux-2.6.32-279.2.1.el5/include/net/request_sock.h
-@@ -57,6 +57,7 @@ struct request_sock {
+--- linux-2.6.32-279.9.1.el5.orig/include/net/request_sock.h	2012-09-29 10:25:07.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/include/net/request_sock.h	2012-09-29 10:25:27.000000000 +0800
+@@ -57,6 +57,7 @@
  	struct sock			*sk;
  	u32				secid;
  	u32				peer_secid;
@@ -21,11 +21,11 @@ Index: linux-2.6.32-279.2.1.el5/include/net/request_sock.h
  };
  
  static inline struct request_sock *reqsk_alloc(const struct request_sock_ops *ops)
-Index: linux-2.6.32-279.2.1.el5/net/ipv4/Kconfig
+Index: linux-2.6.32-279.9.1.el5/net/ipv4/Kconfig
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/net/ipv4/Kconfig
-+++ linux-2.6.32-279.2.1.el5/net/ipv4/Kconfig
-@@ -429,6 +429,17 @@ config INET_DIAG
+--- linux-2.6.32-279.9.1.el5.orig/net/ipv4/Kconfig	2012-09-29 10:25:07.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/net/ipv4/Kconfig	2012-09-29 10:25:27.000000000 +0800
+@@ -429,6 +429,17 @@
  
  	  If unsure, say Y.
  
@@ -43,11 +43,11 @@ Index: linux-2.6.32-279.2.1.el5/net/ipv4/Kconfig
  config INET_TCP_DIAG
  	depends on INET_DIAG
  	def_tristate INET_DIAG
-Index: linux-2.6.32-279.2.1.el5/net/ipv4/Makefile
+Index: linux-2.6.32-279.9.1.el5/net/ipv4/Makefile
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/net/ipv4/Makefile
-+++ linux-2.6.32-279.2.1.el5/net/ipv4/Makefile
-@@ -32,6 +32,7 @@ obj-$(CONFIG_INET_TUNNEL) += tunnel4.o
+--- linux-2.6.32-279.9.1.el5.orig/net/ipv4/Makefile	2012-09-29 10:25:07.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/net/ipv4/Makefile	2012-09-29 10:25:27.000000000 +0800
+@@ -32,6 +32,7 @@
  obj-$(CONFIG_INET_XFRM_MODE_TRANSPORT) += xfrm4_mode_transport.o
  obj-$(CONFIG_INET_XFRM_MODE_TUNNEL) += xfrm4_mode_tunnel.o
  obj-$(CONFIG_IP_PNP) += ipconfig.o
@@ -55,10 +55,10 @@ Index: linux-2.6.32-279.2.1.el5/net/ipv4/Makefile
  obj-$(CONFIG_NETFILTER)	+= netfilter.o netfilter/
  obj-$(CONFIG_INET_DIAG) += inet_diag.o 
  obj-$(CONFIG_INET_TCP_DIAG) += tcp_diag.o
-Index: linux-2.6.32-279.2.1.el5/net/ipv4/rt_stat.c
+Index: linux-2.6.32-279.9.1.el5/net/ipv4/rt_stat.c
 ===================================================================
---- /dev/null
-+++ linux-2.6.32-279.2.1.el5/net/ipv4/rt_stat.c
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ linux-2.6.32-279.9.1.el5/net/ipv4/rt_stat.c	2012-09-29 10:25:27.000000000 +0800
 @@ -0,0 +1,796 @@
 +#include <linux/bottom_half.h>
 +#include <linux/types.h>
@@ -856,11 +856,11 @@ Index: linux-2.6.32-279.2.1.el5/net/ipv4/rt_stat.c
 +module_init(rt_stat_init);
 +module_exit(rt_stat_exit);
 +MODULE_LICENSE("GPL");
-Index: linux-2.6.32-279.2.1.el5/net/ipv4/tcp_ipv4.c
+Index: linux-2.6.32-279.9.1.el5/net/ipv4/tcp_ipv4.c
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/net/ipv4/tcp_ipv4.c
-+++ linux-2.6.32-279.2.1.el5/net/ipv4/tcp_ipv4.c
-@@ -768,6 +768,9 @@ static int __tcp_v4_send_synack(struct s
+--- linux-2.6.32-279.9.1.el5.orig/net/ipv4/tcp_ipv4.c	2012-09-29 10:25:10.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/net/ipv4/tcp_ipv4.c	2012-09-29 10:25:27.000000000 +0800
+@@ -770,6 +770,9 @@
  		err = net_xmit_eval(err);
  	}
  
@@ -870,9 +870,9 @@ Index: linux-2.6.32-279.2.1.el5/net/ipv4/tcp_ipv4.c
  	dst_release(dst);
  	return err;
  }
-@@ -1364,6 +1367,9 @@ struct sock *tcp_v4_syn_recv_sock(struct
- 	struct tcp_md5sig_key *key;
+@@ -1366,6 +1369,9 @@
  #endif
+ 	struct ip_options *inet_opt;
  
 +	if (!sk || !skb)
 +		return NULL;
@@ -880,11 +880,11 @@ Index: linux-2.6.32-279.2.1.el5/net/ipv4/tcp_ipv4.c
  	if (sk_acceptq_is_full(sk))
  		goto exit_overflow;
  
-Index: linux-2.6.32-279.2.1.el5/net/ipv4/tcp_minisocks.c
+Index: linux-2.6.32-279.9.1.el5/net/ipv4/tcp_minisocks.c
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/net/ipv4/tcp_minisocks.c
-+++ linux-2.6.32-279.2.1.el5/net/ipv4/tcp_minisocks.c
-@@ -646,6 +646,8 @@ struct sock *tcp_check_req(struct sock *
+--- linux-2.6.32-279.9.1.el5.orig/net/ipv4/tcp_minisocks.c	2012-09-29 10:25:07.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/net/ipv4/tcp_minisocks.c	2012-09-29 10:25:27.000000000 +0800
+@@ -646,6 +646,8 @@
  	/* While TCP_DEFER_ACCEPT is active, drop bare ACK. */
  	if (req->retrans < inet_csk(sk)->icsk_accept_queue.rskq_defer_accept &&
  	    TCP_SKB_CB(skb)->end_seq == tcp_rsk(req)->rcv_isn + 1) {
@@ -893,11 +893,11 @@ Index: linux-2.6.32-279.2.1.el5/net/ipv4/tcp_minisocks.c
  		inet_rsk(req)->acked = 1;
  		return NULL;
  	}
-Index: linux-2.6.32-279.2.1.el5/net/ipv6/tcp_ipv6.c
+Index: linux-2.6.32-279.9.1.el5/net/ipv6/tcp_ipv6.c
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/net/ipv6/tcp_ipv6.c
-+++ linux-2.6.32-279.2.1.el5/net/ipv6/tcp_ipv6.c
-@@ -1201,6 +1201,8 @@ static int tcp_v6_conn_request(struct so
+--- linux-2.6.32-279.9.1.el5.orig/net/ipv6/tcp_ipv6.c	2012-09-29 10:25:10.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/net/ipv6/tcp_ipv6.c	2012-09-29 10:25:27.000000000 +0800
+@@ -1201,6 +1201,8 @@
  	if (req == NULL)
  		goto drop;
  
@@ -906,7 +906,7 @@ Index: linux-2.6.32-279.2.1.el5/net/ipv6/tcp_ipv6.c
  #ifdef CONFIG_TCP_MD5SIG
  	tcp_rsk(req)->af_specific = &tcp_request_sock_ipv6_ops;
  #endif
-@@ -1269,7 +1271,7 @@ struct sock *tcp_v6_syn_recv_sock(struct
+@@ -1269,7 +1271,7 @@
  					  struct dst_entry *dst)
  {
  	struct inet6_request_sock *treq;
@@ -915,7 +915,7 @@ Index: linux-2.6.32-279.2.1.el5/net/ipv6/tcp_ipv6.c
  	struct tcp6_sock *newtcp6sk;
  	struct inet_sock *newinet;
  	struct tcp_sock *newtp;
-@@ -1279,6 +1281,10 @@ struct sock *tcp_v6_syn_recv_sock(struct
+@@ -1279,6 +1281,10 @@
  	struct tcp_md5sig_key *key;
  #endif
  

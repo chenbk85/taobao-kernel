@@ -23,9 +23,11 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  fs/ext4/extents.c |   10 +++++-----
  1 file changed, 5 insertions(+), 5 deletions(-)
 
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -1718,7 +1718,7 @@ int ext4_ext_insert_extent(handle_t *han
+Index: linux-2.6.32-279.9.1.el5/fs/ext4/extents.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/fs/ext4/extents.c	2012-09-29 10:25:58.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/fs/ext4/extents.c	2012-09-29 10:26:10.000000000 +0800
+@@ -1718,7 +1718,7 @@
  	}
  
  	/* try to insert block into found extent and return */
@@ -34,7 +36,7 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  		&& ext4_can_extents_be_merged(inode, ex, newext)) {
  		ext_debug("append [%d]%d block to %d:[%d]%d (from %llu)\n",
  				ext4_ext_is_uninitialized(newext),
-@@ -1839,7 +1839,7 @@ has_space:
+@@ -1839,7 +1839,7 @@
  
  merge:
  	/* try to merge extents to the right */
@@ -43,7 +45,7 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  		ext4_ext_try_to_merge(inode, path, nearex);
  
  	/* try to merge extents to the left */
-@@ -3511,7 +3511,7 @@ ext4_ext_handle_uninitialized_extents(ha
+@@ -3513,7 +3513,7 @@
  			allocated, newblock);
  
  	/* DIO get_block() before submit the IO, split the extent */
@@ -52,7 +54,7 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  		ret = ext4_split_unwritten_extents(handle,
  						inode, path, map->m_lblk,
  						map->m_len, flags);
-@@ -3528,7 +3528,7 @@ ext4_ext_handle_uninitialized_extents(ha
+@@ -3530,7 +3530,7 @@
  		goto out;
  	}
  	/* async DIO end_io complete, convert the filled extent to written */
@@ -61,7 +63,7 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  		ret = ext4_convert_unwritten_extents_dio(handle, inode,
  							path);
  		if (ret >= 0) {
-@@ -3991,7 +3991,7 @@ got_allocated_blocks:
+@@ -3993,7 +3993,7 @@
  		 * For non asycn direct IO case, flag the inode state
  		 * that we need to perform convertion when IO is done.
  		 */

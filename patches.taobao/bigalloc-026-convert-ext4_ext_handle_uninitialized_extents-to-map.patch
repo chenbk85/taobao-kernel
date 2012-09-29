@@ -6,11 +6,11 @@ This patch changes "block" and "max_blocks" to struct ext4_map_blocks for ext4_e
 
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
+Index: linux-2.6.32-279.9.1.el5/fs/ext4/extents.c
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/fs/ext4/extents.c
-+++ linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
-@@ -3476,7 +3476,7 @@ get_reserved_cluster_alloc(struct inode 
+--- linux-2.6.32-279.9.1.el5.orig/fs/ext4/extents.c	2012-09-29 10:24:02.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/fs/ext4/extents.c	2012-09-29 10:24:05.000000000 +0800
+@@ -3478,7 +3478,7 @@
  
  static int
  ext4_ext_handle_uninitialized_extents(handle_t *handle, struct inode *inode,
@@ -19,7 +19,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  			struct ext4_ext_path *path, int flags,
  			unsigned int allocated, struct buffer_head *bh_result,
  			ext4_fsblk_t newblock)
-@@ -3486,19 +3486,19 @@ ext4_ext_handle_uninitialized_extents(ha
+@@ -3488,19 +3488,19 @@
  	ext4_io_end_t *io = EXT4_I(inode)->cur_aio_dio;
  
  	ext_debug("ext4_ext_handle_uninitialized_extents: inode %lu, logical"
@@ -44,7 +44,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  		/*
  		 * Flag the inode(non aio case) or end_io struct (aio case)
  		 * that this IO needs to convertion to written when IO is
-@@ -3517,8 +3517,8 @@ ext4_ext_handle_uninitialized_extents(ha
+@@ -3519,8 +3519,8 @@
  							path);
  		if (ret >= 0) {
  			ext4_update_inode_fsync_trans(handle, inode, 1);
@@ -55,7 +55,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  		} else
  			err = ret;
  		goto out2;
-@@ -3541,16 +3541,17 @@ ext4_ext_handle_uninitialized_extents(ha
+@@ -3543,16 +3543,17 @@
  		 * a read from the block returns 0s.
  		 */
  		set_buffer_unwritten(bh_result);
@@ -76,7 +76,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  		if (err < 0)
  			goto out2;
  	}
-@@ -3561,6 +3562,7 @@ out:
+@@ -3563,6 +3564,7 @@
  	} else
  		allocated = ret;
  	set_buffer_new(bh_result);
@@ -84,7 +84,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	/*
  	 * if we allocated more blocks than requested
  	 * we need to make sure we unmap the extra block
-@@ -3568,11 +3570,11 @@ out:
+@@ -3570,11 +3572,11 @@
  	 * unmapped later when we find the buffer_head marked
  	 * new.
  	 */
@@ -100,7 +100,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	}
  
  	/*
-@@ -3585,7 +3587,7 @@ out:
+@@ -3587,7 +3589,7 @@
  	if (flags & EXT4_GET_BLOCKS_DELALLOC_RESERVE) {
  		unsigned int reserved_clusters;
  		reserved_clusters = get_reserved_cluster_alloc(inode,
@@ -109,7 +109,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  		if (reserved_clusters)
  			ext4_da_update_reserve_space(inode,
  						     reserved_clusters,
-@@ -3594,12 +3596,15 @@ out:
+@@ -3596,12 +3598,15 @@
  
  map_out:
  	set_buffer_mapped(bh_result);
@@ -127,7 +127,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  out2:
  	if (path) {
  		ext4_ext_drop_refs(path);
-@@ -3838,7 +3843,7 @@ int ext4_ext_get_blocks(handle_t *handle
+@@ -3840,7 +3845,7 @@
  				goto out;
  			}
  			ret = ext4_ext_handle_uninitialized_extents(handle,

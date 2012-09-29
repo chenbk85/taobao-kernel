@@ -29,8 +29,10 @@ Zheng
  net/ipv4/udp.c        |   10 ++++++++--
  8 files changed, 48 insertions(+), 3 deletions(-)
 
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
+Index: linux-2.6.32-279.9.1.el5/include/linux/sched.h
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/include/linux/sched.h	2012-09-29 10:26:07.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/include/linux/sched.h	2012-09-29 10:26:39.000000000 +0800
 @@ -1648,6 +1648,9 @@
  #endif
  #endif
@@ -41,9 +43,11 @@ Zheng
  };
  
  /* Future-safe accessor for struct task_struct's cpus_allowed. */
---- a/include/net/sock.h
-+++ b/include/net/sock.h
-@@ -1672,6 +1672,15 @@
+Index: linux-2.6.32-279.9.1.el5/include/net/sock.h
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/include/net/sock.h	2012-09-29 10:25:23.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/include/net/sock.h	2012-09-29 10:26:39.000000000 +0800
+@@ -1673,6 +1673,15 @@
  			     struct sock *sk,
  			     union skb_shared_tx *shtx);
  
@@ -59,8 +63,10 @@ Zheng
  
  /**
   * sk_eat_skb - Release a skb if it is no longer needed
---- a/kernel/exit.c
-+++ b/kernel/exit.c
+Index: linux-2.6.32-279.9.1.el5/kernel/exit.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/kernel/exit.c	2012-09-29 10:18:39.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/kernel/exit.c	2012-09-29 10:26:39.000000000 +0800
 @@ -57,6 +57,8 @@
  #include <asm/mmu_context.h>
  #include "cred-internals.h"
@@ -82,8 +88,10 @@ Zheng
  	exit_mm(tsk);
  
  	if (group_dead)
---- a/kernel/fork.c
-+++ b/kernel/fork.c
+Index: linux-2.6.32-279.9.1.el5/kernel/fork.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/kernel/fork.c	2012-09-29 10:18:39.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/kernel/fork.c	2012-09-29 10:26:39.000000000 +0800
 @@ -1128,6 +1128,7 @@
  	p->default_timer_slack_ns = current->timer_slack_ns;
  
@@ -92,8 +100,10 @@ Zheng
  	acct_clear_integrals(p);
  
  	posix_cpu_timers_init(p);
---- a/kernel/sysctl.c
-+++ b/kernel/sysctl.c
+Index: linux-2.6.32-279.9.1.el5/kernel/sysctl.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/kernel/sysctl.c	2012-09-29 10:26:09.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/kernel/sysctl.c	2012-09-29 10:26:39.000000000 +0800
 @@ -127,6 +127,8 @@
  extern int blk_iopoll_enabled;
  #endif
@@ -118,9 +128,11 @@ Zheng
  /*
   * NOTE: do not add new entries to this table unless you have read
   * Documentation/sysctl/ctl_unnumbered.txt
---- a/net/ipv4/raw.c
-+++ b/net/ipv4/raw.c
-@@ -603,6 +603,7 @@
+Index: linux-2.6.32-279.9.1.el5/net/ipv4/raw.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/net/ipv4/raw.c	2012-09-29 10:18:39.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/net/ipv4/raw.c	2012-09-29 10:26:39.000000000 +0800
+@@ -614,6 +614,7 @@
  out:
  	if (err < 0)
  		return err;
@@ -128,7 +140,7 @@ Zheng
  	return len;
  
  do_confirm:
-@@ -710,6 +711,8 @@
+@@ -721,6 +722,8 @@
  out:
  	if (err)
  		return err;
@@ -137,8 +149,10 @@ Zheng
  	return copied;
  }
  
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
+Index: linux-2.6.32-279.9.1.el5/net/ipv4/tcp.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/net/ipv4/tcp.c	2012-09-29 10:21:37.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/net/ipv4/tcp.c	2012-09-29 10:26:39.000000000 +0800
 @@ -672,8 +672,10 @@
  
  	release_sock(sk);
@@ -176,9 +190,11 @@ Zheng
  	return copied;
  
  out:
---- a/net/ipv4/udp.c
-+++ b/net/ipv4/udp.c
-@@ -801,8 +801,10 @@
+Index: linux-2.6.32-279.9.1.el5/net/ipv4/udp.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/net/ipv4/udp.c	2012-09-29 10:18:39.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/net/ipv4/udp.c	2012-09-29 10:26:39.000000000 +0800
+@@ -812,8 +812,10 @@
  	ip_rt_put(rt);
  	if (free)
  		kfree(ipc.opt);
@@ -190,7 +206,7 @@ Zheng
  	/*
  	 * ENOBUFS = no kernel mem, SOCK_NOSPACE = no sndbuf space.  Reporting
  	 * ENOBUFS might not be good (it's not tunable per se), but otherwise
-@@ -866,8 +868,10 @@
+@@ -877,8 +879,10 @@
  	up->len += size;
  	if (!(up->corkflag || (flags&MSG_MORE)))
  		ret = udp_push_pending_frames(sk);
@@ -202,7 +218,7 @@ Zheng
  out:
  	release_sock(sk);
  	return ret;
-@@ -1027,6 +1031,8 @@
+@@ -1038,6 +1042,8 @@
  		ip_cmsg_recv(msg, skb);
  
  	err = copied;

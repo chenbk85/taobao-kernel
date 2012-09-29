@@ -10,11 +10,11 @@ function needs to see if the cluster has already been allocated.
 Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4_extents.h
+Index: linux-2.6.32-279.9.1.el5/fs/ext4/ext4_extents.h
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/fs/ext4/ext4_extents.h
-+++ linux-2.6.32-279.2.1.el5/fs/ext4/ext4_extents.h
-@@ -210,6 +210,19 @@ static inline void ext4_ext_mark_uniniti
+--- linux-2.6.32-279.9.1.el5.orig/fs/ext4/ext4_extents.h	2012-09-29 10:23:05.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/fs/ext4/ext4_extents.h	2012-09-29 10:23:09.000000000 +0800
+@@ -210,6 +210,19 @@
  	ext->ee_len |= cpu_to_le16(EXT_INIT_MAX_LEN);
  }
  
@@ -34,7 +34,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4_extents.h
  static inline int ext4_ext_is_uninitialized(struct ext4_extent *ext)
  {
  	/* Extent with ee_len of 0x8000 is treated as an initialized extent */
-@@ -243,7 +256,8 @@ extern int ext4_can_extents_be_merged(st
+@@ -243,7 +256,8 @@
  extern int ext4_ext_try_to_merge(struct inode *inode,
  				 struct ext4_ext_path *path,
  				 struct ext4_extent *);
@@ -44,7 +44,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4_extents.h
  extern int ext4_ext_insert_extent(handle_t *, struct inode *, struct ext4_ext_path *, struct ext4_extent *, int);
  extern int ext4_ext_walk_space(struct inode *, ext4_lblk_t, ext4_lblk_t,
  							ext_prepare_callback, void *);
-@@ -252,7 +266,8 @@ extern struct ext4_ext_path *ext4_ext_fi
+@@ -252,7 +266,8 @@
  extern int ext4_ext_search_left(struct inode *, struct ext4_ext_path *,
  						ext4_lblk_t *, ext4_fsblk_t *);
  extern int ext4_ext_search_right(struct inode *, struct ext4_ext_path *,
@@ -54,11 +54,11 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/ext4_extents.h
  extern void ext4_ext_drop_refs(struct ext4_ext_path *);
  extern int ext4_ext_check_inode(struct inode *inode);
  #endif /* _EXT4_EXTENTS */
-Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
+Index: linux-2.6.32-279.9.1.el5/fs/ext4/extents.c
 ===================================================================
---- linux-2.6.32-279.2.1.el5.orig/fs/ext4/extents.c
-+++ linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
-@@ -1300,7 +1300,8 @@ ext4_ext_search_left(struct inode *inode
+--- linux-2.6.32-279.9.1.el5.orig/fs/ext4/extents.c	2012-09-29 10:23:05.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/fs/ext4/extents.c	2012-09-29 10:23:09.000000000 +0800
+@@ -1300,7 +1300,8 @@
   */
  int
  ext4_ext_search_right(struct inode *inode, struct ext4_ext_path *path,
@@ -68,7 +68,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  {
  	struct buffer_head *bh = NULL;
  	struct ext4_extent_header *eh;
-@@ -1342,9 +1343,7 @@ ext4_ext_search_right(struct inode *inod
+@@ -1342,9 +1343,7 @@
  				return -EIO;
  			}
  		}
@@ -79,7 +79,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	}
  
  	if (unlikely(*logical < (le32_to_cpu(ex->ee_block) + ee_len))) {
-@@ -1357,9 +1356,7 @@ ext4_ext_search_right(struct inode *inod
+@@ -1357,9 +1356,7 @@
  	if (ex != EXT_LAST_EXTENT(path[depth].p_hdr)) {
  		/* next allocated block in this leaf */
  		ex++;
@@ -90,7 +90,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	}
  
  	/* go up and search for index to the right */
-@@ -1402,9 +1399,12 @@ got_index:
+@@ -1402,9 +1399,12 @@
  		return -EIO;
  	}
  	ex = EXT_FIRST_EXTENT(eh);
@@ -104,7 +104,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	return 0;
  }
  
-@@ -1635,7 +1635,8 @@ int ext4_ext_try_to_merge(struct inode *
+@@ -1635,7 +1635,8 @@
   * such that there will be no overlap, and then returns 1.
   * If there is no overlap found, it returns 0.
   */
@@ -114,7 +114,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  				    struct ext4_extent *newext,
  				    struct ext4_ext_path *path)
  {
-@@ -1649,6 +1650,7 @@ unsigned int ext4_ext_check_overlap(stru
+@@ -1649,6 +1650,7 @@
  	if (!path[depth].p_ext)
  		goto out;
  	b2 = le32_to_cpu(path[depth].p_ext->ee_block);
@@ -122,7 +122,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  
  	/*
  	 * get the next allocated block if the extent in the path
-@@ -1658,6 +1660,7 @@ unsigned int ext4_ext_check_overlap(stru
+@@ -1658,6 +1660,7 @@
  		b2 = ext4_ext_next_allocated_block(path);
  		if (b2 == EXT_MAX_BLOCKS)
  			goto out;
@@ -130,7 +130,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	}
  
  	/* check for wrap through zero on extent logical start block*/
-@@ -3317,6 +3320,106 @@ out2:
+@@ -3319,6 +3322,106 @@
  }
  
  /*
@@ -237,7 +237,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
   * Block allocation/map/preallocation routine for extents based files
   *
   *
-@@ -3341,12 +3444,14 @@ int ext4_ext_get_blocks(handle_t *handle
+@@ -3343,12 +3446,14 @@
  {
  	struct ext4_ext_path *path = NULL;
  	struct ext4_extent_header *eh;
@@ -255,7 +255,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  
  	__clear_bit(BH_New, &bh_result->b_state);
  	ext_debug("blocks %u/%u requested for inode %lu\n",
-@@ -3447,9 +3552,23 @@ int ext4_ext_get_blocks(handle_t *handle
+@@ -3449,9 +3554,23 @@
  		ext4_ext_put_gap_in_cache(inode, path, map->m_lblk);
  		goto out2;
  	}
@@ -279,7 +279,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  
  	/* find neighbour allocated blocks */
  	ar.lleft = map->m_lblk;
-@@ -3457,10 +3576,20 @@ int ext4_ext_get_blocks(handle_t *handle
+@@ -3459,10 +3578,20 @@
  	if (err)
  		goto out2;
  	ar.lright = map->m_lblk;
@@ -301,7 +301,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	/*
  	 * See if request is beyond maximum number of blocks we can have in
  	 * a single extent. For an initialized extent this limit is
-@@ -3475,9 +3604,8 @@ int ext4_ext_get_blocks(handle_t *handle
+@@ -3477,9 +3606,8 @@
  		map->m_len = EXT_UNINIT_MAX_LEN;
  
  	/* Check if we can really insert (map->m_lblk)::(map->m_lblk+map->m_len) extent */
@@ -312,7 +312,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	if (err)
  		allocated = ext4_ext_get_actual_len(&newex);
  	else
-@@ -3487,7 +3615,18 @@ int ext4_ext_get_blocks(handle_t *handle
+@@ -3489,7 +3617,18 @@
  	ar.inode = inode;
  	ar.goal = ext4_ext_find_goal(inode, path, map->m_lblk);
  	ar.logical = map->m_lblk;
@@ -332,7 +332,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	if (S_ISREG(inode->i_mode))
  		ar.flags = EXT4_MB_HINT_DATA;
  	else
-@@ -3498,9 +3637,14 @@ int ext4_ext_get_blocks(handle_t *handle
+@@ -3500,9 +3639,14 @@
  		goto out2;
  	ext_debug("allocate new block: goal %llu, found %llu/%u\n",
  		  ar.goal, newblock, allocated);
@@ -348,7 +348,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  	newex.ee_len = cpu_to_le16(ar.len);
  	/* Mark uninitialized */
  	if (flags & EXT4_GET_BLOCKS_UNINIT_EXT){
-@@ -3528,7 +3672,7 @@ int ext4_ext_get_blocks(handle_t *handle
+@@ -3530,7 +3674,7 @@
  	if (!err)
  		err = ext4_ext_insert_extent(handle, inode, path,
  					     &newex, flags);
@@ -357,7 +357,7 @@ Index: linux-2.6.32-279.2.1.el5/fs/ext4/extents.c
  		/* free data blocks we just allocated */
  		/* not a good idea to call discard here directly,
  		 * but otherwise we'd need to call it every free() */
-@@ -3903,7 +4047,6 @@ static int ext4_ext_fiemap_cb(struct ino
+@@ -3905,7 +4049,6 @@
  
  	return EXT_CONTINUE;
  }

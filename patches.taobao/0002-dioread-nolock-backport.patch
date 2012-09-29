@@ -26,8 +26,10 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  fs/ext4/super.c     |   35 +++++++++-
  5 files changed, 213 insertions(+), 36 deletions(-)
 
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
+Index: linux-2.6.32-279.9.1.el5/fs/ext4/ext4.h
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/fs/ext4/ext4.h	2012-09-29 10:25:58.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/fs/ext4/ext4.h	2012-09-29 10:26:16.000000000 +0800
 @@ -178,7 +178,7 @@
  	struct list_head	list;		/* per-file finished IO list */
  	struct inode		*inode;		/* file being written to */
@@ -54,8 +56,10 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  #define EXT4_MOUNT_JOURNAL_CHECKSUM	0x800000 /* Journal checksums */
  #define EXT4_MOUNT_JOURNAL_ASYNC_COMMIT	0x1000000 /* Journal Async Commit */
  #define EXT4_MOUNT_I_VERSION            0x2000000 /* i_version support */
---- a/fs/ext4/ext4_jbd2.h
-+++ b/fs/ext4/ext4_jbd2.h
+Index: linux-2.6.32-279.9.1.el5/fs/ext4/ext4_jbd2.h
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/fs/ext4/ext4_jbd2.h	2012-09-29 10:18:40.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/fs/ext4/ext4_jbd2.h	2012-09-29 10:26:16.000000000 +0800
 @@ -314,4 +314,28 @@
  	return ext4_inode_journal_mode(inode) & EXT4_INODE_WRITEBACK_DATA_MODE;
  }
@@ -85,8 +89,10 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
 +}
 +
  #endif	/* _EXT4_JBD2_H */
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
+Index: linux-2.6.32-279.9.1.el5/fs/ext4/extents.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/fs/ext4/extents.c	2012-09-29 10:26:10.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/fs/ext4/extents.c	2012-09-29 10:26:16.000000000 +0800
 @@ -1718,7 +1718,7 @@
  	}
  
@@ -105,7 +111,7 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  		ext4_ext_try_to_merge(inode, path, nearex);
  
  	/* try to merge extents to the left */
-@@ -3511,7 +3511,7 @@
+@@ -3513,7 +3513,7 @@
  			allocated, newblock);
  
  	/* DIO get_block() before submit the IO, split the extent */
@@ -114,7 +120,7 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  		ret = ext4_split_unwritten_extents(handle,
  						inode, path, map->m_lblk,
  						map->m_len, flags);
-@@ -3525,10 +3525,14 @@
+@@ -3527,10 +3527,14 @@
  			atomic_inc(&EXT4_I(inode)->i_aiodio_unwritten);
  		} else
  			ext4_set_inode_state(inode, EXT4_STATE_DIO_UNWRITTEN);
@@ -130,7 +136,7 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  		ret = ext4_convert_unwritten_extents_dio(handle, inode,
  							path);
  		if (ret >= 0) {
-@@ -3991,7 +3995,7 @@
+@@ -3993,7 +3997,7 @@
  		 * For non asycn direct IO case, flag the inode state
  		 * that we need to perform convertion when IO is done.
  		 */
@@ -139,7 +145,7 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  			if (io && (io->flag != DIO_AIO_UNWRITTEN)) {
  				io->flag = DIO_AIO_UNWRITTEN;
  				atomic_inc(&EXT4_I(inode)->i_aiodio_unwritten);
-@@ -3999,6 +4003,10 @@
+@@ -4001,6 +4005,10 @@
  				ext4_set_inode_state(inode,
  						     EXT4_STATE_DIO_UNWRITTEN);
  		}
@@ -150,8 +156,10 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  	}
  
  	err = check_eofblocks_fl(handle, inode, map->m_lblk, path, ar.len);
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
+Index: linux-2.6.32-279.9.1.el5/fs/ext4/inode.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/fs/ext4/inode.c	2012-09-29 10:26:02.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/fs/ext4/inode.c	2012-09-29 10:26:16.000000000 +0800
 @@ -38,6 +38,7 @@
  #include <linux/uio.h>
  #include <linux/bio.h>
@@ -446,8 +454,10 @@ Signed-off-by: Zheng Liu <wenqing.lz@taobao.com>
  			if (!iocb->private)
  				return -ENOMEM;
  			/*
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
+Index: linux-2.6.32-279.9.1.el5/fs/ext4/super.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/fs/ext4/super.c	2012-09-29 10:25:58.000000000 +0800
++++ linux-2.6.32-279.9.1.el5/fs/ext4/super.c	2012-09-29 10:26:16.000000000 +0800
 @@ -1017,6 +1017,9 @@
  	if (test_opt(sb, NOLOAD))
  		seq_puts(seq, ",norecovery");
