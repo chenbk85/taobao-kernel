@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Oct  8 19:17:36 CST 2012 - boyu.mt@taobao.com
+
+Add SO_REUSEPORT to fix load imbalance in listening.
+
+- patches.taobao/net_backport_SO_REUSEPORT_patch_to_fix_load_imbalance.patch:
+
+-------------------------------------------------------------------
 Tue Sep  4 11:08:35 CST 2012 - gaoyang.zyh@taobao.com
 
 add rpmbuild wrapper.
