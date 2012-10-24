@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Oct 25 01:08:28 CST 2012 - boyu.mt@taobao.com
+
+Perf: Add ability to support JIT symbol annotation.
+
+- patches.taobao/perf-jit-symbol-annotation.patch:
+
+-------------------------------------------------------------------
 Wed Oct 24 11:30:23 CST 2012 - sanbai@taobao.com
 
 Update flashcache and change it to request-based.
