@@ -1,4 +1,31 @@
 -------------------------------------------------------------------
+Wed Oct 24 11:30:23 CST 2012 - sanbai@taobao.com
+
+Update flashcache and change it to request-based.
+
+- patches.taobao/flashcache-0001-flashcache.patch: flashcache:
+  backport updated flashcache source code to taobao-kernel.
+- patches.taobao/flashcache-0002-modify-dm_io-to-reserve-bio.patch:
+  md: modify dm_io() so it could return bios instead of
+  submitting it.
+- patches.taobao/flashcache-0003-add-mk_rq-to-target_type.patch:
+  md: add new interface 'mk_rq' in target_type.
+- patches.taobao/flashcache-0004-export-__make_request.patch:
+  block: export symbol __make_request().
+- patches.taobao/flashcache-0005-change_flashcache_to_request_based.patch:
+  flashcache: add option for flashcache to change to
+  request-based.
+- patches.taobao/flashcache-0006-make-sync-write-works-for-cgroup.patch:
+  flashcache: make sync write works for cgroup.
+- patches.taobao/flashcache-0007-blkcg-use-q-and-plid-instead-of-opaque-void-for-blkio_group-association.patch:
+  blkcg: use q and plid instead of opague void * for blkio_group
+  association.
+- patches.taobao/flashcache-0008-block-prepare-for-multiple-request_lists.patch:
+  block: prepare for multiple request_lists.
+- patches.taobao/flashcache-0009-blkcg-implement-per-blkg-request-allocation.patch:
+  blkcg: implement per-blkg request allocation.
+
+-------------------------------------------------------------------
 Sat Sep 29 11:28:38 CST 2012 - boyu.mt@taobao.com
 
 Upgrade to to RHEL6U3 2.6.32-279.9.1.

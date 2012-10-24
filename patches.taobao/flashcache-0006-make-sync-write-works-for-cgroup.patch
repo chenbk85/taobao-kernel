@@ -1,0 +1,61 @@
+From: Robin Dong <sanbai@taobao.com>
+Subject: [PATCH 06/09] flashcache: make sync write works for cgroup
+Patch-mainline:
+
+The all ios issued by dm_io_async_bvec in flashcache is ASYNC even if ios are directio (which should be SYNC),
+therefore the cfq will put it all in one queue (ASYNC queue), this will cause cfq-ioschedule unable
+to use different slie-time for different queue.
+
+Therefore the SYNC flag should be conveyed into dm_io_async_bvec.
+
+Signed-off-by: Robin Dong <sanbai@taobao.com>
+---
+Index: linux-2.6.32-279.9.1.el5/drivers/md/flashcache_main.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/drivers/md/flashcache_main.c
++++ linux-2.6.32-279.9.1.el5/drivers/md/flashcache_main.c
+@@ -1557,7 +1557,7 @@ flashcache_write_miss(struct cache_c *dm
+ 		job->action = WRITECACHE; 
+ 		if (dmc->cache_mode == FLASHCACHE_WRITE_BACK) {
+ 			/* Write data to the cache */		
+-			dm_io_async_bvec(1, &job->job_io_regions.cache, WRITE, 
++			dm_io_async_bvec(1, &job->job_io_regions.cache, bio->bi_rw, 
+ 					 bio->bi_io_vec + bio->bi_idx,
+ 					 flashcache_io_callback, job, submit);
+ 		} else {
+@@ -1569,7 +1569,7 @@ flashcache_write_miss(struct cache_c *dm
+ #else
+ 					 (struct dm_io_region *)&job->job_io_regions, 
+ #endif
+-					 WRITE, 
++					 bio->bi_rw, 
+ 					 bio->bi_io_vec + bio->bi_idx,
+ 					 flashcache_io_callback, job, submit);
+ 		}
+@@ -1618,7 +1618,7 @@ flashcache_write_hit(struct cache_c *dmc
+ 			job->action = WRITECACHE;
+ 			if (dmc->cache_mode == FLASHCACHE_WRITE_BACK) {
+ 				/* Write data to the cache */
+-				dm_io_async_bvec(1, &job->job_io_regions.cache, WRITE, 
++				dm_io_async_bvec(1, &job->job_io_regions.cache, bio->bi_rw, 
+ 						 bio->bi_io_vec + bio->bi_idx,
+ 						 flashcache_io_callback, job, submit);
+ 				flashcache_clean_set(dmc, index / dmc->assoc);
+@@ -1632,7 +1632,7 @@ flashcache_write_hit(struct cache_c *dmc
+ #else
+ 						 (struct dm_io_region *)&job->job_io_regions, 
+ #endif
+-						 WRITE, 
++						 bio->bi_rw, 
+ 						 bio->bi_io_vec + bio->bi_idx,
+ 						 flashcache_io_callback, job, submit);				
+ 			}
+@@ -2131,7 +2131,7 @@ flashcache_start_uncached_io(struct cach
+ 	}
+ 	atomic_inc(&dmc->nr_jobs);
+ 	dm_io_async_bvec(1, &job->job_io_regions.disk,
+-			 ((is_write) ? WRITE : READ), 
++			 ((is_write) ? bio->bi_rw: READ), 
+ 			 bio->bi_io_vec + bio->bi_idx,
+ 			 flashcache_uncached_io_callback, job, submit);
+ }

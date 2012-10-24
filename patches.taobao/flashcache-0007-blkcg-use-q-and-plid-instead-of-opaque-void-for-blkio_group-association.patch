@@ -1,0 +1,439 @@
+From: Tejun Heo <tj@kernel.org>
+Subject: [PATCH 07/09] blkcg: use q and plid instead of opague void * for blkio_group association
+Patch-mainline: v3.7.0-rc1
+References:
+
+	commit ca32aefc7f2539ed88d42763330d54ee3e61769a
+
+	blkgio_group is association between a block cgroup and a queue for a
+	given policy.  Using opaque void * for association makes things
+	confusing and hinders factoring of common code.  Use request_queue *
+	and, if necessary, policy id instead.
+			    
+	This will help block cgroup API cleanup.
+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Cc: Vivek Goyal <vgoyal@redhat.com>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Robin Dong <sanbai@taobao.com>
+---
+Index: linux-2.6.32-279.9.1.el5/block/blk-cgroup.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/blk-cgroup.c
++++ linux-2.6.32-279.9.1.el5/block/blk-cgroup.c
+@@ -105,7 +105,7 @@ blkio_update_group_weight(struct blkio_g
+ 		if (blkiop->plid != blkg->plid)
+ 			continue;
+ 		if (blkiop->ops.blkio_update_group_weight_fn)
+-			blkiop->ops.blkio_update_group_weight_fn(blkg->key,
++			blkiop->ops.blkio_update_group_weight_fn(blkg->q,
+ 							blkg, weight);
+ 	}
+ }
+@@ -123,12 +123,12 @@ static inline void blkio_update_group_bp
+ 
+ 		if (fileid == BLKIO_THROTL_read_bps_device
+ 		    && blkiop->ops.blkio_update_group_read_bps_fn)
+-			blkiop->ops.blkio_update_group_read_bps_fn(blkg->key,
++			blkiop->ops.blkio_update_group_read_bps_fn(blkg->q,
+ 								blkg, bps);
+ 
+ 		if (fileid == BLKIO_THROTL_write_bps_device
+ 		    && blkiop->ops.blkio_update_group_write_bps_fn)
+-			blkiop->ops.blkio_update_group_write_bps_fn(blkg->key,
++			blkiop->ops.blkio_update_group_write_bps_fn(blkg->q,
+ 								blkg, bps);
+ 	}
+ }
+@@ -146,12 +146,12 @@ static inline void blkio_update_group_io
+ 
+ 		if (fileid == BLKIO_THROTL_read_iops_device
+ 		    && blkiop->ops.blkio_update_group_read_iops_fn)
+-			blkiop->ops.blkio_update_group_read_iops_fn(blkg->key,
++			blkiop->ops.blkio_update_group_read_iops_fn(blkg->q,
+ 								blkg, iops);
+ 
+ 		if (fileid == BLKIO_THROTL_write_iops_device
+ 		    && blkiop->ops.blkio_update_group_write_iops_fn)
+-			blkiop->ops.blkio_update_group_write_iops_fn(blkg->key,
++			blkiop->ops.blkio_update_group_write_iops_fn(blkg->q,
+ 								blkg,iops);
+ 	}
+ }
+@@ -463,14 +463,14 @@ int blkio_alloc_blkg_stats(struct blkio_
+ EXPORT_SYMBOL_GPL(blkio_alloc_blkg_stats);
+ 
+ void blkiocg_add_blkio_group(struct blkio_cgroup *blkcg,
+-		struct blkio_group *blkg, void *key, dev_t dev,
++		struct blkio_group *blkg, struct request_queue *q, dev_t dev,
+ 		enum blkio_policy_id plid)
+ {
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&blkcg->lock, flags);
+ 	spin_lock_init(&blkg->stats_lock);
+-	rcu_assign_pointer(blkg->key, key);
++	rcu_assign_pointer(blkg->q, q);
+ 	blkg->blkcg_id = css_id(&blkcg->css);
+ 	hlist_add_head_rcu(&blkg->blkcg_node, &blkcg->blkg_list);
+ 	blkg->plid = plid;
+@@ -516,18 +516,16 @@ int blkiocg_del_blkio_group(struct blkio
+ EXPORT_SYMBOL_GPL(blkiocg_del_blkio_group);
+ 
+ /* called under rcu_read_lock(). */
+-struct blkio_group *blkiocg_lookup_group(struct blkio_cgroup *blkcg, void *key)
++struct blkio_group *blkiocg_lookup_group(struct blkio_cgroup *blkcg,
++					 struct request_queue *q,
++					 enum blkio_policy_id plid)
+ {
+ 	struct blkio_group *blkg;
+ 	struct hlist_node *n;
+-	void *__key;
+ 
+-	hlist_for_each_entry_rcu(blkg, n, &blkcg->blkg_list, blkcg_node) {
+-		__key = blkg->key;
+-		if (__key == key)
++	hlist_for_each_entry_rcu(blkg, n, &blkcg->blkg_list, blkcg_node)
++		if (blkg->q == q && blkg->plid == plid)
+ 			return blkg;
+-	}
+-
+ 	return NULL;
+ }
+ EXPORT_SYMBOL_GPL(blkiocg_lookup_group);
+@@ -1515,7 +1513,7 @@ static void blkiocg_destroy(struct cgrou
+ 	struct blkio_cgroup *blkcg = cgroup_to_blkio_cgroup(cgroup);
+ 	unsigned long flags;
+ 	struct blkio_group *blkg;
+-	void *key;
++	struct request_queue *q;
+ 	struct blkio_policy_type *blkiop;
+ 	struct blkio_policy_node *pn, *pntmp;
+ 
+@@ -1530,7 +1528,7 @@ static void blkiocg_destroy(struct cgrou
+ 
+ 		blkg = hlist_entry(blkcg->blkg_list.first, struct blkio_group,
+ 					blkcg_node);
+-		key = rcu_dereference(blkg->key);
++		q = rcu_dereference(blkg->q);
+ 		__blkiocg_del_blkio_group(blkg);
+ 
+ 		spin_unlock_irqrestore(&blkcg->lock, flags);
+@@ -1544,7 +1542,7 @@ static void blkiocg_destroy(struct cgrou
+ 		list_for_each_entry(blkiop, &blkio_list, list) {
+ 			if (blkiop->plid != blkg->plid)
+ 				continue;
+-			blkiop->ops.blkio_unlink_group_fn(key, blkg);
++			blkiop->ops.blkio_unlink_group_fn(q, blkg);
+ 		}
+ 		spin_unlock(&blkio_list_lock);
+ 	} while (1);
+Index: linux-2.6.32-279.9.1.el5/block/blk-cgroup.h
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/blk-cgroup.h
++++ linux-2.6.32-279.9.1.el5/block/blk-cgroup.h
+@@ -150,8 +150,8 @@ struct blkio_group_stats_cpu {
+ };
+ 
+ struct blkio_group {
+-	/* An rcu protected unique identifier for the group */
+-	void *key;
++	/* Pointer to the associated request_queue, RCU protected */
++	struct request_queue *q;
+ 	struct hlist_node blkcg_node;
+ 	unsigned short blkcg_id;
+ 	/* Store cgroup path */
+@@ -199,17 +199,18 @@ extern unsigned int blkcg_get_read_iops(
+ extern unsigned int blkcg_get_write_iops(struct blkio_cgroup *blkcg,
+ 				     dev_t dev);
+ 
+-typedef void (blkio_unlink_group_fn) (void *key, struct blkio_group *blkg);
++typedef void (blkio_unlink_group_fn) (struct request_queue *q,
++			struct blkio_group *blkg);
+ 
+-typedef void (blkio_update_group_weight_fn) (void *key,
++typedef void (blkio_update_group_weight_fn) (struct request_queue *q,
+ 			struct blkio_group *blkg, unsigned int weight);
+-typedef void (blkio_update_group_read_bps_fn) (void * key,
++typedef void (blkio_update_group_read_bps_fn) (struct request_queue *q,
+ 			struct blkio_group *blkg, u64 read_bps);
+-typedef void (blkio_update_group_write_bps_fn) (void *key,
++typedef void (blkio_update_group_write_bps_fn) (struct request_queue *q,
+ 			struct blkio_group *blkg, u64 write_bps);
+-typedef void (blkio_update_group_read_iops_fn) (void *key,
++typedef void (blkio_update_group_read_iops_fn) (struct request_queue *q,
+ 			struct blkio_group *blkg, unsigned int read_iops);
+-typedef void (blkio_update_group_write_iops_fn) (void *key,
++typedef void (blkio_update_group_write_iops_fn) (struct request_queue *q,
+ 			struct blkio_group *blkg, unsigned int write_iops);
+ 
+ struct blkio_policy_ops {
+@@ -299,12 +300,13 @@ extern struct blkio_cgroup blkio_root_cg
+ extern struct blkio_cgroup *cgroup_to_blkio_cgroup(struct cgroup *cgroup);
+ extern struct blkio_cgroup *task_blkio_cgroup(struct task_struct *tsk);
+ extern void blkiocg_add_blkio_group(struct blkio_cgroup *blkcg,
+-	struct blkio_group *blkg, void *key, dev_t dev,
++	struct blkio_group *blkg, struct request_queue *q, dev_t dev,
+ 	enum blkio_policy_id plid);
+ extern int blkio_alloc_blkg_stats(struct blkio_group *blkg);
+ extern int blkiocg_del_blkio_group(struct blkio_group *blkg);
+ extern struct blkio_group *blkiocg_lookup_group(struct blkio_cgroup *blkcg,
+-						void *key);
++						struct request_queue *q,
++						enum blkio_policy_id plid);
+ void blkiocg_update_timeslice_used(struct blkio_group *blkg,
+ 					unsigned long time);
+ void blkiocg_update_dispatch_stats(struct blkio_group *blkg, uint64_t bytes,
+@@ -339,7 +341,8 @@ static inline int
+ blkiocg_del_blkio_group(struct blkio_group *blkg) { return 0; }
+ 
+ static inline struct blkio_group *
+-blkiocg_lookup_group(struct blkio_cgroup *blkcg, void *key) { return NULL; }
++blkiocg_lookup_group(struct blkio_cgroup *blkcg, struct request_queue *q,
++		enum blkio_policy_id plid) { return NULL; }
+ static inline void blkiocg_update_timeslice_used(struct blkio_group *blkg,
+ 						unsigned long time) {}
+ static inline void blkiocg_update_dispatch_stats(struct blkio_group *blkg,
+Index: linux-2.6.32-279.9.1.el5/block/blk-throttle.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/blk-throttle.c
++++ linux-2.6.32-279.9.1.el5/block/blk-throttle.c
+@@ -252,7 +252,7 @@ static void throtl_init_add_tg_lists(str
+ 	__throtl_tg_fill_dev_details(td, tg);
+ 
+ 	/* Add group onto cgroup list */
+-	blkiocg_add_blkio_group(blkcg, &tg->blkg, (void *)td,
++	blkiocg_add_blkio_group(blkcg, &tg->blkg, td->queue,
+ 				tg->blkg.dev, BLKIO_POLICY_THROTL);
+ 
+ 	tg->bps[READ] = blkcg_get_read_bps(blkcg, tg->blkg.dev);
+@@ -288,7 +288,6 @@ static struct
+ throtl_grp *throtl_find_tg(struct throtl_data *td, struct blkio_cgroup *blkcg)
+ {
+ 	struct throtl_grp *tg = NULL;
+-	void *key = td;
+ 
+ 	/*
+ 	 * This is the common case when there are no blkio cgroups.
+@@ -297,7 +296,8 @@ throtl_grp *throtl_find_tg(struct throtl
+ 	if (blkcg == &blkio_root_cgroup)
+ 		tg = td->root_tg;
+ 	else
+-		tg = tg_of_blkg(blkiocg_lookup_group(blkcg, key));
++		tg = tg_of_blkg(blkiocg_lookup_group(blkcg, td->queue,
++						     BLKIO_POLICY_THROTL));
+ 
+ 	__throtl_tg_fill_dev_details(td, tg);
+ 	return tg;
+@@ -1015,22 +1015,22 @@ static void throtl_release_tgs(struct th
+  * no new IO will come in this group. So get rid of this group as soon as
+  * any pending IO in the group is finished.
+  *
+- * This function is called under rcu_read_lock(). key is the rcu protected
+- * pointer. That means "key" is a valid throtl_data pointer as long as we are
+- * rcu read lock.
++ * This function is called under rcu_read_lock(). @q is the rcu protected
++ * pointer. That means @q is a valid request_queue pointer as long as we
++ * are rcu read lock.
+  *
+- * "key" was fetched from blkio_group under blkio_cgroup->lock. That means
++ * @q was fetched from blkio_group under blkio_cgroup->lock. That means
+  * it should not be NULL as even if queue was going away, cgroup deltion
+  * path got to it first.
+  */
+-void throtl_unlink_blkio_group(void *key, struct blkio_group *blkg)
++void throtl_unlink_blkio_group(struct request_queue *q,
++			       struct blkio_group *blkg)
+ {
+ 	unsigned long flags;
+-	struct throtl_data *td = key;
+ 
+-	spin_lock_irqsave(td->queue->queue_lock, flags);
+-	throtl_destroy_tg(td, tg_of_blkg(blkg));
+-	spin_unlock_irqrestore(td->queue->queue_lock, flags);
++	spin_lock_irqsave(q->queue_lock, flags);
++	throtl_destroy_tg(q->td, tg_of_blkg(blkg));
++	spin_unlock_irqrestore(q->queue_lock, flags);
+ }
+ 
+ static void throtl_update_blkio_group_common(struct throtl_data *td,
+@@ -1045,52 +1045,48 @@ static void throtl_update_blkio_group_co
+ }
+ 
+ /*
+- * For all update functions, key should be a valid pointer because these
++ * For all update functions, @q should be a valid pointer because these
+  * update functions are called under blkcg_lock, that means, blkg is
+- * valid and in turn key is valid. queue exit path can not race becuase
++ * valid and in turn @q is valid. queue exit path can not race becuase
+  * of blkcg_lock
+  *
+  * Can not take queue lock in update functions as queue lock under blkcg_lock
+  * is not allowed. Under other paths we take blkcg_lock under queue_lock.
+  */
+-static void throtl_update_blkio_group_read_bps(void *key,
++static void throtl_update_blkio_group_read_bps(struct request_queue *q,
+ 				struct blkio_group *blkg, u64 read_bps)
+ {
+-	struct throtl_data *td = key;
+ 	struct throtl_grp *tg = tg_of_blkg(blkg);
+ 
+ 	tg->bps[READ] = read_bps;
+-	throtl_update_blkio_group_common(td, tg);
++	throtl_update_blkio_group_common(q->td, tg);
+ }
+ 
+-static void throtl_update_blkio_group_write_bps(void *key,
++static void throtl_update_blkio_group_write_bps(struct request_queue *q,
+ 				struct blkio_group *blkg, u64 write_bps)
+ {
+-	struct throtl_data *td = key;
+ 	struct throtl_grp *tg = tg_of_blkg(blkg);
+ 
+ 	tg->bps[WRITE] = write_bps;
+-	throtl_update_blkio_group_common(td, tg);
++	throtl_update_blkio_group_common(q->td, tg);
+ }
+ 
+-static void throtl_update_blkio_group_read_iops(void *key,
++static void throtl_update_blkio_group_read_iops(struct request_queue *q,
+ 			struct blkio_group *blkg, unsigned int read_iops)
+ {
+-	struct throtl_data *td = key;
+ 	struct throtl_grp *tg = tg_of_blkg(blkg);
+ 
+ 	tg->iops[READ] = read_iops;
+-	throtl_update_blkio_group_common(td, tg);
++	throtl_update_blkio_group_common(q->td, tg);
+ }
+ 
+-static void throtl_update_blkio_group_write_iops(void *key,
++static void throtl_update_blkio_group_write_iops(struct request_queue *q,
+ 			struct blkio_group *blkg, unsigned int write_iops)
+ {
+-	struct throtl_data *td = key;
+ 	struct throtl_grp *tg = tg_of_blkg(blkg);
+ 
+ 	tg->iops[WRITE] = write_iops;
+-	throtl_update_blkio_group_common(td, tg);
++	throtl_update_blkio_group_common(q->td, tg);
+ }
+ 
+ static void throtl_shutdown_wq(struct request_queue *q)
+@@ -1297,7 +1293,7 @@ void blk_throtl_exit(struct request_queu
+ 	spin_unlock_irq(q->queue_lock);
+ 
+ 	/*
+-	 * Wait for tg->blkg->key accessors to exit their grace periods.
++	 * Wait for tg->blkg->q accessors to exit their grace periods.
+ 	 * Do this wait only if there are other undestroyed groups out
+ 	 * there (other than root group). This can happen if cgroup deletion
+ 	 * path claimed the responsibility of cleaning up a group before
+Index: linux-2.6.32-279.9.1.el5/block/cfq-iosched.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/cfq-iosched.c
++++ linux-2.6.32-279.9.1.el5/block/cfq-iosched.c
+@@ -992,7 +992,8 @@ static inline struct cfq_group *cfqg_of_
+ 	return NULL;
+ }
+ 
+-void cfq_update_blkio_group_weight(void *key, struct blkio_group *blkg,
++void cfq_update_blkio_group_weight(struct request_queue *q,
++					struct blkio_group *blkg,
+ 					unsigned int weight)
+ {
+ 	struct cfq_group *cfqg = cfqg_of_blkg(blkg);
+@@ -1015,10 +1016,10 @@ static void cfq_init_add_cfqg_lists(stru
+ 	if (bdi->dev) {
+ 		sscanf(dev_name(bdi->dev), "%u:%u", &major, &minor);
+ 		cfq_blkiocg_add_blkio_group(blkcg, &cfqg->blkg,
+-					(void *)cfqd, MKDEV(major, minor));
++					cfqd->queue, MKDEV(major, minor));
+ 	} else
+ 		cfq_blkiocg_add_blkio_group(blkcg, &cfqg->blkg,
+-					(void *)cfqd, 0);
++					cfqd->queue, 0);
+ 
+ 	cfqd->nr_blkcg_linked_grps++;
+ 	cfqg->weight = blkcg_get_weight(blkcg, cfqg->blkg.dev);
+@@ -1067,7 +1068,6 @@ static struct cfq_group *
+ cfq_find_cfqg(struct cfq_data *cfqd, struct blkio_cgroup *blkcg)
+ {
+ 	struct cfq_group *cfqg = NULL;
+-	void *key = cfqd;
+ 	struct backing_dev_info *bdi = &cfqd->queue->backing_dev_info;
+ 	unsigned int major, minor;
+ 
+@@ -1078,7 +1078,8 @@ cfq_find_cfqg(struct cfq_data *cfqd, str
+ 	if (blkcg == &blkio_root_cgroup)
+ 		cfqg = &cfqd->root_group;
+ 	else
+-		cfqg = cfqg_of_blkg(blkiocg_lookup_group(blkcg, key));
++		cfqg = cfqg_of_blkg(blkiocg_lookup_group(blkcg, cfqd->queue,
++							 BLKIO_POLICY_PROP));
+ 
+ 	if (cfqg && !cfqg->blkg.dev && bdi->dev && dev_name(bdi->dev)) {
+ 		sscanf(dev_name(bdi->dev), "%u:%u", &major, &minor);
+@@ -1218,21 +1219,21 @@ static void cfq_release_cfq_groups(struc
+  * any pending IO in the group is finished.
+  *
+  * This function is called under rcu_read_lock(). key is the rcu protected
+- * pointer. That means "key" is a valid cfq_data pointer as long as we are rcu
++ * pointer. That means @q is a valid cfq_data pointer as long as we are rcu
+  * read lock.
+  *
+- * "key" was fetched from blkio_group under blkio_cgroup->lock. That means
++ * @q was fetched from blkio_group under blkio_cgroup->lock. That means
+  * it should not be NULL as even if elevator was exiting, cgroup deltion
+  * path got to it first.
+  */
+-void cfq_unlink_blkio_group(void *key, struct blkio_group *blkg)
++void cfq_unlink_blkio_group(struct request_queue *q, struct blkio_group *blkg)
+ {
+-	unsigned long  flags;
+-	struct cfq_data *cfqd = key;
++	struct cfq_data *cfqd = q->elevator->elevator_data;
++	unsigned long flags;
+ 
+-	spin_lock_irqsave(cfqd->queue->queue_lock, flags);
++	spin_lock_irqsave(q->queue_lock, flags);
+ 	cfq_destroy_cfqg(cfqd, cfqg_of_blkg(blkg));
+-	spin_unlock_irqrestore(cfqd->queue->queue_lock, flags);
++	spin_unlock_irqrestore(q->queue_lock, flags);
+ }
+ 
+ #else /* GROUP_IOSCHED */
+@@ -4047,7 +4048,7 @@ static void *cfq_init_queue(struct reque
+ 	rcu_read_lock();
+ 
+ 	cfq_blkiocg_add_blkio_group(&blkio_root_cgroup, &cfqg->blkg,
+-					(void *)cfqd, 0);
++				    cfqd->queue, 0);
+ 	rcu_read_unlock();
+ 	cfqd->nr_blkcg_linked_grps++;
+ 
+Index: linux-2.6.32-279.9.1.el5/block/cfq.h
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/cfq.h
++++ linux-2.6.32-279.9.1.el5/block/cfq.h
+@@ -68,8 +68,9 @@ static inline void cfq_blkiocg_update_co
+ }
+ 
+ static inline void cfq_blkiocg_add_blkio_group(struct blkio_cgroup *blkcg,
+-			struct blkio_group *blkg, void *key, dev_t dev) {
+-	blkiocg_add_blkio_group(blkcg, blkg, key, dev, BLKIO_POLICY_PROP);
++		struct blkio_group *blkg, struct request_queue *q, dev_t dev)
++{
++	blkiocg_add_blkio_group(blkcg, blkg, q, dev, BLKIO_POLICY_PROP);
+ }
+ 
+ static inline int cfq_blkiocg_del_blkio_group(struct blkio_group *blkg)
+@@ -105,7 +106,7 @@ static inline void cfq_blkiocg_update_di
+ static inline void cfq_blkiocg_update_completion_stats(struct blkio_group *blkg, uint64_t start_time, uint64_t io_start_time, bool direction, bool sync) {}
+ 
+ static inline void cfq_blkiocg_add_blkio_group(struct blkio_cgroup *blkcg,
+-			struct blkio_group *blkg, void *key, dev_t dev) {}
++		struct blkio_group *blkg, struct request_queue *q, dev_t dev) {}
+ static inline int cfq_blkiocg_del_blkio_group(struct blkio_group *blkg)
+ {
+ 	return 0;

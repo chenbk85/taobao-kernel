@@ -1,0 +1,83 @@
+From: Robin Dong <sanbai@taobao.com>
+Subject: [PATCH 03/09] md: add new interface 'mk_rq' in target_type
+Patch-mainline:
+
+We are now trying to modify flashcache(https://github.com/facebook/flashcache)
+to make it request based so that we can let cfq io-controller control the
+bandwidth between different io cgroups.
+
+A search in the dm directory tells me that only multipath is a request based dm
+target and its functionality is very simple and map_rq() is used to map the
+request to different underlying devices.
+We can't work in this way because:
+
+1. the request which processed by map_rq() need to be issued to
+	different lower devices (disk device and cache device, in flashcache),
+	therefore the request can't be totally remapped by simply changing its
+	queue and returning DM_MAPIO_REMAPPED in map_rq() like multipath_map()
+2. to submit bios drectly in map_rq() (by return DM_MAPIO_SUBMITTED) will cause
+	BUG_ON(!irqs_disabled()) in dm_request_fn() because the
+	submit_bio()->generic_make_request()->blk_queue_bio() will definitly
+	call spin_unlock_irq to enable the irqs
+
+As above,the interface map_rq() provided by devcie-mapper framework is not
+enough for an autonomous target, like flashcache.
+
+We propose to add a new mk_rq interface so that we can make the requests by
+ourselves.
+
+Signed-off-by: Robin Dong <sanbai@taobao.com>
+---
+Index: linux-2.6.32-279.9.1.el5/drivers/md/dm.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/drivers/md/dm.c
++++ linux-2.6.32-279.9.1.el5/drivers/md/dm.c
+@@ -1425,11 +1425,24 @@ static int dm_request_based(struct mappe
+ static int dm_request(struct request_queue *q, struct bio *bio)
+ {
+ 	struct mapped_device *md = q->queuedata;
++	struct dm_table *map = dm_get_live_table(md);
++	struct dm_target *ti = dm_table_find_target(map, bio->bi_sector);
++	int ret;
+ 
+-	if (dm_request_based(md))
+-		return dm_make_request(q, bio);
++	if (ti->type->mk_rq) {
++		ret = ti->type->mk_rq(ti, q, bio);
++		goto out;
++	}
+ 
+-	return _dm_request(q, bio);
++	if (dm_request_based(md)) {
++		ret = dm_make_request(q, bio);
++		goto out;
++	}
++
++	ret = _dm_request(q, bio);
++out:
++	dm_table_put(map);
++	return ret;
+ }
+ 
+ void dm_dispatch_request(struct request *rq)
+Index: linux-2.6.32-279.9.1.el5/include/linux/device-mapper.h
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/include/linux/device-mapper.h
++++ linux-2.6.32-279.9.1.el5/include/linux/device-mapper.h
+@@ -49,6 +49,8 @@ typedef int (*dm_map_fn) (struct dm_targ
+ 			  union map_info *map_context);
+ typedef int (*dm_map_request_fn) (struct dm_target *ti, struct request *clone,
+ 				  union map_info *map_context);
++typedef int (*dm_make_request_fn) (struct dm_target *ti,
++				struct request_queue *q, struct bio *bio);
+ 
+ /*
+  * Returns:
+@@ -140,6 +142,7 @@ struct target_type {
+ 	dm_dtr_fn dtr;
+ 	dm_map_fn map;
+ 	dm_map_request_fn map_rq;
++	dm_make_request_fn mk_rq;
+ 	dm_endio_fn end_io;
+ 	dm_request_endio_fn rq_end_io;
+ 	dm_flush_fn flush;

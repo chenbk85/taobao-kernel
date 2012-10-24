@@ -1,0 +1,609 @@
+From: Tejun Heo <tj@kernel.org>
+Subject: [PATCH 09/09] blkcg: implement per-blkg request allocation
+Patch-mainline: v3.7.0-rc1
+References:
+
+    commit a051661ca6d134c18599498b185b667859d4339b
+
+    Currently, request_queue has one request_list to allocate requests
+    from regardless of blkcg of the IO being issued.  When the unified
+    request pool is used up, cfq proportional IO limits become meaningless
+    - whoever grabs the next request being freed wins the race regardless
+    of the configured weights.
+    
+    This can be easily demonstrated by creating a blkio cgroup w/ very low
+    weight, put a program which can issue a lot of random direct IOs there
+    and running a sequential IO from a different cgroup.  As soon as the
+    request pool is used up, the sequential IO bandwidth crashes.
+    
+    This patch implements per-blkg request_list.  Each blkg has its own
+    request_list and any IO allocates its request from the matching blkg
+    making blkcgs completely isolated in terms of request allocation.
+    
+    * Root blkcg uses the request_list embedded in each request_queue,
+      which was renamed to @q->root_rl from @q->rq.  While making blkcg rl
+      handling a bit harier, this enables avoiding most overhead for root
+      blkcg.
+    
+    * Queue fullness is properly per request_list but bdi isn't blkcg
+      aware yet, so congestion state currently just follows the root
+      blkcg.  As writeback isn't aware of blkcg yet, this works okay for
+      async congestion but readahead may get the wrong signals.  It's
+      better than blkcg completely collapsing with shared request_list but
+      needs to be improved with future changes.
+    
+    * After this change, each block cgroup gets a full request pool making
+      resource consumption of each cgroup higher.  This makes allowing
+      non-root users to create cgroups less desirable; however, note that
+      allowing non-root users to directly manage cgroups is already
+      severely broken regardless of this patch - each block cgroup
+      consumes kernel memory and skews IO weight (IO weights are not
+      hierarchical).
+    
+    v2: queue-sysfs.txt updated and patch description udpated as suggested
+        by Vivek.
+    
+    v3: blk_get_rl() wasn't checking error return from
+        blkg_lookup_create() and may cause oops on lookup failure.  Fix it
+        by falling back to root_rl on blkg lookup failures.  This problem
+        was spotted by Rakesh Iyer <rni@google.com>.
+    
+    v4: Updated to accomodate 458f27a982 "block: Avoid missed wakeup in
+        request waitqueue".  blk_drain_queue() now wakes up waiters on all
+        blkg->rl on the target queue.
+
+Changes for Taobao:
+    1. the blkcg is embedded in cfqg in 2.6.32 kernel, so we have to
+       backport blk_init_rl into cfq_get_cfqg() instead of blkg_alloc().
+    2. add blkg_list into struct request_queue.
+    3. in 2.6.32 kernel we use "blikio_group" instead of "blkcg_gq" in upstream.
+        
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Acked-by: Vivek Goyal <vgoyal@redhat.com>
+Cc: Wu Fengguang <fengguang.wu@intel.com>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Robin Dong <sanbai@taobao.com>
+---
+Index: linux-2.6.32-279.9.1.el5/Documentation/block/queue-sysfs.txt
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/Documentation/block/queue-sysfs.txt
++++ linux-2.6.32-279.9.1.el5/Documentation/block/queue-sysfs.txt
+@@ -38,6 +38,13 @@ read or write requests. Note that the to
+ this amount, since it applies only to reads or writes (not the accumulated
+ sum).
+ 
++To avoid priority inversion through request starvation, a request
++queue maintains a separate request pool per each cgroup when
++CONFIG_BLK_CGROUP is enabled, and this parameter applies to each such
++per-block-cgroup request pool.  IOW, if there are N block cgroups,
++each request queue may have upto N request pools, each independently
++regulated by nr_requests.
++
+ read_ahead_kb (RW)
+ ------------------
+ Maximum number of kilobytes to read-ahead for filesystems on this block
+Index: linux-2.6.32-279.9.1.el5/block/blk-cgroup.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/blk-cgroup.c
++++ linux-2.6.32-279.9.1.el5/block/blk-cgroup.c
+@@ -554,6 +554,36 @@ static void blkio_reset_stats_cpu(struct
+ 	}
+ }
+ 
++/*
++ * The next function used by blk_queue_for_each_rl().  It's a bit tricky
++ * because the root blkg uses @q->root_rl instead of its own rl.
++ */
++struct request_list *__blk_queue_next_rl(struct request_list *rl,
++					 struct request_queue *q)
++{
++	struct list_head *ent;
++	struct blkio_group *blkg;
++
++	/*
++	 * Determine the current blkg list_head.  The first entry is
++	 * root_rl which is off @q->blkg_list and mapped to the head.
++	 */
++	if (rl == &q->root_rl) {
++		ent = &q->blkg_list;
++	} else {
++		blkg = container_of(rl, struct blkio_group, rl);
++		ent = &blkg->q_node;
++	}
++
++	/* walk to the next list_head, skip root blkcg */
++	ent = ent->next;
++	if (ent == &q->blkg_list)
++		return NULL;
++
++	blkg = container_of(ent, struct blkio_group, q_node);
++	return &blkg->rl;
++}
++
+ static int
+ blkiocg_reset_stats(struct cgroup *cgroup, struct cftype *cftype, u64 val)
+ {
+Index: linux-2.6.32-279.9.1.el5/block/blk-cgroup.h
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/blk-cgroup.h
++++ linux-2.6.32-279.9.1.el5/block/blk-cgroup.h
+@@ -15,6 +15,7 @@
+ 
+ #include <linux/cgroup.h>
+ #include <linux/u64_stats_sync.h>
++#include <linux/blkdev.h>
+ 
+ enum blkio_policy_id {
+ 	BLKIO_POLICY_PROP = 0,		/* Proportional Bandwidth division */
+@@ -152,7 +153,10 @@ struct blkio_group_stats_cpu {
+ struct blkio_group {
+ 	/* Pointer to the associated request_queue, RCU protected */
+ 	struct request_queue *q;
++	struct list_head q_node;
+ 	struct hlist_node blkcg_node;
++	/* request allocation list for this blkcg-q pair */
++	struct request_list		rl;
+ 	unsigned short blkcg_id;
+ 	/* Store cgroup path */
+ 	char path[128];
+@@ -249,6 +253,14 @@ static inline void blkio_policy_register
+ static inline void blkio_policy_unregister(struct blkio_policy_type *blkiop) { }
+ 
+ static inline char *blkg_path(struct blkio_group *blkg) { return NULL; }
++static inline struct request_list *blk_get_rl(struct request_queue *q,
++					      struct bio *bio) { return &q->root_rl; }
++static inline void blk_put_rl(struct request_list *rl) { }
++static inline void blk_rq_set_rl(struct request *rq, struct request_list *rl) { }
++static inline struct request_list *blk_rq_rl(struct request *rq) { return &rq->q->root_rl; }
++
++#define blk_queue_for_each_rl(rl, q)	\
++	for ((rl) = &(q)->root_rl; (rl); (rl) = NULL)
+ 
+ #endif
+ 
+@@ -324,6 +336,80 @@ void blkiocg_update_io_throttled_stats(s
+ void blkiocg_update_io_throttled_remove_stats(struct blkio_group *blkg,
+ 					      bool direction, bool sync);
+ 
++/**
++ * blk_get_rl - get request_list to use
++ * @q: request_queue of interest
++ * @bio: bio which will be attached to the allocated request (may be %NULL)
++ *
++ * The caller wants to allocate a request from @q to use for @bio.  Find
++ * the request_list to use and obtain a reference on it.  Should be called
++ * under queue_lock.  This function is guaranteed to return non-%NULL
++ * request_list.
++ */
++static inline struct request_list *blk_get_rl(struct request_queue *q,
++					      struct bio *bio)
++{
++	struct blkio_cgroup *blkcg;
++	struct blkio_group *blkg;
++
++	rcu_read_lock();
++
++	blkcg = task_blkio_cgroup(current);
++
++	/* bypass blkg lookup and use @q->root_rl directly for root */
++	if (blkcg == &blkio_root_cgroup)
++		goto root_rl;
++
++	/*
++	 * Try to use blkg->rl.  blkg lookup may fail under memory pressure
++	 * or if either the blkcg or queue is going away.  Fall back to
++	 * root_rl in such cases.
++	 */
++	blkg = blkiocg_lookup_group(blkcg, q, BLKIO_POLICY_PROP);
++	if (!blkg)
++		goto root_rl;
++
++	rcu_read_unlock();
++	return &blkg->rl;
++root_rl:
++	rcu_read_unlock();
++	return &q->root_rl;
++}
++
++/**
++ * blk_rq_set_rl - associate a request with a request_list
++ * @rq: request of interest
++ * @rl: target request_list
++ *
++ * Associate @rq with @rl so that accounting and freeing can know the
++ * request_list @rq came from.
++ */
++static inline void blk_rq_set_rl(struct request *rq, struct request_list *rl)
++{
++	rq->rl = rl;
++}
++
++/**
++ * blk_rq_rl - return the request_list a request came from
++ * @rq: request of interest
++ *
++ * Return the request_list @rq is allocated from.
++ */
++static inline struct request_list *blk_rq_rl(struct request *rq)
++{
++	return rq->rl;
++}
++
++struct request_list *__blk_queue_next_rl(struct request_list *rl,
++					 struct request_queue *q);
++/**
++ * blk_queue_for_each_rl - iterate through all request_lists of a request_queue
++ *
++ * Should be used under queue_lock.
++ */
++#define blk_queue_for_each_rl(rl, q)	\
++	for ((rl) = &(q)->root_rl; (rl); (rl) = __blk_queue_next_rl((rl), (q)))
++
+ #else
+ struct cgroup;
+ static inline struct blkio_cgroup *
+Index: linux-2.6.32-279.9.1.el5/block/blk-core.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/blk-core.c
++++ linux-2.6.32-279.9.1.el5/block/blk-core.c
+@@ -34,6 +34,7 @@
+ #include <trace/events/block.h>
+ 
+ #include "blk.h"
++#include "blk-cgroup.h"
+ 
+ EXPORT_TRACEPOINT_SYMBOL_GPL(block_remap);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(block_rq_remap);
+@@ -275,7 +276,7 @@ void blk_drain_queue(struct request_queu
+ 
+ 		__blk_run_queue(q);
+ 
+-		drain |= q->rq.elvpriv;
++		drain |= q->root_rl.elvpriv;
+ 
+ 		/*
+ 		 * Unfortunately, requests are queued at and tracked from
+@@ -285,7 +286,7 @@ void blk_drain_queue(struct request_queu
+ 		if (drain_all) {
+ 			drain |= !list_empty(&q->queue_head);
+ 			for (i = 0; i < 2; i++) {
+-				drain |= q->rq.count[i];
++				drain |= q->root_rl.count[i];
+ 				drain |= q->in_flight[i];
+ 				drain |= !list_empty(&q->flush_queue[i]);
+ 			}
+@@ -608,6 +609,9 @@ struct request_queue *blk_alloc_queue_no
+ 	init_timer(&q->unplug_timer);
+ 	setup_timer(&q->timeout, blk_rq_timed_out_timer, (unsigned long) q);
+ 	INIT_LIST_HEAD(&q->timeout_list);
++#ifdef CONFIG_BLK_CGROUP
++	INIT_LIST_HEAD(&q->blkg_list);
++#endif
+ 	INIT_LIST_HEAD(&q->flush_queue[0]);
+ 	INIT_LIST_HEAD(&q->flush_queue[1]);
+ 	INIT_LIST_HEAD(&q->flush_data_in_flight);
+@@ -706,7 +710,7 @@ blk_init_allocated_queue_node(struct req
+ 		return NULL;
+ 
+ 	q->node = node_id;
+-	if (blk_init_rl(&q->rq, q, GFP_KERNEL))
++	if (blk_init_rl(&q->root_rl, q, GFP_KERNEL))
+ 		return NULL;
+ 
+ 	q->request_fn		= rfn;
+@@ -765,7 +769,7 @@ blk_alloc_request(struct request_list *r
+ 		return NULL;
+ 
+ 	blk_rq_init(rl->q, rq);
+-
++	blk_rq_set_rl(rq, rl);
+ 	rq->cmd_flags = flags | REQ_ALLOCED;
+ 
+ 	if ((flags & REQ_ELVPRIV) &&
+@@ -815,7 +819,12 @@ static void __freed_request(struct reque
+ {
+ 	struct request_queue *q = rl->q;
+ 
+-	if (rl->count[sync] < queue_congestion_off_threshold(q))
++	/*
++	 * bdi isn't aware of blkcg yet.  As all async IOs end up root
++	 * blkcg anyway, just use root blkcg state.
++	 */
++	if (rl == &q->root_rl &&
++	    rl->count[sync] < queue_congestion_off_threshold(q))
+ 		blk_clear_queue_congested(q, sync);
+ 
+ 	if (rl->count[sync] + 1 <= q->nr_requests) {
+@@ -881,11 +890,12 @@ static struct request *get_request(struc
+ 				   struct bio *bio, gfp_t gfp_mask)
+ {
+ 	struct request *rq = NULL;
+-	struct request_list *rl = &q->rq;
++	struct request_list *rl;
+ 	struct io_context *ioc = NULL;
+ 	const bool is_sync = rw_is_sync(rw_flags) != 0;
+ 	int may_queue;
+ 
++	rl = blk_get_rl(q, bio);	/* transferred to @rq on success */
+ 	if (unlikely(blk_queue_dead(q)))
+ 		return NULL;
+ 
+@@ -917,7 +927,12 @@ static struct request *get_request(struc
+ 				}
+ 			}
+ 		}
+-		blk_set_queue_congested(q, is_sync);
++		/*
++		 * bdi isn't aware of blkcg yet.  As all async IOs end up
++		 * root blkcg anyway, just use root blkcg state.
++		 */
++		if (rl == &q->root_rl)
++			blk_set_queue_congested(q, is_sync);
+ 	}
+ 
+ 	/*
+@@ -1004,7 +1019,7 @@ static struct request *get_request_wait(
+ 	while (!rq) {
+ 		DEFINE_WAIT(wait);
+ 		struct io_context *ioc;
+-		struct request_list *rl = &q->rq;
++		struct request_list *rl = blk_get_rl(q, bio);
+ 
+ 		if (unlikely(blk_queue_dead(q)))
+ 			return NULL;
+@@ -1245,12 +1260,13 @@ void __blk_put_request(struct request_qu
+ 	 */
+ 	if (req->cmd_flags & REQ_ALLOCED) {
+ 		unsigned int flags = req->cmd_flags;
++		struct request_list *rl = blk_rq_rl(req);
+ 
+ 		BUG_ON(!list_empty(&req->queuelist));
+ 		BUG_ON(!hlist_unhashed(&req->hash));
+ 
+-		blk_free_request(&q->rq, req);
+-		freed_request(&q->rq, flags);
++		blk_free_request(rl, req);
++		freed_request(rl, flags);
+ 	}
+ }
+ EXPORT_SYMBOL_GPL(__blk_put_request);
+Index: linux-2.6.32-279.9.1.el5/block/blk-sysfs.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/blk-sysfs.c
++++ linux-2.6.32-279.9.1.el5/block/blk-sysfs.c
+@@ -9,6 +9,7 @@
+ #include <linux/pagecache_api.h>
+ 
+ #include "blk.h"
++#include "blk-cgroup.h"
+ 
+ struct queue_sysfs_entry {
+ 	struct attribute attr;
+@@ -39,7 +40,7 @@ static ssize_t queue_requests_show(struc
+ static ssize_t
+ queue_requests_store(struct request_queue *q, const char *page, size_t count)
+ {
+-	struct request_list *rl = &q->rq;
++	struct request_list *rl;
+ 	unsigned long nr;
+ 	int ret;
+ 
+@@ -54,6 +55,9 @@ queue_requests_store(struct request_queu
+ 	q->nr_requests = nr;
+ 	blk_queue_congestion_threshold(q);
+ 
++	/* congestion isn't cgroup aware and follows root blkcg for now */
++	rl = &q->root_rl;
++
+ 	if (rl->count[BLK_RW_SYNC] >= queue_congestion_on_threshold(q))
+ 		blk_set_queue_congested(q, BLK_RW_SYNC);
+ 	else if (rl->count[BLK_RW_SYNC] < queue_congestion_off_threshold(q))
+@@ -64,19 +68,21 @@ queue_requests_store(struct request_queu
+ 	else if (rl->count[BLK_RW_ASYNC] < queue_congestion_off_threshold(q))
+ 		blk_clear_queue_congested(q, BLK_RW_ASYNC);
+ 
+-	if (rl->count[BLK_RW_SYNC] >= q->nr_requests) {
+-		blk_set_rl_full(rl, BLK_RW_SYNC);
+-	} else if (rl->count[BLK_RW_SYNC]+1 <= q->nr_requests) {
+-		blk_clear_rl_full(rl, BLK_RW_SYNC);
+-		wake_up(&rl->wait[BLK_RW_SYNC]);
+-	}
+-
+-	if (rl->count[BLK_RW_ASYNC] >= q->nr_requests) {
+-		blk_set_rl_full(rl, BLK_RW_ASYNC);
+-	} else if (rl->count[BLK_RW_ASYNC]+1 <= q->nr_requests) {
+-		blk_clear_rl_full(rl, BLK_RW_ASYNC);
+-		wake_up(&rl->wait[BLK_RW_ASYNC]);
+-	}
++	blk_queue_for_each_rl(rl, q) {
++		if (rl->count[BLK_RW_SYNC] >= q->nr_requests) {
++			blk_set_rl_full(rl, BLK_RW_SYNC);
++		} else {
++			blk_clear_rl_full(rl, BLK_RW_SYNC);
++			wake_up(&rl->wait[BLK_RW_SYNC]);
++		}
++
++		if (rl->count[BLK_RW_ASYNC] >= q->nr_requests) {
++			blk_set_rl_full(rl, BLK_RW_ASYNC);
++		} else {
++			blk_clear_rl_full(rl, BLK_RW_ASYNC);
++			wake_up(&rl->wait[BLK_RW_ASYNC]);
++		}
++ 	}
+ 	spin_unlock_irq(q->queue_lock);
+ 	return ret;
+ }
+@@ -501,7 +507,7 @@ static void blk_release_queue(struct kob
+ 
+ 	blk_throtl_exit(q);
+ 
+-	blk_exit_rl(&q->rq);
++	blk_exit_rl(&q->root_rl);
+ 
+ 	if (q->queue_tags)
+ 		__blk_queue_free_tags(q);
+Index: linux-2.6.32-279.9.1.el5/block/bsg-lib.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/bsg-lib.c
++++ linux-2.6.32-279.9.1.el5/block/bsg-lib.c
+@@ -268,8 +268,8 @@ void bsg_remove_queue(struct request_que
+ 		 */
+ 		req = blk_fetch_request(q);
+ 		/* save requests in use and starved */
+-		counts = q->rq.count[0] + q->rq.count[1] +
+-			 q->rq.starved[0] + q->rq.starved[1];
++		counts = q->root_rl.count[0] + q->root_rl.count[1] +
++			 q->root_rl.starved[0] + q->root_rl.starved[1];
+ 		spin_unlock_irq(q->queue_lock);
+ 		/* any requests still outstanding? */
+ 		if (counts == 0)
+Index: linux-2.6.32-279.9.1.el5/block/cfq-iosched.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/cfq-iosched.c
++++ linux-2.6.32-279.9.1.el5/block/cfq-iosched.c
+@@ -14,6 +14,7 @@
+ #include <linux/ioprio.h>
+ #include <linux/blktrace_api.h>
+ #include "cfq.h"
++#include "blk.h"
+ 
+ /*
+  * tunables
+@@ -1141,6 +1142,16 @@ static struct cfq_group *cfq_get_cfqg(st
+ 
+ 	if (!cfqg)
+ 		cfqg = &cfqd->root_group;
++	else if (blkcg != &blkio_root_cgroup) {
++		if (blk_init_rl(&cfqg->blkg.rl, q, GFP_ATOMIC)) {
++			kfree(cfqg);
++			rcu_read_unlock();
++			return NULL;
++		}
++		cfqg->blkg.rl.blkg = &cfqg->blkg;
++		INIT_LIST_HEAD(&cfqg->blkg.q_node);
++		list_add(&cfqg->blkg.q_node, &q->blkg_list);
++	}
+ 
+ 	cfq_init_add_cfqg_lists(cfqd, cfqg, blkcg);
+ 	rcu_read_unlock();
+@@ -1176,6 +1187,8 @@ static void cfq_put_cfqg(struct cfq_grou
+ 	for_each_cfqg_st(cfqg, i, j, st)
+ 		BUG_ON(!RB_EMPTY_ROOT(&st->rb) || st->active != NULL);
+ 	free_percpu(cfqg->blkg.stats_cpu);
++	blk_exit_rl(&cfqg->blkg.rl);
++	list_del(&cfqg->blkg.q_node);
+ 	kfree(cfqg);
+ }
+ 
+Index: linux-2.6.32-279.9.1.el5/block/elevator.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/block/elevator.c
++++ linux-2.6.32-279.9.1.el5/block/elevator.c
+@@ -665,7 +665,7 @@ void elv_insert(struct request_queue *q,
+ 	}
+ 
+ 	if (unplug_it && blk_queue_plugged(q)) {
+-		int nrq = q->rq.count[BLK_RW_SYNC] + q->rq.count[BLK_RW_ASYNC]
++		int nrq = q->root_rl.count[BLK_RW_SYNC] + q->root_rl.count[BLK_RW_ASYNC]
+ 				- queue_in_flight(q);
+ 
+ 		if (nrq >= q->unplug_thresh)
+Index: linux-2.6.32-279.9.1.el5/drivers/scsi/scsi_transport_fc.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/drivers/scsi/scsi_transport_fc.c
++++ linux-2.6.32-279.9.1.el5/drivers/scsi/scsi_transport_fc.c
+@@ -4158,8 +4158,8 @@ fc_bsg_remove(struct request_queue *q)
+ 			 */
+ 			req = blk_fetch_request(q);
+ 			/* save requests in use and starved */
+-			counts = q->rq.count[0] + q->rq.count[1] +
+-				q->rq.starved[0] + q->rq.starved[1];
++			counts = q->root_rl.count[0] + q->root_rl.count[1] +
++				q->root_rl.starved[0] + q->root_rl.starved[1];
+ 			spin_unlock_irq(q->queue_lock);
+ 			/* any requests still outstanding? */
+ 			if (counts == 0)
+Index: linux-2.6.32-279.9.1.el5/include/linux/blkdev.h
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/include/linux/blkdev.h
++++ linux-2.6.32-279.9.1.el5/include/linux/blkdev.h
+@@ -42,7 +42,9 @@ typedef void (rq_end_io_fn)(struct reque
+ 
+ struct request_list {
+ 	struct request_queue	*q;	/* the queue this rl belongs to */
+-
++#ifdef CONFIG_BLK_CGROUP
++	struct blkio_group	*blkg;	/* blkg this request pool belongs to */
++#endif
+ 	/*
+ 	 * count[], starved[], and wait[] are indexed by
+ 	 * BLK_RW_SYNC/BLK_RW_ASYNC
+@@ -151,6 +153,7 @@ struct request {
+ 	struct gendisk *rq_disk;
+ 	unsigned long start_time;
+ #ifdef CONFIG_BLK_CGROUP
++	struct request_list *rl;		/* rl this rq is alloced from */
+ 	unsigned long long start_time_ns;
+ 	unsigned long long io_start_time_ns;    /* when passed to hardware */
+ #endif
+@@ -301,9 +304,12 @@ struct request_queue
+ 	struct elevator_queue	*elevator;
+ 
+ 	/*
+-	 * the queue request freelist, one for reads and one for writes
++	 * If blkcg is not used, @q->root_rl serves all requests.  If blkcg
++	 * is used, root blkg allocates from @q->root_rl and all other
++	 * blkgs from their own blkg->rl.  Which one to use should be
++	 * determined using bio_request_list().
+ 	 */
+-	struct request_list	rq;
++	struct request_list	root_rl;
+ 
+ 	request_fn_proc		*request_fn;
+ 	make_request_fn		*make_request_fn;
+@@ -385,6 +391,10 @@ struct request_queue
+ 	struct timer_list	timeout;
+ 	struct list_head	timeout_list;
+ 
++#ifdef CONFIG_BLK_CGROUP
++	struct list_head        blkg_list;
++#endif
++
+ 	struct queue_limits	limits;
+ 
+ 	/*
+Index: linux-2.6.32-279.9.1.el5/include/trace/events/block.h
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/include/trace/events/block.h
++++ linux-2.6.32-279.9.1.el5/include/trace/events/block.h
+@@ -293,7 +293,7 @@ DECLARE_EVENT_CLASS(block_unplug,
+ 	),
+ 
+ 	TP_fast_assign(
+-		__entry->nr_rq	= q->rq.count[READ] + q->rq.count[WRITE];
++		__entry->nr_rq	= q->root_rl.count[READ] + q->root_rl.count[WRITE];
+ 		memcpy(__entry->comm, current->comm, TASK_COMM_LEN);
+ 	),
+ 
+Index: linux-2.6.32-279.9.1.el5/kernel/trace/blktrace.c
+===================================================================
+--- linux-2.6.32-279.9.1.el5.orig/kernel/trace/blktrace.c
++++ linux-2.6.32-279.9.1.el5/kernel/trace/blktrace.c
+@@ -807,7 +807,7 @@ static void blk_add_trace_unplug_io(stru
+ 	struct blk_trace *bt = q->blk_trace;
+ 
+ 	if (bt) {
+-		unsigned int pdu = q->rq.count[READ] + q->rq.count[WRITE];
++		unsigned int pdu = q->root_rl.count[READ] + q->root_rl.count[WRITE];
+ 		__be64 rpdu = cpu_to_be64(pdu);
+ 
+ 		__blk_add_trace(bt, 0, 0, 0, BLK_TA_UNPLUG_IO, 0,
+@@ -820,7 +820,7 @@ static void blk_add_trace_unplug_timer(s
+ 	struct blk_trace *bt = q->blk_trace;
+ 
+ 	if (bt) {
+-		unsigned int pdu = q->rq.count[READ] + q->rq.count[WRITE];
++		unsigned int pdu = q->root_rl.count[READ] + q->root_rl.count[WRITE];
+ 		__be64 rpdu = cpu_to_be64(pdu);
+ 
+ 		__blk_add_trace(bt, 0, 0, 0, BLK_TA_UNPLUG_TIMER, 0,
