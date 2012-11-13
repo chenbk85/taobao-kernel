@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Nov 13 11:29:41 CST 2012 - boyu.mt@taobao.com
+
+Change rpmbuild so that it can build debugino-common-successfully.
+
+- rpm/taobao-kernel-build.sh:
+
+-------------------------------------------------------------------
 Mon Oct  8 19:17:36 CST 2012 - boyu.mt@taobao.com
 
 Add SO_REUSEPORT to fix load imbalance in listening.
