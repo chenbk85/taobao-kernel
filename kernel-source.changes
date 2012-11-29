@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Nov 30 00:04:28 CST 2012 - boyu.mt@taobao.com
+
+revet the stable page writeback as it may cause some problem
+for appending write which has already complained by Google.
+
+- patches.taobao/revert-stable-write-page.patch:
+
+-------------------------------------------------------------------
 Fri Nov 30 00:02:55 CST 2012 - boyu.mt@taobao.com
 
 activate page according to vm_enable_legacy_mm.
