@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu Nov 29 23:56:56 CST 2012 - boyu.mt@taobao.com
+
+Fix a bug for ksoftirqd high cpu usage.
+
+sched: Add irq_{enter,exit}() to scheduler_ipi()
+
+- patches.taobao/sched-fix-ksoftirqd-high-usage.patch:
+
+-------------------------------------------------------------------
 Fri Nov 30 00:02:55 CST 2012 - boyu.mt@taobao.com
 
 activate page according to vm_enable_legacy_mm.
