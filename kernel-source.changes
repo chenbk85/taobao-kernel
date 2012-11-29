@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Nov 30 00:02:55 CST 2012 - boyu.mt@taobao.com
+
+activate page according to vm_enable_legacy_mm.
+
+- patches.taobao/activate-mapped-page-in-inactive-list.patch:
+
+-------------------------------------------------------------------
 Thu Dec  6 23:30:16 CST 2012 - boyu.mt@taobao.com
 
 Let writeback not agressively like what 18 does.
