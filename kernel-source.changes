@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu Nov 29 23:56:56 CST 2012 - boyu.mt@taobao.com
+
+Fix a bug for ksoftirqd high cpu usage.
+
+sched: Add irq_{enter,exit}() to scheduler_ipi()
+
+- patches.taobao/sched-fix-ksoftirqd-high-usage.patch:
+
+-------------------------------------------------------------------
 Thu Nov 29 14:23:11 CST 2012 - boyu.mt@taobao.com
 
 Upgrade to to RHEL6U3 2.6.32-279.14.1.
