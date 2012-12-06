@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Dec  6 23:30:16 CST 2012 - boyu.mt@taobao.com
+
+Let writeback not agressively like what 18 does.
+
+- patches.taobao/fixup-bdi-writeback-task-burn-cpu-cycles.patch:
+
+-------------------------------------------------------------------
 Mon Oct  8 19:17:36 CST 2012 - boyu.mt@taobao.com
 
 Add SO_REUSEPORT to fix load imbalance in listening.
