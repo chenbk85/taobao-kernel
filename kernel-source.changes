@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Dec  6 23:30:16 CST 2012 - boyu.mt@taobao.com
+
+Let writeback not agressively like what 18 does.
+
+- patches.taobao/fixup-bdi-writeback-task-burn-cpu-cycles.patch:
+
+-------------------------------------------------------------------
 Tue Nov 13 11:29:41 CST 2012 - boyu.mt@taobao.com
 
 Change rpmbuild so that it can build debugino-common-successfully.
