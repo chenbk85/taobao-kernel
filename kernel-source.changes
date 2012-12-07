@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Dec  8 01:17:47 CST 2012 - boyu.mt@taobao.com
+
+Let netoops skip the lock check as we will oops soon.
+
+- patches.taobao/netoops_025_continue_to_dump_without_get_lock_when_panic.patch:
+
+-------------------------------------------------------------------
 Sat Dec  8 01:11:29 CST 2012 - boyu.mt@taobao.com
 
 Turn of delalloc for ext4 by default since we met with many
