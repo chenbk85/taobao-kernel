@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Dec  8 02:02:47 CST 2012 - boyu.mt@taobao.com
+
+Add support in perf to diagnose java jit.
+
+- patches.taobao/perf-jit-symbol-annotation-220.patch:
+
+-------------------------------------------------------------------
 Sat Dec  8 01:17:47 CST 2012 - boyu.mt@taobao.com
 
 Let netoops skip the lock check as we will oops soon.
