@@ -1,0 +1,94 @@
+From: Tejun Heo <tj@kernel.org>
+Subject: [PATCH 08/10] block: prepare for multiple request_lists
+Patch-mainline: v3.7.0-rc1
+References:
+
+    commit a91a5ac6858fbf7477131e1210cb3e897b668e6f
+
+    mempool: add @gfp_mask to mempool_create_node()
+
+    mempool_create_node() currently assumes %GFP_KERNEL.  Its only user,
+    blk_init_free_list(), is about to be updated to use other allocation
+    flags - add @gfp_mask argument to the function.
+
+Comments for Taobao:
+    Run case (http://code.taobao.org/svn/dirbench/trunk/flashcache/deadlock_case/try.sh)
+    will cause deadlock from queue_lock because blk_init_rl would call
+    mempool_create_node() with GFP_KERNEL so it may go to sleep when holding queue_lock.
+    So we add this patch *and* 5b788ce3e2acac9bf109743b1281d77347cf2101 (change
+    GFP_KERNEL to gfp_mask).
+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Hugh Dickins <hughd@google.com>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Robin Dong <sanbai@taobao.com>
+---
+Index: linux-2.6.32-279.14.1.el5/block/blk-core.c
+===================================================================
+--- linux-2.6.32-279.14.1.el5.orig/block/blk-core.c
++++ linux-2.6.32-279.14.1.el5/block/blk-core.c
+@@ -556,8 +556,8 @@ static int blk_init_free_list(struct req
+ 	init_waitqueue_head(&rl->wait[BLK_RW_ASYNC]);
+ 
+ 	rl->rq_pool = mempool_create_node(BLKDEV_MIN_RQ, mempool_alloc_slab,
+-				mempool_free_slab, request_cachep, q->node);
+-
++					  mempool_free_slab, request_cachep,
++					  GFP_KERNEL, q->node);
+ 	if (!rl->rq_pool)
+ 		return -ENOMEM;
+ 
+Index: linux-2.6.32-279.14.1.el5/include/linux/mempool.h
+===================================================================
+--- linux-2.6.32-279.14.1.el5.orig/include/linux/mempool.h
++++ linux-2.6.32-279.14.1.el5/include/linux/mempool.h
+@@ -26,7 +26,8 @@ typedef struct mempool_s {
+ extern mempool_t *mempool_create(int min_nr, mempool_alloc_t *alloc_fn,
+ 			mempool_free_t *free_fn, void *pool_data);
+ extern mempool_t *mempool_create_node(int min_nr, mempool_alloc_t *alloc_fn,
+-			mempool_free_t *free_fn, void *pool_data, int nid);
++			mempool_free_t *free_fn, void *pool_data,
++			gfp_t gfp_mask, int nid);
+ 
+ extern int mempool_resize(mempool_t *pool, int new_min_nr, gfp_t gfp_mask);
+ extern void mempool_destroy(mempool_t *pool);
+Index: linux-2.6.32-279.14.1.el5/mm/mempool.c
+===================================================================
+--- linux-2.6.32-279.14.1.el5.orig/mm/mempool.c
++++ linux-2.6.32-279.14.1.el5/mm/mempool.c
+@@ -54,19 +54,21 @@ static void free_pool(mempool_t *pool)
+ mempool_t *mempool_create(int min_nr, mempool_alloc_t *alloc_fn,
+ 				mempool_free_t *free_fn, void *pool_data)
+ {
+-	return  mempool_create_node(min_nr,alloc_fn,free_fn, pool_data,-1);
++	return mempool_create_node(min_nr,alloc_fn,free_fn, pool_data,
++				   GFP_KERNEL, NUMA_NO_NODE);
+ }
+ EXPORT_SYMBOL(mempool_create);
+ 
+ mempool_t *mempool_create_node(int min_nr, mempool_alloc_t *alloc_fn,
+-			mempool_free_t *free_fn, void *pool_data, int node_id)
++			       mempool_free_t *free_fn, void *pool_data,
++			       gfp_t gfp_mask, int node_id)
+ {
+ 	mempool_t *pool;
+-	pool = kmalloc_node(sizeof(*pool), GFP_KERNEL | __GFP_ZERO, node_id);
++	pool = kmalloc_node(sizeof(*pool), gfp_mask | __GFP_ZERO, node_id);
+ 	if (!pool)
+ 		return NULL;
+ 	pool->elements = kmalloc_node(min_nr * sizeof(void *),
+-					GFP_KERNEL, node_id);
++				      gfp_mask, node_id);
+ 	if (!pool->elements) {
+ 		kfree(pool);
+ 		return NULL;
+@@ -84,7 +86,7 @@ mempool_t *mempool_create_node(int min_n
+ 	while (pool->curr_nr < pool->min_nr) {
+ 		void *element;
+ 
+-		element = pool->alloc(GFP_KERNEL, pool->pool_data);
++		element = pool->alloc(gfp_mask, pool->pool_data);
+ 		if (unlikely(!element)) {
+ 			free_pool(pool);
+ 			return NULL;

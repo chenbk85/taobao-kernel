@@ -1,5 +1,5 @@
 From: Tejun Heo <tj@kernel.org>
-Subject: [PATCH 09/09] blkcg: implement per-blkg request allocation
+Subject: [PATCH 10/10] blkcg: implement per-blkg request allocation
 Patch-mainline: v3.7.0-rc1
 References:
 

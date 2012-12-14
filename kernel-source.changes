@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Fri Dec 14 10:47:17 CST 2012 - sanbai@taobao.com
+
+Fix deadlock bug (case http://code.taobao.org/svn/dirbench/trunk/flashcache/deadlock_case/try.sh)
+which caused by calling mempool_create_node() from blk_init_rl() with GFP_KERNEL and holding queue_lock.
+
+- patches.taobao/flashcache-0008-mempool-add-gfp_mask-to-mempool_create_node.patch:
+  block: prepare for multiple request_lists.
+- patches.taobao/flashcache-0009-block-prepare-for-multiple-request_lists.patch:
+  block: prepare for multiple request_lists.
+- patches.taobao/flashcache-0010-blkcg-implement-per-blkg-request-allocation.patch:
+  blkcg: implement per-blkg request allocation.
+- patches.taobao/flashcache-0008-block-prepare-for-multiple-request_lists.patch:
+  Delete.
+- patches.taobao/flashcache-0009-blkcg-implement-per-blkg-request-allocation.patch:
+  Delete.
+
+-------------------------------------------------------------------
 Fri Nov 30 00:04:28 CST 2012 - boyu.mt@taobao.com
 
 revet the stable page writeback as it may cause some problem
