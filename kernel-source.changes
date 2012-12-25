@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Dec 26 00:16:45 CST 2012 - boyu.mt@taobao.com
+
+Fix a bug in ext4 when tid is too much large.
+
+- patches.taobao/ext4-initialize-fsync-transaction-ids-in-ext4_new_inode.patch:
+
+-------------------------------------------------------------------
 Tue Dec 18 18:10:14 CST 2012 - boyu.mt@taobao.com
 
 Update toa so that it can support IPV6.
