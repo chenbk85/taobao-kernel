@@ -62,11 +62,11 @@ Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
 Tested-by: Nick Bowler <nbowler@elliptictech.com>
 Signed-off-by: Robin Dong <sanbai@taobao.com>
 ---
-Index: linux-2.6.32-220.23.1.el6/fs/ext4/ext4.h
+Index: linux-2.6.32-279.14.1.el5/fs/ext4/ext4.h
 ===================================================================
---- linux-2.6.32-220.23.1.el6.orig/fs/ext4/ext4.h
-+++ linux-2.6.32-220.23.1.el6/fs/ext4/ext4.h
-@@ -861,6 +861,7 @@ struct ext4_inode_info {
+--- linux-2.6.32-279.14.1.el5.orig/fs/ext4/ext4.h
++++ linux-2.6.32-279.14.1.el5/fs/ext4/ext4.h
+@@ -862,6 +862,7 @@ struct ext4_inode_info {
  	/* current io_end structure for async DIO write*/
  	ext4_io_end_t *cur_aio_dio;
  	atomic_t i_aiodio_unwritten; /* Number of inflight conversions pending */
@@ -74,7 +74,7 @@ Index: linux-2.6.32-220.23.1.el6/fs/ext4/ext4.h
  	struct mutex i_aio_mutex; /* big hammer for unaligned AIO */
  
  	/*
-@@ -2240,6 +2241,10 @@ extern wait_queue_head_t aio_wq[];
+@@ -2257,6 +2258,10 @@ extern wait_queue_head_t aio_wq[];
  #define to_aio_wq(v) (&aio_wq[((unsigned long)v) % WQ_HASH_SZ])
  extern void ext4_aio_wait(struct inode *inode);
  
@@ -85,12 +85,12 @@ Index: linux-2.6.32-220.23.1.el6/fs/ext4/ext4.h
  #endif	/* __KERNEL__ */
  
  #include "ext4_extents.h"
-Index: linux-2.6.32-220.23.1.el6/fs/ext4/inode.c
+Index: linux-2.6.32-279.14.1.el5/fs/ext4/inode.c
 ===================================================================
---- linux-2.6.32-220.23.1.el6.orig/fs/ext4/inode.c
-+++ linux-2.6.32-220.23.1.el6/fs/ext4/inode.c
-@@ -3951,10 +3951,23 @@ out:
- 	return ret;
+--- linux-2.6.32-279.14.1.el5.orig/fs/ext4/inode.c
++++ linux-2.6.32-279.14.1.el5/fs/ext4/inode.c
+@@ -3808,12 +3808,25 @@ ext4_readpages(struct file *file, struct
+ 	return mpage_readpages(mapping, pages, nr_pages, ext4_get_block);
  }
  
 +void ext4_ioend_wait(struct inode *inode)
@@ -105,6 +105,8 @@ Index: linux-2.6.32-220.23.1.el6/fs/ext4/inode.c
 +	wait_queue_head_t *wq;
 +
  	BUG_ON(!io);
+ 	if (io->page)
+ 		put_page(io->page);
 -	iput(io->inode);
 +	wq = to_ioend_wq(io->inode);
 +	if (atomic_dec_and_test(&EXT4_I(io->inode)->i_ioend_count) &&
@@ -113,9 +115,9 @@ Index: linux-2.6.32-220.23.1.el6/fs/ext4/inode.c
 +
  	kfree(io);
  }
- static void dump_aio_dio_list(struct inode * inode)
-@@ -4116,7 +4129,7 @@ static ext4_io_end_t *ext4_init_io_end (
- 	io = kmalloc(sizeof(*io), GFP_NOFS);
+ 
+@@ -4220,7 +4233,7 @@ static ext4_io_end_t *ext4_init_io_end (
+ 	io = kmalloc(sizeof(*io), flags);
  
  	if (io) {
 -		igrab(inode);
@@ -123,10 +125,10 @@ Index: linux-2.6.32-220.23.1.el6/fs/ext4/inode.c
  		io->inode = inode;
  		io->flag = 0;
  		io->offset = 0;
-Index: linux-2.6.32-220.23.1.el6/fs/ext4/super.c
+Index: linux-2.6.32-279.14.1.el5/fs/ext4/super.c
 ===================================================================
---- linux-2.6.32-220.23.1.el6.orig/fs/ext4/super.c
-+++ linux-2.6.32-220.23.1.el6/fs/ext4/super.c
+--- linux-2.6.32-279.14.1.el5.orig/fs/ext4/super.c
++++ linux-2.6.32-279.14.1.el5/fs/ext4/super.c
 @@ -79,6 +79,7 @@ static void ext4_unregister_li_request(s
  static void ext4_clear_request_list(void);
  
@@ -150,7 +152,7 @@ Index: linux-2.6.32-220.23.1.el6/fs/ext4/super.c
  	if (!list_empty(&(EXT4_I(inode)->i_orphan))) {
  		ext4_msg(inode->i_sb, KERN_ERR,
  			 "Inode %lu (%p): orphan list check failed!",
-@@ -4939,8 +4942,10 @@ static int __init init_ext4_fs(void)
+@@ -4958,8 +4961,10 @@ static int __init init_ext4_fs(void)
  	int i;
  
  	ext4_check_flag_values();

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jan  4 23:12:31 CST 2013 - boyu.mt@taobao.com
+
+rebase to 2.6.32-279.14.1.
+
+- patches.taobao/ext4-handle-writeback-of-inodes-which-are-being-reed.patch:
+
+-------------------------------------------------------------------
 Fri Jan  4 22:38:59 CST 2013 - boyu.mt@taobao.com
 
 Fix a bug in ext4 when inode free races with dirty page writing.
